@@ -447,8 +447,15 @@ public class PlayerScript : MonoBehaviour
                         // if looking at goal with a bottle OR not looking at goal (but a counter still)
                         if ((hitObject.GetComponent<Goal>() && objectInHands.GetComponent<Bottle>()) || (!hitObject.GetComponent<Goal>()))
                         {
-                            hitObject.GetComponent<CounterState>().GetComponentInChildren<Outline>().ShowOutline(color, true);
-                            foundOutline = true;
+                            if (hitObject.GetComponent<CounterState>().GetComponentInChildren<Outline>())
+                            {
+                                hitObject.GetComponent<CounterState>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                                foundOutline = true;
+                            }
+                            else
+                            {
+                                Debug.LogError(hitObject.gameObject + " doesnt have an outline attached to its mesh. FIX!");
+                            }
                         }
                     }
                     else if (hitObject.GetComponent<Workstation>())

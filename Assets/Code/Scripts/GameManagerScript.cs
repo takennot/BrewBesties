@@ -31,6 +31,9 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] private GameObject goal;
 
+
+    public bool runElementsInLevel = true;
+
     private void Awake()
     {
         if(MainMenuData.playerAmount > 0)
@@ -47,8 +50,6 @@ public class GameManagerScript : MonoBehaviour
     {
         InvokeRepeating("GarbageCheck", 5.0f, 0.5f);
 
-
-
         //gamepads = Gamepad.all;
         //foreach (Gamepad gamepad in gamepads) {
         //    Debug.Log(gamepad.displayName);
@@ -61,53 +62,68 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //InputSystem.onDeviceChange += (device, change) =>
-        //{
-        //    switch (change)
-        //    {
-        //        case InputDeviceChange.Added:
-        //            // check if there are less than 4 players, so when player joins, player amount cant exceed 4
-        //            //if (FindObjectsOfType<PlayerScript>().Length < 4)
-        //            //{
-        //            //    Instantiate(player, new Vector3(1, 1, 1), Quaternion.identity);
-        //            //}
-        //            string[] gamepadNames = Input.GetJoystickNames();
+        if (!runElementsInLevel)
+        {
+            foreach (PlayerScript player in players)
+            {
+                if (player != null)
+                {
+                    player.enabled = false;
+                }
+            }
 
-        //            for (int i = 0; i < gamepadNames.Length; i++)
-        //            {
-        //                if (gamepadNames[i] != "" && !PlayerExists(i))
-        //                {
-        //                    SpawnPlayer(i);
-        //                }
-        //            }
-        //            break;
-        //        case InputDeviceChange.Removed:
-        //            break;
-        //        case InputDeviceChange.Disconnected:
-        //            //if (FindObjectsOfType<PlayerScript>().Length < 2)
-        //            //{
-        //            //    // Pause game here
-        //            //    Debug.Log("Cant continue game with only 1 player!");
-        //            //    Application.Quit();
-        //            //    UnityEditor.EditorApplication.isPlaying = false;
-        //            //}
-        //            foreach (PlayerScript player in players)
-        //            {
-        //                if (!Input.GetJoystickNames()[player.playerIndex].Equals(""))
-        //                {
-        //                    // Gamepad disconnected, destroy player
-        //                    Destroy(player.gameObject);
-        //                    players.Remove(player);
-        //                    break;
-        //                }
-        //            }
-        //            break;
-        //        case InputDeviceChange.Reconnected:
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //};
+            goal.GetComponent<Goal>().SetActivated(false);
+        }
+
+        {
+            //InputSystem.onDeviceChange += (device, change) =>
+            //{
+            //    switch (change)
+            //    {
+            //        case InputDeviceChange.Added:
+            //            // check if there are less than 4 players, so when player joins, player amount cant exceed 4
+            //            //if (FindObjectsOfType<PlayerScript>().Length < 4)
+            //            //{
+            //            //    Instantiate(player, new Vector3(1, 1, 1), Quaternion.identity);
+            //            //}
+            //            string[] gamepadNames = Input.GetJoystickNames();
+
+            //            for (int i = 0; i < gamepadNames.Length; i++)
+            //            {
+            //                if (gamepadNames[i] != "" && !PlayerExists(i))
+            //                {
+            //                    SpawnPlayer(i);
+            //                }
+            //            }
+            //            break;
+            //        case InputDeviceChange.Removed:
+            //            break;
+            //        case InputDeviceChange.Disconnected:
+            //            //if (FindObjectsOfType<PlayerScript>().Length < 2)
+            //            //{
+            //            //    // Pause game here
+            //            //    Debug.Log("Cant continue game with only 1 player!");
+            //            //    Application.Quit();
+            //            //    UnityEditor.EditorApplication.isPlaying = false;
+            //            //}
+            //            foreach (PlayerScript player in players)
+            //            {
+            //                if (!Input.GetJoystickNames()[player.playerIndex].Equals(""))
+            //                {
+            //                    // Gamepad disconnected, destroy player
+            //                    Destroy(player.gameObject);
+            //                    players.Remove(player);
+            //                    break;
+            //                }
+            //            }
+            //            break;
+            //        case InputDeviceChange.Reconnected:
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //};
+        }
     }
 
     void SpawnPlayer(int playerIndex)
