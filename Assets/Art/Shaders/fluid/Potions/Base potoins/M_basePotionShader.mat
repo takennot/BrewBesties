@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9181288498183710026
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_basePotionShader
+  m_Shader: {fileID: -6465566751694194690, guid: c4de41ccc0d24d84da174b06661c85cc,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Metalic: 0
+    - _NormalStrenght: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _RefactrueScale: 0
+    - _RefactureSpeed: 0
+    - _RefactureStrenght: 0
+    - _RippelColorIntensety: 0.6
+    - _RippelColorIntensity: 3.04
+    - _RippelContrast: 1.66
+    - _RippelDissolve: 2.81
+    - _RippelScale: 3.36
+    - _RippelSpeed: 1.77
+    - _Smoothness: 0
+    - _WaterDepth: 7
+    m_Colors:
+    - _BaseColor: {r: 0.19607843, g: 0.4862745, b: 0.6313726, a: 1}
+    - _BaseColorDepth: {r: 0, g: 0, b: 0, a: 0}
+    - _RippelColor: {r: 0, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
