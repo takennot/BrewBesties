@@ -81,6 +81,7 @@ public class TutorialManager : MonoBehaviour
 
         sliderMagicMushrooms.maxValue = requiredMagicMushrooms;
         sliderMagicPotions.maxValue = requiredMagicPotions;
+        sliderServePotions.maxValue = requiredServedPotions;
 
         InitializePlayers(playerCount);
         InitializeMissions();
