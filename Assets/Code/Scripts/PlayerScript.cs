@@ -152,6 +152,8 @@ public class PlayerScript : MonoBehaviour
     private RaycastHit dragHit;
     private RaycastHit outLinehit;
 
+    float dragWidth = 5f;
+
     [Header("Other")]
     [SerializeField] public bool waitingForGround;
 
@@ -223,7 +225,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         CheckPlayerControls();
-        Physics.Raycast(castingPosition.transform.position, castingPosition.transform.forward, out hit, Mathf.Infinity);
+        //Physics.BoxCast(castingPosition.transform.position, castingPosition.transform.forward, out hit, Mathf.Infinity);
 
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
@@ -515,7 +517,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // DRAG CHECK //if holding nothing and hits something
-        if (!foundOutline && Physics.Raycast(castingPosition.transform.position, castingPosition.transform.forward, out outLinehit, dragReach) && holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
+        if (!foundOutline && Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out outLinehit, Quaternion.identity, dragReach) && holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
         {
             GameObject hitObject = outLinehit.collider.gameObject;
 
@@ -605,9 +607,8 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("Process (X) Start");
 
         // if food in front of player && if player pressed chop - play animation, start progress idk
-        //Debug.DrawRay(castingPosition.transform.position, castingPosition.transform.forward, Color.cyan, 5, true);
 
-        if (Physics.Raycast(castingPosition.transform.position, castingPosition.transform.forward, out hit, processReach))
+        if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, processReach))
         {
             Debug.DrawRay(castingPosition.transform.position, castingPosition.transform.forward * hit.distance, UnityEngine.Color.red, 50, true);
 
@@ -953,7 +954,9 @@ public class PlayerScript : MonoBehaviour
         {
             if (holdingState == HoldingState.HoldingNothing)
             {
-                if (Physics.Raycast(castingPosition.transform.position, castingPosition.transform.forward, out dragHit, dragReach))
+
+
+                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
                 {
                     if (dragHit.collider.gameObject.GetComponent<Item>() || dragHit.collider.gameObject.GetComponent<PlayerScript>()) 
                     {
