@@ -71,7 +71,7 @@ public class Goal : MonoBehaviour, GoalInterface
     [SerializeField] private UIOrder orderUI3;
 
     [Header("Tutorial")]
-    [SerializeField] private bool startActivated = true;
+    [SerializeField] private bool activated = true;
     [SerializeField] private bool showScoreUI = true;
     [SerializeField] private int recipesCompleted = 0;
     
@@ -113,7 +113,7 @@ public class Goal : MonoBehaviour, GoalInterface
     private void FixedUpdate()
     {
         //Tutorial won't start until activated
-        if (!startActivated) return;
+        if (!activated) return;
 
         if (amountOfCustomers < 3) 
         {
@@ -164,6 +164,8 @@ public class Goal : MonoBehaviour, GoalInterface
     [System.Obsolete]
     void Update()
     {
+        if (!activated) return;
+
         if (counter.storedItem != null) {
 
             if(counter.storedItem.GetComponent<Bottle>())
@@ -623,7 +625,7 @@ public class Goal : MonoBehaviour, GoalInterface
 
     public void SetActivated(bool isActive)
     {
-        startActivated = isActive;
+        activated = isActive;
     }
 
     public int GetCompletedRecipesCount() {
