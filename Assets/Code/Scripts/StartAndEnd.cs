@@ -155,10 +155,21 @@ public class StartAndEnd : MonoBehaviour {
 
         gameManager.GetComponent<GameManagerScript>().SaveLog();
 
+        //StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
+    }
+
+    public void OnNext()
+    {
+        int score = goal.GetScore();
+        bool completedLevel = score >= pointsOneStar;
         StartCoroutine(CloseBlackScreenAfterDelay());
         StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
     }
 
+    public void OnRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     IEnumerator CloseBlackScreenAfterDelay() {
         yield return new WaitForSeconds(circleStartDelay);
         countdownCanvas.enabled = false;
