@@ -51,7 +51,11 @@ namespace Collections.Shaders.CircleTransition {
 
             mat.SetFloat(RADIUS, beginRadius);
             player = players[Random.Range(0, players.Length)];
-            DrawBlackScreen();
+            if(players != null)
+            {
+                DrawBlackScreen();
+            }
+
         }
 
         private void Update() {
@@ -157,6 +161,19 @@ namespace Collections.Shaders.CircleTransition {
 
                 mat.SetFloat(RADIUS, radius);
                 yield return null;
+            }
+        }
+        
+        public void SetPlayers(List<PlayerScript> newPlayers) 
+        {
+            for(int i = 0; i < newPlayers.Count; i++)
+            {
+                players[0] = newPlayers[i].gameObject.transform;
+            }
+            player = players[Random.Range(0, players.Length)];
+            if (players != null)
+            {
+                DrawBlackScreen();
             }
         }
     }
