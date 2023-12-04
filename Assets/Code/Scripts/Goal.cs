@@ -77,7 +77,7 @@ public class Goal : MonoBehaviour, GoalInterface
     
     [Header("Other")]
     [SerializeField] private Camera cam;
-    private int playersCollidingWIth = 0;
+    public int playersCollidingWIth = 0;
 
     //[Header("Sprites")]
     public Sprite spriteMushroom { get; set; }

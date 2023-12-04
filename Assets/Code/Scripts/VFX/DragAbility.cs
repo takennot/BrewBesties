@@ -18,7 +18,8 @@ public class DragAbility : MonoBehaviour
     {
         
         lr.SetPosition(0, firePoint.transform.position);
-        RaycastHit hit;
+        //RaycastHit hit;
+
         // find where it hits ass postion
         // if hitted somthing
         //lr.SetPosition(1,(hit.point) posetion den träffade i)

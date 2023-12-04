@@ -21,6 +21,7 @@ public class CustomerManager : MonoBehaviour
 
     [Header("Order")]
     [SerializeField] private ParticleSystem newCustomerParticleSystem;
+    private GameObject currentGoal;
     public string ingredient1 = " ";
     public string ingredient2 = " ";
     public string ingredient3 = " ";
@@ -81,7 +82,7 @@ public class CustomerManager : MonoBehaviour
         {
             //transform.position = Vector3.MoveTowards(transform.position, pos - new Vector3(0, 0, -100), 0.5f);
             //transform.position = Vector3.Lerp(transform.position, pos - new Vector3(0, 0, -5), 0.07f);
-            transform.position = Vector3.Lerp(transform.position, transform.position - (transform.forward * 5), 0.07f);
+            transform.position = Vector3.Lerp(transform.position, transform.position + (currentGoal.transform.forward), 0.07f);
 
             if(timerLeaving > 1.5f)
             {
@@ -131,6 +132,8 @@ public class CustomerManager : MonoBehaviour
 
     public void SetNewOrder(Goal goal)
     {
+        currentGoal = goal.gameObject;
+
         Debug.Log("NewOrderRuns");
         IngredientAbstract newIngredient1 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
         IngredientAbstract newIngredient2 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
