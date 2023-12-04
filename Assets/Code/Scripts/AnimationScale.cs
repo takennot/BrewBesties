@@ -6,6 +6,21 @@ public class AnimationScale : MonoBehaviour
     public float animationDuration = 0.5f; // Duration of the animation
     public AnimationCurve scaleCurve; // Animation curve for wobbling effect
 
+    [Header("Trigger with scale. Warning! Setting same object will also scale the trigger to 0,0,0")]
+    public bool scaleInTrigger = false;
+    public GameObject gameObjectToScaleInTrigger;
+    private Vector3 scaleSizeWithTrigger = Vector3.one;
+
+    private void Start()
+    {
+        if(scaleInTrigger && gameObjectToScaleInTrigger == null)
+        {
+            Debug.LogWarning("(AnimationScale)" + gameObject + ": ScaleInTrigger set to True, \n but no gameObject assigned, attempting to set children");
+            gameObjectToScaleInTrigger = gameObject.GetComponentInChildren<GameObject>();
+            scaleSizeWithTrigger = gameObjectToScaleInTrigger.transform.localScale;
+        }
+    }
+
     public void ScaleUp(GameObject objToScale)
     {
             StartCoroutine(ScaleUpAnimation(objToScale, Vector3.one)); // Default target scale: (1, 1, 1)
@@ -66,6 +81,22 @@ public class AnimationScale : MonoBehaviour
         if (destroy && elapsedTime >= animationDuration)
         {
             Destroy(objToScale, animationDuration);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(scaleInTrigger && other.CompareTag("Player"))
+        {
+            ScaleUp(gameObjectToScaleInTrigger, scaleSizeWithTrigger);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (scaleInTrigger && other.CompareTag("Player"))
+        {
+            ScaleDown(gameObjectToScaleInTrigger);
         }
     }
 }
