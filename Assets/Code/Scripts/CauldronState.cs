@@ -98,7 +98,7 @@ public class CauldronState : MonoBehaviour
                 processSliderFillArea.color = Color.green;
                 if (onlyDoOnce)
                 {
-                    drop.playFinisEffect();
+                    drop.PlayFinishEffect();
                     onlyDoOnce = false;
                 }
                
@@ -314,6 +314,12 @@ public class CauldronState : MonoBehaviour
     {
         ingredientCount = 0;
         bool isDone = processSlider.value >= processSlider.maxValue;
+
+        if (!isDone)
+        {
+            drop.PlayUnFinishEffect();
+        }
+
         onlyDoOnce = true;
         // process
         ResetCauldronProcess();

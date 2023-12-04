@@ -117,6 +117,14 @@ public class StartAndEnd : MonoBehaviour {
             // show stars
             if (count >= pointsOneStar)
             {
+                bool completedLevel = score >= pointsOneStar;
+
+                if (completedLevel)
+                {
+                    buttonNext.enabled = true;
+                    buttonNext.gameObject.SetActive(true);
+                }
+
                 ShowStarImage(1);
             }
             if (count >= pointsTwoStar)
@@ -137,19 +145,17 @@ public class StartAndEnd : MonoBehaviour {
     {
         scoreCountdown = true;
 
-        score = 100; // TA BORTTTT
+        //score = 500; // TA BORTTTT
 
         scoreText.text = text + "0";
+
+        //buttonNext.enabled = false;
+        buttonNext.gameObject.SetActive(false);
     }
 
     private void FinishShowScore()
     {
-        bool completedLevel = score >= pointsOneStar;
-
-        if (!completedLevel)
-        {
-            buttonNext.enabled = false;
-        }
+        
 
         Debug.Log("Done!!!!!!!!!");
     }

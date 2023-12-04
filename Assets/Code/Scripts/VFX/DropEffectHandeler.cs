@@ -11,10 +11,10 @@ public class DropEffectHandeler : MonoBehaviour
     [SerializeField] private GameObject mushroomEffect;
     [SerializeField] private GameObject pixiDust;
 
-    [SerializeField] private Transform particlaPostion;
+    [SerializeField] private Transform particlePostion;
     [SerializeField] private float secondsToDestory = 5f;
-    [SerializeField] private GameObject FinisEffect;
-    [SerializeField] private GameObject unFinisEffect; 
+    [SerializeField] private GameObject finishEffect;
+    [SerializeField] private GameObject unFinishEffect; 
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +30,8 @@ public class DropEffectHandeler : MonoBehaviour
 
     public void PlayEffect(string ingridianse)
     {
-        effectPlaying = Instantiate(GetEffectToPlay(ingridianse), particlaPostion);
-        StartCoroutine(CountTillParticalDestruction());
+        effectPlaying = Instantiate(GetEffectToPlay(ingridianse), particlePostion);
+        StartCoroutine(CountTillParticleDestruction());
     }
 
     private GameObject GetEffectToPlay(string ingridianse)
@@ -55,13 +55,13 @@ public class DropEffectHandeler : MonoBehaviour
         return effect;
     }
 
-    private IEnumerator CountTillParticalDestruction()
+    private IEnumerator CountTillParticleDestruction()
     {
         yield return new WaitForSeconds(secondsToDestory);
-        DestroyParticalPlaying();
+        DestroyParticlePlaying();
     }
 
-    private void DestroyParticalPlaying()
+    private void DestroyParticlePlaying()
     {
         if (effectPlaying != null)
         {
@@ -69,16 +69,16 @@ public class DropEffectHandeler : MonoBehaviour
         }
     }
 
-    public void playFinisEffect()
+    public void PlayFinishEffect()
     {
-        effectPlaying = Instantiate(FinisEffect, particlaPostion);
-        StartCoroutine(CountTillParticalDestruction());
+        effectPlaying = Instantiate(finishEffect, particlePostion);
+        StartCoroutine(CountTillParticleDestruction());
     }
 
-    public void playUnfinisEffect()
+    public void PlayUnFinishEffect()
     {
-        effectPlaying = Instantiate(unFinisEffect, particlaPostion);
-        StartCoroutine(CountTillParticalDestruction());
+        effectPlaying = Instantiate(unFinishEffect, particlePostion);
+        StartCoroutine(CountTillParticleDestruction());
     }
 
 }

@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8024644848686199933}
   m_Layer: 0
-  m_Name: ParticalPostion
+  m_Name: ParticlePostion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,7 +409,7 @@ Transform:
   m_GameObject: {fileID: 2442135131635524541}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.661, z: 0}
+  m_LocalPosition: {x: 0.079, y: 0.89, z: 0.159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1952,11 +1952,12 @@ MonoBehaviour:
     type: 3}
   pixiDust: {fileID: 3001558266694427362, guid: d347bc707b7a88a45af47815b9ca9ec9,
     type: 3}
-  particlaPostion: {fileID: 8024644848686199933}
+  particlePostion: {fileID: 8024644848686199933}
   secondsToDestory: 5
-  FinisEffect: {fileID: 3248777284011963804, guid: 2e477f852f32f1844aca4339ae8804c9,
+  finishEffect: {fileID: 8481759093497770952, guid: f2e6621d9091b554f9d5dd7b5e8a1bdf,
     type: 3}
-  unFinisEffect: {fileID: 0}
+  unFinishEffect: {fileID: 888377027924544981, guid: f72efaa2781240f4691ed5579d8b565c,
+    type: 3}
 --- !u!224 &8602150919260167380 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6440652271271675645, guid: 33f996fbb60d98245a470895212e61d3,

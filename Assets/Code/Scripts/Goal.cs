@@ -451,7 +451,7 @@ public class Goal : MonoBehaviour, GoalInterface
         if (customer == customer3)
             customer3 = null;
 
-        customer.LeaveGoal();
+        customer.LeaveGoal(customer.isServed);
 
         //UpdateCustomerSeatOrder();
         readyToUpdate = false;
