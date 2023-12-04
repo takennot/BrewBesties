@@ -40,8 +40,8 @@ public class KillboxManager : MonoBehaviour
     private bool isPlayer4Dead;
 
     // respawn VFX
-    [SerializeField] private GameObject respawnVFX;
-    private GameObject respawnVFXInstance;
+    [SerializeField] public GameObject respawnVFX;
+    [HideInInspector] public GameObject respawnVFXInstance;
 
     // Start is called before the first frame update
     void Start()

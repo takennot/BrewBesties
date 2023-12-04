@@ -1,3 +1,4 @@
+using Collections.Shaders.CircleTransition;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,10 +8,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static CustomerOrder;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private GameManagerScript gameManager;
+    [SerializeField] private SliderManager sliderManager;
+    [SerializeField] private KillboxManager killboxManager;
     private List<int> successfulMagicPotionsIDs = new List<int>();
     private List<int> successfulMagicMushroomsIDs = new List<int>();
     private int potionCount = 0;
@@ -29,9 +33,15 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject goal;
     private Goal goalState;
     [SerializeField] private GameObject potionBox;
+    [SerializeField] private AudioController audioController;
 
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioClip playersDissapear;
+    [SerializeField] private AudioClip playerAppear;
 
     [Header("Missions")]
     [SerializeField] private List<Mission> missions;
@@ -45,14 +55,18 @@ public class TutorialManager : MonoBehaviour
     [Header("Players")]
     [SerializeField] private List<PlayerScript> players;
 
-    [SerializeField] private TMP_Text text;
-
-    private int currentMissionIndex = 0;
-
     [Header("Customers")]
     private bool hasSpawnedCustomer = false;
     private bool shouldSpawnCustomers = false;
     [SerializeField] private float customerDelayTime = 3.0f;
+
+    [Header("Ending")]
+    [SerializeField] private CircleTransition circleTransition;
+    [SerializeField] private float loadSceneDelay = 8f;
+    [SerializeField] private int sceneIndexLoad = 1;
+
+    AudioLowPassFilter lowPassFilter;
+    private float originalVolume;
 
     //Original Spawnpoints
     private Transform sp1;
@@ -86,6 +100,9 @@ public class TutorialManager : MonoBehaviour
         InitializePlayers(playerCount);
         InitializeMissions();
 
+        //circleTransition.SetPlayers(players);
+        //circleTransition.OpenBlackScreen();
+
         //Scale 0,0,0
         foreach (var workstationPrompt in workstationsPrompts)
         {
@@ -97,6 +114,7 @@ public class TutorialManager : MonoBehaviour
         goalState = goal.GetComponentInChildren<Goal>();
         goalState.magicMushroomPercent = 100f;
         potionBox.transform.localScale = new Vector3(0, 0, 0);
+
     }
 
     void Update()
@@ -193,11 +211,19 @@ public class TutorialManager : MonoBehaviour
         },
         new Mission
         {
-            missionName = "Make x magic potions",
+            missionName = "Serve x magic potions",
             missionCondition = () => CheckServeMagicPotions(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
             onCompletionAction = () => Mission4CompletionAction(),
+        },
+        new Mission
+        {
+            missionName = "Serve x potions",
+            missionCondition = () => CheckServePotions(),
+            isCompleted = false,
+            playerFulfillment = new List<bool>(),
+            onCompletionAction = () => Mission5CompletionAction(),
         }
     };
 
@@ -221,8 +247,6 @@ public class TutorialManager : MonoBehaviour
         mission.onCompletionAction?.Invoke();
 
         Debug.Log("Completed mission: " + mission.missionName);
-
-        currentMissionIndex++;
     }
 
 
@@ -239,12 +263,13 @@ public class TutorialManager : MonoBehaviour
         if (players[0].GetObjectInHands().GetComponent<Ingredient>() == null)
             return false;
 
-
         return true;
     }
 
     private void Mission1CompletionAction()
     {
+
+        sliderManager.PlayEntryAnimation(sliderMagicMushrooms);
         ScaleUpArray(workstationsPrompts);
     }
 
@@ -272,6 +297,7 @@ public class TutorialManager : MonoBehaviour
 
         sliderMagicMushrooms.value = magicMushroomCount;
 
+
         return magicMushroomCount >= requiredMagicMushrooms;
     }
     private void Mission2CompletionAction()
@@ -279,6 +305,9 @@ public class TutorialManager : MonoBehaviour
         cauldron.SetActive(true);
         animScale.ScaleUp(cauldron, new(2,2,2));
         animScale.ScaleUp(potionBox);
+
+        sliderManager.PlayExitAnimation(sliderMagicMushrooms);
+        sliderManager.PlayEntryAnimation(sliderMagicPotions);
         //animScale.ScaleUp(goal);
         //goal.GetComponentInChildren<Goal>().SetActivated(true);
     }
@@ -318,6 +347,9 @@ public class TutorialManager : MonoBehaviour
         animScale.ScaleUp(cauldron, new(2, 2, 2));
         animScale.ScaleUp(potionBox);
         animScale.ScaleUp(goal);
+
+        sliderManager.PlayExitAnimation(sliderMagicPotions);
+        sliderManager.PlayEntryAnimation(sliderServePotions);
     }
 
     private bool CheckServeMagicPotions()
@@ -341,31 +373,124 @@ public class TutorialManager : MonoBehaviour
 
     private void Mission4CompletionAction()
     {
-        Vector3[] spawnPositions = new Vector3[] //Order of spawnpoints corresponds which player should tp to it
-        {
-        gameManager.spawnpoint2.position, //Player 1 TP to spawnpoint 2
-        gameManager.spawnpoint1.position, //Player 2 TP to spawnpoint 1
-        gameManager.spawnpoint4.position, //Player 3 TP to spawnpoint 4
-        gameManager.spawnpoint3.position //Player 4 TP to spawnpoint 3
-        };
 
         for (int i = 0; i < players.Count; i++)
         {
-            if (i < spawnPositions.Length)
+            players[i].gameObject.SetActive(false);
+            players[i].transform.position = new Vector3(-17.5f, 0, -13.5f);
+        }
+        source.PlayOneShot(playersDissapear);
+
+        audioController = FindObjectOfType<AudioController>();
+
+        originalVolume = audioController.song_source.volume;
+        /*
+        float cutoffFrequency = 500;
+        float resonanceQ = 1;
+
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource audioSource in audioSources)
+        {
+            AudioLowPassFilter lowPassFilter = audioSource.GetComponent<AudioLowPassFilter>();
+
+            if (lowPassFilter == null)
             {
-                players[i].gameObject.SetActive(false);
-                players[i].transform.position = spawnPositions[i];
+                lowPassFilter = audioSource.gameObject.AddComponent<AudioLowPassFilter>();
+            }
+
+            lowPassFilter.cutoffFrequency = cutoffFrequency;
+            lowPassFilter.lowpassResonanceQ = resonanceQ;
+        }
+        */
+
+        StartCoroutine(FadeVolume(originalVolume, 0.02f, 0.75f));
+        StartCoroutine(SwapPlayersCoroutine());
+
+        goalState.playersCollidingWIth = 0;
+        goalState.magicMushroomPercent = 0.5f;
+    }
+
+    private IEnumerator FadeVolume(float startVolume, float targetVolume, float duration)
+    {
+        float currentTime = 0;
+        float start = startVolume;
+        float end = targetVolume;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newVolume = Mathf.Lerp(start, end, currentTime / duration);
+
+            audioController.song_source.volume = newVolume;
+
+            yield return null;
+        }
+
+        audioController.song_source.volume = targetVolume; // Ensure final volume matches target
+    }
+
+    private IEnumerator SwapPlayersCoroutine()
+    {
+        shouldSpawnCustomers = false;
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(FadeVolume(0.02f, originalVolume, 6f));
+        Debug.Log("Hello");
+        Transform[] spawnPoints = new Transform[] //Order of spawnpoints corresponds which player should tp to it
+        {
+        gameManager.spawnpoint2, //Player 1 TP to spawnpoint 2
+        gameManager.spawnpoint1, //Player 2 TP to spawnpoint 1
+        gameManager.spawnpoint4, //Player 3 TP to spawnpoint 4
+        gameManager.spawnpoint3 //Player 4 TP to spawnpoint 3
+        };
+        killboxManager.SetSpawnpoint(sp2, 1);
+        killboxManager.SetSpawnpoint(sp1, 2);
+        killboxManager.SetSpawnpoint(sp4, 3);
+        killboxManager.SetSpawnpoint(sp3, 4);
+        gameManager.spawnpoint1 = sp2;
+        gameManager.spawnpoint2 = sp1;
+        gameManager.spawnpoint3 = sp4;
+        gameManager.spawnpoint4 = sp3;
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (i < spawnPoints.Length)
+            {
+                players[i].transform.position = spawnPoints[i].position;
+
+                killboxManager.respawnVFXInstance = Instantiate(killboxManager.respawnVFX, spawnPoints[i]);
+                Destroy(killboxManager.respawnVFXInstance, 1);
+                source.PlayOneShot(playerAppear);
                 players[i].gameObject.SetActive(true);
-            } else
+                yield return new WaitForSeconds(1.5f);
+            }
+            else
             {
                 Debug.LogError("Invalid player index!");
                 break;
             }
         }
-        gameManager.spawnpoint1 = sp2;
-        gameManager.spawnpoint2 = sp1;
-        gameManager.spawnpoint3 = sp4;
-        gameManager.spawnpoint4 = sp3;
+        shouldSpawnCustomers = true;
+    }
+
+    private bool CheckServePotions()
+    {
+        if (!missions[3].isCompleted) return false;
+
+        sliderServePotions.value = goalState.GetCompletedRecipesCount();
+
+        return sliderServePotions.value >= requiredServedPotions;
+    }
+
+    private void Mission5CompletionAction()
+    {
+        //circleTransition.CloseBlackScreen();
+        Invoke("LoadScene", loadSceneDelay);
+    }
+
+
+    private void LoadScene()
+    {
+        SceneManager.LoadScene(sceneIndexLoad);
     }
 }
 
