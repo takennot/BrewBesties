@@ -20,7 +20,7 @@ namespace Collections.Shaders.CircleTransition {
 
         [SerializeField] private float duration = 1f;
         //[SerializeField] private float middleIncreaseDuration = 0.2f;
-        [SerializeField] private float increaseAmount = 0.05f;
+        //[SerializeField] private float increaseAmount = 0.05f;
         [SerializeField] private float beginRadius = 1f;
         [SerializeField] private float middleRadius = 0.5f; 
         [SerializeField] private float endRadius = Mathf.Epsilon;
