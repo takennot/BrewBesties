@@ -197,9 +197,13 @@ public class Bottle : MonoBehaviour
         if (isEmpty)
         {
             potion = newPotion;
-            potion.ingredient1.SetImages(spriteManager);
-            potion.ingredient2.SetImages(spriteManager);
+            if(potion.ingredient1 != null)
+                potion.ingredient1.SetImages(spriteManager);
+            if(potion.ingredient2 != null)
+                potion.ingredient2.SetImages(spriteManager);
+            if (potion.ingredient3 != null)
             potion.ingredient3.SetImages(spriteManager);
+
             Fill();
             UpdateUI();
         }

@@ -4,9 +4,13 @@ using UnityEngine;
 using Collections.Shaders.CircleTransition;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEngine.SocialPlatforms.Impl;
+//using static System.Net.Mime.MediaTypeNames;
 
 public class StartAndEnd : MonoBehaviour {
     public TMP_Text countdownText;
+    public TMP_Text scoreText;
     public Canvas countdownCanvas;
     private GameObject[] players;
     [SerializeField] Button buttonRestart;
@@ -76,6 +80,12 @@ public class StartAndEnd : MonoBehaviour {
         StartCoroutine(StartGameCountdown());
     }
 
+    // score Countdown stuff
+    bool scoreCountdown = false;
+    int score = 0;
+    string text = "Score: ";
+    float count = 0f;
+
     private void Update() {
         //Spam drop items picked up by player
         //TODO remove this shit and make it better
@@ -87,6 +97,85 @@ public class StartAndEnd : MonoBehaviour {
                     //playerScript.DropPlayer(false); // doesnt work. => isnt needed. Drop will go to DropPlayer() automatically if needed //saga
                 }
             }
+        }
+
+        if (scoreCountdown)
+        {
+            if (count < score)
+            {
+                if (count > score)
+                    count = score;
+
+                count += Time.deltaTime * 200;
+            }
+            else
+            {
+                FinishShowScore();
+                scoreCountdown = false;
+            }
+
+            // show stars
+            if (count >= pointsOneStar)
+            {
+                bool completedLevel = score >= pointsOneStar;
+
+                if (completedLevel)
+                {
+                    buttonNext.enabled = true;
+                    buttonNext.gameObject.SetActive(true);
+                }
+
+                ShowStarImage(1);
+            }
+            if (count >= pointsTwoStar)
+            {
+                ShowStarImage(2);
+            }
+            if (count >= pointsThreeStar)
+            {
+                ShowStarImage(3);
+            }
+
+            scoreText.text = text + (int)count;
+
+        }
+    }
+
+    private void ShowScore()
+    {
+        scoreCountdown = true;
+
+        //score = 500; // TA BORTTTT
+
+        scoreText.text = text + "0";
+
+        //buttonNext.enabled = false;
+        buttonNext.gameObject.SetActive(false);
+    }
+
+    private void FinishShowScore()
+    {
+        
+
+        Debug.Log("Done!!!!!!!!!");
+    }
+
+    private void ShowStarImage(int starNr)
+    {
+        switch (starNr)
+        {
+            case 1:
+                star1Image.color = Color.white;
+                break;
+            case 2:
+                star1Image.color = Color.white;
+                star2Image.color = Color.white;
+                break;
+            case 3:
+                star1Image.color = Color.white;
+                star2Image.color = Color.white;
+                star3Image.color = Color.white;
+                break;
         }
     }
 
@@ -113,39 +202,41 @@ public class StartAndEnd : MonoBehaviour {
                 playerScript.StartFootSteps();
             }
         }
+
+        countdownText.text = "";
+    }
+
+    private bool isPaused = false;
+
+    public void Pause()
+    {
+        switch (isPaused)
+        {
+            case true:
+                
+                isPaused = false;
+                goal.SetActivated(!isPaused);
+                break;
+            case false:
+
+                isPaused = true;
+                goal.SetActivated(!isPaused);
+                break;
+        }
     }
 
     public void End() {
         Debug.Log("Reached End()");
         isEnding = true;
 
-        int score = goal.GetScore();
-        bool completedLevel = score >= pointsOneStar;
-
-        // set star image and point requirements
-
-        if(completedLevel)
-        {
-            countdownText.text = "Level Completed! \n Score achieved: " + score;
-
-            // show stars
-            star1Image.color = Color.white;
-
-            if(score >= pointsTwoStar)
-            {
-                star2Image.color = Color.white;
-            }
-            if(score >= pointsThreeStar)
-            {
-                star3Image.color = Color.white;
-            }
-            buttonNext.enabled = true;
+        foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList()) 
+        { 
+            player.GetCharacterController().enabled = false;
         }
-        else
-        {
-            countdownText.text = "Level not completed! \n Score achieved: " + score;
-            buttonNext.enabled = false;
-        }
+
+        Pause();
+
+        score = goal.GetScore();
 
         if(tip != null)
         {
@@ -159,22 +250,35 @@ public class StartAndEnd : MonoBehaviour {
         gameManager.GetComponent<GameManagerScript>().SaveLog();
 
         buttonRestart.Select();
+
+        Debug.Log("Start the thing!");
+
+        ShowScore();
+
         //StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
     }
 
     public void OnNext()
     {
+        foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList())
+        {
+            player.GetCharacterController().enabled = true;
+        }
+        countdownCanvas.enabled = false;
+
         StartCoroutine(CloseBlackScreenAfterDelay());
         StartCoroutine(LoadNextSceneAfterDelay(true));
     }
 
     public void OnRestart()
     {
+        countdownCanvas.enabled = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
     IEnumerator CloseBlackScreenAfterDelay() {
         yield return new WaitForSeconds(circleStartDelay);
-        countdownCanvas.enabled = false;
+        
         circleTransition.CloseBlackScreen();
     }
 

@@ -107,7 +107,7 @@ public class CustomerManager : MonoBehaviour
             //meshRenderer.material = materialAngry;
             if (playParticalOnce)
             {
-                PlayParticlaSystem("angry");
+                PlayParticleSystem("angry");
                 StartCoroutine(CountTillParticalDestruction());
                 playParticalOnce=false;
             }
@@ -117,7 +117,7 @@ public class CustomerManager : MonoBehaviour
             //meshRenderer.material = materialIrritated;
             if (playParticalTwise)
             {
-                PlayParticlaSystem("angry");
+                PlayParticleSystem("angry");
                 StartCoroutine(CountTillParticalDestruction());
                 playParticalTwise=false;
             }
@@ -236,9 +236,19 @@ public class CustomerManager : MonoBehaviour
     /// Sets <c>leave</c> to true thus initializing the whole "leaving" segment.
     /// De-attach customer before calling the method!!!
     /// </summary>
-    public void LeaveGoal()
+    public void LeaveGoal(bool happy)
     {
         Debug.Log("LEaveeee goooal");
+
+        if (happy)
+        {
+            PlayParticleSystem("happy");
+        }
+        else
+        {
+            PlayParticleSystem("angry");
+        }
+
         leave = true;
     }
 
@@ -325,7 +335,7 @@ public class CustomerManager : MonoBehaviour
         return patienceTimer;
     }
 
-    private void PlayParticlaSystem(string mode)
+    private void PlayParticleSystem(string mode)
     {
         if(mode.Equals("angry") || mode == "angry")
         {

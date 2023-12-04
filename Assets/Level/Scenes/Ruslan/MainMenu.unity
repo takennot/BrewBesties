@@ -289,18 +289,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreditsPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 6371297183060667215, guid: df6f027deef451041b8326336cf58085,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1071.56
+      objectReference: {fileID: 0}
     - target: {fileID: 7740260124922674517, guid: df6f027deef451041b8326336cf58085,
         type: 3}
       propertyPath: m_SortingOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9074967350291071771, guid: df6f027deef451041b8326336cf58085,
-        type: 3}
-      propertyPath: m_text
-      value: "Brew Besties\n\nGame Designer - Linus \"Sunil grebkE\" Ekberg\nVFX
-        & Animations Artist - Therese Johansson\n3D modeller & UI Artist - \xD6zge
-        Alkan\nEngineer - Ruslan Musaev\nEngineer - Saga Liljenroth Dickman\n\n//
-        todo\n// add sound credits\n(B) to main menu"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3505,8 +3502,9 @@ MonoBehaviour:
   toggle3p: {fileID: 984699433}
   toggle4p: {fileID: 904080355}
   toggleColorSelected: {r: 0.4, g: 0.8666667, b: 1, a: 0}
-  isArcade: 1
+  isArcade: 0
   credits: {fileID: 1756569314}
+  creditsButton: {fileID: 1349869232}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
