@@ -5,23 +5,21 @@ using Collections.Shaders.CircleTransition;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StartAndEnd : MonoBehaviour 
-{
+public class StartAndEnd : MonoBehaviour {
     public TMP_Text countdownText;
     public Canvas countdownCanvas;
     private GameObject[] players;
+    [SerializeField] Button buttonRestart;
+    [SerializeField] Button buttonNext;
 
     public CircleTransition circleTransition;
     public Timer timerLevel;
 
     private bool isEnding;
-    public bool runElementsInLevel = false;
     public int nextSceneIndex;
 
-    [Header("Refs")]
     [SerializeField] private Goal goal;
-    [SerializeField] private GameManagerScript gameManager;
-    [SerializeField] private PauseMenuScript pauseMenuScript;
+    [SerializeField] private GameObject gameManager;
 
     [SerializeField] private TMP_Text tip;
 
@@ -46,8 +44,7 @@ public class StartAndEnd : MonoBehaviour
     [SerializeField] private Image star2Image;
     [SerializeField] private Image star3Image;
 
-    private void Start() 
-    {
+    private void Start() {
         players = GameObject.FindGameObjectsWithTag("Player");
 
         //goal = GameObject.Find("Goal").GetComponent<Goal>();
@@ -77,20 +74,12 @@ public class StartAndEnd : MonoBehaviour
         star3Text.text = "" + pointsThreeStar;
 
         StartCoroutine(StartGameCountdown());
-
-        gameManager.runElementsInLevel = false;
     }
 
-    private void Update() 
-    {
+    private void Update() {
         //Spam drop items picked up by player
         //TODO remove this shit and make it better
-
-        Debug.Log(isEnding);
-
         if(isEnding) {
-
-            // drop all players
             foreach (GameObject player in players) {
                 PlayerScript playerScript = player.GetComponent<PlayerScript>();
                 if (playerScript != null) {
@@ -98,13 +87,10 @@ public class StartAndEnd : MonoBehaviour
                     //playerScript.DropPlayer(false); // doesnt work. => isnt needed. Drop will go to DropPlayer() automatically if needed //saga
                 }
             }
-
-            gameManager.runElementsInLevel = false;
         }
     }
 
-    IEnumerator StartGameCountdown() 
-    {
+    IEnumerator StartGameCountdown() {
         int countdownTime = timeToWaitForStart;
 
         while (countdownTime > 0) {
@@ -128,43 +114,10 @@ public class StartAndEnd : MonoBehaviour
             }
         }
     }
-    bool isPaused;
 
-    public void Pause()
-    {
-        switch (isPaused)
-        {
-            case true:
-                //OnResume();
-                isPaused = false;
-                break;
-            case false:
-                
-                //pauseMenuCanvas.enabled = true;
-                Time.timeScale = 0f;
-                //resumeButton.Select();
-                isPaused = true;
-                AudioController audioController = FindAnyObjectByType<AudioController>();
-                if (audioController != null)
-                {
-                    audioController.song_source.Pause();
-                }
-                break;
-        }
-    }
-
-    public void End() 
-    {
+    public void End() {
         Debug.Log("Reached End()");
         isEnding = true;
-
-        // stop all background stuff
-        foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList())
-        {
-            player.GetCharacterController().enabled = false;
-        }
-
-        Pause();
 
         int score = goal.GetScore();
         bool completedLevel = score >= pointsOneStar;
@@ -186,11 +139,12 @@ public class StartAndEnd : MonoBehaviour
             {
                 star3Image.color = Color.white;
             }
-
+            buttonNext.enabled = true;
         }
         else
         {
             countdownText.text = "Level not completed! \n Score achieved: " + score;
+            buttonNext.enabled = false;
         }
 
         if(tip != null)
@@ -202,32 +156,22 @@ public class StartAndEnd : MonoBehaviour
 
         countdownCanvas.enabled = true;
 
-        gameManager.SaveLog();
+        gameManager.GetComponent<GameManagerScript>().SaveLog();
 
+        buttonRestart.Select();
         //StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
     }
 
     public void OnNext()
     {
-        int score = goal.GetScore();
-        bool completedLevel = score >= pointsOneStar;
-
-        // enable characters
-        foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList())
-        {
-            player.GetCharacterController().enabled = true;
-        }
-
         StartCoroutine(CloseBlackScreenAfterDelay());
-        StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
+        StartCoroutine(LoadNextSceneAfterDelay(true));
     }
 
     public void OnRestart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-
     IEnumerator CloseBlackScreenAfterDelay() {
         yield return new WaitForSeconds(circleStartDelay);
         countdownCanvas.enabled = false;
