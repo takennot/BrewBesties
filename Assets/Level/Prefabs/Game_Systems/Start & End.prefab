@@ -647,11 +647,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 1570402664575377276}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 1570402664575377276}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -894,6 +894,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countdownText: {fileID: 1931443931587972}
   countdownCanvas: {fileID: 8610066418371340518}
+  buttonRestart: {fileID: 3975048776221931738}
+  buttonNext: {fileID: 1570402664575377276}
   circleTransition: {fileID: 3803019194604411598}
   timerLevel: {fileID: 7239122137385727066}
   nextSceneIndex: 0
@@ -1543,12 +1545,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 3975048776221931738}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 3975048776221931738}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}

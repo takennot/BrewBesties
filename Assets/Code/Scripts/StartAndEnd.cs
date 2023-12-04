@@ -9,6 +9,8 @@ public class StartAndEnd : MonoBehaviour {
     public TMP_Text countdownText;
     public Canvas countdownCanvas;
     private GameObject[] players;
+    [SerializeField] Button buttonRestart;
+    [SerializeField] Button buttonNext;
 
     public CircleTransition circleTransition;
     public Timer timerLevel;
@@ -137,11 +139,12 @@ public class StartAndEnd : MonoBehaviour {
             {
                 star3Image.color = Color.white;
             }
-
+            buttonNext.enabled = true;
         }
         else
         {
             countdownText.text = "Level not completed! \n Score achieved: " + score;
+            buttonNext.enabled = false;
         }
 
         if(tip != null)
@@ -155,15 +158,14 @@ public class StartAndEnd : MonoBehaviour {
 
         gameManager.GetComponent<GameManagerScript>().SaveLog();
 
+        buttonRestart.Select();
         //StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
     }
 
     public void OnNext()
     {
-        int score = goal.GetScore();
-        bool completedLevel = score >= pointsOneStar;
         StartCoroutine(CloseBlackScreenAfterDelay());
-        StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
+        StartCoroutine(LoadNextSceneAfterDelay(true));
     }
 
     public void OnRestart()
