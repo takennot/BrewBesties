@@ -18,6 +18,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Color toggleColorSelected;
     [SerializeField] private bool isArcade;
     [SerializeField] private Canvas credits;
+    [SerializeField] private Button creditsButton;
 
     private ColorBlock colorSelected;
     private ColorBlock colorUnSelected;
@@ -87,13 +88,10 @@ public class MainMenuScript : MonoBehaviour
         }
         if (credits.gameObject.activeSelf)
         {
+            creditsButton.Select();
             if (Input.GetButtonDown("ThrowOne"))
             {
                 credits.gameObject.SetActive(false);
-                // TODO
-                // Select button in the main menu
-                // create temp button, on selection change -> store in tempButton
-                // when B in credits pressed -> select tempButton
             }
         }
     }
