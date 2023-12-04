@@ -16,12 +16,22 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Toggle toggle3p;
     [SerializeField] private Toggle toggle4p;
     [SerializeField] private Color toggleColorSelected;
+    [SerializeField] private bool isArcade;
+    [SerializeField] private Canvas credits;
 
     private ColorBlock colorSelected;
     private ColorBlock colorUnSelected;
 
     private void Awake()
     {
+        if (isArcade)
+        {
+            toggle3p.gameObject.SetActive(false);
+            toggle4p.gameObject.SetActive(false);
+        }
+
+        credits.gameObject.SetActive(false);
+
         colorSelected = toggle2p.colors;
         colorSelected.normalColor = toggleColorSelected;
         colorUnSelected = toggle2p.colors;
@@ -64,7 +74,7 @@ public class MainMenuScript : MonoBehaviour
             MainMenuData.playerAmount = playerAmount;
         }
 
-        if (Input.GetButtonDown("PickUpOne") || Input.GetButtonDown("PickUpTwo"))
+        if (Input.GetButtonDown("PickUpOne"))
         {
             if (EventSystem.current.currentSelectedGameObject.GetComponent<Button>())
             {
@@ -73,6 +83,17 @@ public class MainMenuScript : MonoBehaviour
             if (EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>())
             {
                 EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>().isOn = true;
+            }
+        }
+        if (credits.gameObject.activeSelf)
+        {
+            if (Input.GetButtonDown("ThrowOne"))
+            {
+                credits.gameObject.SetActive(false);
+                // TODO
+                // Select button in the main menu
+                // create temp button, on selection change -> store in tempButton
+                // when B in credits pressed -> select tempButton
             }
         }
     }
@@ -85,6 +106,13 @@ public class MainMenuScript : MonoBehaviour
     public void OnStartTutorial()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void OnCredits()
+    {
+        credits.gameObject.SetActive(true);
+        // TODO
+        // Deselect buttons in main menu
     }
 
     public void OnQuitGame()
