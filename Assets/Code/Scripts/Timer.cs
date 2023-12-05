@@ -53,7 +53,7 @@ public class Timer : MonoBehaviour
             if (timeRemaining > 0)
             {
                 slowDownWeight = Mathf.Lerp(slowDownWeightStart, slowDownWeightEnd, Mathf.Clamp01(1 - (timeRemaining / timeToSlowDown)));
-                Debug.Log(slowDownWeight);
+                //Debug.Log(slowDownWeight);
 
                 timeRemaining -= Time.deltaTime * slowDownWeight;
                 DisplayTime(timeRemaining);
