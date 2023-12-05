@@ -7,11 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Drag2Material
-  m_Shader: {fileID: -6465566751694194690, guid: 2454a83091134a6429c6cd503f460c0f,
+  m_Name: ProcedalLightningEffekt
+  m_Shader: {fileID: -6465566751694194690, guid: 83dda9e01913b6547b8962fb2b8164b0,
     type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: 2454a83091134a6429c6cd503f460c0f,
-    type: 3}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -25,24 +24,33 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _LaserTexture:
-        m_Texture: {fileID: 2800000, guid: 14a72e58031589c4ab4c61a8e44b8895, type: 3}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _TExture:
-        m_Texture: {fileID: 2800000, guid: d9c8d77aeb93d094b964eaa371b0b5b0, type: 3}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DistorionAmount: 0.35
-    - _Emissonstreangh: 90.59
-    - _Lenght: 0.1
-    - _Width: 2
+    - _ElectrsyThickness: 1.5
+    - _ElectryScale: 20
+    - _FadeAmount: 0.42
+    - _ParticalSystem: 1
+    - _Power: 2.48
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.04605731, g: 0.11029288, b: 0.6509434, a: 1}
+    - _Color: {r: 30.241795, g: 30.241795, b: 30.241795, a: 1}
+    - _ElectrySpeed: {r: 0, g: 0.5, b: 0, a: 0}
+    - _NoiseSpeed: {r: -0.1, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &761437437343130946
+--- !u!114 &1292180154731966913
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
