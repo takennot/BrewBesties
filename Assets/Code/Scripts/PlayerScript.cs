@@ -230,16 +230,14 @@ public class PlayerScript : MonoBehaviour
 
         if (waitingForGround)
         {
-            playerState = PlayerState.IsBingThrown;
+            playerState = PlayerState.IsBeingThrown;
         }
 
         animatorPlayer.SetInteger("PlayerState", (int) playerState);
         animatorPlayer.SetInteger("PlayerHoldingState", (int) holdingState);
         animatorPlayer.SetBool("Moving", moving);
 
-
         CheckPlayerControls();
-        //Physics.BoxCast(castingPosition.transform.position, castingPosition.transform.forward, out hit, Mathf.Infinity);
 
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
@@ -255,6 +253,31 @@ public class PlayerScript : MonoBehaviour
         const float movementJoystickSensitivity = 1f;
         movementSpeed = moveDirection.magnitude * movementJoystickSensitivity;
         moveDirection = moveDirection.normalized * movementSpeed;
+
+        // Gravitation --------------------
+
+        // dont fall if being dragged
+        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
+        {
+            velocity.y = 0;
+        }
+        else
+        {
+            velocity.y -= gravity * Time.deltaTime;
+        }
+
+        //Debug.Log("Velocity: " + velocity);
+
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
+            characterController.Move(velocity * mass * Time.deltaTime);
+
+        // ---------------------------------
+
+        if (playerState == PlayerState.Dead)
+        {
+            footstepSource.Pause();
+            return;
+        }
 
         // if allowed to move (state är none eller emoting)
         if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
@@ -302,22 +325,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        // Add gravitation?????????
-
-        // dont fall if being dragged
-        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
-        {
-            velocity.y = 0;
-        }
-        else
-        {
-            velocity.y -= gravity * Time.deltaTime;
-        }
-
-        //Debug.Log("Velocity: " + velocity);
-
-        if (characterController.enabled && playerState == PlayerState.None)
-            characterController.Move(velocity * mass * Time.deltaTime);
+        
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         //                     Input Mapping
@@ -560,8 +568,15 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        playerState = PlayerState.Dead;
+    }
+
     public void Respawn(Transform spawnpoint)
     {
+        playerState = PlayerState.None;
+
         characterController.enabled = false;
         transform.position = spawnpoint.position;
         characterController.enabled = true;
