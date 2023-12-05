@@ -20,7 +20,6 @@ public class StartAndEnd : MonoBehaviour {
     public Timer timerLevel;
 
     private bool isEnding;
-    public int nextSceneIndex;
 
     bool completedLevel;
 
@@ -28,6 +27,12 @@ public class StartAndEnd : MonoBehaviour {
     [SerializeField] private GameObject gameManager;
 
     [SerializeField] private TMP_Text tip;
+
+
+    [Header("Scene")]
+    public bool shouldLoadSpecifiedLevel;
+    public int specifiedLevelIndex = 1;
+    private int nextSceneIndex;
 
     [Header("Delays")]
     [SerializeField] int timeToWaitForStart = 3;
@@ -299,16 +304,32 @@ public class StartAndEnd : MonoBehaviour {
     }
 
     IEnumerator LoadNextSceneAfterDelay(bool finishedLevel) {
-        yield return new WaitForSeconds(levelEndDelay);
 
         if (finishedLevel)
         {
-            SceneManager.LoadScene(nextSceneIndex);
+            if(shouldLoadSpecifiedLevel)
+            {
+                SceneManager.LoadScene(specifiedLevelIndex);
+            } 
+            else
+            {
+                int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+                if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+                {
+                    SceneManager.LoadScene(nextSceneIndex);
+                } else
+                {
+                    Debug.LogWarning("There is no next scene available. Loading scene index 1");
+                    SceneManager.LoadScene(1);
+                }
+            }
         }
         else
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        
+        yield return null;
     }
+
 }
