@@ -996,10 +996,11 @@ MonoBehaviour:
   orderUI1: {fileID: 632239347921737407}
   orderUI2: {fileID: 1253269676552217488}
   orderUI3: {fileID: 5900826373866994202}
-  startActivated: 1
+  activated: 1
   showScoreUI: 1
   recipesCompleted: 0
   cam: {fileID: 0}
+  playersCollidingWIth: 0
   spriteManager: {fileID: 0}
 --- !u!114 &1903753169939719827
 MonoBehaviour:
@@ -2362,7 +2363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6055300622805517235
 Transform:
   m_ObjectHideFlags: 0
