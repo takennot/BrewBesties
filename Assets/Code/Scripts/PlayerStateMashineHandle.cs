@@ -11,7 +11,8 @@ public static class PlayerStateMashineHandle
         IsBeingDragged,
         IsBeingHeld,
         Interacting,
-        Emoting
+        Emoting,
+        IsBingThrown
     }
     
     public enum HoldingState

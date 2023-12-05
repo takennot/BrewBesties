@@ -228,9 +228,15 @@ public class PlayerScript : MonoBehaviour
 
         //Debug.Log((int)playerState + " | " + (int)holdingState);
 
+        if (waitingForGround)
+        {
+            playerState = PlayerState.IsBingThrown;
+        }
+
         animatorPlayer.SetInteger("PlayerState", (int) playerState);
         animatorPlayer.SetInteger("PlayerHoldingState", (int) holdingState);
         animatorPlayer.SetBool("Moving", moving);
+
 
         CheckPlayerControls();
         //Physics.BoxCast(castingPosition.transform.position, castingPosition.transform.forward, out hit, Mathf.Infinity);
@@ -941,7 +947,8 @@ public class PlayerScript : MonoBehaviour
         playerState = PlayerState.None;
 
         waitingForGround = false;
-        
+        playerState = PlayerState.None;
+
         ParticleSystem ps = walkVFX.GetComponent<ParticleSystem>();
         ParticleSystem.MainModule main = ps.main;
         UnityEngine.Color newColor;
