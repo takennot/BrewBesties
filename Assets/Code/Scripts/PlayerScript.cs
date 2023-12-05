@@ -169,6 +169,7 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] GameObject dragEffekt;
     [SerializeField] LineRenderer dragline;
+    GameObject lineEffekt;
     [SerializeField] GameObject dragStart;
     [SerializeField] GameObject dragObejct;
 
@@ -991,11 +992,11 @@ public class PlayerScript : MonoBehaviour
                         //hitEffekt.gameObject.transform.parent = objectDragging.gameObject;
                         Destroy(hitEffekt, 0.6f);
 
-                        GameObject lineEffekt = Instantiate(dragEffekt);
+                        lineEffekt = Instantiate(dragEffekt);
                         lineEffekt.transform.position = new Vector3(0,0,0);
-                        LineRenderer le= lineEffekt.GetComponentInChildren<LineRenderer>();
-                        le.SetPosition(0, holdPosition.gameObject.transform.position);
-                        le.SetPosition(1, objectDragging.gameObject.transform.position);
+                        dragline = lineEffekt.GetComponentInChildren<LineRenderer>();
+                        dragline.SetPosition(0, holdPosition.gameObject.transform.position);
+                        dragline.SetPosition(1, objectDragging.gameObject.transform.position);
 
                     }
                 }
@@ -1015,12 +1016,12 @@ public class PlayerScript : MonoBehaviour
 
                 // maybe replace MoveTowards with Lerp
                 //objectDragging.GetComponent<Rigidbody>().AddForce(transform.up * 2, ForceMode.Force);
-               
-                
-                
-                
-               
-                
+
+
+
+
+                dragline.SetPosition(1, objectDragging.gameObject.transform.position);
+
 
                 objectDragging.transform.position = Vector3.MoveTowards(objectDragging.transform.position, dragToPosition.transform.position, 0.5f);
                 objectDragging.transform.position.Set(objectDragging.transform.position.x, objectDragging.transform.position.y, objectDragging.transform.position.z);
@@ -1073,10 +1074,13 @@ public class PlayerScript : MonoBehaviour
                     {
                         objectDragging = null;
                         PickUp();
+                        Destroy(lineEffekt);
                     }
                     else
                     {
+                        
                         DropPlayer(false);
+                        Destroy(lineEffekt);
                     }
                 }
                 
@@ -1084,14 +1088,18 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 playerState = PlayerState.None;
+                Destroy(lineEffekt);
             }
         }
         else if(playerState == PlayerState.Dragging) // ?????????
         {
             playerState = PlayerState.None;
+            Destroy(lineEffekt);
         }
         
     }
+
+
 
     private void ResetDrag()
     {
