@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MainMenuData : MonoBehaviour
 {
-    public static int playerAmount;
+    [SerializeField] public static int playerAmount;
+    [SerializeField] public static bool isArcade;
     // Start is called before the first frame update
     void Start()
     {

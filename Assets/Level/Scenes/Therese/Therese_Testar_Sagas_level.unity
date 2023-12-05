@@ -9706,6 +9706,29 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragline
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragStart
+      value: 
+      objectReference: {fileID: 610682103397549091, guid: ba07ba2ffddcc2d45a967a9c5c64ad72,
+        type: 3}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragEffekt
+      value: 
+      objectReference: {fileID: 4529648308791668398, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragObejct
+      value: 
+      objectReference: {fileID: 4300913159123374006, guid: 0e65bf5e08365eb4bb39b13300df51f0,
+        type: 3}
     - target: {fileID: 4496363746924169709, guid: 16e27e2e6366fc8489115f51512f7055,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11727,10 +11750,13 @@ MonoBehaviour:
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   manualHighlightColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 5.5
+  thickWidth: 4.5
   currentOutlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  showPlayerOutline: 0
+  showManualOutline: 0
 --- !u!135 &609531232
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -20398,6 +20424,7 @@ MonoBehaviour:
   saws: []
   workstations: []
   initilized: 0
+  shouldUpdateUIPos: 0
 --- !u!114 &1018338821
 MonoBehaviour:
   m_ObjectHideFlags: 0
