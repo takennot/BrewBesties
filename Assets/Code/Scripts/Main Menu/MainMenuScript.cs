@@ -16,7 +16,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Toggle toggle3p;
     [SerializeField] private Toggle toggle4p;
     [SerializeField] private Color toggleColorSelected;
-    [SerializeField] private bool isArcade;
+    [SerializeField] private bool isArcade = false;
     [SerializeField] private Canvas credits;
     [SerializeField] private Button creditsButton;
 
@@ -25,12 +25,6 @@ public class MainMenuScript : MonoBehaviour
 
     private void Awake()
     {
-        if (isArcade)
-        {
-            toggle3p.gameObject.SetActive(false);
-            toggle4p.gameObject.SetActive(false);
-        }
-
         credits.gameObject.SetActive(false);
 
         colorSelected = toggle2p.colors;
@@ -73,6 +67,26 @@ public class MainMenuScript : MonoBehaviour
 
             playerAmount = 4;
             MainMenuData.playerAmount = playerAmount;
+        }
+        // if player 1 presses A & B on controller
+        // switch arcade mode on or off
+        if (Input.GetKeyDown(KeyCode.Joystick1Button2) && Input.GetKeyDown(KeyCode.Joystick1Button3))
+        {
+            switch (isArcade)
+            {
+                case true:
+                    isArcade = false; 
+                    MainMenuData.isArcade = false;
+                    toggle3p.gameObject.SetActive(true);
+                    toggle4p.gameObject.SetActive(true);
+                    break;
+                case false:
+                    isArcade = true;
+                    MainMenuData.isArcade = true;
+                    toggle3p.gameObject.SetActive(false);
+                    toggle4p.gameObject.SetActive(false);
+                    break;
+            }
         }
 
         if (Input.GetButtonDown("PickUpOne"))

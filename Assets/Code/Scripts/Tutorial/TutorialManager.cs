@@ -126,6 +126,7 @@ public class TutorialManager : MonoBehaviour
                 CompleteMission(mission);
             }
         }
+
         if(shouldSpawnCustomers)
         {
             if (goalState.amountOfCustomers == 0 && !hasSpawnedCustomer)

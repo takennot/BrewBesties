@@ -37,7 +37,10 @@ public class GameManagerScript : MonoBehaviour
     private void Awake()
     {
         if(MainMenuData.playerAmount > 0)
+        {
             playerAmount = MainMenuData.playerAmount;
+        }
+            
 
         for (int i = 1; i <= playerAmount; i++)
         {
@@ -139,6 +142,14 @@ public class GameManagerScript : MonoBehaviour
                         //newPlayer = Instantiate(player1, spawnpoint1.position, Quaternion.identity);
                         playerController = player1.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
 
                         player1.GetComponent<PlayerScript>().Respawn(spawnpoint1);
@@ -147,6 +158,14 @@ public class GameManagerScript : MonoBehaviour
                         //newPlayer = Instantiate(player2, spawnpoint2.position, Quaternion.identity);
                         playerController = player2.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
 
                         player2.GetComponent<PlayerScript>().Respawn(spawnpoint2);
@@ -155,6 +174,14 @@ public class GameManagerScript : MonoBehaviour
                         //newPlayer = Instantiate(player3, spawnpoint3.position, Quaternion.identity);
                         playerController = player3.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
 
                         player3.GetComponent<PlayerScript>().Respawn(spawnpoint3);
@@ -163,6 +190,14 @@ public class GameManagerScript : MonoBehaviour
                         //newPlayer = Instantiate(player4, spawnpoint4.position, Quaternion.identity);
                         playerController = player4.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
 
                         player4.GetComponent<PlayerScript>().Respawn(spawnpoint4);
@@ -180,6 +215,14 @@ public class GameManagerScript : MonoBehaviour
                         newPlayer.transform.rotation = spawnpoint1.rotation;
                         playerController = newPlayer.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
                         break;
                     case 2:
@@ -187,6 +230,14 @@ public class GameManagerScript : MonoBehaviour
                         newPlayer.transform.rotation = spawnpoint2.rotation;
                         playerController = newPlayer.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
                         break;
                     case 3:
@@ -194,6 +245,14 @@ public class GameManagerScript : MonoBehaviour
                         newPlayer.transform.rotation = spawnpoint3.rotation;
                         playerController = newPlayer.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
                         break;
                     case 4:
@@ -201,6 +260,14 @@ public class GameManagerScript : MonoBehaviour
                         newPlayer.transform.rotation = spawnpoint4.rotation;
                         playerController = newPlayer.GetComponent<PlayerScript>();
                         playerController.InitializePlayer(playerIndex);
+                        if (MainMenuData.isArcade)
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.ArcadeMachine;
+                        }
+                        else
+                        {
+                            playerController.consoleType = PlayerScript.ConsoleType.Xbox;
+                        }
                         players.Add(playerController);
                         break;
 
