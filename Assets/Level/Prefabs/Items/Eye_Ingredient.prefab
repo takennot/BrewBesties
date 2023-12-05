@@ -132,10 +132,13 @@ MonoBehaviour:
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   manualHighlightColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 4
+  thickWidth: 4.5
   currentOutlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  showPlayerOutline: 0
+  showManualOutline: 0
 --- !u!1001 &7718704949709830461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,17 +213,17 @@ PrefabInstance:
     - target: {fileID: 5543622978388548426, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5543622978388548426, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5543622978388548426, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5543622978388548426, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}

@@ -58,6 +58,7 @@ MonoBehaviour:
   playerAmount: 0
   isTutorial: 0
   goal: {fileID: 0}
+  runElementsInLevel: 1
 --- !u!114 &3201641541444466024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +90,7 @@ MonoBehaviour:
   spriteMagicMushroom: {fileID: 21300000, guid: af0ecef0432857f4ab240a01f93b3503,
     type: 3}
   spriteEye: {fileID: 21300000, guid: 970f44272a6411e46889ef7ed70be51b, type: 3}
-  spriteMagicEye: {fileID: 21300000, guid: aab346c523087e741ae9067874d2c8a7, type: 3}
+  spriteMagicEye: {fileID: 21300000, guid: fe416ed675c5d8a478b5dd2e8fb4fa39, type: 3}
 --- !u!1 &5870302203490080972
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,11 +165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -284,8 +285,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

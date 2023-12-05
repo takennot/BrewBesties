@@ -16,17 +16,17 @@ PrefabInstance:
     - target: {fileID: 805827644320842757, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 805827644320842757, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 805827644320842757, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 805827644320842757, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 805827644320842757, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1781861668296804158, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
@@ -187,7 +187,10 @@ MonoBehaviour:
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   manualHighlightColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
+  thickWidth: 4.5
   currentOutlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  showPlayerOutline: 0
+  showManualOutline: 0
