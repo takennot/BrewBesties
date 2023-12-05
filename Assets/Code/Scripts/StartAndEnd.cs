@@ -9,7 +9,10 @@ using UnityEngine.SocialPlatforms.Impl;
 using System.ComponentModel;
 //using static System.Net.Mime.MediaTypeNames;
 
-public class StartAndEnd : MonoBehaviour {
+public class StartAndEnd : MonoBehaviour 
+{
+
+    [Header("Refs")]
     public TMP_Text countdownText;
     public TMP_Text scoreText;
     public TMP_Text nextLevelText;
@@ -105,18 +108,23 @@ public class StartAndEnd : MonoBehaviour {
                 }
             }
             // or here????
-            if (Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel)
+
+            if (starPanel.activeSelf)
             {
-                OnNext();
+                if (Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel)
+                {
+                    OnNext();
+                }
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+                {
+                    OnRestart();
+                }
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+                {
+                    SceneManager.LoadScene(0);
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
-            {
-                OnRestart();
-            }
-            else if (Input.GetKeyDown(KeyCode.Joystick1Button2))
-            {
-                SceneManager.LoadScene(0);
-            }
+            
         }
 
         if (scoreCountdown)
@@ -176,7 +184,7 @@ public class StartAndEnd : MonoBehaviour {
 
     private void FinishShowScore()
     {
-        
+        starPanel.SetActive(true);
 
         Debug.Log("Done!!!!!!!!!");
     }
@@ -264,7 +272,7 @@ public class StartAndEnd : MonoBehaviour {
             tip.enabled = false;
         }
 
-        starPanel.SetActive(true);
+        
 
         countdownCanvas.enabled = true;
 

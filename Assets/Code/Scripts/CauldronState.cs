@@ -315,7 +315,7 @@ public class CauldronState : MonoBehaviour
         ingredientCount = 0;
         bool isDone = processSlider.value >= processSlider.maxValue;
 
-        if (!isDone)
+        if (!isDone && hasInit)
         {
             drop.PlayUnFinishEffect();
         }

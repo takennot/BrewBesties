@@ -119,6 +119,8 @@ public class KillboxManager : MonoBehaviour
                     other.gameObject.GetComponent<PlayerScript>().Drop(false);
                 }
             }
+
+            other.gameObject.GetComponent<PlayerScript>().Die();
             StartCoroutine(RespawnWithCooldown(other));
             Debug.Log("Killbox respawning player");
         }

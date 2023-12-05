@@ -55,18 +55,12 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool canHoldPlayerHoldingPlayer = false;
     [SerializeField] private PlayerStateMashineHandle.PlayerState playerState;
     [SerializeField] private PlayerStateMashineHandle.HoldingState holdingState;
+    [SerializeField] private bool moving = false;
 
-    //[SerializeField] private bool beingHeld;
-    //[SerializeField] private bool holding;
-    //[SerializeField] private bool holdingPlayer;
+    [Header("Animation")]
+    [SerializeField] private Animator animatorPlayer;
 
-    //[SerializeField] private bool interacting;
-
-    //[SerializeField] private bool isBeingDragged;
-    //[SerializeField] private bool dragging;
-    //[SerializeField] public bool drag = false;
-
-    [SerializeField] private Transform holdPosition;
+    
 
     // --------------------------------------------------------------
 
@@ -147,12 +141,13 @@ public class PlayerScript : MonoBehaviour
     [Header("RaycastStuff")]
     [SerializeField] private GameObject castingPosition;
     [SerializeField] private Transform dragToPosition;
+    [SerializeField] private Transform holdPosition;
 
     private RaycastHit hit;
     private RaycastHit dragHit;
     private RaycastHit outLinehit;
 
-    float dragWidth = 5f;
+    //float dragWidth = 5f;
 
     [Header("Other")]
     [SerializeField] public bool waitingForGround;
@@ -231,8 +226,18 @@ public class PlayerScript : MonoBehaviour
             Initialize();
         }
 
+        //Debug.Log((int)playerState + " | " + (int)holdingState);
+
+        if (waitingForGround)
+        {
+            playerState = PlayerState.IsBeingThrown;
+        }
+
+        animatorPlayer.SetInteger("PlayerState", (int) playerState);
+        animatorPlayer.SetInteger("PlayerHoldingState", (int) holdingState);
+        animatorPlayer.SetBool("Moving", moving);
+
         CheckPlayerControls();
-        //Physics.BoxCast(castingPosition.transform.position, castingPosition.transform.forward, out hit, Mathf.Infinity);
 
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
@@ -249,29 +254,53 @@ public class PlayerScript : MonoBehaviour
         movementSpeed = moveDirection.magnitude * movementJoystickSensitivity;
         moveDirection = moveDirection.normalized * movementSpeed;
 
-        // if allowed to move (state är none eller emoting)
-        if (characterController.enabled && (playerState == PlayerStateMashineHandle.PlayerState.None || playerState == PlayerStateMashineHandle.PlayerState.Emoting))
+        // Gravitation --------------------
+
+        // dont fall if being dragged
+        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
         {
-            
-            characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
-            
-            // if emoting
-            if(playerState == PlayerStateMashineHandle.PlayerState.Emoting){
-                playerState = PlayerStateMashineHandle.PlayerState.None;
-            }
+            velocity.y = 0;
         }
+        else
+        {
+            velocity.y -= gravity * Time.deltaTime;
+        }
+
+        //Debug.Log("Velocity: " + velocity);
+
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
+            characterController.Move(velocity * mass * Time.deltaTime);
+
+        // ---------------------------------
+
+        if (playerState == PlayerState.Dead)
+        {
+            footstepSource.Pause();
+            return;
+        }
+
+        // if allowed to move (state är none eller emoting)
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
+        {
+            characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
+        }
+
         // movedirection or charactecotroller
         if (moveDirection.x != 0 || moveDirection.z != 0)
         {
             if (onlyPlayVFX)
             {
+                moving = true;
+
+                if(playerState == PlayerState.Emoting)
+                    playerState = PlayerState.None;
+
                 StartCoroutine(playWalkingPoof());
             }
-            //walkVFX.GetComponent<ParticleSystem>().Play();
-            
         }
         else
-        { 
+        {
+            moving = false;
             walkVFX.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
         }
 
@@ -296,22 +325,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        // Add gravitation?????????
-
-        // dont fall if being dragged
-        if (playerState == PlayerStateMashineHandle.PlayerState.IsBeingDragged || characterController.isGrounded)
-        {
-            velocity.y = 0;
-        }
-        else
-        {
-            velocity.y -= gravity * Time.deltaTime;
-        }
-
-        //Debug.Log("Velocity: " + velocity);
-
-        if (characterController.enabled && playerState == PlayerState.None)
-            characterController.Move(velocity * mass * Time.deltaTime);
+        
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         //                     Input Mapping
@@ -360,7 +374,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetButtonDown(processName)) // (X) på xbox
             {
-                playerState = PlayerStateMashineHandle.PlayerState.Interacting;
+                playerState = PlayerState.Interacting;
                 Process();
             }
             if (Input.GetButtonUp(processName)) // (X) på xbox
@@ -372,7 +386,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetButtonDown(dragName)) // (Y) på xbox
             {
-                playerState = PlayerStateMashineHandle.PlayerState.Interacting;
+                playerState = PlayerState.Interacting;
                 Process();
             }
 
@@ -548,14 +562,21 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerState == PlayerStateMashineHandle.PlayerState.Dragging)
+        if (playerState == PlayerState.Dragging)
         {
             Drag();
         }
     }
 
+    public void Die()
+    {
+        playerState = PlayerState.Dead;
+    }
+
     public void Respawn(Transform spawnpoint)
     {
+        playerState = PlayerState.None;
+
         characterController.enabled = false;
         transform.position = spawnpoint.position;
         characterController.enabled = true;
@@ -627,7 +648,7 @@ public class PlayerScript : MonoBehaviour
 
             Debug.Log("hitObject: " + hitObject);
 
-            if (holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing && playerState == PlayerStateMashineHandle.PlayerState.Interacting)
+            if (holdingState == HoldingState.HoldingNothing && playerState == PlayerState.Interacting)
             {
                 // sågen
                 if (hitObject.GetComponent<Saw>())
@@ -666,7 +687,7 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log("Process (X) End");
 
-        playerState = PlayerStateMashineHandle.PlayerState.None;
+        playerState = PlayerState.None;
 
         if (currentProcessStation && currentProcessStation.GetComponent<Saw>())
         {
@@ -941,7 +962,8 @@ public class PlayerScript : MonoBehaviour
         playerState = PlayerState.None;
 
         waitingForGround = false;
-        
+        playerState = PlayerState.None;
+
         ParticleSystem ps = walkVFX.GetComponent<ParticleSystem>();
         ParticleSystem.MainModule main = ps.main;
         UnityEngine.Color newColor;
@@ -961,7 +983,6 @@ public class PlayerScript : MonoBehaviour
         {
             if (holdingState == HoldingState.HoldingNothing)
             {
-
 
                 if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
                 {
@@ -1166,6 +1187,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Emote()
     {
+        playerState = PlayerState.Emoting;
         popUpManager.SpawnPopUp(mainCamera, transform, "slay", color);
     }
 
@@ -1281,6 +1303,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void SetPlayerState(PlayerState newState)
     {
+        Debug.Log("SetPlayerState...");
         playerState = newState;
     }
     public HoldingState GetHoldingState()
