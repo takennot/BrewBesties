@@ -6,21 +6,23 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SocialPlatforms.Impl;
+using System.ComponentModel;
 //using static System.Net.Mime.MediaTypeNames;
 
 public class StartAndEnd : MonoBehaviour {
     public TMP_Text countdownText;
     public TMP_Text scoreText;
+    public TMP_Text nextLevelText;
     public Canvas countdownCanvas;
     private GameObject[] players;
-    [SerializeField] Button buttonRestart;
-    [SerializeField] Button buttonNext;
 
     public CircleTransition circleTransition;
     public Timer timerLevel;
 
     private bool isEnding;
     public int nextSceneIndex;
+
+    bool completedLevel;
 
     [SerializeField] private Goal goal;
     [SerializeField] private GameObject gameManager;
@@ -97,6 +99,19 @@ public class StartAndEnd : MonoBehaviour {
                     //playerScript.DropPlayer(false); // doesnt work. => isnt needed. Drop will go to DropPlayer() automatically if needed //saga
                 }
             }
+            // or here????
+            if (Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel)
+            {
+                OnNext();
+            }
+            else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+            {
+                OnRestart();
+            }
+            else if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
 
         if (scoreCountdown)
@@ -117,13 +132,7 @@ public class StartAndEnd : MonoBehaviour {
             // show stars
             if (count >= pointsOneStar)
             {
-                bool completedLevel = score >= pointsOneStar;
-
-                if (completedLevel)
-                {
-                    buttonNext.enabled = true;
-                    buttonNext.gameObject.SetActive(true);
-                }
+                completedLevel = score >= pointsOneStar;
 
                 ShowStarImage(1);
             }
@@ -139,6 +148,14 @@ public class StartAndEnd : MonoBehaviour {
             scoreText.text = text + (int)count;
 
         }
+        if (completedLevel)
+        {
+            nextLevelText.fontStyle = FontStyles.Normal;
+        }
+        else
+        {
+            nextLevelText.fontStyle = FontStyles.Strikethrough;
+        }
     }
 
     private void ShowScore()
@@ -149,8 +166,7 @@ public class StartAndEnd : MonoBehaviour {
 
         scoreText.text = text + "0";
 
-        //buttonNext.enabled = false;
-        buttonNext.gameObject.SetActive(false);
+        // here?
     }
 
     private void FinishShowScore()
@@ -249,13 +265,13 @@ public class StartAndEnd : MonoBehaviour {
 
         gameManager.GetComponent<GameManagerScript>().SaveLog();
 
-        buttonRestart.Select();
 
         Debug.Log("Start the thing!");
 
         ShowScore();
 
         //StartCoroutine(LoadNextSceneAfterDelay(completedLevel));
+        // or here?
     }
 
     public void OnNext()
