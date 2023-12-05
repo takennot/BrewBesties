@@ -9706,6 +9706,28 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragline
+      value: 
+      objectReference: {fileID: 854927711}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragStart
+      value: 
+      objectReference: {fileID: 610682103397549091, guid: ba07ba2ffddcc2d45a967a9c5c64ad72,
+        type: 3}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragEffekt
+      value: 
+      objectReference: {fileID: 854927712}
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: dragObejct
+      value: 
+      objectReference: {fileID: 4300913159123374006, guid: 0e65bf5e08365eb4bb39b13300df51f0,
+        type: 3}
     - target: {fileID: 4496363746924169709, guid: 16e27e2e6366fc8489115f51512f7055,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11727,10 +11749,13 @@ MonoBehaviour:
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   manualHighlightColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 5.5
+  thickWidth: 4.5
   currentOutlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  showPlayerOutline: 0
+  showManualOutline: 0
 --- !u!135 &609531232
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -17106,6 +17131,86 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.46042162, z: 1}
   m_Center: {x: 0.000000029802322, y: -0.23021081, z: 0.000000029802322}
+--- !u!1001 &854927710
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4529648308791668398, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_Name
+      value: Drag N_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122279331385512201, guid: fa885a5992790964bb527dd60c6d2be0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa885a5992790964bb527dd60c6d2be0, type: 3}
+--- !u!120 &854927711 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5660114759755896943, guid: fa885a5992790964bb527dd60c6d2be0,
+    type: 3}
+  m_PrefabInstance: {fileID: 854927710}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &854927712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4529648308791668398, guid: fa885a5992790964bb527dd60c6d2be0,
+    type: 3}
+  m_PrefabInstance: {fileID: 854927710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &856980249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20398,6 +20503,7 @@ MonoBehaviour:
   saws: []
   workstations: []
   initilized: 0
+  shouldUpdateUIPos: 0
 --- !u!114 &1018338821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41151,6 +41257,7 @@ SceneRoots:
   - {fileID: 1539286132}
   - {fileID: 775321315}
   - {fileID: 1337173786}
+  - {fileID: 854927710}
   - {fileID: 508969015}
   - {fileID: 2179037564210402394}
   - {fileID: 184921847}

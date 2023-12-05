@@ -167,6 +167,12 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject walkVFX;
     private bool onlyPlayVFX = true;
 
+    [SerializeField] GameObject dragEffekt;
+    [SerializeField] LineRenderer dragline;
+    [SerializeField] GameObject dragStart;
+    [SerializeField] GameObject dragObejct;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -958,11 +964,13 @@ public class PlayerScript : MonoBehaviour
 
                 if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
                 {
+                    bool foundDragHit = false;
                     if (dragHit.collider.gameObject.GetComponent<Item>() || dragHit.collider.gameObject.GetComponent<PlayerScript>()) 
                     {
                         playerState = PlayerState.Dragging;
 
                         objectDragging = dragHit.collider.gameObject;
+                        foundDragHit = true;
                     }
                     else if(dragHit.collider.gameObject.GetComponent<CounterState>() && dragHit.collider.gameObject.GetComponent<CounterState>().storedItem != null)
                     {
@@ -970,6 +978,24 @@ public class PlayerScript : MonoBehaviour
 
                         objectDragging = dragHit.collider.gameObject.GetComponent<CounterState>().storedItem;
                         dragHit.collider.gameObject.GetComponent<CounterState>().ReleaseItem(objectDragging);
+                        foundDragHit = true;
+
+                    }
+
+                    if (foundDragHit)
+                    {
+                        GameObject start = Instantiate(dragStart, holdPosition);
+                        Destroy(start, 0.6f);
+
+                        GameObject hitEffekt = Instantiate(dragObejct, objectDragging.gameObject.transform);
+                        //hitEffekt.gameObject.transform.parent = objectDragging.gameObject;
+                        Destroy(hitEffekt, 0.6f);
+
+                        GameObject lineEffekt = Instantiate(dragEffekt);
+                        lineEffekt.transform.position = new Vector3(0,0,0);
+                        LineRenderer le= lineEffekt.GetComponentInChildren<LineRenderer>();
+                        le.SetPosition(0, holdPosition.gameObject.transform.position);
+                        le.SetPosition(1, objectDragging.gameObject.transform.position);
 
                     }
                 }
@@ -989,9 +1015,16 @@ public class PlayerScript : MonoBehaviour
 
                 // maybe replace MoveTowards with Lerp
                 //objectDragging.GetComponent<Rigidbody>().AddForce(transform.up * 2, ForceMode.Force);
+               
+                
+                
+                
+               
+                
 
                 objectDragging.transform.position = Vector3.MoveTowards(objectDragging.transform.position, dragToPosition.transform.position, 0.5f);
                 objectDragging.transform.position.Set(objectDragging.transform.position.x, objectDragging.transform.position.y, objectDragging.transform.position.z);
+
 
                 // sound
                 //if (!source.isPlaying)
