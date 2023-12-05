@@ -152,7 +152,7 @@ public class PlayerScript : MonoBehaviour
     private RaycastHit dragHit;
     private RaycastHit outLinehit;
 
-    float dragWidth = 5f;
+    //float dragWidth = 5f;
 
     [Header("Other")]
     [SerializeField] public bool waitingForGround;
