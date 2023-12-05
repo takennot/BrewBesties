@@ -18,7 +18,9 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Color toggleColorSelected;
     [SerializeField] private bool isArcade = false;
     [SerializeField] private Canvas credits;
+    [SerializeField] private Canvas settings;
     [SerializeField] private Button creditsButton;
+    [SerializeField] private Button fullscreenButton;
 
     private ColorBlock colorSelected;
     private ColorBlock colorUnSelected;
@@ -26,6 +28,7 @@ public class MainMenuScript : MonoBehaviour
     private void Awake()
     {
         credits.gameObject.SetActive(false);
+        settings.gameObject.SetActive(false);
 
         colorSelected = toggle2p.colors;
         colorSelected.normalColor = toggleColorSelected;
@@ -103,7 +106,7 @@ public class MainMenuScript : MonoBehaviour
         if (credits.gameObject.activeSelf)
         {
             creditsButton.Select();
-            if (Input.GetButtonDown("ThrowOne"))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
                 credits.gameObject.SetActive(false);
             }
@@ -123,9 +126,15 @@ public class MainMenuScript : MonoBehaviour
     public void OnCredits()
     {
         credits.gameObject.SetActive(true);
-        // TODO
-        // Deselect buttons in main menu
     }
+
+    public void OnSettings()
+    {
+        settings.gameObject.SetActive(true);
+        fullscreenButton.Select();
+    }
+
+
 
     public void OnQuitGame()
     {
