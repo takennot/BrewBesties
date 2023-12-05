@@ -251,16 +251,11 @@ public class PlayerScript : MonoBehaviour
         moveDirection = moveDirection.normalized * movementSpeed;
 
         // if allowed to move (state är none eller emoting)
-        if (characterController.enabled && (playerState == PlayerStateMashineHandle.PlayerState.None || playerState == PlayerStateMashineHandle.PlayerState.Emoting))
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
         {
-            
             characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
-            
-            // if emoting
-            if(playerState == PlayerStateMashineHandle.PlayerState.Emoting){
-                playerState = PlayerStateMashineHandle.PlayerState.None;
-            }
         }
+
         // movedirection or charactecotroller
         if (moveDirection.x != 0 || moveDirection.z != 0)
         {
@@ -268,14 +263,11 @@ public class PlayerScript : MonoBehaviour
             {
                 moving = true;
 
-                Debug.Log("Moving!!!");
                 if(playerState == PlayerState.Emoting)
                     playerState = PlayerState.None;
 
                 StartCoroutine(playWalkingPoof());
             }
-            //walkVFX.GetComponent<ParticleSystem>().Play();
-            
         }
         else
         {
@@ -307,7 +299,7 @@ public class PlayerScript : MonoBehaviour
         // Add gravitation?????????
 
         // dont fall if being dragged
-        if (playerState == PlayerStateMashineHandle.PlayerState.IsBeingDragged || characterController.isGrounded)
+        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
         {
             velocity.y = 0;
         }
@@ -368,7 +360,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetButtonDown(processName)) // (X) på xbox
             {
-                playerState = PlayerStateMashineHandle.PlayerState.Interacting;
+                playerState = PlayerState.Interacting;
                 Process();
             }
             if (Input.GetButtonUp(processName)) // (X) på xbox
@@ -380,7 +372,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetButtonDown(dragName)) // (Y) på xbox
             {
-                playerState = PlayerStateMashineHandle.PlayerState.Interacting;
+                playerState = PlayerState.Interacting;
                 Process();
             }
 
@@ -556,7 +548,7 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerState == PlayerStateMashineHandle.PlayerState.Dragging)
+        if (playerState == PlayerState.Dragging)
         {
             Drag();
         }
@@ -635,7 +627,7 @@ public class PlayerScript : MonoBehaviour
 
             Debug.Log("hitObject: " + hitObject);
 
-            if (holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing && playerState == PlayerStateMashineHandle.PlayerState.Interacting)
+            if (holdingState == HoldingState.HoldingNothing && playerState == PlayerState.Interacting)
             {
                 // sågen
                 if (hitObject.GetComponent<Saw>())
@@ -674,7 +666,7 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log("Process (X) End");
 
-        playerState = PlayerStateMashineHandle.PlayerState.None;
+        playerState = PlayerState.None;
 
         if (currentProcessStation && currentProcessStation.GetComponent<Saw>())
         {
@@ -1175,8 +1167,6 @@ public class PlayerScript : MonoBehaviour
     {
         playerState = PlayerState.Emoting;
         popUpManager.SpawnPopUp(mainCamera, transform, "slay", color);
-
-        //playerState = PlayerState.None;
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -1291,6 +1281,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void SetPlayerState(PlayerState newState)
     {
+        Debug.Log("SetPlayerState...");
         playerState = newState;
     }
     public HoldingState GetHoldingState()
