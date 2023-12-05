@@ -22,6 +22,12 @@ public class Timer : MonoBehaviour
     public AudioClip tickingClip;
     public AudioClip timerDoneClip;
 
+    [Header("Slowdown")]
+    [SerializeField] private float slowDownWeightStart = 1f;
+    [SerializeField] private float slowDownWeightEnd = 0.7f;
+    [SerializeField] private float timeToSlowDown = 15f;
+    private float slowDownWeight = 1;
+
     private void Start()
     {
         startAndEnd = GameObject.Find("Start & End").GetComponent<StartAndEnd>();
@@ -46,9 +52,12 @@ public class Timer : MonoBehaviour
         {
             if (timeRemaining > 0)
             {
-                timeRemaining -= Time.deltaTime;
+                slowDownWeight = Mathf.Lerp(slowDownWeightStart, slowDownWeightEnd, Mathf.Clamp01(1 - (timeRemaining / timeToSlowDown)));
+                Debug.Log(slowDownWeight);
+
+                timeRemaining -= Time.deltaTime * slowDownWeight;
                 DisplayTime(timeRemaining);
-                if(timeRemaining < 30) {
+                if(timeRemaining < 20) {
                     timerText.color = Color.red;
 
                     if (!audioSource.isPlaying)
