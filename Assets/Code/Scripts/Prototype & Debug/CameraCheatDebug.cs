@@ -8,9 +8,14 @@ public class CameraCheatDebug : MonoBehaviour
     private bool isControlEnabled = false;
     private float originalRotationSpeed;
 
+    private CameraSway cameraSway;
+
     private void Start()
     {
         originalRotationSpeed = rotationSpeed;
+
+        cameraSway = GetComponent<CameraSway>();
+           
     }
 
     void Update()
@@ -20,6 +25,8 @@ public class CameraCheatDebug : MonoBehaviour
         {
             isControlEnabled = !isControlEnabled;
             Debug.Log("Camera Fly Mode: " + isControlEnabled);
+            if(cameraSway != null)
+                cameraSway.enabled = !isControlEnabled;
         }
 
         if (isControlEnabled)
