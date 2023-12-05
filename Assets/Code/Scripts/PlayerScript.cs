@@ -55,18 +55,12 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool canHoldPlayerHoldingPlayer = false;
     [SerializeField] private PlayerStateMashineHandle.PlayerState playerState;
     [SerializeField] private PlayerStateMashineHandle.HoldingState holdingState;
+    [SerializeField] private bool moving = false;
 
-    //[SerializeField] private bool beingHeld;
-    //[SerializeField] private bool holding;
-    //[SerializeField] private bool holdingPlayer;
+    [Header("Animation")]
+    [SerializeField] private Animator animatorPlayer;
 
-    //[SerializeField] private bool interacting;
-
-    //[SerializeField] private bool isBeingDragged;
-    //[SerializeField] private bool dragging;
-    //[SerializeField] public bool drag = false;
-
-    [SerializeField] private Transform holdPosition;
+    
 
     // --------------------------------------------------------------
 
@@ -147,6 +141,7 @@ public class PlayerScript : MonoBehaviour
     [Header("RaycastStuff")]
     [SerializeField] private GameObject castingPosition;
     [SerializeField] private Transform dragToPosition;
+    [SerializeField] private Transform holdPosition;
 
     private RaycastHit hit;
     private RaycastHit dragHit;
@@ -231,6 +226,12 @@ public class PlayerScript : MonoBehaviour
             Initialize();
         }
 
+        //Debug.Log((int)playerState + " | " + (int)holdingState);
+
+        animatorPlayer.SetInteger("PlayerState", (int) playerState);
+        animatorPlayer.SetInteger("PlayerHoldingState", (int) holdingState);
+        animatorPlayer.SetBool("Moving", moving);
+
         CheckPlayerControls();
         //Physics.BoxCast(castingPosition.transform.position, castingPosition.transform.forward, out hit, Mathf.Infinity);
 
@@ -265,13 +266,20 @@ public class PlayerScript : MonoBehaviour
         {
             if (onlyPlayVFX)
             {
+                moving = true;
+
+                Debug.Log("Moving!!!");
+                if(playerState == PlayerState.Emoting)
+                    playerState = PlayerState.None;
+
                 StartCoroutine(playWalkingPoof());
             }
             //walkVFX.GetComponent<ParticleSystem>().Play();
             
         }
         else
-        { 
+        {
+            moving = false;
             walkVFX.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
         }
 
@@ -962,7 +970,6 @@ public class PlayerScript : MonoBehaviour
             if (holdingState == HoldingState.HoldingNothing)
             {
 
-
                 if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
                 {
                     bool foundDragHit = false;
@@ -1166,7 +1173,10 @@ public class PlayerScript : MonoBehaviour
 
     private void Emote()
     {
+        playerState = PlayerState.Emoting;
         popUpManager.SpawnPopUp(mainCamera, transform, "slay", color);
+
+        //playerState = PlayerState.None;
     }
 
     public void OnCollisionEnter(Collision collision)
