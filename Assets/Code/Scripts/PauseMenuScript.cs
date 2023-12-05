@@ -89,7 +89,12 @@ public class PauseMenuScript : MonoBehaviour
                 pauseMenuCanvas.enabled = false;
                 isPaused = false;
                 Time.timeScale = 1f;
-                FindAnyObjectByType<AudioController>().song_source.UnPause();
+                AudioController audioController = FindAnyObjectByType<AudioController>();
+                if (audioController != null)
+                {
+                    Debug.Log("Audio found!");
+                    audioController.song_source.UnPause();
+                }
                 break;
             case false: return;
         }
