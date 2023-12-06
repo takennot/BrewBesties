@@ -15,7 +15,8 @@ public class PressurePlate : MonoBehaviour
 
     private Vector3 plateStartPosition;
     private Vector3 targetPosition;
-    private int playersOnPlate = 0; // Track the number of players on the plate
+
+    private int playersOnPlate = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,7 @@ public class PressurePlate : MonoBehaviour
             playersOnPlate++;
             foreach (WS_MagicField magicField in magicFields)
             {
-                magicField.ReverseState();
+                magicField.ReverseState(false);
             }
             targetPosition = new Vector3(plateStartPosition.x, plateStartPosition.y - plateMoveDownAmount, plateStartPosition.z);
             source.PlayOneShot(stepOn);
@@ -53,7 +54,7 @@ public class PressurePlate : MonoBehaviour
             {
                 foreach (WS_MagicField magicField in magicFields)
                 {
-                    magicField.ReverseState();
+                    magicField.ReverseState(true);
                 }
                 targetPosition = plateStartPosition;
                 source.PlayOneShot(stepOff);

@@ -6,6 +6,7 @@ public class WS_MagicField : MonoBehaviour
 {
 
     [SerializeField] private bool isActive = true;
+    private bool originalActive;
     [SerializeField] private bool mustBeThrown = true;
 
     [Header("Boost items passing through?")]
@@ -24,7 +25,7 @@ public class WS_MagicField : MonoBehaviour
     {
         field = this.gameObject;
         field.SetActive(isActive);
-
+        originalActive = isActive;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -59,11 +60,16 @@ public class WS_MagicField : MonoBehaviour
         field.SetActive(state);
     }
 
-    public void ReverseState()
+    public void ReverseState(bool returnToOriginal)
     {
-        isActive = !isActive;
+        if(returnToOriginal)
+        {
+            isActive = originalActive;
+        } else
+        {
+            isActive = !originalActive;
+        }
 
-        // Set the field to the reversed state
         field.SetActive(isActive);
     }
 
