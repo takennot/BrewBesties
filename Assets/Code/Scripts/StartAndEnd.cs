@@ -40,7 +40,7 @@ public class StartAndEnd : MonoBehaviour
     [Header("Delays")]
     [SerializeField] int timeToWaitForStart = 3;
     [SerializeField] private float circleStartDelay = 3f;
-    [SerializeField] private float levelEndDelay = 9f;
+    //[SerializeField] private float levelEndDelay = 9f;
     public bool hasStarted = false;
 
     [Header("Win conditions")]
@@ -50,6 +50,7 @@ public class StartAndEnd : MonoBehaviour
 
     [Header("StarsPanelStuff")]
     [SerializeField] private GameObject starPanel;
+    [SerializeField] private GameObject endOptionsPanel;
     [SerializeField] private TMP_Text star1Text;
     [SerializeField] private TMP_Text star2Text;
     [SerializeField] private TMP_Text star3Text;
@@ -57,6 +58,17 @@ public class StartAndEnd : MonoBehaviour
     [SerializeField] private Image star1Image;
     [SerializeField] private Image star2Image;
     [SerializeField] private Image star3Image;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSourceShuffle;
+    [SerializeField] private AudioClip shuffle_audio;
+    float pitchShuffle = 1;
+
+    [SerializeField] private AudioSource audioSourceOther;
+    [SerializeField] private AudioClip pling_audio;
+    bool played1 = false;
+    bool played2 = false;
+    bool played3 = false;
 
     private void Start() {
         players = GameObject.FindGameObjectsWithTag("Player");
@@ -78,7 +90,13 @@ public class StartAndEnd : MonoBehaviour
             audioController.song_source.Play();
         }
 
+        played1 = false;
+        played2 = false;
+        played3 = false;
+
         starPanel.SetActive(false);
+        endOptionsPanel.SetActive(false);
+
         star1Image.color = Color.gray;
         star2Image.color = Color.gray;
         star3Image.color = Color.gray;
@@ -109,7 +127,7 @@ public class StartAndEnd : MonoBehaviour
             }
             // or here????
 
-            if (starPanel.activeSelf)
+            if (endOptionsPanel.activeSelf)
             {
                 if (Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel)
                 {
@@ -129,6 +147,14 @@ public class StartAndEnd : MonoBehaviour
 
         if (scoreCountdown)
         {
+            if (score != 0) pitchShuffle = 1 + (count / score);
+            else            pitchShuffle = 1;
+
+            
+            audioSourceShuffle.pitch = pitchShuffle;
+
+            starPanel.SetActive(true);
+
             if (count < score)
             {
                 if (count > score)
@@ -143,19 +169,19 @@ public class StartAndEnd : MonoBehaviour
             }
 
             // show stars
-            if (count >= pointsOneStar)
+            if (count >= pointsThreeStar)
+            {
+                ShowStarImage(3);
+            }
+            else if (count >= pointsTwoStar)
+            {
+                ShowStarImage(2);
+            }
+            else if (count >= pointsOneStar)
             {
                 completedLevel = score >= pointsOneStar;
 
                 ShowStarImage(1);
-            }
-            if (count >= pointsTwoStar)
-            {
-                ShowStarImage(2);
-            }
-            if (count >= pointsThreeStar)
-            {
-                ShowStarImage(3);
             }
 
             scoreText.text = text + (int)count;
@@ -174,8 +200,10 @@ public class StartAndEnd : MonoBehaviour
     private void ShowScore()
     {
         scoreCountdown = true;
+        audioSourceShuffle.clip = shuffle_audio;
+        audioSourceShuffle.Play();
 
-        //score = 500; // TA BORTTTT
+        score = 700; // TA BORTTTT
 
         scoreText.text = text + "0";
 
@@ -184,7 +212,8 @@ public class StartAndEnd : MonoBehaviour
 
     private void FinishShowScore()
     {
-        starPanel.SetActive(true);
+        audioSourceShuffle.Stop();
+        endOptionsPanel.SetActive(true);
 
         Debug.Log("Done!!!!!!!!!");
     }
@@ -195,15 +224,39 @@ public class StartAndEnd : MonoBehaviour
         {
             case 1:
                 star1Image.color = Color.white;
+
+                if (!played1)
+                {
+                    audioSourceOther.pitch = 1.0f;
+                    audioSourceOther.PlayOneShot(pling_audio);
+                    played1 = true;
+                }
+
                 break;
             case 2:
                 star1Image.color = Color.white;
                 star2Image.color = Color.white;
+
+                if (!played2)
+                {
+                    audioSourceOther.pitch = 1.2f;
+                    audioSourceOther.PlayOneShot(pling_audio);
+                    played2 = true;
+                }
+
                 break;
             case 3:
                 star1Image.color = Color.white;
                 star2Image.color = Color.white;
                 star3Image.color = Color.white;
+
+                if (!played3)
+                {
+                    audioSourceOther.pitch = 1.4f;
+                    audioSourceOther.PlayOneShot(pling_audio);
+                    played3 = true;
+                }
+
                 break;
         }
     }
