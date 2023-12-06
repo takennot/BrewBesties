@@ -167,7 +167,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] LineRenderer dragline;
     GameObject lineEffekt;
     [SerializeField] GameObject dragStart;
-    [SerializeField] GameObject dragObejct;
+    [SerializeField] GameObject[] dragObejct;
 
 
     // Start is called before the first frame update
@@ -1030,8 +1030,16 @@ public class PlayerScript : MonoBehaviour
                     {
                         GameObject start = Instantiate(dragStart, holdPosition);
                         Destroy(start, 0.6f);
-
-                        GameObject hitEffekt = Instantiate(dragObejct, objectDragging.gameObject.transform);
+                        GameObject hitEffekt;
+                        if (objectDragging.gameObject.GetComponent<PlayerScript>() == true)
+                        {
+                            hitEffekt = Instantiate(dragObejct[0], objectDragging.gameObject.transform);
+                        }
+                        else
+                        {
+                            hitEffekt = Instantiate(dragObejct[1], objectDragging.gameObject.transform);
+                        }
+                        
                         //hitEffekt.gameObject.transform.parent = objectDragging.gameObject;
                         Destroy(hitEffekt, 0.6f);
 
