@@ -71,11 +71,17 @@ public class Workstation : MonoBehaviour
             
             magicSlider.value += Time.deltaTime;
             sliderValue = magicSlider.value;
+            magicController.MagicOnIngridanse();
             magicController.CreatePartical();
+            magicController.onlyOnePartical = false;
+            magicController.createOnce = false;
+
+
         }
         else
         {
             magicController.onlyOnePartical = true;
+            magicController.createOnce = true;
             magicController.DestoryParticla();
         }
     }
@@ -111,5 +117,9 @@ public class Workstation : MonoBehaviour
     public Slider GetSlider()
     {
         return magicSlider;
+    }
+    public GameObject GetIngridiense()
+    {
+        return ingredientOnStation.gameObject;
     }
 }

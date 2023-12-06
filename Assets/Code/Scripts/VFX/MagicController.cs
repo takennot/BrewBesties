@@ -10,6 +10,7 @@ public class MagicController : MonoBehaviour
 
     //[SerializeField] private bool testDuration = false;
     [SerializeField] public bool onlyOnePartical = true;
+    public bool createOnce = true;
 
     [SerializeField] private GameObject book;
     [SerializeField] private Material bookMaterial;
@@ -18,6 +19,12 @@ public class MagicController : MonoBehaviour
     [SerializeField] private GameObject particalPrefab;
     [SerializeField] private Transform particalPrefabTransform;
     GameObject partical;
+    [SerializeField] GameObject MagicObejctEffekt;
+    GameObject maigOnIngridanse;
+    GameObject ingridanse = null;
+    [SerializeField] Material magiMaterial;
+
+
 
     void Start()
     {
@@ -91,6 +98,22 @@ public class MagicController : MonoBehaviour
             Destroy(partical);
             onlyOnePartical = true;
         }
+        
+        if(ingridanse != null)
+        {
+            Material[] material = ingridanse.GetComponentInChildren<MeshRenderer>().materials;
+            Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length - 1];
+           
+            for(int i = 0; i <newArry.Length; i++)
+            {
+                newArry[i] = material[i];
+               
+            }
+          
+            ingridanse.GetComponentInChildren<MeshRenderer>().materials = newArry;
+            ingridanse = null;
+        }
+
     }
 
     void toggelTextVisabilty(bool b)
@@ -105,4 +128,36 @@ public class MagicController : MonoBehaviour
         }
         
     }
+
+    public void MagicOnIngridanse()
+    {
+        if (createOnce)
+        {
+            ingridanse = ws.GetIngridiense();
+            maigOnIngridanse = Instantiate(MagicObejctEffekt, ingridanse.transform);
+            Debug.Log("create effekts");
+
+            Material[] material = ingridanse.GetComponentInChildren<MeshRenderer>().materials;
+            Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length + 1];
+
+            Debug.Log("material is " + material.Length + " new är " + newArry.Length);
+            int index = 0;
+            foreach(Material m in material)
+            {
+                newArry[index] = material[index];
+                index++;
+
+            }
+            newArry[index] = magiMaterial;
+            ingridanse.GetComponentInChildren<MeshRenderer>().materials = newArry;
+            Debug.Log("nyt materila är " + newArry[index]);
+            //ingridanse.GetComponent<MeshRenderer>().materials = newArry;
+
+
+        }
+    }
+
+
+    
+
 }
