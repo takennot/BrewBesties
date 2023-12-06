@@ -86,6 +86,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 898153894682985081}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ca0153b30759b749b6edfa6143cbe05,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 188285675414334027}
   m_SourcePrefab: {fileID: 100100000, guid: 7ca0153b30759b749b6edfa6143cbe05, type: 3}
 --- !u!23 &1119149613421083129 stripped
 MeshRenderer:
@@ -123,6 +127,20 @@ MonoBehaviour:
   bakeValues: []
   showPlayerOutline: 0
   showManualOutline: 0
+--- !u!114 &188285675414334027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479706070780024876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e001f7450e13784daa39b51b5bda87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 898153894682985081}
+  timeOut: 1
 --- !u!4 &2288717533548987030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ca0153b30759b749b6edfa6143cbe05,
