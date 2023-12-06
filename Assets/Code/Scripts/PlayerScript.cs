@@ -1360,4 +1360,28 @@ public class PlayerScript : MonoBehaviour
             isInFence = false;
         }
     }
+
+    public string GetPlayerTypeString()
+    {
+        switch (playerType)
+        {
+            case (PlayerType.PlayerOne):
+                return "p1";
+                break;
+            case (PlayerType.PlayerTwo):
+                return "p2";
+                break;
+            case (PlayerType.PlayerThree):
+                return "p3";
+                break;
+            case (PlayerType.PlayerFour):
+                return "p4";
+                break;
+            default:
+                return "p1";
+        }
+        
+
+       
+    }
 }
