@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 7917137570384937478}
   - component: {fileID: 5361539311480941451}
   - component: {fileID: 5680693358159162978}
+  - component: {fileID: 3940719180354317064}
   m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -445,6 +446,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &3940719180354317064
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760768666410175827}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.7, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8718473170645898869
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114355469608804929}
   - component: {fileID: 7143558059756262267}
+  - component: {fileID: 5343836255644642540}
   m_Layer: 0
   m_Name: MeshRiggStuff
   m_TagString: Untagged
@@ -502,6 +525,20 @@ MonoBehaviour:
   bakeValues: []
   showPlayerOutline: 0
   showManualOutline: 0
+--- !u!114 &5343836255644642540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718473170645898869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e001f7450e13784daa39b51b5bda87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 7143558059756262267}
+  timeOut: 1
 --- !u!1001 &3648907601406776826
 PrefabInstance:
   m_ObjectHideFlags: 0

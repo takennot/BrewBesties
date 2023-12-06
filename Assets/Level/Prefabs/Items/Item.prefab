@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8392441008924837798}
   - component: {fileID: 2614094277736799586}
   - component: {fileID: 1131776003682813999}
+  - component: {fileID: 1787271897179868991}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: Mesh_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +109,20 @@ MonoBehaviour:
   bakeValues: []
   showPlayerOutline: 0
   showManualOutline: 0
+--- !u!114 &1787271897179868991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781861668296804158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e001f7450e13784daa39b51b5bda87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 1131776003682813999}
+  timeOut: 1
 --- !u!1 &5571554583639736194
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,8 +158,8 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1711951120994082889}
   - {fileID: 3535128052009490790}
+  - {fileID: 1711951120994082889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7657140018992972352

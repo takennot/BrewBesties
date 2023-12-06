@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     private Vector3 moveDirection;
     private float movementSpeed;
     public float mass = 2f;
+    private bool isInFence = false;
 
     [Header("Reach")]
     [SerializeField] private int grabReach = 1;
@@ -226,6 +227,16 @@ public class PlayerScript : MonoBehaviour
             Initialize();
         }
 
+        if(playerState == PlayerState.IsBeingHeld || playerState == PlayerState.IsBeingThrown)
+        {
+            gameObject.layer = LayerMask.NameToLayer("PlayerThrown");
+        }
+
+        if(!(playerState == PlayerState.IsBeingHeld) && !(playerState == PlayerState.IsBeingThrown) && !isInFence)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+        }
+
         //Debug.Log((int)playerState + " | " + (int)holdingState);
 
         if (waitingForGround)
@@ -431,19 +442,19 @@ public class PlayerScript : MonoBehaviour
                     // ITEM
                     if (hitObject.GetComponent<Item>())
                     {
-                        hitObject.GetComponent<Item>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                        hitObject.GetComponent<Item>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                         foundOutline = true;
                     }
                     // RESOURCE BOX
                     else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<CounterState>() && hitObject.GetComponent<CounterState>().storedItem == null)
                     {
-                        hitObject.GetComponent<ResourceBoxState>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                        hitObject.GetComponent<ResourceBoxState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                         foundOutline = true;
                     }
                     // Resource box as in bottle box
                     else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<ResourceBoxState>().GetResource() == Resource_Enum.Resource.Bottle)
                     {
-                        hitObject.GetComponent<ResourceBoxState>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                        hitObject.GetComponent<ResourceBoxState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                         foundOutline = true;
                     }
                     // KOLLAR PÅ EN COUNTER MED ETT ITEM PÅ => ITEM OUTLINE
@@ -451,7 +462,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         if (hitObject.GetComponent<CounterState>().storedItem)
                         {
-                            hitObject.GetComponent<CounterState>().storedItem.GetComponentInChildren<Outline>().ShowOutline(color, true);
+                            hitObject.GetComponent<CounterState>().storedItem.GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                             foundOutline = true;
                         } 
                     }
@@ -459,7 +470,7 @@ public class PlayerScript : MonoBehaviour
                     else if (hitObject.GetComponent<PlayerScript>())
                     {
                         //Debug.Log("hit: " + hitObject);
-                        hitObject.GetComponent<PlayerScript>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                        hitObject.GetComponent<PlayerScript>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                         foundOutline = true;
                     }
                 }
@@ -470,9 +481,14 @@ public class PlayerScript : MonoBehaviour
                         // if looking at goal with a bottle OR not looking at goal (but a counter still)
                         if ((hitObject.GetComponent<Goal>() && objectInHands.GetComponent<Bottle>()) || (!hitObject.GetComponent<Goal>()))
                         {
-                            if (hitObject.GetComponent<CounterState>().GetComponentInChildren<Outline>())
+                            if (hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>())
                             {
-                                hitObject.GetComponent<CounterState>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                                hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
+                                foundOutline = true;
+                            }
+                            else if (hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>())
+                            {
+                                hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                                 foundOutline = true;
                             }
                             else
@@ -483,7 +499,7 @@ public class PlayerScript : MonoBehaviour
                     }
                     else if (hitObject.GetComponent<Workstation>())
                     {
-                        hitObject.GetComponent<Workstation>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                        hitObject.GetComponent<Workstation>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                         foundOutline = true;
                     }
                     // ADD INGREDIENT IN CAULDRON
@@ -522,7 +538,7 @@ public class PlayerScript : MonoBehaviour
             {
                 if (hitObject.GetComponent<Saw>())
                 {
-                    hitObject.GetComponent<Saw>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                    hitObject.GetComponent<Saw>().ShowSawOutlineIfOk(color, true);
                     foundOutline = true;
                 }
                 // om man kollar på workstation styrs längre upp för counterstate
@@ -531,7 +547,7 @@ public class PlayerScript : MonoBehaviour
             {
                 if (hitObject.GetComponent<Workstation>())
                 {
-                    hitObject.GetComponent<Workstation>().GetComponentInChildren<Outline>().ShowOutline(color, true);
+                    hitObject.GetComponent<Workstation>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
                     foundOutline = true;
                 }
             }
@@ -545,16 +561,16 @@ public class PlayerScript : MonoBehaviour
             if (hitObject.GetComponent<PlayerScript>())
             {
                 //Debug.Log("Hit outline: " + outLinehit.collider.gameObject);
-                hitObject.GetComponent<PlayerScript>().GetComponentInChildren<Outline>().ShowOutline(color, false);
+                hitObject.GetComponent<PlayerScript>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, false);
             }
             else if (hitObject.GetComponent<Item>())
             {
-                hitObject.GetComponent<Item>().GetComponentInChildren<Outline>().ShowOutline(color, false);
+                hitObject.GetComponent<Item>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, false);
             }
             else if (hitObject.GetComponent<CounterState>() && hitObject.GetComponent<CounterState>().storedItem != null)
             {
                 //Debug.Log("Hit outline counter ");
-                hitObject.GetComponent<CounterState>().storedItem.GetComponentInChildren<Outline>().ShowOutline(color, false);
+                hitObject.GetComponent<CounterState>().storedItem.GetComponentInChildren<OutlineHandler>().ShowOutline(color, false);
             }
         }
 
@@ -840,8 +856,8 @@ public class PlayerScript : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = UnityEngine.Color.green;
-        Gizmos.DrawRay(castingPosition.transform.position, transform.forward * hit.distance);
-        Gizmos.DrawWireCube(castingPosition.transform.position + transform.forward * hit.distance, transform.localScale);
+        Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
+        Gizmos.DrawWireCube(castingPosition.transform.position + transform.forward * dragHit.distance, transform.localScale);
     }
 
     public void Grab(Item item)
@@ -979,20 +995,26 @@ public class PlayerScript : MonoBehaviour
 
     public void StartDragging() // (Y)
     {
+        Debug.Log("Start Dragging");
+
         if (playerState != PlayerState.IsBeingDragged)
         {
             if (holdingState == HoldingState.HoldingNothing)
             {
-
                 if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
                 {
+                    
+
+                    Debug.Log("DragHit: " + dragHit.collider.gameObject);
                     bool foundDragHit = false;
+
                     if (dragHit.collider.gameObject.GetComponent<Item>() || dragHit.collider.gameObject.GetComponent<PlayerScript>()) 
                     {
                         playerState = PlayerState.Dragging;
 
                         objectDragging = dragHit.collider.gameObject;
                         foundDragHit = true;
+                        Debug.Log("Not found hit");
                     }
                     else if(dragHit.collider.gameObject.GetComponent<CounterState>() && dragHit.collider.gameObject.GetComponent<CounterState>().storedItem != null)
                     {
@@ -1001,7 +1023,7 @@ public class PlayerScript : MonoBehaviour
                         objectDragging = dragHit.collider.gameObject.GetComponent<CounterState>().storedItem;
                         dragHit.collider.gameObject.GetComponent<CounterState>().ReleaseItem(objectDragging);
                         foundDragHit = true;
-
+                        Debug.Log("Found hit");
                     }
 
                     if (foundDragHit)
@@ -1315,4 +1337,19 @@ public class PlayerScript : MonoBehaviour
         holdingState = newState;
     }
 
+    //This doesnt work really...
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Fence"))
+        {
+            isInFence = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Fence"))
+        {
+            isInFence = false;
+        }
+    }
 }
