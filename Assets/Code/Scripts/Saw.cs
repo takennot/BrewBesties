@@ -42,6 +42,13 @@ public class Saw : MonoBehaviour
 
     public bool hasSawed;
 
+    [Header("VFX")]
+    [SerializeField] GameObject sawEffect;
+    [SerializeField] Transform particalSystemPostion;
+    GameObject instanciestEffect;
+    private bool createOnce = true;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -101,6 +108,7 @@ public class Saw : MonoBehaviour
                 Debug.Log("added to saw: " + thisPlayer.name);
                 playersSawing.Add(thisPlayer);
                 sourceSawing.Play();
+                createWoodEffekt();
             }
         }
     }
@@ -110,6 +118,8 @@ public class Saw : MonoBehaviour
         Debug.Log("Removing from saw: " + thisPlayer.name);
         playersSawing.Remove(thisPlayer);
         sourceSawing.Pause();
+        createOnce = true;
+        Destroy(instanciestEffect);
     }
 
     private void DropWood()
@@ -147,5 +157,15 @@ public class Saw : MonoBehaviour
     private bool PlatesIsActivatedByPlayer(PlayerScript playerScript)
     {
         return sawingPlate1.GetPlayerColliding() == playerScript || sawingPlate2.GetPlayerColliding() == playerScript;
+    }
+
+    void createWoodEffekt()
+    {
+        if (createOnce)
+        {
+            instanciestEffect = Instantiate(sawEffect, particalSystemPostion);
+            createOnce = false;
+        }
+      
     }
 }
