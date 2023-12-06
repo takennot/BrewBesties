@@ -89,23 +89,7 @@ public class Bottle : MonoBehaviour
 
                 Debug.Log(y‰‰ + "(IsDone: " + potion.IsDone() + ")");
 
-                if (potion.IsDone())
-                {
-                    if (donePotion.activeSelf == false)
-                    {
-                        donePotion.SetActive(true);
-                        undonePotoin.SetActive(false);
-                    }
-
-                }
-                else
-                {
-                    if(undonePotoin.activeSelf == false)
-                    {
-                        donePotion.SetActive(false);
-                        undonePotoin.SetActive(true);
-                    }
-                }
+                
             }
         }
     }
@@ -163,29 +147,29 @@ public class Bottle : MonoBehaviour
     void UpdateUI()
     {
 
-        Debug.Log("Ingredient1 Sprite: " + potion.ingredient1.GetImage().name);
-        Debug.Log("Ingredient2 Sprite: " + potion.ingredient2.GetImage().name);
-        Debug.Log("Ingredient3 Sprite: " + potion.ingredient3.GetImage().name);
+        //Debug.Log("Ingredient1 Sprite: " + potion.ingredient1.GetImage().name);
+        //Debug.Log("Ingredient2 Sprite: " + potion.ingredient2.GetImage().name);
+        //Debug.Log("Ingredient3 Sprite: " + potion.ingredient3.GetImage().name);
         if (potion != null)
         {
-            Debug.Log("Potion != null");
+            //Debug.Log("Potion != null");
             if (potion.ingredient1 != null)
             {
-                Debug.Log("potion.ingredient1 != null");
+                //Debug.Log("potion.ingredient1 != null");
                 slotsBackground[0].SetActive(true);
                 spriteRenderers[0].sprite = potion.ingredient1.GetImage();
             }
 
             if (potion.ingredient2 != null)
             {
-                Debug.Log("potion.ingredient2 != null");
+                //Debug.Log("potion.ingredient2 != null");
                 slotsBackground[1].SetActive(true);
                 spriteRenderers[1].sprite = potion.ingredient2.GetImage();
             }
 
             if (potion.ingredient3 != null)
             {
-                Debug.Log("potion.ingredient3 != null");
+                //Debug.Log("potion.ingredient3 != null");
                 slotsBackground[2].SetActive(true);
                 spriteRenderers[2].sprite = potion.ingredient3.GetImage();
             }
@@ -206,6 +190,26 @@ public class Bottle : MonoBehaviour
 
             Fill();
             UpdateUI();
+
+
+            if (potion.IsDone())
+            {
+                Debug.Log("Potion ‰r done");
+                if (donePotion.activeSelf == false)
+                {
+                    donePotion.SetActive(true);
+                    undonePotoin.SetActive(false);
+                }
+
+            }
+            else
+            {
+                if (undonePotoin.activeSelf == false)
+                {
+                    donePotion.SetActive(false);
+                    undonePotoin.SetActive(true);
+                }
+            }
         }
     }
 

@@ -19,8 +19,10 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private bool isArcade = false;
     [SerializeField] private Canvas credits;
     [SerializeField] private Canvas settings;
+    [SerializeField] private Canvas saveSelection;
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button fullscreenButton;
+    [SerializeField] private Button saveSlot1;
 
     private ColorBlock colorSelected;
     private ColorBlock colorUnSelected;
@@ -29,6 +31,7 @@ public class MainMenuScript : MonoBehaviour
     {
         credits.gameObject.SetActive(false);
         settings.gameObject.SetActive(false);
+        saveSelection.gameObject.SetActive(false);
 
         colorSelected = toggle2p.colors;
         colorSelected.normalColor = toggleColorSelected;
@@ -109,12 +112,14 @@ public class MainMenuScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
                 credits.gameObject.SetActive(false);
-            }
+            }   
         }
     }
 
     public void OnStartGame()
     {
+        //saveSelection.gameObject.SetActive(true);
+        //saveSlot1.Select();
         SceneManager.LoadScene(3);
     }
 
