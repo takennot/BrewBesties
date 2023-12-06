@@ -5948,6 +5948,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Firesaw_Station
       objectReference: {fileID: 0}
+    - target: {fileID: 6069727745018500793, guid: f1393c2c58bf2de48a69054ae85efaad,
+        type: 3}
+      propertyPath: maxSawProcess
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6965595161588203886, guid: f1393c2c58bf2de48a69054ae85efaad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9186,6 +9191,11 @@ PrefabInstance:
       propertyPath: drop
       value: 
       objectReference: {fileID: 392755463}
+    - target: {fileID: 1745637987678992384, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
+        type: 3}
+      propertyPath: secondsPerProcess
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5088878566760511380, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -16832,6 +16842,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
         type: 3}
+      propertyPath: startAndEnd
+      value: 
+      objectReference: {fileID: 1145791173442446990}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
       propertyPath: spriteManager
       value: 
       objectReference: {fileID: 245445726}
@@ -16839,6 +16854,11 @@ PrefabInstance:
         type: 3}
       propertyPath: angryAtSeconds
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
+      propertyPath: leaveAfterSeconds
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
         type: 3}
@@ -51258,18 +51278,30 @@ PrefabInstance:
     - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: timeMinutes
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: timeSeconds
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2, type: 3}
+--- !u!114 &1145791173442446990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3036710326827688601, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1145791173442446989}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ece7b0c24dd0848bbb7b0688e53e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

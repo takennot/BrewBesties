@@ -448,37 +448,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &3821621634521964098
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2887228000086396054}
-  m_Layer: 0
-  m_Name: ParticalPostion
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2887228000086396054
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821621634521964098}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6965595161588203886}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3861648668192949801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,10 +1203,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1541757905718114483}
-    - targetCorrespondingSourceObject: {fileID: 4526110020852189765, guid: f0824c2f1cc156f4cb52a04d50357985,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2887228000086396054}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1677296643666586855, guid: f0824c2f1cc156f4cb52a04d50357985,
         type: 3}
@@ -1284,16 +1249,13 @@ MonoBehaviour:
   woodSpawnpoint: {fileID: 7992385978776546477}
   animator: {fileID: 4113097821858948034}
   baseSpeed: 1.5
-  outlineHandler1: {fileID: 0}
-  outlineHandler2: {fileID: 0}
+  outlineHandler1: {fileID: 3953899224779298876}
+  outlineHandler2: {fileID: 3953899224779298876}
   sawingSound: {fileID: 8300000, guid: 4b46f37140c55584c983cddc3d041b35, type: 3}
   woodDropSound: {fileID: 8300000, guid: 143ccc7f7d5c8264b9d0606f41be2cf6, type: 3}
   source: {fileID: 75747373523524983}
   sourceSawing: {fileID: 5854205614987028007}
   hasSawed: 0
-  sawEffect: {fileID: 1566915331287274629, guid: dba306a008c500d4baea01e508e2b54d,
-    type: 3}
-  particalSystemPostion: {fileID: 2887228000086396054}
 --- !u!82 &75747373523524983
 AudioSource:
   m_ObjectHideFlags: 0

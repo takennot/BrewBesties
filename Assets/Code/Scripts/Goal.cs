@@ -9,31 +9,33 @@ using Unity.VisualScripting.Antlr3.Runtime;
 
 public class Goal : MonoBehaviour, GoalInterface
 {
-    [Header("Idk")]
+    [Header("Refs")]
+    [SerializeField] private Camera cam;
+    public int playersCollidingWIth = 0;
     [SerializeField] private CounterState counter;
-    //[SerializeField] private TMP_Text text;
+    [SerializeField] private StartAndEnd startAndEnd;
+
+    [Header("dont edit")]
     [SerializeField] private int scoreTotal = 0;
 
     [Header("Audio")]
-    private AudioSource source;
+    [SerializeField] private AudioSource source;
     [SerializeField] private AudioClip completedClip;
     [SerializeField] private AudioClip notCompletedClip;
     [SerializeField] private AudioClip newCustomerClip;
 
-    [Header("Scoring")]
-    [SerializeField] private int scoreBase;
-    [SerializeField] private int scoreAddIfHappy = 20;
-    [SerializeField] private int magicScore = 5;
-    [SerializeField] private int scoreAngryLoseMax;
-    //[SerializeField] private int scoreLoseWrongPotion = -50;
-    [SerializeField] private int firstOrderBonus = 20;
+    [Header("Customer times")]
+    [SerializeField] private int timeBeforeScorePenalty = 20;
+    [SerializeField] private int leaveAfterSeconds = 90;
 
     [SerializeField] private PopUpManager popUpManager;
 
-    [Header("Customer times")]
-    [SerializeField] private int irritatedAtSeconds = 20;
-    [SerializeField] private int angryAtSeconds = 45;
-    [SerializeField] private int leaveAtSeconds;
+    [Header("Scoring")]
+    [SerializeField] private int maxPenaltyLoseScore = -25;
+    [SerializeField] private int scoreBaseRecipeDone = 70;
+    [SerializeField] private int magicIngredientScore = 5;
+    [SerializeField] private int notFirstOrderDividePenalty = 2;
+    [SerializeField] private int customerLeavesPenalty = -20;
 
     [Header("Seats")]
     [SerializeField] private Transform seat1;
@@ -54,9 +56,14 @@ public class Goal : MonoBehaviour, GoalInterface
     [SerializeField] private CustomerManager customer3;
     public int amountOfCustomers;
 
-    [SerializeField] private float timeForNextCustomer = 30;
-    [SerializeField] private float waitOffsetFromStart = 5;
+    [SerializeField] private float waitOffsetFromStart = 5; // sätt till timerOffsetStart
+    [SerializeField] private float startRateSecondCustomer = 2;
+    [SerializeField] private float startRateThirdCustomer = 15;
+    [SerializeField] private float newCustomerRate = 5;
+    private int customersSpawned = 0;
+
     private float timer = 0;
+    private float timeForNextCustomer = 0;
 
     [Header("Orders")]
     public bool mushroomAllowed;
@@ -75,9 +82,7 @@ public class Goal : MonoBehaviour, GoalInterface
     [SerializeField] private bool showScoreUI = true;
     [SerializeField] private int recipesCompleted = 0;
     
-    [Header("Other")]
-    [SerializeField] private Camera cam;
-    public int playersCollidingWIth = 0;
+    
 
     //[Header("Sprites")]
     public Sprite spriteMushroom { get; set; }
@@ -92,17 +97,17 @@ public class Goal : MonoBehaviour, GoalInterface
     {
         cam = Camera.main;
 
+        if(startAndEnd)
+            waitOffsetFromStart = startAndEnd.timeToWaitForStart;
+
         counter = GetComponent<CounterState>();
         scoreTotal = 0;
 
-        source = GetComponent<AudioSource>();
         source.clip = completedClip;
 
         spriteManager = FindObjectOfType<SpriteManager>();
 
-        timer = timeForNextCustomer - waitOffsetFromStart;
-
-        leaveAtSeconds = angryAtSeconds + scoreAngryLoseMax;
+        ResetCustomerTimer();
 
         if (!showScoreUI)
         {
@@ -115,7 +120,7 @@ public class Goal : MonoBehaviour, GoalInterface
         //Tutorial won't start until activated
         if (!activated) return;
 
-        if (amountOfCustomers < 3) 
+        if (amountOfCustomers < 3)
         {
             if (timer >= timeForNextCustomer)
             {
@@ -126,15 +131,15 @@ public class Goal : MonoBehaviour, GoalInterface
         }
 
         // make customer leave if angry
-        if(customer1 && customer1.GetPatienceTimer() >= leaveAtSeconds)
+        if (customer1 && customer1.GetPatienceTimer() >= leaveAfterSeconds)
         {
             CustomerLeave(customer1);
         }
-        if (customer2 && customer2.GetPatienceTimer() >= leaveAtSeconds)
+        if (customer2 && customer2.GetPatienceTimer() >= leaveAfterSeconds)
         {
             CustomerLeave(customer2);
         }
-        if (customer3 && customer3.GetPatienceTimer() >= leaveAtSeconds)
+        if (customer3 && customer3.GetPatienceTimer() >= leaveAfterSeconds)
         {
             CustomerLeave(customer3);
         }
@@ -344,16 +349,16 @@ public class Goal : MonoBehaviour, GoalInterface
                 customer1 = customer2;
                 customer2 = null;
 
-                orderUI1.SetCustomer(customer1, leaveAtSeconds, false);
-                orderUI2.SetCustomer(customer2, leaveAtSeconds, false);
+                orderUI1.SetCustomer(customer1, leaveAfterSeconds, false);
+                orderUI2.SetCustomer(customer2, leaveAfterSeconds, false);
             }
             else if(customer3 != null)
             {
                 customer1 = customer3;
                 customer3 = null;
 
-                orderUI1.SetCustomer(customer1, leaveAtSeconds, false);
-                orderUI3.SetCustomer(customer3, leaveAtSeconds, false);
+                orderUI1.SetCustomer(customer1, leaveAfterSeconds, false);
+                orderUI3.SetCustomer(customer3, leaveAfterSeconds, false);
             }
         }
         else if (customer2 == null)
@@ -363,8 +368,8 @@ public class Goal : MonoBehaviour, GoalInterface
                 customer2 = customer3;
                 customer3 = null;
 
-                orderUI2.SetCustomer(customer2, leaveAtSeconds, false);
-                orderUI3.SetCustomer(customer3, leaveAtSeconds, false);
+                orderUI2.SetCustomer(customer2, leaveAfterSeconds, false);
+                orderUI3.SetCustomer(customer3, leaveAfterSeconds, false);
             }
         }
 
@@ -425,8 +430,6 @@ public class Goal : MonoBehaviour, GoalInterface
         GoAwayCustomer(customer);
     }
 
-    
-
     private void GoAwayCustomer(CustomerManager customer)
     {
         if (customer.isServed)
@@ -439,7 +442,11 @@ public class Goal : MonoBehaviour, GoalInterface
         }
         else
         {
-            popUpManager.SpawnPopUp(cam, customer.gameObject.transform, "!?#@!", Color.red);
+            Debug.Log("Failed customer: " + customerLeavesPenalty);
+            GivePoints(customerLeavesPenalty);
+
+            popUpManager.SpawnPopUp(cam, customer.gameObject.transform, "!?#@! " + customerLeavesPenalty, Color.red);
+            //popUpManager.SpawnPopUp(cam, this.transform, "" + customerLeavesPenalty, Color.red);
         }
 
         customer1 = null;
@@ -460,61 +467,63 @@ public class Goal : MonoBehaviour, GoalInterface
 
     private int CalculatePoints(CustomerManager customer)
     {
-        int score = scoreBase;
+        int score = 0;
+
+        string processCalc = "";
 
         if (customer.isServed)
         {
-            if (customer == customer1)
+            score = scoreBaseRecipeDone;
+
+            processCalc += " +" + scoreBaseRecipeDone;
+
+            // patience calc
+            float customerPatience = customer.GetPatienceTimer();
+
+            int penalty = -0;
+
+            if (customerPatience >= timeBeforeScorePenalty)
             {
-                Debug.Log("Bonus points!!");
-                score += firstOrderBonus;
+                float procent = (customerPatience - timeBeforeScorePenalty) / (leaveAfterSeconds - timeBeforeScorePenalty);
+                penalty =  (int) (maxPenaltyLoseScore * procent);
             }
 
-                // patience calc
-            switch (customer.GetPatience())
-            {
-                case 1: // happy
-                    score += scoreAddIfHappy;
-                    break;
-                case 0: // irritated
+            score += penalty;
+            processCalc += " +" + penalty;
 
-                    break;
-                case -1: // angry
-                    int loseAmount = (int)(customer.GetPatienceTimer() - customer.GetAngryAtSeconds()) / 2; // varannan sekund = /2
-
-                    if (loseAmount > scoreAngryLoseMax)
-                    {
-                        loseAmount = scoreAngryLoseMax;
-                    }
-
-                    score -= loseAmount;
-
-                    break;
-                default:
-
-                    break;
-            }
-
-            // magic
+            // add magic
             IngredientAbstract[] ingredients = customer.GetOrder().GetIngredients();
 
             if (ingredients[0].GetIsMagic())
             {
-                score += magicScore;
+                score += magicIngredientScore;
+                processCalc += " +" + magicIngredientScore;
             }
             if (ingredients[1].GetIsMagic())
             {
-                score += magicScore;
+                score += magicIngredientScore;
+                processCalc += " +" + magicIngredientScore;
             }
             if (ingredients[2].GetIsMagic())
             {
-                score += magicScore;
+                score += magicIngredientScore;
+                processCalc += " +" + magicIngredientScore;
+            }
+
+            // divide score if not the first one
+            if (customer != customer1)
+            {
+                Debug.Log("Not the first one");
+                score /= notFirstOrderDividePenalty;
+                processCalc += " /" + notFirstOrderDividePenalty;
             }
         }
 
-        
-
         Debug.Log("ScoreAdd: " +  score);
+        processCalc += " = " + score;
+
+        popUpManager.SpawnPopUp(cam, this.transform, processCalc, Color.blue);
+
         return score;
     }
 
@@ -523,7 +532,8 @@ public class Goal : MonoBehaviour, GoalInterface
         Debug.Log("Submitted completed recipe");
         scoreTotal += points;
 
-       
+        if (scoreTotal < 0)
+            scoreTotal = 0;
 
         Debug.Log("Total score: " + scoreTotal);
 
@@ -558,15 +568,16 @@ public class Goal : MonoBehaviour, GoalInterface
             customer1 = customer.GetComponent<CustomerManager>();
             customer1.SetNewOrder(this);
 
-            customer1.SetIrritatedAtSeconds(irritatedAtSeconds);
-            customer1.SetAngryAtSeconds(angryAtSeconds);
+            //customer1.SetIrritatedAtSeconds(irritatedAtSeconds);
+            //customer1.SetAngryAtSeconds(angryAtSeconds);
+
             customer1.spriteManager = spriteManager;
 
             //damn 1
             SetCustomerUI(customer1);
 
             // UI Order
-            orderUI1.SetCustomer(customer1, leaveAtSeconds, true);
+            orderUI1.SetCustomer(customer1, leaveAfterSeconds, true);
         }
         else if(customer2 == null)
         {
@@ -576,15 +587,16 @@ public class Goal : MonoBehaviour, GoalInterface
             customer2 = customer.GetComponent<CustomerManager>();
             customer2.SetNewOrder(this);
 
-            customer2.SetIrritatedAtSeconds(irritatedAtSeconds);
-            customer2.SetAngryAtSeconds(angryAtSeconds);
+            //customer2.SetIrritatedAtSeconds(irritatedAtSeconds);
+            //customer2.SetAngryAtSeconds(angryAtSeconds);
+
             customer2.spriteManager = spriteManager;
 
             //damn 2
             SetCustomerUI(customer2);
 
             // UI Order
-            orderUI2.SetCustomer(customer2, leaveAtSeconds, true);
+            orderUI2.SetCustomer(customer2, leaveAfterSeconds, true);
         }
         else if(customer3 == null)
         {
@@ -594,25 +606,50 @@ public class Goal : MonoBehaviour, GoalInterface
             customer3 = customer.GetComponent<CustomerManager>();
             customer3.SetNewOrder(this);
 
-            customer3.SetIrritatedAtSeconds(irritatedAtSeconds);
-            customer3.SetAngryAtSeconds(angryAtSeconds);
+            //customer3.SetIrritatedAtSeconds(irritatedAtSeconds);
+            //customer3.SetAngryAtSeconds(angryAtSeconds);
+
             customer3.spriteManager = spriteManager;
 
             //damn 3
             SetCustomerUI(customer3);
 
             // UI Order
-            orderUI3.SetCustomer(customer3, leaveAtSeconds, true);
+            orderUI3.SetCustomer(customer3, leaveAfterSeconds, true);
         }
         else
         {
             return;
         }
 
+        customer.GetComponent<CustomerManager>().SetPatienceTimerMax(leaveAfterSeconds);
         amountOfCustomers++;
+        customersSpawned++;
+
+        ResetCustomerTimer();
         
-        timer = 0;
         source.PlayOneShot(newCustomerClip);
+    }
+
+    private void ResetCustomerTimer()
+    {
+        switch (customersSpawned)
+        {
+            case 0:
+                timeForNextCustomer = waitOffsetFromStart;
+                break;
+            case 1:
+                timeForNextCustomer = startRateSecondCustomer;
+                break;
+            case 2:
+                timeForNextCustomer = startRateThirdCustomer;
+                break;
+            default:
+                timeForNextCustomer = newCustomerRate;
+                break;
+        }
+
+        timer = 0;
     }
 
     private void SetCustomerUI(CustomerManager customer)

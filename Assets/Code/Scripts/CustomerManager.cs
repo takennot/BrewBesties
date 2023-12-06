@@ -12,8 +12,7 @@ public class CustomerManager : MonoBehaviour
 
     [Header("Patience")]
     [SerializeField] private float patienceTimer;
-    private int irritatedAtSeconds = 20;
-    private int angryAtSeconds = 45;
+    private float patienceTimerMax;
     public bool isServed = false;
 
     private int orderSize;
@@ -55,20 +54,9 @@ public class CustomerManager : MonoBehaviour
     private bool playParticalOnce = true;
     private bool playParticalTwise = true;
 
-    public CustomerManager()
-    {
-
-    }
-
     void Start()
     {
-        // order size will be 1, 2 or 3
-
-        // Anpassa max efter level
-        //orderSize = rand.Next(1, 4);
         UISpeechBubble.SetActive(false);
-
-        //newCustomerParticleSystem.Play();
     }
 
     public float timerLeaving = 0;
@@ -102,24 +90,24 @@ public class CustomerManager : MonoBehaviour
     private void Update()
     {
 
-        if(patienceTimer > angryAtSeconds && meshRenderer.material != materialAngry)
+        if (patienceTimer > patienceTimerMax * 0.5 && meshRenderer.material != materialAngry)
         {
             //meshRenderer.material = materialAngry;
             if (playParticalOnce)
             {
                 PlayParticleSystem("angry");
                 StartCoroutine(CountTillParticalDestruction());
-                playParticalOnce=false;
+                playParticalOnce = false;
             }
         }
-        else if (patienceTimer > irritatedAtSeconds && meshRenderer.material != materialIrritated && meshRenderer.material != materialAngry)
+        else if (patienceTimer > patienceTimerMax * 0.75 && meshRenderer.material != materialIrritated && meshRenderer.material != materialAngry)
         {
             //meshRenderer.material = materialIrritated;
             if (playParticalTwise)
             {
                 PlayParticleSystem("angry");
                 StartCoroutine(CountTillParticalDestruction());
-                playParticalTwise=false;
+                playParticalTwise = false;
             }
         }
 
@@ -314,22 +302,6 @@ public class CustomerManager : MonoBehaviour
         
     }
 
-    public int GetPatience()
-    {
-        if(patienceTimer > angryAtSeconds)
-        {
-            return -1;
-        }
-        else if(patienceTimer > irritatedAtSeconds)
-        {
-            return 0;
-        }
-        else
-        {
-            return 1;
-        }
-    }
-
     public float GetPatienceTimer()
     {
         return patienceTimer;
@@ -340,7 +312,7 @@ public class CustomerManager : MonoBehaviour
         if(mode.Equals("angry") || mode == "angry")
         {
             //Debug.Log("kommer in i angry");
-          playingParticalSystem = Instantiate(angryParticalSystem, particalPostion);
+            playingParticalSystem = Instantiate(angryParticalSystem, particalPostion);
 
             return;
         }
@@ -365,56 +337,25 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
-    public void SetIrritatedAtSeconds(int seconds)
+    public void SetPatienceTimerMax(int seconds)
     {
-        irritatedAtSeconds = seconds;
+        patienceTimerMax = seconds;
     }
-    public void SetAngryAtSeconds(int seconds)
-    {
-        angryAtSeconds = seconds;
-    }
-    public int GetIrritatedAtSeconds()
-    {
-        return irritatedAtSeconds;
-    }
-    public int GetAngryAtSeconds()
-    {
-        return angryAtSeconds;
-    }
+
+    //public void SetIrritatedAtSeconds(int seconds)
+    //{
+    //    irritatedAtSeconds = seconds;
+    //}
+    //public void SetAngryAtSeconds(int seconds)
+    //{
+    //    angryAtSeconds = seconds;
+    //}
+    //public int GetIrritatedAtSeconds()
+    //{
+    //    return irritatedAtSeconds;
+    //}
+    //public int GetAngryAtSeconds()
+    //{
+    //    return angryAtSeconds;
+    //}
 }
-
-//public class CustomerOrderInner
-//{
-//    private System.Random rand = new System.Random();
-//    public enum Ingredients
-//    {
-//        Eye,
-//        Mushroom
-//    }
-//    private Ingredient[] orderThree = new Ingredient[3];
-//    private Ingredient[] orderTwo = new Ingredient[2];
-//    private Ingredient[] orderOne = new Ingredient[1];
-
-//    public CustomerOrderInner(Ingredient ingredientOne, Ingredient IngredientTwo, Ingredient IngredientThree)
-//    {
-//        orderThree[0] = ingredientOne;
-//        orderThree[1] = IngredientTwo;
-//        orderThree[2] = IngredientThree;
-//    }
-
-//    public CustomerOrderInner(Ingredient ingredientOne, Ingredient IngredientTwo)
-//    {
-//        orderTwo[0] = ingredientOne;
-//        orderTwo[1] = IngredientTwo;
-//    }
-//    public CustomerOrderInner(Ingredient ingredientOne) 
-//    {
-//        orderOne[0] = ingredientOne;
-//    }
-
-//    public Ingredient GetRandomIngredient()
-//    {
-//        var v = Ingredients.GetValues(typeof(Ingredient));
-//        return (Ingredient)v.GetValue(rand.Next(v.Length));
-//    }
-//}
