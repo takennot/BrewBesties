@@ -7,13 +7,11 @@ public class WS_MagicField : MonoBehaviour
 
     [SerializeField] private bool isActive = true;
     [SerializeField] private bool mustBeThrown = true;
+    private GameObject field;
 
     [Header("Boost items passing through?")]
     [SerializeField] private bool givesBoost = false;
     [SerializeField] private float forceMagnitude = 1f;
-
-    [SerializeField] private GameObject field;
-
 
     // Start is called before the first frame update
     void Start()
