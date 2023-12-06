@@ -965,20 +965,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447e41c172ec05542b6a013ba2484305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  playersCollidingWIth: 0
   counter: {fileID: 8368349899972669565}
+  startAndEnd: {fileID: 0}
   scoreTotal: 0
+  source: {fileID: 3737697286366095260}
   completedClip: {fileID: 8300000, guid: 9b14ddaff866071498147be50cce3439, type: 3}
   notCompletedClip: {fileID: 8300000, guid: 1d9620bbfdbb9e04d8f68253cd2a7e33, type: 3}
   newCustomerClip: {fileID: 8300000, guid: 0f0584bf5b986fa45a9df034299f0e56, type: 3}
-  scoreBase: 90
-  scoreAddIfHappy: 20
-  magicScore: 5
-  scoreAngryLoseMax: 40
-  firstOrderBonus: 40
+  timeBeforeScorePenalty: 20
+  leaveAfterSeconds: 90
   popUpManager: {fileID: 1903753169939719827}
-  irritatedAtSeconds: 55
-  angryAtSeconds: 90
-  leaveAtSeconds: 0
+  maxPenaltyLoseScore: -25
+  scoreBaseRecipeDone: 70
+  magicIngredientScore: 5
+  notFirstOrderDividePenalty: 2
+  customerLeavesPenalty: -20
   seat1: {fileID: 4926426199538673632}
   seat2: {fileID: 7754227632458751321}
   seat3: {fileID: 5608228404490526279}
@@ -988,8 +991,10 @@ MonoBehaviour:
   customer2: {fileID: 0}
   customer3: {fileID: 0}
   amountOfCustomers: 0
-  timeForNextCustomer: 14
   waitOffsetFromStart: 3
+  startRateSecondCustomer: 2
+  startRateThirdCustomer: 15
+  newCustomerRate: 5
   mushroomAllowed: 1
   magicMushroomPercent: 0.5
   eyeAllowed: 1
@@ -1000,8 +1005,6 @@ MonoBehaviour:
   activated: 1
   showScoreUI: 1
   recipesCompleted: 0
-  cam: {fileID: 0}
-  playersCollidingWIth: 0
   spriteManager: {fileID: 0}
 --- !u!114 &1903753169939719827
 MonoBehaviour:
@@ -1030,6 +1033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 9211590804700573408}
+  timeOut: 1
 --- !u!114 &9211590804700573408
 MonoBehaviour:
   m_ObjectHideFlags: 0

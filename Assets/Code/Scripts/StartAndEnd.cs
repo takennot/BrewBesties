@@ -38,7 +38,7 @@ public class StartAndEnd : MonoBehaviour
     private int nextSceneIndex;
 
     [Header("Delays")]
-    [SerializeField] int timeToWaitForStart = 3;
+    [SerializeField] public int timeToWaitForStart = 3;
     [SerializeField] private float circleStartDelay = 3f;
     //[SerializeField] private float levelEndDelay = 9f;
     public bool hasStarted = false;
@@ -203,7 +203,7 @@ public class StartAndEnd : MonoBehaviour
         audioSourceShuffle.clip = shuffle_audio;
         audioSourceShuffle.Play();
 
-        score = 700; // TA BORTTTT
+        //score = 700; // TA BORTTTT
 
         scoreText.text = text + "0";
 
