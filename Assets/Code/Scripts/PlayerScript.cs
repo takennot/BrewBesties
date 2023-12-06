@@ -538,7 +538,7 @@ public class PlayerScript : MonoBehaviour
             {
                 if (hitObject.GetComponent<Saw>())
                 {
-                    hitObject.GetComponent<Saw>().ShowSawOutlineIfOk(color, true);
+                    hitObject.GetComponent<Saw>().ShowSawOutlineIfOk(this, color, true);
                     foundOutline = true;
                 }
                 // om man kollar på workstation styrs längre upp för counterstate
