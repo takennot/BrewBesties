@@ -22,11 +22,11 @@ public class CounterState : MonoBehaviour {
 
         if (storedItem == null)
         {
-            counterOutline.enabled = true;
+            //counterOutline.enabled = true;
         }
         else
         {
-            counterOutline.enabled = false;
+            //counterOutline.enabled = false;
         }
     }
 
