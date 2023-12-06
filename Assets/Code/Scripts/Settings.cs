@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,21 @@ public class Settings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        switch (PlayerPrefs.GetInt("FullscreenMode"))
+        {
+            case 0:
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 2:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+        }
+        Screen.SetResolution(PlayerPrefs.GetInt("Resolution Width", 1920), PlayerPrefs.GetInt("Resolution Height", 1080), Screen.fullScreenMode, Screen.currentResolution.refreshRateRatio);
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.ExclusiveFullScreen, new RefreshRate() { numerator = Convert.ToUInt32(PlayerPrefs.GetInt("Refresh Rate", 60)), denominator = 1 });
+        volumeSlider.value = PlayerPrefs.GetFloat("Volume", 0.1f);
     }
 
     // Update is called once per frame
