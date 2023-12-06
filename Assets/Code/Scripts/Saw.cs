@@ -19,6 +19,8 @@ public class Saw : MonoBehaviour
 
     [SerializeField] private float playerSawSpeed = 2;
     [SerializeField] private float maxSawProcess = 15;
+    [Range(0, 4)]
+    [SerializeField] private float twoPlayerExtraSpeed = 0.5f;
 
     [Header("Refs")]
     [SerializeField] private Slider sawSlider;
@@ -66,15 +68,14 @@ public class Saw : MonoBehaviour
 
         if (playersSawing.Count > 0)
         {
-            animator.speed = players * baseSpeed;
+            animator.speed = players * baseSpeed; 
 
             float speedCalc = 0;
             foreach (PlayerScript player in playersSawing)
             {
                 speedCalc += playerSawSpeed;
             }
-
-            currentSawSpeed = speedCalc;
+            currentSawSpeed = (players == 2) ? speedCalc + twoPlayerExtraSpeed : playerSawSpeed;
 
             sourceSawing.pitch = playersSawing.Count;
         }

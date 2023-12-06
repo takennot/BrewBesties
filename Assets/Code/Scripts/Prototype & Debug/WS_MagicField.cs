@@ -6,6 +6,7 @@ public class WS_MagicField : MonoBehaviour
 {
 
     [SerializeField] private bool isActive = true;
+    private bool originalActive;
     [SerializeField] private bool mustBeThrown = true;
 
     [Header("Boost items passing through?")]
@@ -19,13 +20,12 @@ public class WS_MagicField : MonoBehaviour
     GameObject gb;
     [SerializeField] GameObject startPortal;
 
-
     // Start is called before the first frame update
     void Start()
     {
         field = this.gameObject;
         field.SetActive(isActive);
-
+        originalActive = isActive;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -58,8 +58,21 @@ public class WS_MagicField : MonoBehaviour
     public void SetIsActive(bool state)
     {
         field.SetActive(state);
-
     }
+
+    public void ReverseState(bool returnToOriginal)
+    {
+        if(returnToOriginal)
+        {
+            isActive = originalActive;
+        } else
+        {
+            isActive = !originalActive;
+        }
+
+        field.SetActive(isActive);
+    }
+
 
     private IEnumerator addMoreMagic(float time)
     {

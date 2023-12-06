@@ -13,18 +13,15 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateScore();
+        if(goal == null)
+        {
+            enabled = false;
+        }
 
-        //goal = FindObjectOfType<Goal>();
+        UpdateScore();
 
         if(scoreText == null)
             scoreText = GetComponentInChildren<TMP_Text>();
-
-        if (scoreText == null)
-        {
-            Debug.LogWarning("Goal not found in game manager, SHUTTING DOWN");
-            this.enabled = false;
-        }
     }
 
     // Update is called once per frame
