@@ -72,6 +72,7 @@ public class CauldronState : MonoBehaviour
         EmptyCauldron(); // reset
         source = GetComponent<AudioSource>();
         drop = GetComponent<DropEffectHandeler>();
+        onlyDoOnce = true;
     }
 
     // Update is called once per frame
@@ -96,8 +97,10 @@ public class CauldronState : MonoBehaviour
             {
                 // done
                 processSliderFillArea.color = Color.green;
+               
                 if (onlyDoOnce)
                 {
+                    
                     drop.PlayFinishEffect();
                     onlyDoOnce = false;
                 }
@@ -125,9 +128,9 @@ public class CauldronState : MonoBehaviour
         /*
         if(gameObject.GetComponent<FireState>().IsWarm() == false || (process == processToFinishCauldron) == false || ingredientCount < 3)
         {
-            drop.playFinisEffect();
-        }
-       */
+            drop.PlayUnFinishEffect();
+        }*/
+       
 
         if (!checkpoint1Reached && processSlider.value >= secondsPerProcess)
         {
@@ -148,7 +151,7 @@ public class CauldronState : MonoBehaviour
         // DEBUGG
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log("T");
+            //Debug.Log("T");
             EmptyCauldron();
         }
 
@@ -192,20 +195,20 @@ public class CauldronState : MonoBehaviour
             switch (ingredientType)
             {
                 case Resource_Enum.Ingredient.Mushroom:
-                    Debug.Log("Cauldron red");
+                    //Debug.Log("Cauldron red");
                     //liquidPlane.GetComponent<MeshRenderer>().material = red;
                     liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("red");
                     drop.PlayEffect("mushroom");
                 break;
                 case Resource_Enum.Ingredient.MonsterEye:
-                    Debug.Log("Cauldron gray");
+                    //Debug.Log("Cauldron gray");
                     //liquidPlane.GetComponent<MeshRenderer>().material = gray;
                     liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("gray");
                     drop.PlayEffect("monstereye");
 
                     break;
                 case Resource_Enum.Ingredient.PixieDust:
-                    Debug.Log("Cauldron blue");
+                    //Debug.Log("Cauldron blue");
                     //liquidPlane.GetComponent<MeshRenderer>().material = water; //!!!
                     //liquidPlane.GetComponent<ChangePotionColor>().changeColor("red");
                     liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("pink");
@@ -250,30 +253,30 @@ public class CauldronState : MonoBehaviour
 
                     if (ingredient1 == null)
                     {
-                        Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
+                        //Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
 
                         ingredient1 = new(ingredient.GetIngredientType(), ingredient.GetIsMagic());
 
-                        Debug.Log(ingredient1.GetIngredientType() + "(" + ingredient1.GetIsMagic() + ")");
-                        Debug.Log(ingredient1type + "(" + magic1 + ")");
+                        //Debug.Log(ingredient1.GetIngredientType() + "(" + ingredient1.GetIsMagic() + ")");
+                        //Debug.Log(ingredient1type + "(" + magic1 + ")");
                     }
                     else if (ingredient2 == null)
                     {
-                        Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
+                        //Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
 
                         ingredient2 = new(ingredient.GetIngredientType(), ingredient.GetIsMagic());
 
-                        Debug.Log(ingredient2.GetIngredientType() + "(" + ingredient2.GetIsMagic() + ")");
-                        Debug.Log(ingredient2type + "(" + magic2 + ")");
+                        //Debug.Log(ingredient2.GetIngredientType() + "(" + ingredient2.GetIsMagic() + ")");
+                        //Debug.Log(ingredient2type + "(" + magic2 + ")");
                     }
                     else if (ingredient3 == null)
                     {
-                        Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
+                        //Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
 
                         ingredient3 = new(ingredient.GetIngredientType(), ingredient.GetIsMagic());
 
-                        Debug.Log(ingredient3.GetIngredientType() + "(" + ingredient3.GetIsMagic() + ")");
-                        Debug.Log(ingredient3type + "(" + magic3 + ")");
+                        //Debug.Log(ingredient3.GetIngredientType() + "(" + ingredient3.GetIsMagic() + ")");
+                        //Debug.Log(ingredient3type + "(" + magic3 + ")");
                     }
 
                     source.PlayOneShot(waterDropClip);
@@ -302,7 +305,7 @@ public class CauldronState : MonoBehaviour
         bool isDone = processSlider.value >= processSlider.maxValue;
         if (hasToBeDone == true && isDone == false) //For tutorial
         {
-            Debug.Log("hasToBeDone == true && isDone == false");
+            //Debug.Log("hasToBeDone == true && isDone == false");
             return null;
         }
 
