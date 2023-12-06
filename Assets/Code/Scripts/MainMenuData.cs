@@ -6,6 +6,7 @@ public class MainMenuData : MonoBehaviour
 {
     [SerializeField] public static int playerAmount;
     [SerializeField] public static bool isArcade;
+    [SerializeField] public static int saveSlot;
     // Start is called before the first frame update
     void Start()
     {
