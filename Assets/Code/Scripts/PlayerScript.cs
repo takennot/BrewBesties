@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     private Vector3 moveDirection;
     private float movementSpeed;
     public float mass = 2f;
+    private bool isInFence = false;
 
     [Header("Reach")]
     [SerializeField] private int grabReach = 1;
@@ -224,6 +225,16 @@ public class PlayerScript : MonoBehaviour
         if (!initialized)
         {
             Initialize();
+        }
+
+        if(playerState == PlayerState.IsBeingHeld || playerState == PlayerState.IsBeingThrown)
+        {
+            gameObject.layer = LayerMask.NameToLayer("PlayerThrown");
+        }
+
+        if(!(playerState == PlayerState.IsBeingHeld) && !(playerState == PlayerState.IsBeingThrown) && !isInFence)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
         }
 
         //Debug.Log((int)playerState + " | " + (int)holdingState);
@@ -1326,4 +1337,19 @@ public class PlayerScript : MonoBehaviour
         holdingState = newState;
     }
 
+    //This doesnt work really...
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Fence"))
+        {
+            isInFence = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Fence"))
+        {
+            isInFence = false;
+        }
+    }
 }
