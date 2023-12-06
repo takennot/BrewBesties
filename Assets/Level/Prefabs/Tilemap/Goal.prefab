@@ -817,6 +817,7 @@ GameObject:
   - component: {fileID: 8368349899972669565}
   - component: {fileID: 7457394255763333319}
   - component: {fileID: 1903753169939719827}
+  - component: {fileID: 5209612464405683216}
   - component: {fileID: 9211590804700573408}
   - component: {fileID: 3737697286366095260}
   m_Layer: 0
@@ -935,8 +936,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.56, y: 1.58, z: 1.27}
-  m_Center: {x: 0.039464224, y: -0.015915126, z: -0.97216535}
+  m_Size: {x: 4.56, y: 0.25, z: 1.27}
+  m_Center: {x: 0.039464235, y: 0.81, z: -0.97216535}
 --- !u!114 &8368349899972669565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,6 +1017,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popUpPrefab: {fileID: 7296218193969119581, guid: 58ef3f7e22b38ae40a38586d405af078,
     type: 3}
+--- !u!114 &5209612464405683216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546617795822337640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e001f7450e13784daa39b51b5bda87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 9211590804700573408}
 --- !u!114 &9211590804700573408
 MonoBehaviour:
   m_ObjectHideFlags: 0
