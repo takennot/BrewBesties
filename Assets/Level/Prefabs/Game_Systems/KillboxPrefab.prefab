@@ -83,6 +83,7 @@ MonoBehaviour:
   timerPlayer4: {fileID: 3599052608060877731}
   respawnVFX: {fileID: 6719589312262288535, guid: d08b84226681c674798c16f1f8871882,
     type: 3}
+  respawnVFXInstance: {fileID: 0}
 --- !u!1 &3573849146269422369
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +133,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3573849146269422369}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
