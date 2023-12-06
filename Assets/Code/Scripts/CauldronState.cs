@@ -62,8 +62,8 @@ public class CauldronState : MonoBehaviour
     private bool onlyDoOnce = true;
 
     [Header("Outlines")]
-    public Outline cauldronOutline;
-    public Outline fireOutline;
+    public OutlineHandler cauldronOutline;
+    public OutlineHandler fireOutline;
 
     // Start is called before the first frame update
     void Start()
@@ -433,14 +433,14 @@ public class CauldronState : MonoBehaviour
         }
     }
 
-    public Outline SetUpAndGetCauldronOutline()
+    public OutlineHandler SetUpAndGetCauldronOutline()
     {
         cauldronOutline.enabled = true;
         fireOutline.enabled = false;
 
         return cauldronOutline;
     }
-    public Outline SetUpAndGetFireOutline()
+    public OutlineHandler SetUpAndGetFireOutline()
     {
         fireOutline.enabled = true;
         cauldronOutline.enabled = false;
