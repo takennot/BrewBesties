@@ -12,10 +12,7 @@ public class CounterState : MonoBehaviour {
 
     private void Start()
     {
-        if (counterOutline == null)
-        {
-            counterOutline = GetComponentInChildren<Outline>();
-        }
+
     }
 
     private void Update()

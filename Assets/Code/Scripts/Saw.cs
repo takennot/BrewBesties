@@ -30,6 +30,9 @@ public class Saw : MonoBehaviour
     [SerializeField] private Animator animator;
     public float baseSpeed = 2;
 
+    [Header("Outline")]
+    [SerializeField] private OutlineHandler outlineHandler;
+
     [Header("Sound")]
     [SerializeField] private AudioClip sawingSound;
     [SerializeField] private AudioClip woodDropSound;
@@ -130,5 +133,13 @@ public class Saw : MonoBehaviour
     public Slider GetSlider()
     {
         return sawSlider;
+    }
+
+    public void ShowSawOutlineIfOk(Color playerColor, bool thick)
+    {
+        if(players >= 2)
+        {
+            outlineHandler.ShowOutline(playerColor, thick);
+        }
     }
 }
