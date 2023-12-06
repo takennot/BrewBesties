@@ -119,6 +119,7 @@ public class Saw : MonoBehaviour
         playersSawing.Remove(thisPlayer);
         sourceSawing.Pause();
         createOnce = true;
+        Destroy(instanciestEffect);
     }
 
     private void DropWood()
