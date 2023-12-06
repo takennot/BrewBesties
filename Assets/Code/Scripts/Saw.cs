@@ -31,7 +31,8 @@ public class Saw : MonoBehaviour
     public float baseSpeed = 2;
 
     [Header("Outline")]
-    [SerializeField] private OutlineHandler outlineHandler;
+    [SerializeField] private OutlineHandler outlineHandler1;
+    [SerializeField] private OutlineHandler outlineHandler2;
 
     [Header("Sound")]
     [SerializeField] private AudioClip sawingSound;
@@ -93,7 +94,7 @@ public class Saw : MonoBehaviour
 
     public void DoSawProcess(PlayerScript thisPlayer)
     {
-        if(sawingPlate1.GetPlayerColliding() == thisPlayer || sawingPlate2.GetPlayerColliding() == thisPlayer)
+        if(PlatesIsActivatedByPlayer(thisPlayer))
         {
             if (!playersSawing.Contains(thisPlayer) && playersSawing.Count < 2)
             {
@@ -135,11 +136,16 @@ public class Saw : MonoBehaviour
         return sawSlider;
     }
 
-    public void ShowSawOutlineIfOk(Color playerColor, bool thick)
+    public void ShowSawOutlineIfOk(PlayerScript playerScript, Color playerColor, bool thick)
     {
-        if(players >= 2)
+        if(PlatesIsActivatedByPlayer(playerScript))
         {
-            outlineHandler.ShowOutline(playerColor, thick);
+            outlineHandler1.ShowOutline(playerColor, thick);
         }
+    }
+
+    private bool PlatesIsActivatedByPlayer(PlayerScript playerScript)
+    {
+        return sawingPlate1.GetPlayerColliding() == playerScript || sawingPlate2.GetPlayerColliding() == playerScript;
     }
 }
