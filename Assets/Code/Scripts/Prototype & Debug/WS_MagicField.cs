@@ -19,7 +19,6 @@ public class WS_MagicField : MonoBehaviour
     GameObject gb;
     [SerializeField] GameObject startPortal;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -58,8 +57,16 @@ public class WS_MagicField : MonoBehaviour
     public void SetIsActive(bool state)
     {
         field.SetActive(state);
-
     }
+
+    public void ReverseState()
+    {
+        isActive = !isActive;
+
+        // Set the field to the reversed state
+        field.SetActive(isActive);
+    }
+
 
     private IEnumerator addMoreMagic(float time)
     {
