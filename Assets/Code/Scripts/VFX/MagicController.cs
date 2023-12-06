@@ -62,7 +62,20 @@ public class MagicController : MonoBehaviour
             }
         }
         */
-      
+        
+        if(ingridanse == null)
+        {
+            return;
+        }
+
+        if (ws.doWork == false && ingridanse.GetComponent<Ingredient>().GetIsMagic() == false)
+        {
+            if (maigOnIngridanse != null)
+            {
+                Destroy(maigOnIngridanse);
+            }
+        }
+        
     }
 
     public void CreatePartical()
@@ -113,6 +126,7 @@ public class MagicController : MonoBehaviour
             ingridanse.GetComponentInChildren<MeshRenderer>().materials = newArry;
             ingridanse = null;
         }
+       
 
     }
 

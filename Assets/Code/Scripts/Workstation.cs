@@ -76,7 +76,6 @@ public class Workstation : MonoBehaviour
             magicController.onlyOnePartical = false;
             magicController.createOnce = false;
 
-
         }
         else
         {
