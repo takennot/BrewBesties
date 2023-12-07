@@ -334,6 +334,8 @@ public class StartAndEnd : MonoBehaviour
 
         Debug.Log("Start the thing!");
 
+        MainMenuData.UpdateHighscore(SceneManager.GetActiveScene().name, score);
+
         ShowScore();
 
         //StartCoroutine(LoadNextSceneAfterDelay(completedLevel));

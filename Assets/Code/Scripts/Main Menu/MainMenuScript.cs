@@ -118,9 +118,10 @@ public class MainMenuScript : MonoBehaviour
 
     public void OnStartGame()
     {
-        //saveSelection.gameObject.SetActive(true);
-        //saveSlot1.Select();
-        SceneManager.LoadScene(3);
+        saveSelection.gameObject.SetActive(true);
+        saveSelection.GetComponentInParent<SaveSlotSelectionManager>().LoadSaveSlots();
+        saveSlot1.Select();
+        //SceneManager.LoadScene(3);
     }
 
     public void OnStartTutorial()

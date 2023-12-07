@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SaveSlotSelectionManager : MonoBehaviour
@@ -26,8 +27,15 @@ public class SaveSlotSelectionManager : MonoBehaviour
         }
     }
 
+    public void LoadSaveSlots()
+    {
+        MainMenuData.saveSlot = 1;
+    }
+
     public void OnSaveSlotSelect()
     {
+       LoadSaveSlots();
+        SceneManager.LoadScene(3);
         // open canvas with level selection
     }
 
