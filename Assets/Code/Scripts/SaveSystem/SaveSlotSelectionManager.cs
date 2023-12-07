@@ -8,6 +8,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button playButton;
+    [SerializeField] private SaveSlotManager[] saveSlots = new SaveSlotManager[3];
     // Start is called before the first frame update
     void Start()
     {
@@ -27,16 +28,35 @@ public class SaveSlotSelectionManager : MonoBehaviour
         }
     }
 
-    public void LoadSaveSlots()
+    public void PreviewSaveSlots()
     {
-        MainMenuData.saveSlot = 1;
+        int i = 0;
+        
+        foreach (SaveSlotManager saveSlotManager in saveSlots)
+        {
+            saveSlotManager.UpdateSlot(SaveManager.GetHighscores(i));
+            i++;
+        }
     }
 
-    public void OnSaveSlotSelect()
+    private void LoadSaveSlot(int slot)
     {
-       LoadSaveSlots();
+        MainMenuData.SetSaveSlot(slot);
         SceneManager.LoadScene(3);
-        // open canvas with level selection
+    }
+
+    public void OnSaveSlot1Select()
+    {
+       LoadSaveSlot(0);
+
+    }
+    public void OnSaveSlot2Select()
+    {
+        LoadSaveSlot(1);
+    }
+    public void OnSaveSlot3Select()
+    {
+        LoadSaveSlot(2);
     }
 
     public void OnSaveSlotReset()

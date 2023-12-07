@@ -42,20 +42,29 @@ public static class SaveManager
     {
         Dictionary<string, int> levelHighscores = new Dictionary<string, int>();
         string savePath = GetSavePath(saveSlot);
+        if (!Directory.Exists(Path.GetDirectoryName(savePath)) || !File.Exists(savePath))
+        {
+            //Directory.CreateDirectory(Path.GetDirectoryName(savePath));
+            return levelHighscores;
+        }
+        //FileStream fs = File.Create(logPath);
         StreamReader streamReader = new StreamReader(savePath);
         while (!streamReader.EndOfStream)
         {
+            Debug.Log("reading file");
             string savedHighscore = streamReader.ReadLine();
             string[] values = savedHighscore.Split(':');
 
             levelHighscores.Add(values[1], Int32.Parse(values[3]));
         }
         streamReader.Close();
+        Debug.Log("blöööö");
         return levelHighscores;
     }
 
     private static string GetSavePath(int saveSlot)
     {
-        return Path.Combine(Application.persistentDataPath, "SaveFiles", "save_" + MainMenuData.saveSlot + ".bestie");
+        //return Application.persistentDataPath + "/SaveFiles/" + "save_" + MainMenuData.GetSaveSlot() + ".bestie";
+        return Path.Combine(Application.persistentDataPath, "SaveFiles", "save_" + MainMenuData.GetSaveSlot() + ".bestie");
     }
 }

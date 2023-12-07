@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SaveSlotManager : MonoBehaviour
@@ -9,7 +11,7 @@ public class SaveSlotManager : MonoBehaviour
     [SerializeField] private Image levelImage;
     [SerializeField] private TMP_Text progress; // in %
     [SerializeField] private TMP_Text unlockedLevels;
-    private int saveSlot;
+    // maybe have arraylist with images?
 
     // Start is called before the first frame update
     void Start()
@@ -23,16 +25,73 @@ public class SaveSlotManager : MonoBehaviour
         
     }
 
-    public void UpdateSlot()
+    public void UpdateSlot(Dictionary<string, int> highscores)
     {
-        UpdateImage();
-        UpdateProgress();
-        UpdateUnlockedLevels();
+        string key = GetLastCompletedLevelName(highscores);
+        int highscore;
+        if(key != null)
+        {
+            highscores.TryGetValue(key, out highscore);
+
+            List<int> levelreqs = CompletionRequirements.GetLevelRequirements(key);
+            if (levelreqs[0] == 1)
+            {
+                UpdateImage(false);
+                UpdateProgress();
+                UpdateUnlockedLevels("Tutorial");
+            }
+            int lastCompletedLevelIndex = SceneManager.GetSceneByName(key).buildIndex;
+            int lastUnlockedLevelIndex;
+            if (highscore >= levelreqs[0])
+            {
+                lastUnlockedLevelIndex = lastCompletedLevelIndex + 1;
+
+                UpdateImage(false);
+                UpdateProgress();
+                UpdateUnlockedLevels(SceneManager.GetSceneByBuildIndex(lastUnlockedLevelIndex).name);
+            }
+
+            UpdateImage(false);
+            UpdateProgress();
+            UpdateUnlockedLevels(key);
+        }
+        else
+        {
+            UpdateImage(true);
+            UpdateProgress();
+            UpdateUnlockedLevels("Empty");
+        }
+
     }
 
-    private void UpdateImage()
+    public string GetLastCompletedLevelName(Dictionary<string, int> highscores)
     {
+        for (int i = SceneManager.sceneCountInBuildSettings -1; i > 1; i--)
+        {
+            string key = SceneManager.GetSceneByBuildIndex(i).name;
+            if (key != null)
+            {
+                if (highscores.ContainsKey(SceneManager.GetSceneByBuildIndex(i).name))
+                {
+                    return SceneManager.GetSceneByBuildIndex(i).name;
+                }
+            }
+        }
+        return null;
+    }
 
+    private void UpdateImage(/*Image image,*/ bool empty)
+    {
+        if (empty)
+        {
+            levelImage.color = Color.grey;
+        }
+        else 
+        {
+            levelImage.color = Color.white;
+            //levelImage = image;
+        }
+        
     }
 
     private void UpdateProgress()
@@ -40,8 +99,8 @@ public class SaveSlotManager : MonoBehaviour
 
     }
 
-    private void UpdateUnlockedLevels()
+    private void UpdateUnlockedLevels(string levelName)
     {
-
+        unlockedLevels.text = levelName;
     }
 }

@@ -171,7 +171,7 @@ public class Goal : MonoBehaviour, GoalInterface
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            GivePoints(100);
+            GivePoints(50);
         }
         if (!activated) return;
 

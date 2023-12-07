@@ -29,7 +29,7 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] private bool isTutorial;
 
-    [SerializeField] private GameObject goal;
+    [SerializeField] private Goal goal;
 
     private int saveSlot;
 
@@ -364,7 +364,7 @@ public class GameManagerScript : MonoBehaviour
                     sw.WriteLine("----------------------------------------------");
                     sw.WriteLine("Session ID: " + AnalyticsSessionInfo.sessionId);
                     sw.WriteLine("Level: " + SceneManager.GetActiveScene().name);
-                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetComponent<Goal>().GetScore());
+                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetScore());
                     sw.WriteLine("----------------------------------------------");
                 }
 
