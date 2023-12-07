@@ -862,6 +862,11 @@ public class PlayerScript : MonoBehaviour
 
     public void Grab(Item item)
     {
+        if(holdingState != HoldingState.HoldingNothing)
+        {
+            return;
+        }
+
         Debug.Log("Grabbing");
 
         holdingState = HoldingState.HoldingItem;

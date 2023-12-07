@@ -3555,6 +3555,11 @@ PrefabInstance:
       objectReference: {fileID: 1971786835}
     - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
         type: 3}
+      propertyPath: spriteManager
+      value: 
+      objectReference: {fileID: 2033074447}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
       propertyPath: magicEyePercent
       value: 0
       objectReference: {fileID: 0}
@@ -3596,7 +3601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &255723128 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1546617795822337640, guid: 42a5141a65b4d144fa87ff4620c89b89,
+  m_CorrespondingSourceObject: {fileID: 6165761541034438182, guid: 42a5141a65b4d144fa87ff4620c89b89,
     type: 3}
   m_PrefabInstance: {fileID: 255723126}
   m_PrefabAsset: {fileID: 0}
@@ -26720,12 +26725,7 @@ PrefabInstance:
     - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: timeMinutes
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
-        type: 3}
-      propertyPath: timeSeconds
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28022,6 +28022,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fddbb2baf89de074aae19a15bd4c93de, type: 3}
+--- !u!114 &2033074447 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2978809908618173354, guid: fddbb2baf89de074aae19a15bd4c93de,
+    type: 3}
+  m_PrefabInstance: {fileID: 2033074446}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033074448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab78a01b2ba6464796f3b56b6f7ac34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2033074448 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 964634442633850205, guid: fddbb2baf89de074aae19a15bd4c93de,
@@ -28586,7 +28598,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 255723126}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255723128}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 447e41c172ec05542b6a013ba2484305, type: 3}
