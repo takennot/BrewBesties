@@ -29,7 +29,7 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] private bool isTutorial;
 
-    [SerializeField] private GameObject goal;
+    [SerializeField] private Goal goal;
 
     private int saveSlot;
 
@@ -364,7 +364,7 @@ public class GameManagerScript : MonoBehaviour
                     sw.WriteLine("----------------------------------------------");
                     sw.WriteLine("Session ID: " + AnalyticsSessionInfo.sessionId);
                     sw.WriteLine("Level: " + SceneManager.GetActiveScene().name);
-                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetComponent<Goal>().GetScore());
+                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetScore());
                     sw.WriteLine("----------------------------------------------");
                 }
 
@@ -384,36 +384,5 @@ public class GameManagerScript : MonoBehaviour
                 Console.WriteLine($"Data appended to {logPath}");
             }
         }
-    }
-
-    public void SaveGame()
-    {
-            // %userprofile%\AppData\LocalLow\<companyname>\<productname>
-            //string logPath = Application.persistentDataPath + "\\SessionLogs\\" + AnalyticsSessionInfo.sessionId + ".txt";
-            string savePath = Path.Combine(Application.persistentDataPath, "SaveFiles", saveSlot + ".bestie");
-
-
-            // Ensure the directory exists
-            string directoryPath = Path.GetDirectoryName(savePath);
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
-
-            // Check if the file already exists
-            if (!File.Exists(savePath))
-            {
-
-                //FileStream fs = File.Create(logPath);
-
-                // If the file doesn't exist, create it and write the data
-                using (StreamWriter sw = File.CreateText(savePath))
-                {
-                    sw.WriteLine("Session ID: " + AnalyticsSessionInfo.sessionId);
-                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().buildIndex + ": " + goal.GetComponent<Goal>().GetScore());
-                }
-
-                Console.WriteLine($"Data saved to {savePath}");
-            }
     }
 }

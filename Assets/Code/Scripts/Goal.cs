@@ -177,6 +177,10 @@ public class Goal : MonoBehaviour, GoalInterface
     [System.Obsolete]
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GivePoints(50);
+        }
         if (!activated) return;
 
         if (counter.storedItem != null) {
@@ -344,7 +348,6 @@ public class Goal : MonoBehaviour, GoalInterface
                 orderUI3.gameObject.SetActive(true);
             }
         }
-
     }
 
     private void UpdateCustomerSeatOrder()
