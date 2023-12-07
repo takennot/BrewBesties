@@ -120,7 +120,7 @@ public class Saw : MonoBehaviour
         playersSawing.Remove(thisPlayer);
         sourceSawing.Pause();
         createOnce = true;
-        Destroy(instanciestEffect);
+        //Destroy(instanciestEffect);
     }
 
     private void DropWood()
@@ -164,7 +164,9 @@ public class Saw : MonoBehaviour
     {
         if (createOnce)
         {
+            Debug.Log("ska skapa particle saw");
             instanciestEffect = Instantiate(sawEffect, particalSystemPostion);
+            //instanciestEffect.SetTransform = particalSystemPostion;
             createOnce = false;
         }
       
