@@ -31847,12 +31847,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 2949577570467265822, guid: 902841f2161e571459d38bc1900b1c64,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3177891890082260303, guid: 902841f2161e571459d38bc1900b1c64,
         type: 3}
       propertyPath: m_Intensity
       value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4121726111849927355, guid: 902841f2161e571459d38bc1900b1c64,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761254774460204391, guid: 902841f2161e571459d38bc1900b1c64,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -36587,7 +36597,7 @@ MonoBehaviour:
   sliderManager: {fileID: 2076259723}
   killboxManager: {fileID: 293146129}
   requiredMagicMushrooms: 3
-  requiredMagicPotions: 3
+  requiredMagicPotions: 1
   requiredServedPotions: 6
   resourceBoxes: []
   workstationsPrompts:
@@ -36613,7 +36623,7 @@ MonoBehaviour:
   customerDelayTime: 3
   circleTransition: {fileID: 3399611610711942186}
   loadSceneDelay: 8
-  sceneIndexLoad: 3
+  sceneIndexLoad: 1
 --- !u!82 &1459447333
 AudioSource:
   m_ObjectHideFlags: 0
@@ -47309,7 +47319,7 @@ PrefabInstance:
     - target: {fileID: 1235652878220773033, guid: aeab51b3068b7c94cbfd049d754be9c1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: -2.28
       objectReference: {fileID: 0}
     - target: {fileID: 1235652878220773033, guid: aeab51b3068b7c94cbfd049d754be9c1,
         type: 3}
@@ -47339,7 +47349,7 @@ PrefabInstance:
     - target: {fileID: 3164586327863748901, guid: aeab51b3068b7c94cbfd049d754be9c1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.96
+      value: 1.87
       objectReference: {fileID: 0}
     - target: {fileID: 3164586327863748901, guid: aeab51b3068b7c94cbfd049d754be9c1,
         type: 3}

@@ -1186,6 +1186,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6822183684445332460, guid: f0824c2f1cc156f4cb52a04d50357985,
         type: 3}
+      propertyPath: resourceImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822183684445332460, guid: f0824c2f1cc156f4cb52a04d50357985,
+        type: 3}
       propertyPath: shouldWorkWithPickUp
       value: 0
       objectReference: {fileID: 0}
@@ -1276,9 +1281,9 @@ MonoBehaviour:
   sawingPlate2: {fileID: 3862741937480272616}
   currentSawSpeed: 0
   sliderValue: 0
-  playerSawSpeed: 3.2
+  playerSawSpeed: 3
   maxSawProcess: 15
-  twoPlayerExtraSpeed: 1.5
+  twoPlayerExtraSpeed: 4
   sawSlider: {fileID: 7742108251004955309}
   sawSliderFillArea: {fileID: 4569191521188989518}
   sawSlider_Pos: {fileID: 8730708812689931036}
