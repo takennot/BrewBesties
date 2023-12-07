@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 6649979367611036490}
   - component: {fileID: 1084227819388677607}
   - component: {fileID: 1927619564942260714}
+  - component: {fileID: 6465970929582582692}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -509,3 +510,17 @@ MonoBehaviour:
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 0}
   gameManager: {fileID: 0}
+--- !u!114 &6465970929582582692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192310043713478831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e20bae4555f54294cb4891b1b2142598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayAmount: 0.2
+  swaySpeed: 0.1

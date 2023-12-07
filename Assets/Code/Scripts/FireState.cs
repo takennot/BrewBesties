@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class FireState : MonoBehaviour
@@ -23,6 +24,7 @@ public class FireState : MonoBehaviour
     [SerializeField] private Slider fireSlider;
     [SerializeField] private Image fireSliderFillArea;
     [SerializeField] private Transform fireSlider_Pos;
+    [SerializeField] private Billboard infiniteFireCanvas;
 
     [Header("Audio")]
     [SerializeField] private AudioClip addFireClip;
@@ -39,6 +41,10 @@ public class FireState : MonoBehaviour
         }
 
         source = GetComponent<AudioSource>();
+        if(needsFire)
+        {
+            infiniteFireCanvas.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame

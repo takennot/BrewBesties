@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
+  m_IndirectSpecularColor: {r: 0.0014833048, g: 0.0013571114, b: 0.0012931153, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18791,6 +18791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XAxisOnly: 0
+  ZAxisOnly: 0
 --- !u!114 &495269200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24852,6 +24853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XAxisOnly: 1
+  ZAxisOnly: 0
 --- !u!212 &610828635
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24962,6 +24964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XAxisOnly: 1
+  ZAxisOnly: 0
 --- !u!212 &627704079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32131,6 +32134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XAxisOnly: 1
+  ZAxisOnly: 0
 --- !u!212 &874218807
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32613,6 +32617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XAxisOnly: 1
+  ZAxisOnly: 0
 --- !u!212 &942945191
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33304,6 +33309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XAxisOnly: 1
+  ZAxisOnly: 0
 --- !u!212 &1011945394
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -36117,6 +36123,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swayAmount: 0.5
   swaySpeed: 0.214
+  swayXY: 1
+  swayXZ: 0
+  swayYZ: 0
 --- !u!320 &1400660099
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -43256,6 +43265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XAxisOnly: 1
+  ZAxisOnly: 0
 --- !u!212 &1654952303
 SpriteRenderer:
   m_ObjectHideFlags: 0

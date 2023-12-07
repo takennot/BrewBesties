@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AnimationShake : MonoBehaviour
 {
+    [Header("WARNING! Can be overriden by PlatformController")]
     public float maxShakeIntensity = 10f; // Maximum intensity of the shake
     public float shakeSpeed = 10.0f; // Speed of the shake
     public float shakeDuration = 1.0f; // Duration of the shake
