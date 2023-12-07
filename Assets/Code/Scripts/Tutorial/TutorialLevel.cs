@@ -90,7 +90,7 @@ public class TutorialLevel : MonoBehaviour
     [SerializeField] private GameObject[] wallsByGoal;
 
     [Header("Camera")]
-    public Camera camera;
+    private new Camera camera;
 
     private void Awake()
     {
