@@ -32034,7 +32034,7 @@ PrefabInstance:
     - target: {fileID: 7949245091349850287, guid: 5e6609bd4a9af98489108f67edca5a73,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.527
       objectReference: {fileID: 0}
     - target: {fileID: 7949245091349850287, guid: 5e6609bd4a9af98489108f67edca5a73,
         type: 3}
@@ -32828,6 +32828,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a05e227b8702a7744841c6f29013a8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &977073592 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2978809908618173354, guid: fddbb2baf89de074aae19a15bd4c93de,
+    type: 3}
+  m_PrefabInstance: {fileID: 197048490}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977073588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab78a01b2ba6464796f3b56b6f7ac34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &977847134 stripped
@@ -35917,6 +35929,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6650829100250148952, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0232
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650829100250148952, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0366
+      objectReference: {fileID: 0}
     - target: {fileID: 7000694838500372039, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -36102,7 +36124,7 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400660089}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: d4a8a555a963f384ebee64cfbd2fd809, type: 2}
   m_InitialState: 0
@@ -36123,7 +36145,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400660089}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -36596,9 +36618,9 @@ MonoBehaviour:
   gameManager: {fileID: 977073591}
   sliderManager: {fileID: 2076259723}
   killboxManager: {fileID: 293146129}
-  requiredMagicMushrooms: 3
+  requiredMagicMushrooms: 1
   requiredMagicPotions: 1
-  requiredServedPotions: 6
+  requiredServedPotions: 2
   resourceBoxes: []
   workstationsPrompts:
   - {fileID: 1781084016}
@@ -44036,9 +44058,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
         type: 3}
+      propertyPath: isTutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
       propertyPath: showScoreUI
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
+      propertyPath: spriteManager
+      value: 
+      objectReference: {fileID: 977073592}
     - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
         type: 3}
       propertyPath: startActivated

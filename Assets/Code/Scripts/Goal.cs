@@ -9,6 +9,8 @@ using Unity.VisualScripting.Antlr3.Runtime;
 
 public class Goal : MonoBehaviour, GoalInterface
 {
+    [SerializeField] private bool activated = true;
+
     [Header("Refs")]
     [SerializeField] private Camera cam;
     public int playersCollidingWIth = 0;
@@ -27,6 +29,9 @@ public class Goal : MonoBehaviour, GoalInterface
     [Header("Customer times")]
     [SerializeField] private int timeBeforeScorePenalty = 20;
     [SerializeField] private int leaveAfterSeconds = 90;
+    [SerializeField] private float patienceFirstInQueueMultiplier = 1;
+    [SerializeField] private float patienceSecondInQueueMultiplier = 0.7f;
+    [SerializeField] private float patienceThirdInQueueMultiplier = 0.4f;
 
     [SerializeField] private PopUpManager popUpManager;
 
@@ -77,12 +82,14 @@ public class Goal : MonoBehaviour, GoalInterface
     [SerializeField] private UIOrder orderUI2;
     [SerializeField] private UIOrder orderUI3;
 
+
+
     [Header("Tutorial")]
-    [SerializeField] private bool activated = true;
     [SerializeField] private bool showScoreUI = true;
     [SerializeField] private int recipesCompleted = 0;
-    
-    
+    [SerializeField] private bool isTutorial = false;
+
+
 
     //[Header("Sprites")]
     public Sprite spriteMushroom { get; set; }
@@ -100,7 +107,7 @@ public class Goal : MonoBehaviour, GoalInterface
         if(startAndEnd)
             waitOffsetFromStart = startAndEnd.timeToWaitForStart;
 
-        counter = GetComponent<CounterState>();
+        //counter = GetComponent<CounterState>();
         scoreTotal = 0;
 
         source.clip = completedClip;
@@ -124,6 +131,7 @@ public class Goal : MonoBehaviour, GoalInterface
         {
             if (timer >= timeForNextCustomer)
             {
+                if(!isTutorial)
                 NewCustomer();
             }
 
@@ -378,6 +386,7 @@ public class Goal : MonoBehaviour, GoalInterface
         {
             customer1.transform.position = seat1.transform.position + seatOffset;
             SetCustomerUI(customer1);
+            customer1.SetPatienceQueueMultiplier(patienceFirstInQueueMultiplier);
         }
 
         //orderUI1.SetCustomer(customer1, leaveAtSeconds, false);
@@ -386,6 +395,7 @@ public class Goal : MonoBehaviour, GoalInterface
         {
             customer2.transform.position = seat2.transform.position + seatOffset;
             SetCustomerUI(customer2);
+            customer2.SetPatienceQueueMultiplier(patienceSecondInQueueMultiplier);
         }
 
         //orderUI2.SetCustomer(customer2, leaveAtSeconds, false);
@@ -394,8 +404,10 @@ public class Goal : MonoBehaviour, GoalInterface
         {
             customer3.transform.position = seat3.transform.position + seatOffset;
             SetCustomerUI(customer3);
+            customer3.SetPatienceQueueMultiplier(patienceThirdInQueueMultiplier);
         }
 
+        
         //orderUI3.SetCustomer(customer3, leaveAtSeconds, false);
     }
 
@@ -421,8 +433,6 @@ public class Goal : MonoBehaviour, GoalInterface
 
     private void CustomerLeave(CustomerManager customer)
     {
-        // walk away
-
         amountOfCustomers--;
 
         source.PlayOneShot(notCompletedClip);
@@ -567,9 +577,7 @@ public class Goal : MonoBehaviour, GoalInterface
 
             customer1 = customer.GetComponent<CustomerManager>();
             customer1.SetNewOrder(this);
-
-            //customer1.SetIrritatedAtSeconds(irritatedAtSeconds);
-            //customer1.SetAngryAtSeconds(angryAtSeconds);
+            customer1.SetPatienceQueueMultiplier(patienceFirstInQueueMultiplier);
 
             customer1.spriteManager = spriteManager;
 
@@ -586,9 +594,7 @@ public class Goal : MonoBehaviour, GoalInterface
 
             customer2 = customer.GetComponent<CustomerManager>();
             customer2.SetNewOrder(this);
-
-            //customer2.SetIrritatedAtSeconds(irritatedAtSeconds);
-            //customer2.SetAngryAtSeconds(angryAtSeconds);
+            customer2.SetPatienceQueueMultiplier(patienceSecondInQueueMultiplier);
 
             customer2.spriteManager = spriteManager;
 
@@ -605,9 +611,7 @@ public class Goal : MonoBehaviour, GoalInterface
 
             customer3 = customer.GetComponent<CustomerManager>();
             customer3.SetNewOrder(this);
-
-            //customer3.SetIrritatedAtSeconds(irritatedAtSeconds);
-            //customer3.SetAngryAtSeconds(angryAtSeconds);
+            customer2.SetPatienceQueueMultiplier(patienceThirdInQueueMultiplier);
 
             customer3.spriteManager = spriteManager;
 
