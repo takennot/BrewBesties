@@ -13,6 +13,7 @@ public class CustomerManager : MonoBehaviour
     [Header("Patience")]
     [SerializeField] private float patienceTimer;
     private float patienceTimerMax;
+    private float patienceQueueMultiplier = 1;
     public bool isServed = false;
 
     private int orderSize;
@@ -54,6 +55,7 @@ public class CustomerManager : MonoBehaviour
     private bool playParticalOnce = true;
     private bool playParticalTwise = true;
 
+
     void Start()
     {
         UISpeechBubble.SetActive(false);
@@ -83,7 +85,7 @@ public class CustomerManager : MonoBehaviour
         }
         else
         {
-            patienceTimer += Time.deltaTime;
+            patienceTimer += Time.deltaTime * patienceQueueMultiplier;
         }
     }
 
@@ -340,6 +342,11 @@ public class CustomerManager : MonoBehaviour
     public void SetPatienceTimerMax(int seconds)
     {
         patienceTimerMax = seconds;
+    }
+
+    public void SetPatienceQueueMultiplier(float multiplier)
+    {
+        patienceQueueMultiplier = multiplier;
     }
 
     //public void SetIrritatedAtSeconds(int seconds)
