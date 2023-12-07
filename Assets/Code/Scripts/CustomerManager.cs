@@ -13,6 +13,7 @@ public class CustomerManager : MonoBehaviour
     [Header("Patience")]
     [SerializeField] private float patienceTimer;
     private float patienceTimerMax;
+    private float patienceQueueMultiplier = 1;
     public bool isServed = false;
 
     private int orderSize;
@@ -47,12 +48,15 @@ public class CustomerManager : MonoBehaviour
 
     public SpriteManager spriteManager;
 
+
+    [Header("VFX")]
     [SerializeField] private GameObject angryParticalSystem;
+    [SerializeField] private GameObject longEffekt;
     [SerializeField] private GameObject happyParticalSystem;
     [SerializeField] private Transform particalPostion;
-    private GameObject playingParticalSystem;
-    private bool playParticalOnce = true;
-    private bool playParticalTwise = true;
+    private GameObject longParticalEffekt = null;
+    private ParticleSystem ps;
+
 
     void Start()
     {
@@ -83,13 +87,13 @@ public class CustomerManager : MonoBehaviour
         }
         else
         {
-            patienceTimer += Time.deltaTime;
+            patienceTimer += Time.deltaTime * patienceQueueMultiplier;
         }
     }
 
     private void Update()
     {
-
+        /*
         if (patienceTimer > patienceTimerMax * 0.5 && meshRenderer.material != materialAngry)
         {
             //meshRenderer.material = materialAngry;
@@ -110,6 +114,7 @@ public class CustomerManager : MonoBehaviour
                 playParticalTwise = false;
             }
         }
+        */
 
     }
 
@@ -224,17 +229,18 @@ public class CustomerManager : MonoBehaviour
     /// Sets <c>leave</c> to true thus initializing the whole "leaving" segment.
     /// De-attach customer before calling the method!!!
     /// </summary>
+   
     public void LeaveGoal(bool happy)
     {
         Debug.Log("LEaveeee goooal");
 
         if (happy)
         {
-            PlayParticleSystem("happy");
+            PlayHappy();
         }
         else
         {
-            PlayParticleSystem("angry");
+            PlayAngryLeaving();
         }
 
         leave = true;
@@ -307,6 +313,7 @@ public class CustomerManager : MonoBehaviour
         return patienceTimer;
     }
 
+    /*
     private void PlayParticleSystem(string mode)
     {
         if(mode.Equals("angry") || mode == "angry")
@@ -336,10 +343,16 @@ public class CustomerManager : MonoBehaviour
             Destroy(playingParticalSystem);
         }
     }
+    */
 
     public void SetPatienceTimerMax(int seconds)
     {
         patienceTimerMax = seconds;
+    }
+
+    public void SetPatienceQueueMultiplier(float multiplier)
+    {
+        patienceQueueMultiplier = multiplier;
     }
 
     //public void SetIrritatedAtSeconds(int seconds)
@@ -358,4 +371,50 @@ public class CustomerManager : MonoBehaviour
     //{
     //    return angryAtSeconds;
     //}
+
+   
+
+    public void PlayHappy()
+    {
+        GameObject gb = Instantiate(happyParticalSystem, particalPostion);
+        Destroy(gb, 5);
+    }
+
+    public void PlayAngryLeaving()
+    {
+        /*
+        GameObject gb = Instantiate(angryParticalSystem, particalPostion);
+        Destroy(gb, 5);
+        */
+        StartCoroutine(createAngryEffekt());
+    }
+
+    private IEnumerator createAngryEffekt()
+    {
+        yield return new WaitForSeconds(1f);
+        GameObject gb = Instantiate(angryParticalSystem, particalPostion);
+        Destroy(gb, 2.5f);
+    }
+
+
+    public void LongTermnAngry(float timeGhostHasBeenAngry)
+    {
+        if (longParticalEffekt != null)
+        {
+            InstancetLongTermEffekt();
+        }
+
+        var em = ps.emission;
+        em.enabled = true;
+        em.rateOverTime = (timeGhostHasBeenAngry / 2f);
+
+    }
+
+    private void InstancetLongTermEffekt()
+    {
+        longParticalEffekt = Instantiate(longEffekt, particalPostion);
+        ps = longParticalEffekt.GetComponentInChildren<ParticleSystem>();
+    }
+
+
 }

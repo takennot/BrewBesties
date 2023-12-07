@@ -348,6 +348,7 @@ public class TutorialManager : MonoBehaviour
         animScale.ScaleUp(cauldron, new(2, 2, 2));
         animScale.ScaleUp(potionBox);
         animScale.ScaleUp(goal);
+        goal.GetComponentInChildren<Goal>().SetActivated(true);
 
         sliderManager.PlayExitAnimation(sliderMagicPotions);
         sliderManager.PlayEntryAnimation(sliderServePotions);
