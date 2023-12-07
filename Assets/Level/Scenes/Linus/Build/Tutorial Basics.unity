@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0014833048, g: 0.0013571114, b: 0.0012931153, a: 1}
+  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -36586,9 +36586,9 @@ MonoBehaviour:
   gameManager: {fileID: 977073591}
   sliderManager: {fileID: 2076259723}
   killboxManager: {fileID: 293146129}
-  requiredMagicMushrooms: 1
-  requiredMagicPotions: 1
-  requiredServedPotions: 3
+  requiredMagicMushrooms: 3
+  requiredMagicPotions: 3
+  requiredServedPotions: 6
   resourceBoxes: []
   workstationsPrompts:
   - {fileID: 1781084016}
@@ -36613,7 +36613,7 @@ MonoBehaviour:
   customerDelayTime: 3
   circleTransition: {fileID: 3399611610711942186}
   loadSceneDelay: 8
-  sceneIndexLoad: 1
+  sceneIndexLoad: 3
 --- !u!82 &1459447333
 AudioSource:
   m_ObjectHideFlags: 0

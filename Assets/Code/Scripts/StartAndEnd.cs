@@ -203,7 +203,7 @@ public class StartAndEnd : MonoBehaviour
         audioSourceShuffle.clip = shuffle_audio;
         audioSourceShuffle.Play();
 
-        //score = 700; // TA BORTTTT
+        //score = 700; // TA BORTTTT --------------------------------------------
 
         scoreText.text = text + "0";
 
@@ -252,7 +252,7 @@ public class StartAndEnd : MonoBehaviour
 
                 if (!played3)
                 {
-                    audioSourceOther.pitch = 1.4f;
+                    audioSourceOther.pitch = 1.8f;
                     audioSourceOther.PlayOneShot(pling_audio);
                     played3 = true;
                 }

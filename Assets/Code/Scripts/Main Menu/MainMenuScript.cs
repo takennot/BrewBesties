@@ -120,7 +120,7 @@ public class MainMenuScript : MonoBehaviour
     {
         //saveSelection.gameObject.SetActive(true);
         //saveSlot1.Select();
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
     }
 
     public void OnStartTutorial()
