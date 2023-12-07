@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028447, g: 0.22571531, b: 0.30692312, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028477, g: 0.22571571, b: 0.30692372, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11694,6 +11694,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fddbb2baf89de074aae19a15bd4c93de, type: 3}
+--- !u!114 &245445726 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2978809908618173354, guid: fddbb2baf89de074aae19a15bd4c93de,
+    type: 3}
+  m_PrefabInstance: {fileID: 245445725}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245445727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab78a01b2ba6464796f3b56b6f7ac34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &245445727 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 964634442633850205, guid: fddbb2baf89de074aae19a15bd4c93de,
@@ -85540,7 +85552,7 @@ PrefabInstance:
     - target: {fileID: 7721224318221213667, guid: 773081c7bf1d2d844bf6dc7fe5f1bbfa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.05
+      value: -8.73
       objectReference: {fileID: 0}
     - target: {fileID: 7721224318221213667, guid: 773081c7bf1d2d844bf6dc7fe5f1bbfa,
         type: 3}
@@ -102331,6 +102343,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
         type: 3}
+      propertyPath: startAndEnd
+      value: 
+      objectReference: {fileID: 1145791173442446990}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
+      propertyPath: spriteManager
+      value: 
+      objectReference: {fileID: 245445726}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
       propertyPath: firstOrderBonus
       value: 40
       objectReference: {fileID: 0}
@@ -105980,7 +106002,7 @@ PrefabInstance:
         type: 3}
       propertyPath: goal
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 669108454}
     - target: {fileID: 3036710326827688601, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: timerLevel
@@ -105990,7 +106012,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2076539767}
     - target: {fileID: 3036710326827688601, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: levelEndDelay
@@ -106051,6 +106073,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2, type: 3}
+--- !u!114 &1145791173442446990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3036710326827688601, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1145791173442446989}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ece7b0c24dd0848bbb7b0688e53e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
