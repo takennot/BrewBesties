@@ -478,7 +478,7 @@ MonoBehaviour:
   saws: []
   workstations: []
   initilized: 0
-  shouldUpdateUIPos: 0
+  shouldUpdateUIPos: 1
 --- !u!114 &1084227819388677607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,3 +524,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swayAmount: 0.2
   swaySpeed: 0.1
+  swayXY: 0
+  swayXZ: 0
+  swayYZ: 1

@@ -35,6 +35,7 @@ public class CameraSway : MonoBehaviour
         {
             float swayX = Mathf.Sin(Time.time * swaySpeed) * swayAmount;
             float swayZ = Mathf.Cos(Time.time * swaySpeed) * swayAmount;
+            
 
             transform.position = initialPosition + new Vector3(swayX, 0, swayZ);
 

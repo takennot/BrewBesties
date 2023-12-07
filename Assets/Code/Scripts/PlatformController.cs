@@ -12,7 +12,6 @@ public class PlatformController : MonoBehaviour
 
     [Header("Animation Shake")]
     [SerializeField] private float startShakeSecondsBeforeMoving = 8f;
-    [SerializeField] private float timeToShake = 8f;
     [SerializeField] private float maxShakeIntensity = 15f; 
     [SerializeField] private float shakeSpeed = 1.0f; 
     [SerializeField] private float shakeDuration = 11.0f;
@@ -40,12 +39,12 @@ public class PlatformController : MonoBehaviour
         animShake1 = platform1.GetComponent<AnimationShake>();
         animShake2 = platform2.GetComponent<AnimationShake>();
 
-        animShake1.maxShakeIntensity = maxShakeIntensity;
+        animShake1.maxShakeIntensity = maxShakeIntensity / 100;
         animShake1.shakeSpeed = shakeSpeed;
         animShake1.shakeDuration = shakeDuration;
         animShake1.intensityRampUp = intensityRampUp;
 
-        animShake2.maxShakeIntensity = maxShakeIntensity;
+        animShake2.maxShakeIntensity = maxShakeIntensity / 100;
         animShake2.shakeSpeed = shakeSpeed;
         animShake2.shakeDuration = shakeDuration;
         animShake2.intensityRampUp = intensityRampUp;
