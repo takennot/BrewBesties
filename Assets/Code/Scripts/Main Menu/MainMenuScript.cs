@@ -23,6 +23,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button fullscreenButton;
     [SerializeField] private Button saveSlot1;
+    [SerializeField] private EventSystem eventSystem;
 
     private ColorBlock colorSelected;
     private ColorBlock colorUnSelected;
@@ -118,14 +119,12 @@ public class MainMenuScript : MonoBehaviour
 
     public void OnStartGame()
     {
-        //saveSelection.gameObject.SetActive(true);
-        //saveSlot1.Select();
-        SceneManager.LoadScene(2);
-    }
-
-    public void OnStartTutorial()
-    {
-        SceneManager.LoadScene(2);
+        
+        saveSelection.GetComponentInParent<SaveSlotSelectionManager>().PreviewSaveSlots();
+        //eventSystem.SetSelectedGameObject(saveSlot1.gameObject);
+        saveSlot1.Select();
+        saveSelection.gameObject.SetActive(true);
+        //SceneManager.LoadScene(3);
     }
 
     public void OnCredits()

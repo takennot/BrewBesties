@@ -3837,12 +3837,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 255723126}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &255723128 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6165761541034438182, guid: 42a5141a65b4d144fa87ff4620c89b89,
-    type: 3}
-  m_PrefabInstance: {fileID: 255723126}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &261766496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28747,7 +28741,12 @@ PrefabInstance:
     - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: timeMinutes
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
+        type: 3}
+      propertyPath: timeSeconds
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29944,7 +29943,7 @@ PrefabInstance:
         type: 3}
       propertyPath: goal
       value: 
-      objectReference: {fileID: 255723128}
+      objectReference: {fileID: 2107027957}
     - target: {fileID: 46890534464639424, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: spawnpoint1
