@@ -11564,7 +11564,7 @@ PrefabInstance:
         type: 3}
       propertyPath: goal
       value: 
-      objectReference: {fileID: 2076539767}
+      objectReference: {fileID: 669108454}
     - target: {fileID: 46890534464639424, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: player1
@@ -101703,12 +101703,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1699787593}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2076539767 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6165761541034438182, guid: 42a5141a65b4d144fa87ff4620c89b89,
-    type: 3}
-  m_PrefabInstance: {fileID: 2086330369}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2078447751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102800,7 +102794,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dfb6391fc1afff847b8080fc8aabfbdd, type: 2}
+  - {fileID: 2100000, guid: ecff61b78d610af4b89b30c54a649324, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106012,7 +106006,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 2076539767}
+      objectReference: {fileID: 245445727}
     - target: {fileID: 3036710326827688601, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: levelEndDelay
@@ -106061,12 +106055,12 @@ PrefabInstance:
     - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: timeMinutes
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: timeSeconds
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

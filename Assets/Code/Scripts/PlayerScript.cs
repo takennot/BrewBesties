@@ -1372,21 +1372,14 @@ public class PlayerScript : MonoBehaviour
         {
             case (PlayerType.PlayerOne):
                 return "p1";
-                break;
             case (PlayerType.PlayerTwo):
                 return "p2";
-                break;
             case (PlayerType.PlayerThree):
                 return "p3";
-                break;
             case (PlayerType.PlayerFour):
                 return "p4";
-                break;
             default:
                 return "p1";
         }
-        
-
-       
     }
 }
