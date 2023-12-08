@@ -12,7 +12,12 @@ using static Unity.VisualScripting.Member;
 public class PlayerScript : MonoBehaviour
 {
     [Header("Gameplay")]
-    [SerializeField] private float playerSpeed = 5.4f;
+    public float playerSpeed = 5.4f;
+    public bool isSlippery = false; 
+    public float accelerationRate = 0.4f;
+    private float currentVerticalInput;
+    private float currentHorizontalInput;
+
     private Vector3 moveDirection;
     private float movementSpeed;
     public float mass = 2f;
@@ -176,7 +181,7 @@ public class PlayerScript : MonoBehaviour
         characterController = gameObject.AddComponent<CharacterController>();
         characterController.skinWidth = 0.25f;
         characterController.slopeLimit = 0.0f;
-        characterController.stepOffset = 0.05f;
+        characterController.stepOffset = 0.025f;
 
         mainCamera = Camera.main;
 
@@ -244,99 +249,9 @@ public class PlayerScript : MonoBehaviour
             playerState = PlayerState.IsBeingThrown;
         }
 
-        animatorPlayer.SetInteger("PlayerState", (int) playerState);
-        animatorPlayer.SetInteger("PlayerHoldingState", (int) holdingState);
-        animatorPlayer.SetBool("Moving", moving);
 
-        CheckPlayerControls();
+        Movement();
 
-        Vector3 cameraForward = mainCamera.transform.forward;
-        Vector3 cameraRight = mainCamera.transform.right;
-
-        cameraForward.y = 0;
-        cameraRight.y = 0;
-
-        float horizontalInput = Input.GetAxisRaw(horizontalName);
-        float verticalInput = Input.GetAxisRaw(verticalName);
-
-        moveDirection = (cameraForward.normalized * verticalInput + cameraRight.normalized * horizontalInput);
-
-        const float movementJoystickSensitivity = 1f;
-        movementSpeed = moveDirection.magnitude * movementJoystickSensitivity;
-        moveDirection = moveDirection.normalized * movementSpeed;
-
-        // Gravitation --------------------
-
-        // dont fall if being dragged
-        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
-        {
-            velocity.y = 0;
-        }
-        else
-        {
-            velocity.y -= gravity * Time.deltaTime;
-        }
-
-        //Debug.Log("Velocity: " + velocity);
-
-        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
-            characterController.Move(velocity * mass * Time.deltaTime);
-
-        // ---------------------------------
-
-        if (playerState == PlayerState.Dead)
-        {
-            footstepSource.Pause();
-            return;
-        }
-
-        // if allowed to move (state är none eller emoting)
-        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
-        {
-            characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
-        }
-
-        // movedirection or charactecotroller
-        if (moveDirection.x != 0 || moveDirection.z != 0)
-        {
-            if (onlyPlayVFX)
-            {
-                moving = true;
-
-                if(playerState == PlayerState.Emoting)
-                    playerState = PlayerState.None;
-
-                StartCoroutine(playWalkingPoof());
-            }
-        }
-        else
-        {
-            moving = false;
-            walkVFX.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
-        }
-
-        if (Mathf.Abs(horizontalInput) > 0.4f || Mathf.Abs(verticalInput) > 0.4f)
-        {
-            footstepSource.UnPause();
-        } else
-        {
-            footstepSource.Pause();
-        }
-
-        // Rotation
-        if (!hasForcedLook)
-        {
-            if (Mathf.Abs(horizontalInput) > deadZone || Mathf.Abs(verticalInput) > deadZone)
-            {
-                if (moveDirection != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-                }
-            }
-        }
-
-        
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         //                     Input Mapping
@@ -416,6 +331,129 @@ public class PlayerScript : MonoBehaviour
     }
 
  
+    private void Movement()
+    {
+        animatorPlayer.SetInteger("PlayerState", (int)playerState);
+        animatorPlayer.SetInteger("PlayerHoldingState", (int)holdingState);
+        animatorPlayer.SetBool("Moving", moving);
+
+        CheckPlayerControls();
+
+        Vector3 cameraForward = mainCamera.transform.forward;
+        Vector3 cameraRight = mainCamera.transform.right;
+
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        float horizontalInput = Input.GetAxisRaw(horizontalName);
+        float verticalInput = Input.GetAxisRaw(verticalName);
+
+        float targetVerticalInput = verticalInput;
+        float targetHorizontalInput = horizontalInput;
+
+        if (isSlippery)
+        {
+            currentVerticalInput = Mathf.Lerp(currentVerticalInput, targetVerticalInput, Time.deltaTime * accelerationRate);
+            currentHorizontalInput = Mathf.Lerp(currentHorizontalInput, targetHorizontalInput, Time.deltaTime * accelerationRate);
+
+            //NEEDS TO NOT LOSE ALL CURRENT INPUT DIRECTOIN WHEN THE VELOCITY OF THAT DIRECTION IS 0 BECAUSE TOUCHING A WALL
+            //would casting backwards of player character direction to see if there is a wall within 0.05 distance be a good solution? probably dumb?
+        } else
+        {
+            currentVerticalInput = targetVerticalInput;
+            currentHorizontalInput = targetHorizontalInput;
+        }
+
+        moveDirection = (cameraForward.normalized * currentVerticalInput + cameraRight.normalized * currentHorizontalInput);
+
+        const float movementJoystickSensitivity = 1f;
+        movementSpeed = moveDirection.magnitude * movementJoystickSensitivity;
+        moveDirection = moveDirection.normalized * movementSpeed;
+
+        // Gravitation --------------------
+
+        // dont fall if being dragged
+        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
+        {
+            velocity.y = 0;
+        } else
+        {
+            velocity.y -= gravity * Time.deltaTime;
+            if(velocity.y < -1)
+            {
+                velocity.y = -1;
+            }
+        }
+
+        //Debug.Log("Velocity: " + velocity);
+
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
+            characterController.Move(velocity * mass * Time.deltaTime);
+
+        // ---------------------------------
+
+        if (playerState == PlayerState.Dead)
+        {
+            footstepSource.Pause();
+            return;
+        }
+
+        // if allowed to move (state är none eller emoting)
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
+        {
+            characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
+        }
+
+        // movedirection or charactecotroller
+        if (moveDirection.x != 0 || moveDirection.z != 0)
+        {
+            if (onlyPlayVFX)
+            {
+                moving = true;
+
+                if (playerState == PlayerState.Emoting)
+                    playerState = PlayerState.None;
+
+                StartCoroutine(playWalkingPoof());
+            }
+        } else
+        {
+            moving = false;
+            walkVFX.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
+        }
+
+        if (Mathf.Abs(targetHorizontalInput) > 0.4f || Mathf.Abs(targetVerticalInput) > 0.4f)
+        {
+            footstepSource.UnPause();
+        } else
+        {
+            footstepSource.Pause();
+        }
+
+        // Rotation
+        if (!hasForcedLook)
+        {
+            if (Mathf.Abs(targetHorizontalInput) > deadZone || Mathf.Abs(targetVerticalInput) > deadZone)
+            {
+                if (moveDirection != Vector3.zero)
+                {
+                    if(isSlippery)
+                    {
+                        Vector3 joystickDirection = new Vector3(targetHorizontalInput, 0f, targetVerticalInput);
+                        Quaternion cameraRotation = Quaternion.Euler(0f, mainCamera.transform.rotation.eulerAngles.y, 0f);
+                        Vector3 combinedDirection = cameraRotation * joystickDirection;
+                        Quaternion targetRotation = Quaternion.LookRotation(combinedDirection, Vector3.up);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    } else
+                    {
+                        Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    }
+
+                }
+            }
+        }
+    }
 
     private IEnumerator playWalkingPoof()
     {
@@ -1372,21 +1410,14 @@ public class PlayerScript : MonoBehaviour
         {
             case (PlayerType.PlayerOne):
                 return "p1";
-                break;
             case (PlayerType.PlayerTwo):
                 return "p2";
-                break;
             case (PlayerType.PlayerThree):
                 return "p3";
-                break;
             case (PlayerType.PlayerFour):
                 return "p4";
-                break;
             default:
                 return "p1";
         }
-        
-
-       
     }
 }

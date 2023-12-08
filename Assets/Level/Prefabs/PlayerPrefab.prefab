@@ -149,7 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37cf4d5dd9f35943a6fdc4c714d8368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 6
+  playerSpeed: 5.5
+  isSlippery: 0
+  accelerationRate: 0.8
   mass: 10
   grabReach: 1
   processReach: 1
@@ -158,8 +160,8 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   horizontalThrowForcePlayer: 7.5
   verticalThrowForcePlayer: 3.5
-  horizontalThrowForce: 6
-  verticalThrowForce: 3
+  horizontalThrowForce: 6.5
+  verticalThrowForce: 2.5
   rotationSpeed: 25
   deadZone: 0.1
   objectInHands: {fileID: 0}
@@ -265,7 +267,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 49fd67b2e533ad94e8b35a246129ed2f, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.441
   m_Pitch: 1
@@ -363,9 +365,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 49fd67b2e533ad94e8b35a246129ed2f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.225
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -617,6 +619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5246820219401043257, guid: 0bc0b64c8d4f8454b955d42275db5db6,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5246820219401043257, guid: 0bc0b64c8d4f8454b955d42275db5db6,
         type: 3}

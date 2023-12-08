@@ -350,12 +350,22 @@ PrefabInstance:
     - target: {fileID: 288031636333387473, guid: f0824c2f1cc156f4cb52a04d50357985,
         type: 3}
       propertyPath: m_Size.y
-      value: 1.2007599
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 288031636333387473, guid: f0824c2f1cc156f4cb52a04d50357985,
         type: 3}
       propertyPath: m_Center.y
       value: 0.5456178
+      objectReference: {fileID: 0}
+    - target: {fileID: 288031636333387473, guid: f0824c2f1cc156f4cb52a04d50357985,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 639
+      objectReference: {fileID: 0}
+    - target: {fileID: 288031636333387473, guid: f0824c2f1cc156f4cb52a04d50357985,
+        type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 384
       objectReference: {fileID: 0}
     - target: {fileID: 1677296643666586855, guid: f0824c2f1cc156f4cb52a04d50357985,
         type: 3}
@@ -483,42 +493,8 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2997054585307960703}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5790296205311222532, guid: f0824c2f1cc156f4cb52a04d50357985,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5952619380611951630}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0824c2f1cc156f4cb52a04d50357985, type: 3}
---- !u!1 &55695650448851438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5790296205311222532, guid: f0824c2f1cc156f4cb52a04d50357985,
-    type: 3}
-  m_PrefabInstance: {fileID: 5809253597637501674}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5952619380611951630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55695650448851438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testing: 0
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  manualHighlightColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 4
-  thickWidth: 4.5
-  currentOutlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
-  showPlayerOutline: 0
-  showManualOutline: 0
 --- !u!4 &7949245091349850287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4526110020852189765, guid: f0824c2f1cc156f4cb52a04d50357985,
