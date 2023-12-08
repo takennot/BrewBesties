@@ -9,6 +9,7 @@ public class TutorialCamera : MonoBehaviour
     [SerializeField] private Camera Camera2P;
     [SerializeField] private Camera Camera3or4P;
 
+    /*
     // Start is called before the first frame update
     void Start()
     {
@@ -50,4 +51,5 @@ public class TutorialCamera : MonoBehaviour
             }
         }
     }
+    */
 }

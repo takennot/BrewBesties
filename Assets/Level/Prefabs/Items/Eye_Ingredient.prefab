@@ -80,9 +80,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 446875fc2e5557e468f44573c79ff9d5,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 446875fc2e5557e468f44573c79ff9d5,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ccfe7d9864d9f264e8144e82f3aadfbf, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 446875fc2e5557e468f44573c79ff9d5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 621b0594ec5a04b40b8218fe6298a03b, type: 2}
     - target: {fileID: 919132149155446097, guid: 446875fc2e5557e468f44573c79ff9d5,
         type: 3}
       propertyPath: m_Name
@@ -205,7 +215,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spritemagic
       value: 
-      objectReference: {fileID: 21300000, guid: aab346c523087e741ae9067874d2c8a7,
+      objectReference: {fileID: 21300000, guid: fe416ed675c5d8a478b5dd2e8fb4fa39,
         type: 3}
     - target: {fileID: 4689161074965641288, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}

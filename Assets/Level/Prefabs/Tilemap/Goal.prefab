@@ -906,17 +906,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.0863833, y: 0.9816456, z: 2.3813195}
-  m_Center: {x: 0.0034184447, y: 0.4155426, z: 0.5983261}
+  m_Size: {x: 6.0863833, y: 4.5009065, z: 2.3813195}
+  m_Center: {x: 0.0034184456, y: 2.175173, z: 0.5983261}
 --- !u!65 &6285065087761715271
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -965,6 +965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447e41c172ec05542b6a013ba2484305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activated: 1
   cam: {fileID: 0}
   playersCollidingWIth: 0
   counter: {fileID: 8368349899972669565}
@@ -976,6 +977,9 @@ MonoBehaviour:
   newCustomerClip: {fileID: 8300000, guid: 0f0584bf5b986fa45a9df034299f0e56, type: 3}
   timeBeforeScorePenalty: 20
   leaveAfterSeconds: 90
+  patienceFirstInQueueMultiplier: 1
+  patienceSecondInQueueMultiplier: 0.7
+  patienceThirdInQueueMultiplier: 0.4
   popUpManager: {fileID: 1903753169939719827}
   maxPenaltyLoseScore: -25
   scoreBaseRecipeDone: 70
@@ -1002,9 +1006,9 @@ MonoBehaviour:
   orderUI1: {fileID: 632239347921737407}
   orderUI2: {fileID: 1253269676552217488}
   orderUI3: {fileID: 5900826373866994202}
-  activated: 1
   showScoreUI: 1
   recipesCompleted: 0
+  isTutorial: 0
   spriteManager: {fileID: 0}
 --- !u!114 &1903753169939719827
 MonoBehaviour:
