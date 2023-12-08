@@ -11,9 +11,9 @@ public class PauseMenuScript : MonoBehaviour
     [SerializeField] Canvas pauseMenuCanvas;
     [SerializeField] Canvas optionsCanvas;
     [SerializeField] Button resumeButton;
-    private bool isPaused = false;
+    public bool isPaused = false;
     private bool isArcade;
-    [SerializeField] GameObject gameManager;
+    [SerializeField] GameManagerScript gameManager;
     [SerializeField] Slider volumeSlider;
 
     // Start is called before the first frame update
@@ -53,6 +53,10 @@ public class PauseMenuScript : MonoBehaviour
 
     public void Pause()
     {
+        Debug.Log("Pause!!!");
+
+        gameManager.PauseGame();
+
         switch (isPaused)
         {
             case true:
@@ -60,41 +64,39 @@ public class PauseMenuScript : MonoBehaviour
                 isPaused = false;
                 break;
             case false:
-                foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList())
-                {
-                    player.GetCharacterController().enabled = false;
-                }
                 pauseMenuCanvas.enabled = true;
                 Time.timeScale = 0f;
                 resumeButton.Select();
                 isPaused = true;
+
                 AudioController audioController = FindAnyObjectByType<AudioController>();
                 if(audioController != null)
                 {
                     audioController.song_source.Pause();
                 }
+
                 break;
         }
     }
 
     public void OnResume() 
     {
+        Debug.Log("Resume");
+
         switch (isPaused)
         {
             case true:
-                foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList())
-                {
-                    player.GetCharacterController().enabled = true;
-                }
                 pauseMenuCanvas.enabled = false;
-                isPaused = false;
                 Time.timeScale = 1f;
+                isPaused = false;
+                
                 AudioController audioController = FindAnyObjectByType<AudioController>();
                 if (audioController != null)
                 {
                     Debug.Log("Audio found!");
                     audioController.song_source.UnPause();
                 }
+
                 break;
             case false: return;
         }

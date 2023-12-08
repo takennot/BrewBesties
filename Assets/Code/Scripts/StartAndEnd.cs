@@ -27,7 +27,7 @@ public class StartAndEnd : MonoBehaviour
     bool completedLevel;
 
     [SerializeField] private Goal goal;
-    [SerializeField] private GameObject gameManager;
+    [SerializeField] private GameManagerScript gameManager;
 
     [SerializeField] private TMP_Text tip;
 
@@ -292,26 +292,16 @@ public class StartAndEnd : MonoBehaviour
 
     public void Pause()
     {
-        switch (isPaused)
-        {
-            case true:
-                
-                isPaused = false;
-                goal.SetActivated(!isPaused);
-                break;
-            case false:
+        Debug.Log("Pause or UnPause");
 
-                isPaused = true;
-                goal.SetActivated(!isPaused);
-                break;
-        }
+        gameManager.PauseGame();
     }
 
     public void End() {
         Debug.Log("Reached End()");
         isEnding = true;
 
-        foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList()) 
+        foreach (PlayerScript player in gameManager.GetPlayersList()) 
         { 
             player.GetCharacterController().enabled = false;
         }
@@ -324,8 +314,6 @@ public class StartAndEnd : MonoBehaviour
         {
             tip.enabled = false;
         }
-
-        
 
         countdownCanvas.enabled = true;
 
