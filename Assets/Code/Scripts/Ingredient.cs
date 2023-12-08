@@ -40,12 +40,8 @@ public class Ingredient : MonoBehaviour
     {
         isMagic = true;
 
-        //Material[] matArray = meshRenderer.materials;
-        //matArray[mainMaterialIndex] = magicMaterial;
-        //meshRenderer.materials = matArray;
-
         meshRenderer.material = magicMaterial;
-        //meshRenderer.materials[mainMaterialIndex] = magicMaterial;
+        
     }
 
     public bool GetIsMagic()
