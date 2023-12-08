@@ -227,6 +227,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("TIMEE PLAYERR");
         if (!initialized)
         {
             Initialize();
@@ -333,6 +334,7 @@ public class PlayerScript : MonoBehaviour
  
     private void Movement()
     {
+        //Debug.Log("MOVEEEE");
         animatorPlayer.SetInteger("PlayerState", (int)playerState);
         animatorPlayer.SetInteger("PlayerHoldingState", (int)holdingState);
         animatorPlayer.SetBool("Moving", moving);

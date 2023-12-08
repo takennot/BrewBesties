@@ -66,6 +66,7 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // IS THIS NEEDED??? VVV
         if (!runElementsInLevel)
         {
             foreach (PlayerScript player in players)
@@ -77,6 +78,18 @@ public class GameManagerScript : MonoBehaviour
             }
 
             goal.GetComponent<Goal>().SetActivated(false);
+        }
+        else
+        {
+            foreach (PlayerScript player in players)
+            {
+                if (player != null)
+                {
+                    player.enabled = true;
+                }
+            }
+
+            goal.GetComponent<Goal>().SetActivated(true);
         }
 
         {
@@ -127,6 +140,39 @@ public class GameManagerScript : MonoBehaviour
             //            break;
             //    }
             //};
+        }
+    }
+
+    private bool isPaused = false;
+    public void PauseGame()
+    {
+        
+        switch (isPaused)
+        {
+            case true:
+                Debug.Log("UnPause gm");
+                isPaused = false;
+                goal.SetActivated(!isPaused);
+                runElementsInLevel = true;
+
+                foreach (PlayerScript player in GetPlayersList())
+                {
+                    player.GetCharacterController().enabled = true;
+                }
+
+                break;
+            case false:
+                Debug.Log("Pause gm");
+                isPaused = true;
+                goal.SetActivated(!isPaused);
+                runElementsInLevel = false;
+
+                foreach (PlayerScript player in GetPlayersList())
+                {
+                    player.GetCharacterController().enabled = false;
+                }
+
+                break;
         }
     }
 
@@ -377,7 +423,7 @@ public class GameManagerScript : MonoBehaviour
                 {
                     sw.WriteLine("Session ID: " + AnalyticsSessionInfo.sessionId);
                     sw.WriteLine("Level: " + SceneManager.GetActiveScene().name);
-                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetComponent<Goal>().GetScore());
+                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetScore());
                     sw.WriteLine("----------------------------------------------");
                 }
 

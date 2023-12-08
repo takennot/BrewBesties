@@ -49,6 +49,7 @@ public class CauldronState : MonoBehaviour
     [SerializeField] private AudioClip PloppAudio;
     [SerializeField] private AudioClip waterDropClip;
     [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource boilingSource;
     private bool hasPlayedClip = false;
 
     //[SerializeField] bool changeToRed = false;
@@ -83,9 +84,11 @@ public class CauldronState : MonoBehaviour
             Potion potion = EmptyCauldron(); // init reset
 
             source = GetComponent<AudioSource>();
-            
-            //processSlider.maxValue = secondsPerProcess * 3;
+            boilingSource.Play();
         }
+
+        if (FindAnyObjectByType<GameManagerScript>() && !FindAnyObjectByType<GameManagerScript>().runElementsInLevel)
+            return;
 
         processSlider.maxValue = secondsPerProcess * 3;
         process = processSlider.value;
@@ -125,6 +128,7 @@ public class CauldronState : MonoBehaviour
                 }
             }
         }
+
         /*
         if(gameObject.GetComponent<FireState>().IsWarm() == false || (process == processToFinishCauldron) == false || ingredientCount < 3)
         {
@@ -148,6 +152,10 @@ public class CauldronState : MonoBehaviour
 
     private void Update()
     {
+
+        if (FindAnyObjectByType<GameManagerScript>() && !FindAnyObjectByType<GameManagerScript>().runElementsInLevel)
+            return;
+
         // DEBUGG
         if (Input.GetKeyDown(KeyCode.T))
         {
