@@ -104,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 531608001307111340}
   - component: {fileID: 3182932229381019206}
+  - component: {fileID: 7613992266541910808}
   - component: {fileID: 2574837807780697274}
   - component: {fileID: 6646115379442243327}
   - component: {fileID: 7917137570384937478}
@@ -152,6 +153,7 @@ MonoBehaviour:
   playerSpeed: 5.5
   isSlippery: 0
   accelerationRate: 0.8
+  allowedToDragPlayers: 1
   mass: 10
   grabReach: 1
   processReach: 1
@@ -196,6 +198,18 @@ MonoBehaviour:
   dragObejct:
   - {fileID: 6439399029791077187, guid: 0eecb1a72637eea449b7f3677c53a376, type: 3}
   - {fileID: 9168030562640302774, guid: 39d300e10c309db43b8569a6e58b08a6, type: 3}
+--- !u!114 &7613992266541910808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760768666410175827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe75331820421ba4383b549adf854c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2574837807780697274
 MonoBehaviour:
   m_ObjectHideFlags: 0
