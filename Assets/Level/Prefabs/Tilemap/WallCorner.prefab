@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6131081159422052305}
   - component: {fileID: 7637019500076249014}
   - component: {fileID: 3956188672797504033}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WallCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,6 +178,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7fea7920bdb7d904da4daa5e7837fd47,
         type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7fea7920bdb7d904da4daa5e7837fd47,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -262,6 +267,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b0e18dd9a853b654684449b006ca6648,
         type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b0e18dd9a853b654684449b006ca6648,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -343,6 +353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "V\xE4gg_Version2"
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 59417c00acb48744f9240e0e29d93c06,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

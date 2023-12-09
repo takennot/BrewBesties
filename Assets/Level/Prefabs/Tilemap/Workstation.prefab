@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9044086247909978203}
   - component: {fileID: 2018826674218513701}
   - component: {fileID: 2225466386078823372}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5824001405966707345}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Objekt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2223715620864512647}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 1756640848959498759}
   - component: {fileID: 7950988411885110681}
   - component: {fileID: 7626992419557934421}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Workstation
   m_TagString: WorkstationDefault
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 1307148622354430202}
   - component: {fileID: 9158389855826165559}
   - component: {fileID: 8846322553058607287}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 994714681784906573}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SliderPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7722749533081217349}
   - component: {fileID: 6523499297803932925}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: SliderMagicProcess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +664,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1915618908837908672}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ParticlePostion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   - component: {fileID: 2998281965699860316}
   - component: {fileID: 2489940909439172420}
   - component: {fileID: 6038216459293350434}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: CanvasUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,6 +871,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: liten_bok_lp
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 149eafd58df2ec84ab3f77808c1c8e39,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -950,6 +955,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: litenprocessstation_lp
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4009f3963205bfc4a91d74158e188222,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1084,6 +1094,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "liten_bokh\xE5llare_hp"
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e5db1519fc2d4d742bc25a883726b215,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
