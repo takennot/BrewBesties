@@ -59,6 +59,10 @@ public class Item : MonoBehaviour
         {
             gameObject.layer = 2;
         }
+        else if(itemState == ItemStateMachine.ItemState.IsBeingDragged || itemState == ItemStateMachine.ItemState.IsBeingThrown)
+        {
+            gameObject.layer = LayerMask.NameToLayer("IngredientThrown");
+        }
         else
         {
             gameObject.layer = 6;
