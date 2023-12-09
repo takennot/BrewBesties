@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     public float accelerationRate = 0.4f;
     private float currentVerticalInput;
     private float currentHorizontalInput;
+    [SerializeField] private bool allowedToDragPlayers = true;
 
     private Vector3 moveDirection;
     private float movementSpeed;
@@ -24,9 +25,10 @@ public class PlayerScript : MonoBehaviour
     private bool isInFence = false;
 
     [Header("Reach")]
-    [SerializeField] private int grabReach = 1;
-    [SerializeField] private int processReach = 1;
-    [SerializeField] private int dragReach = 5;
+    [SerializeField] private float grabReach = 1;
+    [SerializeField] private float processReach = 0.8f;
+    [SerializeField] private float dragReach = 5.5f;
+    [SerializeField] private float dragSphereRadius = 2f;
 
     [Header("Player Type")]
     public PlayerType playerType;
@@ -65,8 +67,6 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animator animatorPlayer;
-
-    
 
     // --------------------------------------------------------------
 
@@ -173,7 +173,6 @@ public class PlayerScript : MonoBehaviour
     GameObject lineEffekt;
     [SerializeField] GameObject dragStart;
     [SerializeField] GameObject[] dragObejct;
-
 
     // Start is called before the first frame update
     void Start()
@@ -594,13 +593,12 @@ public class PlayerScript : MonoBehaviour
         }
 
         // DRAG CHECK //if holding nothing and hits something
-        if (!foundOutline && Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out outLinehit, Quaternion.identity, dragReach) && holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
+        if (!foundOutline && Physics.SphereCast(castingPosition.transform.position, dragSphereRadius, castingPosition.transform.forward, out outLinehit, dragReach) && holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
         {
             GameObject hitObject = outLinehit.collider.gameObject;
 
-            if (hitObject.GetComponent<PlayerScript>())
+            if (hitObject.GetComponent<PlayerScript>() && allowedToDragPlayers)
             {
-                //Debug.Log("Hit outline: " + outLinehit.collider.gameObject);
                 hitObject.GetComponent<PlayerScript>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, false);
             }
             else if (hitObject.GetComponent<Item>())
@@ -698,8 +696,7 @@ public class PlayerScript : MonoBehaviour
 
             // DEN RAYCASTEN FUNGERAR INTE
             //Debug.Log("RayCast!");
-
-            
+                        
             GameObject hitObject = hit.collider.gameObject;
 
             Debug.Log("hitObject: " + hitObject);
@@ -891,13 +888,11 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Remove from release version, will perma draw on screen xd
-    // Why not just debug.draw? well because there is no draw box.
-    // This shit exists only in Gizmo.DrawCube. And to invoke that method - i HAVE to invoke it in OnDrawGizmo xdddd
     private void OnDrawGizmos()
     {
         Gizmos.color = UnityEngine.Color.green;
         Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
-        Gizmos.DrawWireCube(castingPosition.transform.position + transform.forward * dragHit.distance, transform.localScale);
+        Gizmos.DrawWireSphere(hit.point, dragSphereRadius);
     }
 
     public void Grab(Item item)
@@ -1038,66 +1033,46 @@ public class PlayerScript : MonoBehaviour
         Destroy(poofVFX, 0.6f);
     }
 
-    public void StartDragging() // (Y)
+    public void StartDragging()
     {
-        Debug.Log("Start Dragging");
+        if (playerState == PlayerState.IsBeingDragged || holdingState != HoldingState.HoldingNothing)
+            return;
 
-        if (playerState != PlayerState.IsBeingDragged)
+        if (Physics.SphereCast(castingPosition.transform.position, dragSphereRadius, castingPosition.transform.forward, out dragHit, dragReach))
         {
-            if (holdingState == HoldingState.HoldingNothing)
+            GameObject hitObject = dragHit.collider.gameObject;
+
+            if (hitObject.TryGetComponent(out Item item) ||
+                (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))
             {
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
-                {
-                    
+                playerState = PlayerState.Dragging;
+                objectDragging = hitObject;
 
-                    Debug.Log("DragHit: " + dragHit.collider.gameObject);
-                    bool foundDragHit = false;
+                CreateDragEffects();
+            } else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
+            {
+                playerState = PlayerState.Dragging;
+                objectDragging = counterState.storedItem;
+                counterState.ReleaseItem(objectDragging);
 
-                    if (dragHit.collider.gameObject.GetComponent<Item>() || dragHit.collider.gameObject.GetComponent<PlayerScript>()) 
-                    {
-                        playerState = PlayerState.Dragging;
-
-                        objectDragging = dragHit.collider.gameObject;
-                        foundDragHit = true;
-                        Debug.Log("Not found hit");
-                    }
-                    else if(dragHit.collider.gameObject.GetComponent<CounterState>() && dragHit.collider.gameObject.GetComponent<CounterState>().storedItem != null)
-                    {
-                        playerState = PlayerState.Dragging;
-
-                        objectDragging = dragHit.collider.gameObject.GetComponent<CounterState>().storedItem;
-                        dragHit.collider.gameObject.GetComponent<CounterState>().ReleaseItem(objectDragging);
-                        foundDragHit = true;
-                        Debug.Log("Found hit");
-                    }
-
-                    if (foundDragHit)
-                    {
-                        GameObject start = Instantiate(dragStart, holdPosition);
-                        Destroy(start, 0.6f);
-                        GameObject hitEffekt;
-                        if (objectDragging.gameObject.GetComponent<PlayerScript>() == true)
-                        {
-                            hitEffekt = Instantiate(dragObejct[0], objectDragging.gameObject.transform);
-                        }
-                        else
-                        {
-                            hitEffekt = Instantiate(dragObejct[1], objectDragging.gameObject.transform);
-                        }
-                        
-                        //hitEffekt.gameObject.transform.parent = objectDragging.gameObject;
-                        Destroy(hitEffekt, 0.6f);
-
-                        lineEffekt = Instantiate(dragEffekt);
-                        lineEffekt.transform.position = new Vector3(0,0,0);
-                        dragline = lineEffekt.GetComponentInChildren<LineRenderer>();
-                        dragline.SetPosition(0, holdPosition.gameObject.transform.position);
-                        dragline.SetPosition(1, objectDragging.gameObject.transform.position);
-
-                    }
-                }
+                CreateDragEffects();
             }
         }
+    }
+
+    void CreateDragEffects()
+    {
+        GameObject start = Instantiate(dragStart, holdPosition);
+        Destroy(start, 0.6f);
+
+        GameObject hitEffect = Instantiate(objectDragging.GetComponent<PlayerScript>() ? dragObejct[0] : dragObejct[1], objectDragging.transform);
+        Destroy(hitEffect, 0.6f);
+
+        lineEffekt = Instantiate(dragEffekt);
+        lineEffekt.transform.position = Vector3.zero;
+        dragline = lineEffekt.GetComponentInChildren<LineRenderer>();
+        dragline.SetPosition(0, holdPosition.position);
+        dragline.SetPosition(1, objectDragging.transform.position);
     }
 
     public void Drag()
@@ -1112,9 +1087,6 @@ public class PlayerScript : MonoBehaviour
 
                 // maybe replace MoveTowards with Lerp
                 //objectDragging.GetComponent<Rigidbody>().AddForce(transform.up * 2, ForceMode.Force);
-
-
-
 
                 dragline.SetPosition(1, objectDragging.gameObject.transform.position);
 
@@ -1131,7 +1103,7 @@ public class PlayerScript : MonoBehaviour
 
                 // pickUp if close
                 //Debug.Log("Grab Boxcast!");
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
+                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
                 {
                     //Debug.Log("Hit Something");
                     //Debug.Log("hit: " + hit.collider.gameObject + " - object dragging: " + objectDragging);
@@ -1164,7 +1136,7 @@ public class PlayerScript : MonoBehaviour
                 //}
 
                 // pickUp if close
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
+                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
                 {
                     if (hit.collider.gameObject && hit.collider.gameObject == dragHit.collider.gameObject)
                     {
