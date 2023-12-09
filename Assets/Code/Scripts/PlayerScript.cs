@@ -742,7 +742,7 @@ public class PlayerScript : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = UnityEngine.Color.green;
-        //this logic is flawed
+        //this logic is flawed 
         //Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
         Gizmos.DrawWireSphere(hit.point, dragSphereRadius);
     }
