@@ -155,7 +155,8 @@ MonoBehaviour:
   mass: 10
   grabReach: 1
   processReach: 1
-  dragReach: 5
+  dragReach: 4.5
+  dragSphereRadius: 2
   playerType: 0
   color: {r: 0, g: 0, b: 0, a: 0}
   horizontalThrowForcePlayer: 7.5
@@ -255,7 +256,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 16
   m_CollisionDetection: 1
 --- !u!82 &5361539311480941451
 AudioSource:

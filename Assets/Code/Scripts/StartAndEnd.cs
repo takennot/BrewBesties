@@ -288,7 +288,7 @@ public class StartAndEnd : MonoBehaviour
         countdownText.text = "";
     }
 
-    private bool isPaused = false;
+    //private bool isPaused = false;
 
     public void Pause()
     {
