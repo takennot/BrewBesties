@@ -12360,6 +12360,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
         type: 3}
+      propertyPath: cooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
+        type: 3}
       propertyPath: spawnpoint
       value: 
       objectReference: {fileID: 0}
@@ -17788,6 +17793,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player2Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998963893091305478, guid: e550719ace9a8d240ae37799018359a5,
+        type: 3}
+      propertyPath: allowedToDragPlayers
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8650346944013906412, guid: e550719ace9a8d240ae37799018359a5,
         type: 3}
@@ -35162,6 +35172,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3416615141838697882, guid: 6e3b445e41a3a934ba8ff2a599bc8ec5,
+        type: 3}
+      propertyPath: allowedToDragPlayers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7563095575612993167, guid: 6e3b445e41a3a934ba8ff2a599bc8ec5,
         type: 3}
       propertyPath: m_Name
@@ -43550,6 +43565,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3478746137774776557, guid: 4893e7244f85de84d892e6028278e435,
+        type: 3}
+      propertyPath: allowedToDragPlayers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8636003210767268856, guid: 4893e7244f85de84d892e6028278e435,
         type: 3}
       propertyPath: m_Name
@@ -44133,6 +44153,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2105265635}
     m_Modifications:
+    - target: {fileID: 1525284689409191943, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: allowedToDragPlayers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4496363746924169709, guid: 16e27e2e6366fc8489115f51512f7055,
         type: 3}
       propertyPath: m_LocalPosition.x
