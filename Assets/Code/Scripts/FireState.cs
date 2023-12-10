@@ -21,7 +21,7 @@ public class FireState : MonoBehaviour
     ChangeVFXParameter changeVFXParameter;
 
     [Header("UI")]
-    [SerializeField] private Slider fireSlider;
+    public Slider fireSlider;
     [SerializeField] private Image fireSliderFillArea;
     [SerializeField] private Transform fireSlider_Pos;
     [SerializeField] private Billboard infiniteFireCanvas;
