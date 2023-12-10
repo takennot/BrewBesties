@@ -27,7 +27,15 @@ public class TutorialManager2 : MonoBehaviour
     [SerializeField] private float requiredServedPotions = 6f; */
 
     [Header("GameObjects")]
-    [SerializeField] private TriggerCount triggerCountPlayers;
+    [SerializeField] private TriggerCount triggerCountPlayers;  
+    [SerializeField] private TriggerCount triggerCountPlayers2;  
+    //[SerializeField] private RespawnCheckpoint checkpointToDelete;
+    [SerializeField] private GameObject[] fences;
+    [SerializeField] private GameObject[] bridges;
+    [SerializeField] private GameObject[] ingredientSpawners;
+    private List<TutorialIngredientSpawner> spawners;
+    [SerializeField] private CauldronState[] cauldrons;
+
 
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
@@ -40,6 +48,11 @@ public class TutorialManager2 : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Slider sliderCountPlayers;
+    [SerializeField] private Slider sliderCountIngredients;
+    [SerializeField] private TextTypewriter typewriter;
+    [SerializeField] private List<TMP_Text> finishText = new();
+    [SerializeField] private List<TMP_Text> playersInTrigger2 = new();
+    [SerializeField] private List<TMP_Text> dragIngredients = new();
     //[SerializeField] private Slider sliderMagicPotions;
     //[SerializeField] private Slider sliderServePotions;
 
@@ -48,8 +61,8 @@ public class TutorialManager2 : MonoBehaviour
 
     [Header("Ending")]
     [SerializeField] private CircleTransition circleTransition;
-/*    [SerializeField] private float loadSceneDelay = 8f;
-    [SerializeField] private int sceneIndexLoad = 1;*/
+    [SerializeField] private float loadSceneDelay = 8f;
+    [SerializeField] private int sceneIndexLoad = 1;
 
     AudioLowPassFilter lowPassFilter;
     private float originalVolume;
@@ -61,8 +74,7 @@ public class TutorialManager2 : MonoBehaviour
     private Transform sp4;
 
     private int playerCount;
-    private int sceneIndexLoad;
-    private int loadSceneDelay;
+    private bool updateSlider = false;
 
     public class Mission
     {
@@ -70,7 +82,8 @@ public class TutorialManager2 : MonoBehaviour
         public Func<bool> missionCondition;
         public bool isCompleted;
         public List<bool> playerFulfillment;
-        public Action onCompletionAction;
+        public IEnumerator completionAction;
+
     }
 
     void Start()
@@ -85,6 +98,8 @@ public class TutorialManager2 : MonoBehaviour
 
         sliderCountPlayers.maxValue = playerCount;
         sliderManager.PlayEntryAnimation(sliderCountPlayers);
+        sliderCountIngredients.maxValue = 6;
+
 /*
         sliderMagicMushrooms.maxValue = requiredMagicMushrooms;
         sliderMagicPotions.maxValue = requiredMagicPotions;
@@ -97,26 +112,42 @@ public class TutorialManager2 : MonoBehaviour
         //circleTransition.OpenBlackScreen();
 
         //Scale 0,0,0
-/*        foreach (var workstationPrompt in workstationsPrompts)
+        triggerCountPlayers2.gameObject.transform.localScale = new Vector3(0, 0, 0);
+        ScaleDownArrayInstantly(bridges);
+        ScaleDownArrayInstantly(fences);
+        ScaleDownArrayInstantly(ingredientSpawners);
+        ScaleDownArrayInstantly(cauldrons);
+        foreach(CauldronState cauldron in cauldrons)
         {
-            workstationPrompt.transform.localScale = new Vector3(0, 0, 0);
-        }
-        cauldron.transform.localScale = new Vector3(0, 0, 0);
-        cauldron.SetActive(false);
-        goal.transform.localScale = new Vector3(0, 0, 0);
-        goalState = goal.GetComponentInChildren<Goal>();
-        goalState.magicMushroomPercent = 100f;
-        potionBox.transform.localScale = new Vector3(0, 0, 0);*/
+            cauldron.gameObject.transform.localScale = new Vector3(0, 0, 0);
+            cauldron.gameObject.SetActive(false);
+        }   
 
+        CollectSpawners();
     }
 
-    void Update()
+    private void CollectSpawners()
+    {
+        spawners = new List<TutorialIngredientSpawner>();
+
+        foreach (GameObject ingredientSpawner in ingredientSpawners)
+        {
+            TutorialIngredientSpawner[] spawner = ingredientSpawner.GetComponentsInChildren<TutorialIngredientSpawner>();
+            spawners.AddRange(spawner);
+        }
+        foreach (TutorialIngredientSpawner spawner in spawners)
+        {
+            spawner.enabled = false;
+        }
+    }
+
+    private void Update()
     {
         foreach (Mission mission in missions)
         {
             if (!mission.isCompleted && mission.missionCondition())
             {
-                CompleteMission(mission);
+                StartCoroutine(CompleteMission(mission)); // Start the completion coroutine
             }
         }
     }
@@ -172,15 +203,131 @@ public class TutorialManager2 : MonoBehaviour
     {
         new Mission
         {
-            missionName = "Count",
+            missionName = "Players to green",
             missionCondition = () => CheckPlayerInTrigger(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission1CompletionAction(),
+            completionAction = Mission1CompletionAction(),
+        },
+        new Mission
+        {
+            missionName = "Players to green 2",
+            missionCondition = () => CheckPlayerInTrigger2(),
+            isCompleted = false,
+            playerFulfillment = new List<bool>(),
+            completionAction = Mission2CompletionAction(),
+        },
+        new Mission
+        {
+            missionName = "Drag Ingredients",
+            missionCondition = () => CheckDragIngredients(),
+            isCompleted = false,
+            playerFulfillment = new List<bool>(),
+            completionAction = Mission3CompletionAction(),
         },
     };
         if (playerCount == 0) playerCount = 2;
 
+    }
+
+    private IEnumerator CompleteMission(Mission mission)
+    {
+        mission.isCompleted = true;
+        yield return StartCoroutine(mission.completionAction); // Use StartCoroutine here
+
+        Debug.Log("Completed mission: " + mission.missionName);
+    }
+
+
+    //MISSION CONDITIONS
+
+    private bool CheckPlayerInTrigger()
+    {
+        if (missions[0].isCompleted) return true;
+        //Debug.Log(triggerCountPlayers.PlayerCount);
+        sliderCountPlayers.value = triggerCountPlayers.PlayerCount;
+        return triggerCountPlayers.PlayerCount >= playerCount;
+    }
+
+    IEnumerator Mission1CompletionAction()
+    {
+        updateSlider = false;
+        typewriter.SetNewText(finishText);
+        yield return new WaitForSeconds(0.5f);
+        ScaleUpArray(fences);
+        sliderManager.PlayExitAnimation(sliderCountPlayers);
+        yield return new WaitForSeconds(1f);
+        animScale.ScaleDown(triggerCountPlayers.gameObject);
+        animScale.ScaleUp(triggerCountPlayers2.gameObject, new Vector3(7.01f, 2.7f, 7.01f));
+        sliderCountPlayers.value = 0;
+        yield return new WaitForSeconds(0.75f);
+        sliderManager.PlayEntryAnimation(sliderCountPlayers);
+        typewriter.SetNewText(playersInTrigger2);
+        updateSlider = true;
+    }
+
+    private bool CheckPlayerInTrigger2()
+    {
+        if (!missions[0].isCompleted || !updateSlider) return false;
+        sliderCountPlayers.value = triggerCountPlayers2.PlayerCount;
+        return triggerCountPlayers2.PlayerCount >= playerCount;
+    }
+
+    IEnumerator Mission2CompletionAction()
+    {
+        typewriter.SetNewText(finishText);
+        //Destroy(checkpointToDelete.gameObject);
+        yield return new WaitForSeconds(0.5f);
+
+        sliderManager.PlayExitAnimation(sliderCountPlayers);
+        yield return new WaitForSeconds(1f);
+        
+        animScale.ScaleDown(triggerCountPlayers2.gameObject);
+        yield return new WaitForSeconds(0.75f);
+
+        sliderManager.PlayEntryAnimation(sliderCountIngredients);
+        ScaleUpArray(bridges);
+        ScaleDownArray(fences);
+        yield return new WaitForSeconds(1f);
+
+        ScaleUpArray(ingredientSpawners);
+        yield return new WaitForSeconds(1f);
+
+        foreach (TutorialIngredientSpawner spawner in spawners)
+        {
+            spawner.enabled = true;
+        }
+        yield return new WaitForSeconds(1f);
+
+        foreach (CauldronState cauldron in cauldrons)
+        {
+            animScale.ScaleUp(cauldron.gameObject, new(2,2,2));
+            cauldron.gameObject.SetActive(true);
+        }
+        yield return new WaitForSeconds(1f);
+        
+        typewriter.SetNewText(dragIngredients);
+    }
+
+    private bool CheckDragIngredients()
+    {
+        int count;
+        count = cauldrons[0].GetIngredientCount() + cauldrons[1].GetIngredientCount();
+
+        sliderCountIngredients.value = count;
+
+        return cauldrons[0].GetIngredientCount() >= 3 && cauldrons[1].GetIngredientCount() >= 3;
+    }
+
+    IEnumerator Mission3CompletionAction()
+    {
+        yield return null;
+    }
+
+    //Invoke("LoadScene", loadSceneDelay);
+    private void LoadScene()
+    {
+        SceneManager.LoadScene(sceneIndexLoad);
     }
 
     private void ScaleUpArray(GameObject[] gameObjects)
@@ -192,35 +339,30 @@ public class TutorialManager2 : MonoBehaviour
     }
 
 
-    private void CompleteMission(Mission mission)
+    //SCALING
+    private void ScaleDownArray(GameObject[] gameObjects)
     {
-        mission.isCompleted = true;
-        mission.onCompletionAction?.Invoke();
-
-        Debug.Log("Completed mission: " + mission.missionName);
+        foreach (GameObject gameObject in gameObjects)
+        {
+            animScale.ScaleDown(gameObject);
+        }
     }
 
-
-    //MISSION CONDITIONS
-
-    private bool CheckPlayerInTrigger()
+    private void ScaleDownArrayInstantly<T>(T[] elements) where T : Component
     {
-        Debug.Log(triggerCountPlayers.PlayerCount);
-        sliderCountPlayers.value = triggerCountPlayers.PlayerCount;
-        return triggerCountPlayers.PlayerCount >= playerCount;
+        foreach (T element in elements)
+        {
+            GameObject go = element.gameObject;
+            go.transform.localScale = new Vector3(0, 0, 0);
+        }
     }
 
-    private void Mission1CompletionAction()
+    private void ScaleDownArrayInstantly(GameObject[] gameObjects)
     {
-        //circleTransition.CloseBlackScreen();
-
-    }
-
-
-    //Invoke("LoadScene", loadSceneDelay);
-    private void LoadScene()
-    {
-        SceneManager.LoadScene(sceneIndexLoad);
+        foreach (GameObject gameObject in gameObjects)
+        {
+            gameObject.transform.localScale = new Vector3(0, 0, 0);
+        }
     }
 }
 
