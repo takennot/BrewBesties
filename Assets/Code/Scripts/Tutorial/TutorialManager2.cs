@@ -15,33 +15,30 @@ public class TutorialManager2 : MonoBehaviour
     [SerializeField] private GameManagerScript gameManager;
     [SerializeField] private SliderManager sliderManager;
     [SerializeField] private KillboxManager killboxManager;
-/*    private List<int> successfulMagicPotionsIDs = new List<int>();
-    private List<int> successfulMagicMushroomsIDs = new List<int>();
-    private int potionCount = 0;
-    private int magicMushroomCount = 0;*/
-
-/*    [Header("Tutorial Conditions")]
-    [SerializeField] private float requiredMagicMushrooms = 3f;
-    [SerializeField] private float requiredMagicPotions = 3f;
-    [Tooltip("Player swap will be at 1/3 of requiredServedPotions")]
-    [SerializeField] private float requiredServedPotions = 6f; */
 
     [Header("GameObjects")]
     [SerializeField] private TriggerCount triggerCountPlayers;  
     [SerializeField] private TriggerCount triggerCountPlayers2;  
     //[SerializeField] private RespawnCheckpoint checkpointToDelete;
     [SerializeField] private GameObject[] fences;
+    [SerializeField] private GameObject[] fencesUpper;
+    [SerializeField] private GameObject[] fencesExtra;
     [SerializeField] private GameObject[] bridges;
     [SerializeField] private GameObject[] ingredientSpawners;
     private List<TutorialIngredientSpawner> spawners;
     [SerializeField] private CauldronState[] cauldrons;
+    [SerializeField] private CauldronState newCauldron;
+    [SerializeField] private GameObject[] newCauldronPlatform;
+    [SerializeField] private TravelBetweenPoints travelPoints;
+    [SerializeField] private Saw[] saws;
 
 
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource sourceScale;
+    [SerializeField] private AudioSource sourceSuccess;
 
     [Header("Missions")]
     [SerializeField] private List<Mission> missions;
@@ -49,23 +46,21 @@ public class TutorialManager2 : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider sliderCountPlayers;
     [SerializeField] private Slider sliderCountIngredients;
+    [SerializeField] private Slider sliderCountIngredients2;
+    [SerializeField] private Slider sliderFuelCauldrons;
     [SerializeField] private TextTypewriter typewriter;
     [SerializeField] private List<TMP_Text> finishText = new();
     [SerializeField] private List<TMP_Text> playersInTrigger2 = new();
     [SerializeField] private List<TMP_Text> dragIngredients = new();
-    //[SerializeField] private Slider sliderMagicPotions;
-    //[SerializeField] private Slider sliderServePotions;
+    [SerializeField] private List<TMP_Text> fillNewCualdron = new();
+    [SerializeField] private List<TMP_Text> fuelCauldrons = new();
 
     [Header("Players")]
     [SerializeField] private List<PlayerScript> players;
 
     [Header("Ending")]
-    [SerializeField] private CircleTransition circleTransition;
     [SerializeField] private float loadSceneDelay = 8f;
     [SerializeField] private int sceneIndexLoad = 1;
-
-    AudioLowPassFilter lowPassFilter;
-    private float originalVolume;
 
     //Original Spawnpoints
     private Transform sp1;
@@ -83,7 +78,6 @@ public class TutorialManager2 : MonoBehaviour
         public bool isCompleted;
         public List<bool> playerFulfillment;
         public IEnumerator completionAction;
-
     }
 
     void Start()
@@ -99,25 +93,25 @@ public class TutorialManager2 : MonoBehaviour
         sliderCountPlayers.maxValue = playerCount;
         sliderManager.PlayEntryAnimation(sliderCountPlayers);
         sliderCountIngredients.maxValue = 6;
+        sliderCountIngredients2.maxValue = 3;
+        sliderFuelCauldrons.maxValue = cauldrons[0].GetSlider().maxValue + cauldrons[1].GetSlider().maxValue + newCauldron.GetSlider().maxValue;
 
-/*
-        sliderMagicMushrooms.maxValue = requiredMagicMushrooms;
-        sliderMagicPotions.maxValue = requiredMagicPotions;
-        sliderServePotions.maxValue = requiredServedPotions;
-*/
         InitializePlayers(playerCount);
         InitializeMissions();
-
-        //circleTransition.SetPlayers(players);
-        //circleTransition.OpenBlackScreen();
 
         //Scale 0,0,0
         triggerCountPlayers2.gameObject.transform.localScale = new Vector3(0, 0, 0);
         ScaleDownArrayInstantly(bridges);
         ScaleDownArrayInstantly(fences);
+        ScaleDownArrayInstantly(fencesUpper);
+        ScaleDownArrayInstantly(fencesExtra);
         ScaleDownArrayInstantly(ingredientSpawners);
         ScaleDownArrayInstantly(cauldrons);
-        foreach(CauldronState cauldron in cauldrons)
+        ScaleDownArrayInstantly(newCauldronPlatform);
+        ScaleDownArrayInstantly(saws);
+        newCauldron.gameObject.transform.localScale = new Vector3(0, 0, 0);
+        newCauldron.gameObject.SetActive(false);
+        foreach (CauldronState cauldron in cauldrons)
         {
             cauldron.gameObject.transform.localScale = new Vector3(0, 0, 0);
             cauldron.gameObject.SetActive(false);
@@ -225,6 +219,22 @@ public class TutorialManager2 : MonoBehaviour
             playerFulfillment = new List<bool>(),
             completionAction = Mission3CompletionAction(),
         },
+        new Mission
+        {
+            missionName = "Fill all cauldrons",
+            missionCondition = () => CheckFillNewCauldron(),
+            isCompleted = false,
+            playerFulfillment = new List<bool>(),
+            completionAction = Mission4CompletionAction(),
+        },
+         new Mission
+        {
+            missionName = "Fuel the cauldrons",
+            missionCondition = () => CheckFuelCauldron(),
+            isCompleted = false,
+            playerFulfillment = new List<bool>(),
+            completionAction = Mission5CompletionAction(),
+        },
     };
         if (playerCount == 0) playerCount = 2;
 
@@ -232,10 +242,10 @@ public class TutorialManager2 : MonoBehaviour
 
     private IEnumerator CompleteMission(Mission mission)
     {
-        mission.isCompleted = true;
-        yield return StartCoroutine(mission.completionAction); // Use StartCoroutine here
-
         Debug.Log("Completed mission: " + mission.missionName);
+        mission.isCompleted = true;
+        sourceSuccess.PlayOneShot(sourceSuccess.clip);
+        yield return StartCoroutine(mission.completionAction); // Use StartCoroutine here
     }
 
 
@@ -259,6 +269,7 @@ public class TutorialManager2 : MonoBehaviour
         yield return new WaitForSeconds(1f);
         animScale.ScaleDown(triggerCountPlayers.gameObject);
         animScale.ScaleUp(triggerCountPlayers2.gameObject, new Vector3(7.01f, 2.7f, 7.01f));
+        sourceScale.PlayOneShot(sourceScale.clip);
         sliderCountPlayers.value = 0;
         yield return new WaitForSeconds(0.75f);
         sliderManager.PlayEntryAnimation(sliderCountPlayers);
@@ -283,6 +294,7 @@ public class TutorialManager2 : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         animScale.ScaleDown(triggerCountPlayers2.gameObject);
+        sourceScale.PlayOneShot(sourceScale.clip);
         yield return new WaitForSeconds(0.75f);
 
         sliderManager.PlayEntryAnimation(sliderCountIngredients);
@@ -304,6 +316,7 @@ public class TutorialManager2 : MonoBehaviour
             animScale.ScaleUp(cauldron.gameObject, new(2,2,2));
             cauldron.gameObject.SetActive(true);
         }
+        sourceScale.PlayOneShot(sourceScale.clip);
         yield return new WaitForSeconds(1f);
         
         typewriter.SetNewText(dragIngredients);
@@ -321,31 +334,132 @@ public class TutorialManager2 : MonoBehaviour
 
     IEnumerator Mission3CompletionAction()
     {
-        yield return null;
+        typewriter.SetNewText(finishText);
+        yield return new WaitForSeconds(0.5f);
+
+        sliderManager.PlayExitAnimation(sliderCountIngredients);
+        ScaleUpArray(fencesUpper);
+        ScaleUpArray(fencesExtra);
+        yield return new WaitForSeconds(1f);
+        
+        sliderManager.PlayEntryAnimation(sliderCountIngredients2);
+        animScale.ScaleUp(newCauldron.gameObject, new Vector3(2, 2, 2));
+        ScaleUpArray(newCauldronPlatform);
+        newCauldron.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        typewriter.SetNewText(fillNewCualdron);
+
     }
+
+    private bool CheckFillNewCauldron()
+    {
+        sliderCountIngredients2.value = newCauldron.GetIngredientCount();
+        return newCauldron.GetIngredientCount() >= 3;
+    }
+
+
+    private IEnumerator Mission4CompletionAction()
+    {
+        typewriter.SetNewText(finishText);
+        yield return new WaitForSeconds(0.5f);
+        
+
+        sliderManager.PlayExitAnimation(sliderCountIngredients2);
+        travelPoints.MoveToStopPoint();
+        yield return new WaitForSeconds(1f);
+        
+        ScaleDownArray(fencesExtra);
+        sliderManager.PlayEntryAnimation(sliderFuelCauldrons);
+        typewriter.SetNewText(fuelCauldrons);
+
+        yield return new WaitForSeconds(0.5f);
+        foreach(Saw saw in saws)
+        {
+            animScale.ScaleUp(saw.gameObject);
+        }
+        sourceScale.PlayOneShot(sourceScale.clip);
+    }
+
+    private bool CheckFuelCauldron()
+    {
+        float maxValue = cauldrons[0].GetSlider().maxValue + cauldrons[1].GetSlider().maxValue + newCauldron.GetSlider().maxValue;
+        sliderFuelCauldrons.maxValue = maxValue;
+        sliderFuelCauldrons.value = cauldrons[0].GetSlider().value + cauldrons[1].GetSlider().value + newCauldron.GetSlider().value;
+
+        return (cauldrons[0].GetSlider().value +  cauldrons[1].GetSlider().value + newCauldron.GetSlider().value == maxValue);
+    }
+
+
+    private IEnumerator Mission5CompletionAction()
+    {
+        typewriter.SetNewText(finishText);
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Done");
+
+
+        yield return new WaitForSeconds(5f);
+        LoadScene();
+
+    }
+
 
     //Invoke("LoadScene", loadSceneDelay);
     private void LoadScene()
     {
-        SceneManager.LoadScene(sceneIndexLoad);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        } else
+        {
+            Debug.LogWarning("There is no next scene available. Loading scene index 1");
+            SceneManager.LoadScene(1);
+        }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //SCALING
     private void ScaleUpArray(GameObject[] gameObjects)
     {
         foreach (GameObject gameObject in gameObjects)
         {
             animScale.ScaleUp(gameObject);
         }
+        sourceScale.PlayOneShot(sourceScale.clip);
     }
 
-
-    //SCALING
     private void ScaleDownArray(GameObject[] gameObjects)
     {
         foreach (GameObject gameObject in gameObjects)
         {
             animScale.ScaleDown(gameObject);
         }
+        sourceScale.PlayOneShot(sourceScale.clip);
     }
 
     private void ScaleDownArrayInstantly<T>(T[] elements) where T : Component

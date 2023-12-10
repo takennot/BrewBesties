@@ -1202,7 +1202,6 @@ public class PlayerScript : MonoBehaviour
     }
     public void SetPlayerState(PlayerState newState)
     {
-        Debug.Log("SetPlayerState...");
         playerState = newState;
     }
     public HoldingState GetHoldingState()
