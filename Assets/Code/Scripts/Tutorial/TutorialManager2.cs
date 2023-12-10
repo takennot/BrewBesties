@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 public class TutorialManager2 : MonoBehaviour
 {
     [SerializeField] private GameManagerScript gameManager;
-    //[SerializeField] private SliderManager sliderManager;
+    [SerializeField] private SliderManager sliderManager;
     [SerializeField] private KillboxManager killboxManager;
 /*    private List<int> successfulMagicPotionsIDs = new List<int>();
     private List<int> successfulMagicMushroomsIDs = new List<int>();
@@ -27,6 +27,7 @@ public class TutorialManager2 : MonoBehaviour
     [SerializeField] private float requiredServedPotions = 6f; */
 
     [Header("GameObjects")]
+    [SerializeField] private TriggerCount triggerCountPlayers;
 
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
@@ -38,7 +39,7 @@ public class TutorialManager2 : MonoBehaviour
     [SerializeField] private List<Mission> missions;
 
     [Header("UI")]
-    //[SerializeField] private Slider sliderMagicMushrooms;
+    [SerializeField] private Slider sliderCountPlayers;
     //[SerializeField] private Slider sliderMagicPotions;
     //[SerializeField] private Slider sliderServePotions;
 
@@ -59,6 +60,10 @@ public class TutorialManager2 : MonoBehaviour
     private Transform sp3;
     private Transform sp4;
 
+    private int playerCount;
+    private int sceneIndexLoad;
+    private int loadSceneDelay;
+
     public class Mission
     {
         public string missionName;
@@ -75,8 +80,11 @@ public class TutorialManager2 : MonoBehaviour
         sp3 = gameManager.spawnpoint3;
         sp4 = gameManager.spawnpoint4;
 
-        int playerCount = gameManager.GetPlayerAmount();
+        playerCount = gameManager.GetPlayerAmount();
         if (playerCount == 0) playerCount = 2;
+
+        sliderCountPlayers.maxValue = playerCount;
+        sliderManager.PlayEntryAnimation(sliderCountPlayers);
 /*
         sliderMagicMushrooms.maxValue = requiredMagicMushrooms;
         sliderMagicPotions.maxValue = requiredMagicPotions;
@@ -104,13 +112,13 @@ public class TutorialManager2 : MonoBehaviour
 
     void Update()
     {
-     /*   foreach (Mission mission in missions)
+        foreach (Mission mission in missions)
         {
             if (!mission.isCompleted && mission.missionCondition())
             {
                 CompleteMission(mission);
             }
-        }*/
+        }
     }
 
     private void InitializePlayers(int playerCount)
@@ -160,51 +168,17 @@ public class TutorialManager2 : MonoBehaviour
     private void InitializeMissions()
     {
         // Initialize missions with their conditions, header, and subtexts
-/*        missions = new List<Mission>
+        missions = new List<Mission>
     {
         new Mission
         {
-            missionName = "Pickup",
-            missionCondition = () => CheckPickupCondition(),
+            missionName = "Count",
+            missionCondition = () => CheckPlayerInTrigger(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
             onCompletionAction = () => Mission1CompletionAction(),
         },
-        new Mission
-        {
-            missionName = "Make x magic mushrooms",
-            missionCondition = () => CheckMagicMushrooms(),
-            isCompleted = false,
-            playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission2CompletionAction(),
-        },
-        new Mission
-        {
-            missionName = "Make x magic potions",
-            missionCondition = () => CheckMagicPotions(),
-            isCompleted = false,
-            playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission3CompletionAction(),
-        },
-        new Mission
-        {
-            missionName = "Serve x magic potions",
-            missionCondition = () => CheckServeMagicPotions(),
-            isCompleted = false,
-            playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission4CompletionAction(),
-        },
-        new Mission
-        {
-            missionName = "Serve x potions",
-            missionCondition = () => CheckServePotions(),
-            isCompleted = false,
-            playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission5CompletionAction(),
-        }
-    };*/
-
-        int playerCount = gameManager.GetPlayerAmount();
+    };
         if (playerCount == 0) playerCount = 2;
 
     }
@@ -229,17 +203,24 @@ public class TutorialManager2 : MonoBehaviour
 
     //MISSION CONDITIONS
 
+    private bool CheckPlayerInTrigger()
+    {
+        Debug.Log(triggerCountPlayers.PlayerCount);
+        sliderCountPlayers.value = triggerCountPlayers.PlayerCount;
+        return triggerCountPlayers.PlayerCount >= playerCount;
+    }
 
-   /* private void Mission5CompletionAction()
+    private void Mission1CompletionAction()
     {
         //circleTransition.CloseBlackScreen();
-        Invoke("LoadScene", loadSceneDelay);
+
     }
 
 
+    //Invoke("LoadScene", loadSceneDelay);
     private void LoadScene()
     {
         SceneManager.LoadScene(sceneIndexLoad);
-    } */
+    }
 }
 
