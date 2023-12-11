@@ -22,7 +22,8 @@ public class MagicController : MonoBehaviour
     [SerializeField] GameObject MagicObejctEffekt;
     GameObject maigOnIngridanse;
     GameObject ingridanse = null;
-    [SerializeField] Material magiMaterial;
+    [SerializeField] Material magiMushroomMaterial;
+    [SerializeField] Material magiEyeMaterila; 
 
 
 
@@ -115,6 +116,24 @@ public class MagicController : MonoBehaviour
         if(ingridanse != null)
         {
             Material[] material = ingridanse.GetComponentInChildren<MeshRenderer>().materials;
+            Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length];
+
+            //newArry[0] = ws.GetIngridiense().GetComponent<Ingredient>().normMaterial();
+
+
+
+            /*
+            if (inScript.GetIngredientType() == Resource_Enum.Ingredient.Water)
+            {
+               
+            }
+            else
+            {
+                //newArry[0] = inScript.GetNormalMaterial();
+            }
+
+            
+
             Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length - 1];
            
             for(int i = 0; i <newArry.Length; i++)
@@ -122,9 +141,10 @@ public class MagicController : MonoBehaviour
                 newArry[i] = material[i];
                
             }
-          
+          */
             ingridanse.GetComponentInChildren<MeshRenderer>().materials = newArry;
             ingridanse = null;
+            
         }
        
 
@@ -147,10 +167,28 @@ public class MagicController : MonoBehaviour
     {
         if (createOnce)
         {
+            
             ingridanse = ws.GetIngridiense();
+
             maigOnIngridanse = Instantiate(MagicObejctEffekt, ingridanse.transform);
             Debug.Log("create effekts");
 
+            Material[] material = ingridanse.GetComponentInChildren<MeshRenderer>().materials;
+            Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length];
+
+            if (ws.GetIngridiense().GetComponent<Ingredient>().GetIngredientType() == Resource_Enum.Ingredient.MonsterEye)
+            {
+                newArry[0] = magiEyeMaterila;
+            }
+            else
+            {
+                newArry[0] = magiMushroomMaterial;
+            }
+
+            ingridanse.GetComponentInChildren<MeshRenderer>().materials = newArry;
+
+            //newArry[0] = ws.GetIngridiense().GetComponent<Ingredient>().GetMaterial();
+            /*
             Material[] material = ingridanse.GetComponentInChildren<MeshRenderer>().materials;
             Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length + 1];
 
@@ -166,6 +204,7 @@ public class MagicController : MonoBehaviour
             ingridanse.GetComponentInChildren<MeshRenderer>().materials = newArry;
             Debug.Log("nyt materila är " + newArry[index]);
             //ingridanse.GetComponent<MeshRenderer>().materials = newArry;
+            */
 
 
         }
