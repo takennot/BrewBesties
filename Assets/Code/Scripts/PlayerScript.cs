@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     public float grabReach = 1;
     public float processReach = 0.8f;
     public float dragReach = 5.5f;
-    public float dragSphereRadius = 2f;
+    public float dragSphereRadius = 1f;
 
     [Header("Player Type")]
     public PlayerType playerType;
@@ -890,7 +890,7 @@ public class PlayerScript : MonoBehaviour
         if (playerState == PlayerState.IsBeingDragged || holdingState != HoldingState.HoldingNothing)
             return;
 
-        if (Physics.SphereCast(castingPosition.transform.position, dragSphereRadius, castingPosition.transform.forward, out dragHit, dragReach))
+        if (Physics.BoxCast(castingPosition.transform.position, new Vector3(1, 1, 1), castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
         {
             GameObject hitObject = dragHit.collider.gameObject;
 
