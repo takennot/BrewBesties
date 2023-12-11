@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 using static Resource_Enum;
 
@@ -155,6 +156,8 @@ public class CauldronState : MonoBehaviour
 
         if (FindAnyObjectByType<GameManagerScript>() && !FindAnyObjectByType<GameManagerScript>().runElementsInLevel)
             return;
+
+        
 
         // DEBUGG
         if (Input.GetKeyDown(KeyCode.T))
@@ -400,6 +403,49 @@ public class CauldronState : MonoBehaviour
         processSlider.gameObject.SetActive(false);
         processSliderFillArea.color = Color.red;
         hasPlayedClip = false;
+    }
+
+    public bool paused = false;
+
+    public void Pause()
+    {
+        Debug.Log("Pasue Cauldron sounds");
+        if (FindAnyObjectByType<GameManagerScript>().runElementsInLevel)
+        {
+            UnPauseCauldron();
+        }
+        else if (!FindAnyObjectByType<GameManagerScript>().runElementsInLevel)
+        {
+            PauseCauldron();
+        }
+    }
+
+    private void PauseCauldron()
+    {
+        if (paused) return;
+
+        AudioSource[] audiosources = GetComponentsInChildren<AudioSource>();
+
+        foreach (AudioSource audiosource in audiosources)
+        {
+            audiosource.Pause();
+        }
+
+        paused = true;
+    }
+
+    private void UnPauseCauldron()
+    {
+        if (!paused) return;
+
+        AudioSource[] audiosources = GetComponentsInChildren<AudioSource>();
+
+        foreach (AudioSource audiosource in audiosources)
+        {
+            audiosource.UnPause();
+        }
+
+        paused = false;
     }
 
     // UI
