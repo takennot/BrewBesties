@@ -880,7 +880,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2313346612764598383}
   m_Father: {fileID: 6965595161588203886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7984216235266236331
@@ -1055,6 +1056,91 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 368ad8c4b9d8fe944aa31eadcac04198,
     type: 3}
   m_PrefabInstance: {fileID: 1364544339921280856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4074067311542899523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2466105294095966865}
+    m_Modifications:
+    - target: {fileID: 1566915331287274629, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_Name
+      value: SawParticalSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734375399696130615, guid: dba306a008c500d4baea01e508e2b54d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dba306a008c500d4baea01e508e2b54d, type: 3}
+--- !u!4 &2313346612764598383 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4074067311542899523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7348942328491405684 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6734375399696130615, guid: dba306a008c500d4baea01e508e2b54d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4074067311542899523}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6801907621132372779
 PrefabInstance:
@@ -1297,10 +1383,7 @@ MonoBehaviour:
   source: {fileID: 75747373523524983}
   sourceSawing: {fileID: 5854205614987028007}
   hasSawed: 0
-  sawEffect: {fileID: 1566915331287274629, guid: dba306a008c500d4baea01e508e2b54d,
-    type: 3}
-  particalSystemPostion: {fileID: 1770854593050473260, guid: dba306a008c500d4baea01e508e2b54d,
-    type: 3}
+  sawEffect: {fileID: 7348942328491405684}
 --- !u!82 &75747373523524983
 AudioSource:
   m_ObjectHideFlags: 0
