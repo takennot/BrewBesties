@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 using static PlayerStateMashineHandle;
 
@@ -42,7 +43,7 @@ public class PlayerCheckOutline : MonoBehaviour
     }
 
 
-    bool CheckOutlineForHoldingNothing(GameObject hitObject)
+    private bool CheckOutlineForHoldingNothing(GameObject hitObject)
     {
         if (player.holdingState != PlayerStateMashineHandle.HoldingState.HoldingNothing || !hitObject)
             return false;
@@ -52,64 +53,97 @@ public class PlayerCheckOutline : MonoBehaviour
         if (hitObject.TryGetComponent(out Item item))
         {
             outlineHandler = item.GetComponentInChildren<OutlineHandler>();
-        } else if (hitObject.TryGetComponent(out ResourceBoxState resourceBoxState))
+        } 
+        else if (hitObject.TryGetComponent(out ResourceBoxState resourceBoxState))
         {
-            outlineHandler = resourceBoxState.GetComponentInChildren<OutlineHandler>();
+            if (hitObject.GetComponent<CounterState>() && hitObject.GetComponent<CounterState>().storedItem == null
+            ||  hitObject.GetComponent<ResourceBoxState>().GetResource() == Resource_Enum.Resource.Bottle )
+            {
+                outlineHandler = resourceBoxState.GetComponentInChildren<OutlineHandler>();
+            }
         }
+        else if(hitObject.TryGetComponent(out CounterState counterState) && hitObject.GetComponent<CounterState>().storedItem)
+        {
+            outlineHandler = counterState.GetComponentInChildren<OutlineHandler>();
+        }
+        else if (hitObject.TryGetComponent(out PlayerScript playerScript))
+        {
+            outlineHandler = playerScript.GetComponentInChildren<OutlineHandler>();
+        }
+
         // Check other conditions and assign the outline handler accordingly
 
         if (outlineHandler)
         {
-            outlineHandler.ShowOutline(player.color, true);
+            outlineHandler.ShowOutline(player.GetPlayerColor(), true);
             return true;
         }
 
         return false;
     }
 
-    bool CheckOutlineForHoldingItem(GameObject hitObject)
+    private bool CheckOutlineForHoldingItem(GameObject hitObject)
     {
         if (player.holdingState != PlayerStateMashineHandle.HoldingState.HoldingItem || !hitObject)
             return false;
 
         OutlineHandler outlineHandler = null;
 
+        // counter in some way
         if (hitObject.TryGetComponent(out CounterState counterState))
         {
-            // Check and assign outlineHandler accordingly
-        } else if (hitObject.TryGetComponent(out Workstation workstation))
+            // Check and assign outlineHandler accordingly : FUCKOFF
+
+            outlineHandler = counterState.GetComponentInChildren<OutlineHandler>();
+        } 
+        // workstation
+        else if (hitObject.TryGetComponent(out Workstation workstation))
         {
             outlineHandler = workstation.GetComponentInChildren<OutlineHandler>();
         }
-        // Check other conditions and assign the outline handler accordingly
+        // cauldron
+        else if (hitObject.GetComponent<CauldronState>())
+        {
+
+            if (player.GetObjectInHands().GetComponent<Ingredient>() && hitObject.GetComponent<CauldronState>().GetIngredientCount() < 3
+            || player.GetObjectInHands().GetComponent<Bottle>() && player.GetObjectInHands().GetComponent<Bottle>().IsEmpty())
+            {
+                hitObject.GetComponent<CauldronState>().SetUpAndGetCauldronOutline().ShowOutline(player.GetPlayerColor(), true);
+            }
+            else if (player.GetObjectInHands().GetComponent<Firewood>())
+            {
+                hitObject.GetComponent<CauldronState>().SetUpAndGetFireOutline().ShowOutline(player.GetPlayerColor(), true);
+            }
+        }
+
+        // Check other conditions and assign the outline handler accordingly : FUCKOFF
 
         if (outlineHandler)
         {
-            outlineHandler.ShowOutline(player.color, true);
+            outlineHandler.ShowOutline(player.GetPlayerColor(), true);
             return true;
         }
 
         return false;
     }
 
-    bool CheckOutlineForProcess(GameObject hitObject)
+    private bool CheckOutlineForProcess(GameObject hitObject)
     {
         if (player.holdingState != PlayerStateMashineHandle.HoldingState.HoldingNothing || !hitObject)
             return false;
 
-        OutlineHandler outlineHandler = null;
-
         if (hitObject.TryGetComponent(out Saw saw))
         {
-            saw.ShowSawOutlineIfOk(player, player.color, true);
+            saw.ShowSawOutlineIfOk(player, player.GetPlayerColor(), true);
             return true;
         }
-        // Check other conditions and assign the outline handler accordingly
+
+        // Check other conditions and assign the outline handler accordingly : FUCKOFF
 
         return false;
     }
 
-    bool CheckOutlineForDrag(GameObject hitObject)
+    private bool CheckOutlineForDrag(GameObject hitObject)
     {
         if (player.holdingState != PlayerStateMashineHandle.HoldingState.HoldingNothing || !hitObject)
             return false;
@@ -119,17 +153,19 @@ public class PlayerCheckOutline : MonoBehaviour
         if (hitObject.TryGetComponent(out PlayerScript playerScript) && player.allowedToDragPlayers)
         {
             outlineHandler = playerScript.GetComponentInChildren<OutlineHandler>();
-        } else if (hitObject.TryGetComponent(out Item item))
+        } 
+        else if (hitObject.TryGetComponent(out Item item))
         {
             outlineHandler = item.GetComponentInChildren<OutlineHandler>();
-        } else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
+        } 
+        else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
         {
             outlineHandler = counterState.storedItem.GetComponentInChildren<OutlineHandler>();
         }
 
         if (outlineHandler)
         {
-            outlineHandler.ShowOutline(player.color, false);
+            outlineHandler.ShowOutline(player.GetPlayerColor(), false);
             return true;
         }
 
