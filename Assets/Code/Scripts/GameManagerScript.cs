@@ -54,11 +54,6 @@ public class GameManagerScript : MonoBehaviour
     {
         InvokeRepeating("GarbageCheck", 5.0f, 0.5f);
 
-        //gamepads = Gamepad.all;
-        //foreach (Gamepad gamepad in gamepads) {
-        //    Debug.Log(gamepad.displayName);
-        //}
-        //Debug.Log(gamepads.Count);
     }
 
 
@@ -76,6 +71,9 @@ public class GameManagerScript : MonoBehaviour
                     player.enabled = false;
                 }
             }
+
+            if(goal == null)
+                goal = FindAnyObjectByType<Goal>();
 
             goal.GetComponent<Goal>().SetActivated(false);
         }

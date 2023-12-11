@@ -155,4 +155,12 @@ public class IngredientAbstract
             default: break;
         }
     }
+
+
+    public Material normMaterial()
+    {
+        return material;
+    }
+
+    
 }
