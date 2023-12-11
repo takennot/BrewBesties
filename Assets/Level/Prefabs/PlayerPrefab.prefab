@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &692770990944611829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5532791285483828486}
+  - component: {fileID: 1533874431643925098}
+  - component: {fileID: 1355297451230855482}
+  m_Layer: 2
+  m_Name: DragGrabHandle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5532791285483828486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692770990944611829}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.2, z: 1.196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 531608001307111340}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1533874431643925098
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692770990944611829}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.9666753, z: 1.0919865}
+  m_Center: {x: 0, y: 0.0502234, z: -0.04599359}
+--- !u!114 &1355297451230855482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692770990944611829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fa88fb5479bf745b5476fe54a51e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectsCollidingWith: []
 --- !u!1 &2367535336460940330
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +203,7 @@ Transform:
   - {fileID: 2211889075445935333}
   - {fileID: 3880849540540427565}
   - {fileID: 1485461471068947715}
+  - {fileID: 5532791285483828486}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3182932229381019206
@@ -160,7 +228,6 @@ MonoBehaviour:
   dragReach: 5
   dragSphereRadius: 3
   playerType: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
   horizontalThrowForcePlayer: 7.5
   verticalThrowForcePlayer: 3.5
   horizontalThrowForce: 6.5
@@ -169,6 +236,7 @@ MonoBehaviour:
   deadZone: 0.1
   objectInHands: {fileID: 0}
   objectDragging: {fileID: 0}
+  dragGrabHandler: {fileID: 1355297451230855482}
   popUpManager: {fileID: 2574837807780697274}
   canHoldPlayerHoldingPlayer: 0
   playerState: 0
@@ -512,7 +580,7 @@ Transform:
   m_GameObject: {fileID: 8718473170645898869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.3, z: 0}
+  m_LocalPosition: {x: 0, y: -1.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
