@@ -492,7 +492,16 @@ public class TutorialManager : MonoBehaviour
 
     private void LoadScene()
     {
-        SceneManager.LoadScene(sceneIndexLoad);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        } else
+        {
+            Debug.LogWarning("There is no next scene available. Loading scene index 1");
+            SceneManager.LoadScene(1);
+        }
     }
 }
 
