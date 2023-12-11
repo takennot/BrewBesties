@@ -895,6 +895,7 @@ public class PlayerScript : MonoBehaviour
 
         if (Physics.BoxCast(castingPosition.transform.position, new Vector3(1, 1, 1), castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
         {
+            Debug.Log("Drag " + dragHit.collider.gameObject);
             GameObject hitObject = dragHit.collider.gameObject;
 
             if (hitObject.TryGetComponent(out Item item) || (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))

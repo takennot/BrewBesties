@@ -75,13 +75,11 @@ public class StartAndEnd : MonoBehaviour
 
         //goal = GameObject.Find("Goal").GetComponent<Goal>();
 
-        foreach (GameObject player in players) {
-            PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            if (playerScript != null) {
-                playerScript.enabled = false;
-            }
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerScript>().GetCharacterController().enabled = false;
         }
-        
+
         AudioController audioController = FindAnyObjectByType<AudioController>();
         if (audioController)
         {
@@ -317,12 +315,12 @@ public class StartAndEnd : MonoBehaviour
 
         countdownCanvas.enabled = true;
 
-        gameManager.GetComponent<GameManagerScript>().SaveLog();
+        gameManager.SaveLog();
 
 
         Debug.Log("Start the thing!");
 
-        FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
+        //FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
 
         ShowScore();
 
