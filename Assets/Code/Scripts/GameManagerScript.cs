@@ -41,10 +41,11 @@ public class GameManagerScript : MonoBehaviour
         {
             playerAmount = MainMenuData.playerAmount;
         }
-            
 
+        Debug.Log("player amount: " + playerAmount);
         for (int i = 1; i <= playerAmount; i++)
         {
+            Debug.Log("Spawn player: " + i);
             SpawnPlayer(i);
         }
     }
@@ -185,6 +186,7 @@ public class GameManagerScript : MonoBehaviour
     {
         GameObject newPlayer;
         PlayerScript playerController;
+
         switch (isTutorial)
         {
             case true:
@@ -205,6 +207,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player1.GetComponent<PlayerScript>().Respawn(spawnpoint1);
+
                         break;
                     case 2:
                         //newPlayer = Instantiate(player2, spawnpoint2.position, Quaternion.identity);
@@ -221,6 +224,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player2.GetComponent<PlayerScript>().Respawn(spawnpoint2);
+
                         break;
                     case 3:
                         //newPlayer = Instantiate(player3, spawnpoint3.position, Quaternion.identity);
@@ -237,6 +241,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player3.GetComponent<PlayerScript>().Respawn(spawnpoint3);
+
                         break;
                     case 4:
                         //newPlayer = Instantiate(player4, spawnpoint4.position, Quaternion.identity);
@@ -253,6 +258,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player4.GetComponent<PlayerScript>().Respawn(spawnpoint4);
+
                         break;
 
                     default:
