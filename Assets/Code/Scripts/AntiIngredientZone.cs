@@ -37,10 +37,8 @@ public class AntiIngredientZone : MonoBehaviour
                     {
                         if (player.GetObjectInHands().GetInstanceID() == ingredient.GetInstanceID())
                         {
-                            Debug.Log("Hello2");
                             player.SetPlayerState(PlayerStateMashineHandle.HoldingState.HoldingNothing);
                             player.Drop(false);
-                            Debug.Log("Hello3");
                         }
                     }
 

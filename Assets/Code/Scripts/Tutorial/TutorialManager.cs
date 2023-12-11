@@ -40,6 +40,8 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource sourceSuccess;
+    [SerializeField] private AudioSource sourceScale;
     [SerializeField] private AudioClip playersDissapear;
     [SerializeField] private AudioClip playerAppear;
 
@@ -47,10 +49,20 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private List<Mission> missions;
 
     [Header("UI")]
-    [SerializeField] private Color colorCompleted = Color.green;
     [SerializeField] private Slider sliderMagicMushrooms;
     [SerializeField] private Slider sliderMagicPotions;
     [SerializeField] private Slider sliderServePotions;
+    [SerializeField] private TextTypewriter typewriter;
+
+    [SerializeField] private List<TMP_Text> writeGreatJob = new();
+    [SerializeField] private List<TMP_Text> writeGettingTheHang = new();
+    [SerializeField] private List<TMP_Text> writeTeamwork = new();
+    [SerializeField] private List<TMP_Text> writeServingDesk = new();
+    [SerializeField] private List<TMP_Text> writeSwapPositions = new();
+    [SerializeField] private List<TMP_Text> writePickup = new();
+    [SerializeField] private List<TMP_Text> writeCounter = new();
+    [SerializeField] private List<TMP_Text> writeFill= new();
+    [SerializeField] private List<TMP_Text> writeServe= new();
 
     [Header("Players")]
     [SerializeField] private List<PlayerScript> players;
@@ -80,7 +92,7 @@ public class TutorialManager : MonoBehaviour
         public Func<bool> missionCondition;
         public bool isCompleted;
         public List<bool> playerFulfillment;
-        public Action onCompletionAction;
+        public IEnumerator completionAction;
     }
 
     void Start()
@@ -99,9 +111,6 @@ public class TutorialManager : MonoBehaviour
 
         InitializePlayers(playerCount);
         InitializeMissions();
-
-        //circleTransition.SetPlayers(players);
-        //circleTransition.OpenBlackScreen();
 
         //Scale 0,0,0
         foreach (var workstationPrompt in workstationsPrompts)
@@ -123,7 +132,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (!mission.isCompleted && mission.missionCondition())
             {
-                CompleteMission(mission);
+                StartCoroutine(CompleteMission(mission));
             }
         }
 
@@ -192,7 +201,7 @@ public class TutorialManager : MonoBehaviour
             missionCondition = () => CheckPickupCondition(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission1CompletionAction(),
+            completionAction = Mission1CompletionAction(),
         },
         new Mission
         {
@@ -200,7 +209,7 @@ public class TutorialManager : MonoBehaviour
             missionCondition = () => CheckMagicMushrooms(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission2CompletionAction(),
+            completionAction = Mission2CompletionAction(),
         },
         new Mission
         {
@@ -208,7 +217,7 @@ public class TutorialManager : MonoBehaviour
             missionCondition = () => CheckMagicPotions(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission3CompletionAction(),
+            completionAction = Mission3CompletionAction(),
         },
         new Mission
         {
@@ -216,7 +225,7 @@ public class TutorialManager : MonoBehaviour
             missionCondition = () => CheckServeMagicPotions(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission4CompletionAction(),
+            completionAction = Mission4CompletionAction(),
         },
         new Mission
         {
@@ -224,7 +233,7 @@ public class TutorialManager : MonoBehaviour
             missionCondition = () => CheckServePotions(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
-            onCompletionAction = () => Mission5CompletionAction(),
+            completionAction = Mission5CompletionAction(),
         }
     };
 
@@ -233,21 +242,12 @@ public class TutorialManager : MonoBehaviour
 
     }
 
-    private void ScaleUpArray(GameObject[] gameObjects)
+    private IEnumerator CompleteMission(Mission mission)
     {
-        foreach (GameObject gameObject in gameObjects)
-        {
-            animScale.ScaleUp(gameObject);
-        }
-    }
-
-
-    private void CompleteMission(Mission mission)
-    {
-        mission.isCompleted = true;
-        mission.onCompletionAction?.Invoke();
-
         Debug.Log("Completed mission: " + mission.missionName);
+        mission.isCompleted = true;
+        sourceSuccess.PlayOneShot(sourceSuccess.clip);
+        yield return StartCoroutine(mission.completionAction); // Use StartCoroutine here
     }
 
 
@@ -267,11 +267,18 @@ public class TutorialManager : MonoBehaviour
         return true;
     }
 
-    private void Mission1CompletionAction()
+    IEnumerator Mission1CompletionAction()
     {
+
+        typewriter.SetNewText(writeGreatJob);
+        yield return new WaitForSeconds(0.5f);
 
         sliderManager.PlayEntryAnimation(sliderMagicMushrooms);
         ScaleUpArray(workstationsPrompts);
+        yield return new WaitForSeconds(1.5f);
+        typewriter.SetNewText(writeCounter);
+        
+        yield return null;
     }
 
     private bool CheckMagicMushrooms()
@@ -301,16 +308,26 @@ public class TutorialManager : MonoBehaviour
 
         return magicMushroomCount >= requiredMagicMushrooms;
     }
-    private void Mission2CompletionAction()
+    IEnumerator Mission2CompletionAction()
     {
-        cauldron.SetActive(true);
-        animScale.ScaleUp(cauldron, new(2,2,2));
-        animScale.ScaleUp(potionBox);
+        typewriter.SetNewText(writeGettingTheHang);
+        yield return new WaitForSeconds(0.5f);
 
         sliderManager.PlayExitAnimation(sliderMagicMushrooms);
+        cauldron.SetActive(true);
+        animScale.ScaleUp(cauldron, new(2,2,2));
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f)
+;
+        animScale.ScaleUp(potionBox);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+        
         sliderManager.PlayEntryAnimation(sliderMagicPotions);
-        //animScale.ScaleUp(goal);
-        //goal.GetComponentInChildren<Goal>().SetActivated(true);
+        yield return new WaitForSeconds(0.5f);
+
+        typewriter.SetNewText(writeFill);
+        yield return null;
     }
 
     private bool CheckMagicPotions()
@@ -342,16 +359,32 @@ public class TutorialManager : MonoBehaviour
         return potionCount >= requiredMagicPotions;
     }
 
-    private void Mission3CompletionAction()
+    IEnumerator Mission3CompletionAction()
     {
-        cauldron.SetActive(true);
-        animScale.ScaleUp(cauldron, new(2, 2, 2));
-        animScale.ScaleUp(potionBox);
-        animScale.ScaleUp(goal);
-        goal.GetComponentInChildren<Goal>().SetActivated(true);
+        typewriter.SetNewText(writeTeamwork);
+        yield return new WaitForSeconds(0.5f);
 
         sliderManager.PlayExitAnimation(sliderMagicPotions);
+        animScale.ScaleUp(cauldron, new(2, 2, 2));
+        cauldron.SetActive(true);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+
+        animScale.ScaleUp(potionBox);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+
+        animScale.ScaleUp(goal);
+        goal.GetComponentInChildren<Goal>().SetActivated(true);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+
         sliderManager.PlayEntryAnimation(sliderServePotions);
+        yield return new WaitForSeconds(0.5f);
+
+        typewriter.SetNewText(writeServe);
+
+        yield return null;
     }
 
     private bool CheckServeMagicPotions()
@@ -373,7 +406,7 @@ public class TutorialManager : MonoBehaviour
         hasSpawnedCustomer = false; // Reset the flag to allow for the next customer spawn
     }
 
-    private void Mission4CompletionAction()
+    IEnumerator Mission4CompletionAction()
     {
 
         for (int i = 0; i < players.Count; i++)
@@ -386,33 +419,18 @@ public class TutorialManager : MonoBehaviour
         audioController = FindObjectOfType<AudioController>();
 
         originalVolume = audioController.song_source.volume;
-        /*
-        float cutoffFrequency = 500;
-        float resonanceQ = 1;
 
-        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
-        foreach (AudioSource audioSource in audioSources)
-        {
-            AudioLowPassFilter lowPassFilter = audioSource.GetComponent<AudioLowPassFilter>();
-
-            if (lowPassFilter == null)
-            {
-                lowPassFilter = audioSource.gameObject.AddComponent<AudioLowPassFilter>();
-            }
-
-            lowPassFilter.cutoffFrequency = cutoffFrequency;
-            lowPassFilter.lowpassResonanceQ = resonanceQ;
-        }
-        */
-
+        typewriter.SetNewText(writeSwapPositions);
         StartCoroutine(FadeVolume(originalVolume, 0.02f, 0.75f));
         StartCoroutine(SwapPlayersCoroutine());
 
         goalState.playersCollidingWIth = 0;
         goalState.magicMushroomPercent = 0.5f;
+
+        yield return null;
     }
 
-    private IEnumerator FadeVolume(float startVolume, float targetVolume, float duration)
+    IEnumerator FadeVolume(float startVolume, float targetVolume, float duration)
     {
         float currentTime = 0;
         float start = startVolume;
@@ -471,6 +489,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             }
         }
+        typewriter.SetNewText(writeServe);
         shouldSpawnCustomers = true;
     }
 
@@ -483,10 +502,11 @@ public class TutorialManager : MonoBehaviour
         return sliderServePotions.value >= requiredServedPotions;
     }
 
-    private void Mission5CompletionAction()
+    IEnumerator Mission5CompletionAction()
     {
-        //circleTransition.CloseBlackScreen();
+        typewriter.SetNewText(writeGreatJob);
         Invoke("LoadScene", loadSceneDelay);
+        yield return null;
     }
 
 
@@ -502,6 +522,15 @@ public class TutorialManager : MonoBehaviour
             Debug.LogWarning("There is no next scene available. Loading scene index 1");
             SceneManager.LoadScene(1);
         }
+    }
+
+    private void ScaleUpArray(GameObject[] gameObjects)
+    {
+        foreach (GameObject gameObject in gameObjects)
+        {
+            animScale.ScaleUp(gameObject);
+        }
+        sourceScale.PlayOneShot(source.clip);
     }
 }
 
