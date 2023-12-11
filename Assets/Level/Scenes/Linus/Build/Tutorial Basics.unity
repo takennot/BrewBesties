@@ -11638,7 +11638,7 @@ PrefabInstance:
         type: 3}
       propertyPath: goal
       value: 
-      objectReference: {fileID: 1754747936}
+      objectReference: {fileID: 1230098669}
     - target: {fileID: 46890534464639424, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: isTutorial
@@ -11674,11 +11674,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 3201641541444466024, guid: fddbb2baf89de074aae19a15bd4c93de,
-        type: 3}
-      propertyPath: goal
-      value: 
-      objectReference: {fileID: 1754747936}
     - target: {fileID: 3201641541444466024, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: m_Enabled
@@ -47079,6 +47074,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
         type: 3}
+      propertyPath: leaveAfterSeconds
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
+        type: 3}
       propertyPath: timeForNextCustomer
       value: 5
       objectReference: {fileID: 0}
@@ -47107,18 +47107,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a5141a65b4d144fa87ff4620c89b89, type: 3}
---- !u!114 &1754747936 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7457394255763333319, guid: 42a5141a65b4d144fa87ff4620c89b89,
-    type: 3}
-  m_PrefabInstance: {fileID: 1754747935}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 447e41c172ec05542b6a013ba2484305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1772550597
 PrefabInstance:
   m_ObjectHideFlags: 0
