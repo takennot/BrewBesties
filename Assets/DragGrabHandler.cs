@@ -9,7 +9,8 @@ public class DragGrabHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherCollider)
     {
-        Debug.Log("Collision!!!: " + otherCollider.gameObject);
+        //Debug.Log("Collision!!!: " + otherCollider.gameObject);
+
         if (!gameObjectsCollidingWith.Contains(otherCollider.gameObject))
         {
             //collisions.Add(collision);
