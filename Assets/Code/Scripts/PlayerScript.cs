@@ -415,7 +415,7 @@ public class PlayerScript : MonoBehaviour
                 if (playerState == PlayerState.Emoting)
                     playerState = PlayerState.None;
 
-                StartCoroutine(playWalkingPoof());
+                StartCoroutine(PlayWalkingPoof());
             }
         } else
         {
@@ -456,7 +456,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private IEnumerator playWalkingPoof()
+    private IEnumerator PlayWalkingPoof()
     {
         onlyPlayVFX = false;
         yield return new WaitForSeconds(0.3f);
@@ -666,7 +666,7 @@ public class PlayerScript : MonoBehaviour
                         // if looking at goal with a bottle OR not looking at goal (but a counter still)
                         if ((hitObject.GetComponent<Goal>() && objectInHands.GetComponent<Bottle>()) || (!hitObject.GetComponent<Goal>()))
                         {
-                            //Debug.Log("hit counter, holding");
+                            Debug.Log("hit counter, holding");
                             currentCounter = hitObject.GetComponent<CounterState>();
                             PlaceOnCounter();
                         }
@@ -901,13 +901,17 @@ public class PlayerScript : MonoBehaviour
                 objectDragging = hitObject;
 
                 CreateDragEffects();
-            } else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
+            } 
+            else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
             {
-                playerState = PlayerState.Dragging;
-                objectDragging = counterState.storedItem;
-                counterState.ReleaseItem(objectDragging);
+                if (!counterState.GetComponent<Trashcan>())
+                {
+                    playerState = PlayerState.Dragging;
+                    objectDragging = counterState.storedItem;
+                    counterState.ReleaseItem(objectDragging);
 
-                CreateDragEffects();
+                    CreateDragEffects();
+                }
             }
         }
     }
