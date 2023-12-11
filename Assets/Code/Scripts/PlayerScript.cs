@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     public float grabReach = 1;
     public float processReach = 0.8f;
     public float dragReach = 5.5f;
-    public float dragSphereRadius = 2f;
+    public float dragSphereRadius = 1f;
 
     [Header("Player Type")]
     public PlayerType playerType;
@@ -52,6 +52,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject objectInHands;
     [SerializeField] private GameObject objectDragging;
     private Gamepad gamepad;
+
+    [Header("Drag")]
+    [SerializeField] private DragGrabHandler dragGrabHandler;
 
     [Header("Emote")]
     [SerializeField] private PopUpManager popUpManager;
@@ -415,7 +418,7 @@ public class PlayerScript : MonoBehaviour
                 if (playerState == PlayerState.Emoting)
                     playerState = PlayerState.None;
 
-                StartCoroutine(playWalkingPoof());
+                StartCoroutine(PlayWalkingPoof());
             }
         } else
         {
@@ -456,7 +459,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private IEnumerator playWalkingPoof()
+    private IEnumerator PlayWalkingPoof()
     {
         onlyPlayVFX = false;
         yield return new WaitForSeconds(0.3f);
@@ -666,7 +669,7 @@ public class PlayerScript : MonoBehaviour
                         // if looking at goal with a bottle OR not looking at goal (but a counter still)
                         if ((hitObject.GetComponent<Goal>() && objectInHands.GetComponent<Bottle>()) || (!hitObject.GetComponent<Goal>()))
                         {
-                            //Debug.Log("hit counter, holding");
+                            Debug.Log("hit counter, holding");
                             currentCounter = hitObject.GetComponent<CounterState>();
                             PlaceOnCounter();
                         }
@@ -890,7 +893,7 @@ public class PlayerScript : MonoBehaviour
         if (playerState == PlayerState.IsBeingDragged || holdingState != HoldingState.HoldingNothing)
             return;
 
-        if (Physics.SphereCast(castingPosition.transform.position, dragSphereRadius, castingPosition.transform.forward, out dragHit, dragReach))
+        if (Physics.BoxCast(castingPosition.transform.position, new Vector3(1, 1, 1), castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
         {
             GameObject hitObject = dragHit.collider.gameObject;
 
@@ -903,11 +906,14 @@ public class PlayerScript : MonoBehaviour
             } 
             else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
             {
-                playerState = PlayerState.Dragging;
-                objectDragging = counterState.storedItem;
-                counterState.ReleaseItem(objectDragging);
+                if (!counterState.GetComponent<Trashcan>())
+                {
+                    playerState = PlayerState.Dragging;
+                    objectDragging = counterState.storedItem;
+                    counterState.ReleaseItem(objectDragging);
 
-                CreateDragEffects();
+                    CreateDragEffects();
+                }
             }
         }
     }
@@ -920,6 +926,7 @@ public class PlayerScript : MonoBehaviour
         GameObject hitEffect = Instantiate(objectDragging.GetComponent<PlayerScript>() ? dragObejct[0] : dragObejct[1], objectDragging.transform);
         Destroy(hitEffect, 0.6f);
 
+        Destroy(lineEffekt);
         lineEffekt = Instantiate(dragEffekt);
         lineEffekt.transform.position = Vector3.zero;
         dragline = lineEffekt.GetComponentInChildren<LineRenderer>();
@@ -937,9 +944,6 @@ public class PlayerScript : MonoBehaviour
                 objectDragging.GetComponent<Rigidbody>().isKinematic = false;
                 objectDragging.GetComponent<Item>().SetIsBeingDragged(true);
 
-                // maybe replace MoveTowards with Lerp
-                //objectDragging.GetComponent<Rigidbody>().AddForce(transform.up * 2, ForceMode.Force);
-
                 dragline.SetPosition(1, objectDragging.gameObject.transform.position);
 
 
@@ -953,22 +957,32 @@ public class PlayerScript : MonoBehaviour
                     source.PlayOneShot(dragClip);
                 //}
 
-                // pickUp if close
-                //Debug.Log("Grab Boxcast!");
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
-                {
-                    //Debug.Log("Hit Something");
-                    //Debug.Log("hit: " + hit.collider.gameObject + " - object dragging: " + objectDragging);
-                    if (hit.collider.gameObject && hit.collider.gameObject == objectDragging)
-                    {
-                        //Debug.Log("TRy to grab item!");
-                        objectDragging.GetComponent<Item>().SetIsBeingDragged(false);
-                        Grab(objectDragging.GetComponent<Item>());
+                // USING PICKUP
+                //if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
+                //{
+                //    //Debug.Log("Hit Something");
+                //    //Debug.Log("hit: " + hit.collider.gameObject + " - object dragging: " + objectDragging);
+                //    if (hit.collider.gameObject && hit.collider.gameObject == objectDragging)
+                //    {
+                //        //Debug.Log("TRy to grab item!");
+                //        objectDragging.GetComponent<Item>().SetIsBeingDragged(false);
+                //        Grab(objectDragging.GetComponent<Item>());
 
-                        objectDragging = null;
-                    }
+                //        objectDragging = null;
+                //    }
+                //}
+
+                // USING COLLISION
+                if (dragGrabHandler.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
+                {
+                    //Debug.Log("TRy to grab item!");
+                    objectDragging.GetComponent<Item>().SetIsBeingDragged(false);
+                    Grab(objectDragging.GetComponent<Item>());
+
+                    objectDragging = null;
                 }
-                
+
+
             }
             else if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<PlayerScript>())
             {
@@ -988,22 +1002,29 @@ public class PlayerScript : MonoBehaviour
                 //}
 
                 // pickUp if close
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
-                {
-                    if (hit.collider.gameObject && hit.collider.gameObject == dragHit.collider.gameObject)
-                    {
-                        objectDragging = null;
-                        PickUp();
-                        Destroy(lineEffekt);
-                    }
-                    else
-                    {
+                //if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
+                //{
+                //    if (hit.collider.gameObject && hit.collider.gameObject == dragHit.collider.gameObject)
+                //    {
+                //        objectDragging = null;
+                //        PickUp();
+                //        Destroy(lineEffekt);
+                //    }
+                //    else
+                //    {
                         
-                        DropPlayer(false);
-                        Destroy(lineEffekt);
-                    }
+                //        DropPlayer(false);
+                //        Destroy(lineEffekt);
+                //    }
+                //}
+
+                if (dragGrabHandler.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
+                {
+                    objectDragging = null;
+                    PickUp();
+                    Destroy(lineEffekt);
                 }
-                
+
             }
             else
             {
