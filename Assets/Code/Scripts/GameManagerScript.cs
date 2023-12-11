@@ -155,6 +155,7 @@ public class GameManagerScript : MonoBehaviour
                 goal.SetActivated(!isPaused);
                 runElementsInLevel = true;
 
+                // handle players
                 foreach (PlayerScript player in GetPlayersList())
                 {
                     player.GetCharacterController().enabled = true;
@@ -173,6 +174,12 @@ public class GameManagerScript : MonoBehaviour
                 }
 
                 break;
+        }
+
+        // handle cauldrons
+        foreach (CauldronState cauldronState in FindObjectsOfType<CauldronState>())
+        {
+            cauldronState.Pause();
         }
     }
 
