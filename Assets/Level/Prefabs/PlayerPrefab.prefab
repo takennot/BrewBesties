@@ -52,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.9666753, z: 1.0919865}
-  m_Center: {x: 0, y: 0.0502234, z: -0.04599359}
+  m_Size: {x: 1, y: 1.9666753, z: 1.282199}
+  m_Center: {x: 0, y: 0.0502234, z: 0.049112964}
 --- !u!114 &1355297451230855482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ Transform:
   m_GameObject: {fileID: 3049553749298121588}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.83, z: 0}
+  m_LocalPosition: {x: 0, y: -0.83, z: -0.201}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -256,6 +256,7 @@ MonoBehaviour:
   castingPosition: {fileID: 3049553749298121588}
   dragToPosition: {fileID: 8261037238083938519}
   holdPosition: {fileID: 2211889075445935333}
+  boxCastWidth: {x: 1, y: 1, z: 1}
   waitingForGround: 0
   walkVFX: {fileID: 2471139447857994406}
   dragEffekt: {fileID: 5744750333397886567, guid: 84ae4bb3cb57ef7458c1bd2ef7f6ed2b,
