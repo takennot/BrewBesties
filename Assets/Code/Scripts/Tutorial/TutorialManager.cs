@@ -41,6 +41,7 @@ public class TutorialManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioSource sourceSuccess;
+    [SerializeField] private AudioSource sourceScale;
     [SerializeField] private AudioClip playersDissapear;
     [SerializeField] private AudioClip playerAppear;
 
@@ -53,11 +54,15 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Slider sliderServePotions;
     [SerializeField] private TextTypewriter typewriter;
 
-    [SerializeField] private List<TMP_Text> finishText = new();
-   // [SerializeField] private List<TMP_Text> playersInTrigger2 = new();
-    //[SerializeField] private List<TMP_Text> dragIngredients = new();
-    //[SerializeField] private List<TMP_Text> fillNewCualdron = new();
-    [SerializeField] private List<TMP_Text> swapPositions = new();
+    [SerializeField] private List<TMP_Text> writeGreatJob = new();
+    [SerializeField] private List<TMP_Text> writeGettingTheHang = new();
+    [SerializeField] private List<TMP_Text> writeTeamwork = new();
+    [SerializeField] private List<TMP_Text> writeServingDesk = new();
+    [SerializeField] private List<TMP_Text> writeSwapPositions = new();
+    [SerializeField] private List<TMP_Text> writePickup = new();
+    [SerializeField] private List<TMP_Text> writeCounter = new();
+    [SerializeField] private List<TMP_Text> writeFill= new();
+    [SerializeField] private List<TMP_Text> writeServe= new();
 
     [Header("Players")]
     [SerializeField] private List<PlayerScript> players;
@@ -106,9 +111,6 @@ public class TutorialManager : MonoBehaviour
 
         InitializePlayers(playerCount);
         InitializeMissions();
-
-        //circleTransition.SetPlayers(players);
-        //circleTransition.OpenBlackScreen();
 
         //Scale 0,0,0
         foreach (var workstationPrompt in workstationsPrompts)
@@ -240,15 +242,6 @@ public class TutorialManager : MonoBehaviour
 
     }
 
-    private void ScaleUpArray(GameObject[] gameObjects)
-    {
-        foreach (GameObject gameObject in gameObjects)
-        {
-            animScale.ScaleUp(gameObject);
-        }
-    }
-
-
     private IEnumerator CompleteMission(Mission mission)
     {
         Debug.Log("Completed mission: " + mission.missionName);
@@ -276,8 +269,15 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator Mission1CompletionAction()
     {
+
+        typewriter.SetNewText(writeGreatJob);
+        yield return new WaitForSeconds(0.5f);
+
         sliderManager.PlayEntryAnimation(sliderMagicMushrooms);
         ScaleUpArray(workstationsPrompts);
+        yield return new WaitForSeconds(1.5f);
+        typewriter.SetNewText(writeCounter);
+        
         yield return null;
     }
 
@@ -310,13 +310,23 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator Mission2CompletionAction()
     {
-        cauldron.SetActive(true);
-        animScale.ScaleUp(cauldron, new(2,2,2));
-        animScale.ScaleUp(potionBox);
+        typewriter.SetNewText(writeGettingTheHang);
+        yield return new WaitForSeconds(0.5f);
 
         sliderManager.PlayExitAnimation(sliderMagicMushrooms);
+        cauldron.SetActive(true);
+        animScale.ScaleUp(cauldron, new(2,2,2));
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f)
+;
+        animScale.ScaleUp(potionBox);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+        
         sliderManager.PlayEntryAnimation(sliderMagicPotions);
+        yield return new WaitForSeconds(0.5f);
 
+        typewriter.SetNewText(writeFill);
         yield return null;
     }
 
@@ -351,14 +361,28 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator Mission3CompletionAction()
     {
-        cauldron.SetActive(true);
-        animScale.ScaleUp(cauldron, new(2, 2, 2));
-        animScale.ScaleUp(potionBox);
-        animScale.ScaleUp(goal);
-        goal.GetComponentInChildren<Goal>().SetActivated(true);
+        typewriter.SetNewText(writeTeamwork);
+        yield return new WaitForSeconds(0.5f);
 
         sliderManager.PlayExitAnimation(sliderMagicPotions);
+        animScale.ScaleUp(cauldron, new(2, 2, 2));
+        cauldron.SetActive(true);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+
+        animScale.ScaleUp(potionBox);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+
+        animScale.ScaleUp(goal);
+        goal.GetComponentInChildren<Goal>().SetActivated(true);
+        sourceScale.PlayOneShot(source.clip);
+        yield return new WaitForSeconds(0.5f);
+
         sliderManager.PlayEntryAnimation(sliderServePotions);
+        yield return new WaitForSeconds(0.5f);
+
+        typewriter.SetNewText(writeServe);
 
         yield return null;
     }
@@ -396,6 +420,7 @@ public class TutorialManager : MonoBehaviour
 
         originalVolume = audioController.song_source.volume;
 
+        typewriter.SetNewText(writeSwapPositions);
         StartCoroutine(FadeVolume(originalVolume, 0.02f, 0.75f));
         StartCoroutine(SwapPlayersCoroutine());
 
@@ -464,6 +489,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             }
         }
+        typewriter.SetNewText(writeServe);
         shouldSpawnCustomers = true;
     }
 
@@ -478,7 +504,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator Mission5CompletionAction()
     {
-        //circleTransition.CloseBlackScreen();
+        typewriter.SetNewText(writeGreatJob);
         Invoke("LoadScene", loadSceneDelay);
         yield return null;
     }
@@ -496,6 +522,15 @@ public class TutorialManager : MonoBehaviour
             Debug.LogWarning("There is no next scene available. Loading scene index 1");
             SceneManager.LoadScene(1);
         }
+    }
+
+    private void ScaleUpArray(GameObject[] gameObjects)
+    {
+        foreach (GameObject gameObject in gameObjects)
+        {
+            animScale.ScaleUp(gameObject);
+        }
+        sourceScale.PlayOneShot(source.clip);
     }
 }
 
