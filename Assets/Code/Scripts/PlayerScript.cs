@@ -32,7 +32,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player Type")]
     public PlayerType playerType;
-    public UnityEngine.Color color;
+    private UnityEngine.Color color;
 
     [Header("Throw Player")]
     [SerializeField] float horizontalThrowForcePlayer = 4;
@@ -894,8 +894,7 @@ public class PlayerScript : MonoBehaviour
         {
             GameObject hitObject = dragHit.collider.gameObject;
 
-            if (hitObject.TryGetComponent(out Item item) ||
-                (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))
+            if (hitObject.TryGetComponent(out Item item) || (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))
             {
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
@@ -1215,6 +1214,11 @@ public class PlayerScript : MonoBehaviour
     public void SetPlayerState(HoldingState newState)
     {
         holdingState = newState;
+    }
+
+    public UnityEngine.Color GetPlayerColor()
+    {
+        return color;
     }
 
     //This doesnt work really...
