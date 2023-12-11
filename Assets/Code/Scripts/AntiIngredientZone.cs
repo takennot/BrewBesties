@@ -10,8 +10,8 @@ public class AntiIngredientZone : MonoBehaviour
         if(other.CompareTag("Ingredient") || other.CompareTag("Bottle") || other.CompareTag("Wood"))
         {
             other.gameObject.GetComponent<Rigidbody>().useGravity = false;
-            other.gameObject.GetComponent<Rigidbody>().drag= 4;
-            other.gameObject.GetComponent<Rigidbody>().angularDrag = 4;
+            other.gameObject.GetComponent<Rigidbody>().drag= 3;
+            other.gameObject.GetComponent<Rigidbody>().angularDrag = 3;
             StartCoroutine(KillIngredient(other.gameObject));
         }
     }
