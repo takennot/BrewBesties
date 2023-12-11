@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 5608228404490526279}
   - component: {fileID: 3420013849696171461}
   - component: {fileID: 19292337611831278}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seat (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 5209612464405683216}
   - component: {fileID: 9211590804700573408}
   - component: {fileID: 3737697286366095260}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MainObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -975,8 +975,8 @@ MonoBehaviour:
   completedClip: {fileID: 8300000, guid: 9b14ddaff866071498147be50cce3439, type: 3}
   notCompletedClip: {fileID: 8300000, guid: 1d9620bbfdbb9e04d8f68253cd2a7e33, type: 3}
   newCustomerClip: {fileID: 8300000, guid: 0f0584bf5b986fa45a9df034299f0e56, type: 3}
-  timeBeforeScorePenalty: 20
-  leaveAfterSeconds: 90
+  timeBeforeScorePenalty: 15
+  leaveAfterSeconds: 125
   patienceFirstInQueueMultiplier: 1
   patienceSecondInQueueMultiplier: 0.7
   patienceThirdInQueueMultiplier: 0.4
@@ -2079,7 +2079,7 @@ GameObject:
   - component: {fileID: 7754227632458751321}
   - component: {fileID: 5096562122972677269}
   - component: {fileID: 904013052962891209}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2379,7 +2379,7 @@ GameObject:
   - component: {fileID: 6055300622805517235}
   - component: {fileID: 3121744049243534597}
   - component: {fileID: 6899054055823312515}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GetOrderPlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4019,7 +4019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1070329997997143310}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4238,7 +4238,7 @@ GameObject:
   - component: {fileID: 4926426199538673632}
   - component: {fileID: 1042030074672302843}
   - component: {fileID: 5405130581334904327}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seat (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5073,6 +5073,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LP_Barbord
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dfc90ab94e5364c47b3241d5fc91c496,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5172,6 +5177,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goal
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee4df4e8b8f64b345b2fe5c6d51c81d3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5268,6 +5278,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LP_Barbord (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dfc90ab94e5364c47b3241d5fc91c496,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

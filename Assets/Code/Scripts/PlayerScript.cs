@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     public float accelerationRate = 0.4f;
     private float currentVerticalInput;
     private float currentHorizontalInput;
+    public bool allowedToDragPlayers = true;
 
     private Vector3 moveDirection;
     private float movementSpeed;
@@ -24,13 +25,14 @@ public class PlayerScript : MonoBehaviour
     private bool isInFence = false;
 
     [Header("Reach")]
-    [SerializeField] private int grabReach = 1;
-    [SerializeField] private int processReach = 1;
-    [SerializeField] private int dragReach = 5;
+    public float grabReach = 1;
+    public float processReach = 0.8f;
+    public float dragReach = 5.5f;
+    public float dragSphereRadius = 2f;
 
     [Header("Player Type")]
     public PlayerType playerType;
-    [SerializeField] private UnityEngine.Color color;
+    private UnityEngine.Color color;
 
     [Header("Throw Player")]
     [SerializeField] float horizontalThrowForcePlayer = 4;
@@ -60,13 +62,11 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private bool canHoldPlayerHoldingPlayer = false;
     [SerializeField] private PlayerStateMashineHandle.PlayerState playerState;
-    [SerializeField] private PlayerStateMashineHandle.HoldingState holdingState;
+    public PlayerStateMashineHandle.HoldingState holdingState;
     [SerializeField] private bool moving = false;
 
     [Header("Animation")]
     [SerializeField] private Animator animatorPlayer;
-
-    
 
     // --------------------------------------------------------------
 
@@ -145,13 +145,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private CounterState currentCounter;
 
     [Header("RaycastStuff")]
-    [SerializeField] private GameObject castingPosition;
+    public GameObject castingPosition;
     [SerializeField] private Transform dragToPosition;
     [SerializeField] private Transform holdPosition;
 
     private RaycastHit hit;
     private RaycastHit dragHit;
-    private RaycastHit outLinehit;
+    [HideInInspector] public RaycastHit outLinehit;
 
     //float dragWidth = 5f;
 
@@ -173,7 +173,6 @@ public class PlayerScript : MonoBehaviour
     GameObject lineEffekt;
     [SerializeField] GameObject dragStart;
     [SerializeField] GameObject[] dragObejct;
-
 
     // Start is called before the first frame update
     void Start()
@@ -328,7 +327,7 @@ public class PlayerScript : MonoBehaviour
 
         // Outline
 
-        CheckOutLine();
+        //CheckOutLine();
     }
 
  
@@ -466,156 +465,6 @@ public class PlayerScript : MonoBehaviour
         yield break;
     }
 
-    private void CheckOutLine()
-    {
-        bool foundOutline = false;
-
-        // PICKUP/DROP CHECK
-        if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out outLinehit, Quaternion.identity, grabReach))
-        {
-            if (outLinehit.collider.gameObject)
-            {
-                GameObject hitObject = outLinehit.collider.gameObject;
-
-                if (holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
-                {
-                    // ITEM
-                    if (hitObject.GetComponent<Item>())
-                    {
-                        hitObject.GetComponent<Item>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-                    // RESOURCE BOX
-                    else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<CounterState>() && hitObject.GetComponent<CounterState>().storedItem == null)
-                    {
-                        hitObject.GetComponent<ResourceBoxState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-                    // Resource box as in bottle box
-                    else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<ResourceBoxState>().GetResource() == Resource_Enum.Resource.Bottle)
-                    {
-                        hitObject.GetComponent<ResourceBoxState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-                    // KOLLAR PÅ EN COUNTER MED ETT ITEM PÅ => ITEM OUTLINE
-                    else if (hitObject.GetComponent<CounterState>())
-                    {
-                        if (hitObject.GetComponent<CounterState>().storedItem)
-                        {
-                            hitObject.GetComponent<CounterState>().storedItem.GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                            foundOutline = true;
-                        } 
-                    }
-                    // PLAYER
-                    else if (hitObject.GetComponent<PlayerScript>())
-                    {
-                        //Debug.Log("hit: " + hitObject);
-                        hitObject.GetComponent<PlayerScript>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-                }
-                else if (holdingState == PlayerStateMashineHandle.HoldingState.HoldingItem)
-                {
-                    if (hitObject.GetComponent<CounterState>())
-                    {
-                        // if looking at goal with a bottle OR not looking at goal (but a counter still)
-                        if ((hitObject.GetComponent<Goal>() && objectInHands.GetComponent<Bottle>()) || (!hitObject.GetComponent<Goal>()))
-                        {
-                            if (hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>())
-                            {
-                                hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                                foundOutline = true;
-                            }
-                            else if (hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>())
-                            {
-                                hitObject.GetComponent<CounterState>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                                foundOutline = true;
-                            }
-                            else
-                            {
-                                Debug.LogError(hitObject.gameObject + " doesnt have an outline attached to its mesh. FIX!");
-                            }
-                        }
-                    }
-                    else if (hitObject.GetComponent<Workstation>())
-                    {
-                        hitObject.GetComponent<Workstation>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-                    // ADD INGREDIENT IN CAULDRON
-                    else if (hitObject.GetComponent<CauldronState>() && objectInHands.GetComponent<Ingredient>() && hitObject.GetComponent<CauldronState>().GetIngredientCount() < 3)
-                    {
-                        hitObject.GetComponent<CauldronState>().SetUpAndGetCauldronOutline().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-                    // TAKE POTION FROM CAULDRON INTO BOTTLE
-                    else if (hitObject.GetComponent<CauldronState>() && objectInHands.GetComponent<Bottle>() && objectInHands.GetComponent<Bottle>().IsEmpty())
-                    {
-                        hitObject.GetComponent<CauldronState>().SetUpAndGetCauldronOutline().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-                    // ADD FIREWOOD IN CAULDRON
-                    else if (hitObject.GetComponent<CauldronState>() && objectInHands.GetComponent<Firewood>())
-                    {
-                        hitObject.GetComponent<CauldronState>().SetUpAndGetFireOutline().ShowOutline(color, true);
-                        foundOutline = true;
-                    }
-
-                }
-                else if (holdingState == PlayerStateMashineHandle.HoldingState.HoldingPlayer)
-                {
-                    // ska något ens outline:as om man håller player???
-                }
-            }
-        }
-
-        // PROCESS CHECK
-        if (Physics.Raycast(castingPosition.transform.position, castingPosition.transform.forward, out outLinehit, processReach))
-        {
-            GameObject hitObject = outLinehit.collider.gameObject;
-
-            if(holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
-            {
-                if (hitObject.GetComponent<Saw>())
-                {
-                    hitObject.GetComponent<Saw>().ShowSawOutlineIfOk(this, color, true);
-                    foundOutline = true;
-                }
-                // om man kollar på workstation styrs längre upp för counterstate
-            }
-            else if(holdingState == PlayerStateMashineHandle.HoldingState.HoldingItem) // Är denna nödvändig??? counterstate fixar väll???
-            {
-                if (hitObject.GetComponent<Workstation>())
-                {
-                    hitObject.GetComponent<Workstation>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, true);
-                    foundOutline = true;
-                }
-            }
-        }
-
-        // DRAG CHECK //if holding nothing and hits something
-        if (!foundOutline && Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out outLinehit, Quaternion.identity, dragReach) && holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
-        {
-            GameObject hitObject = outLinehit.collider.gameObject;
-
-            if (hitObject.GetComponent<PlayerScript>())
-            {
-                //Debug.Log("Hit outline: " + outLinehit.collider.gameObject);
-                hitObject.GetComponent<PlayerScript>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, false);
-            }
-            else if (hitObject.GetComponent<Item>())
-            {
-                hitObject.GetComponent<Item>().GetComponentInChildren<OutlineHandler>().ShowOutline(color, false);
-            }
-            else if (hitObject.GetComponent<CounterState>() && hitObject.GetComponent<CounterState>().storedItem != null)
-            {
-                //Debug.Log("Hit outline counter ");
-                hitObject.GetComponent<CounterState>().storedItem.GetComponentInChildren<OutlineHandler>().ShowOutline(color, false);
-            }
-        }
-
-    }
-
     private void FixedUpdate()
     {
         if (playerState == PlayerState.Dragging)
@@ -698,8 +547,7 @@ public class PlayerScript : MonoBehaviour
 
             // DEN RAYCASTEN FUNGERAR INTE
             //Debug.Log("RayCast!");
-
-            
+                        
             GameObject hitObject = hit.collider.gameObject;
 
             Debug.Log("hitObject: " + hitObject);
@@ -891,13 +739,12 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Remove from release version, will perma draw on screen xd
-    // Why not just debug.draw? well because there is no draw box.
-    // This shit exists only in Gizmo.DrawCube. And to invoke that method - i HAVE to invoke it in OnDrawGizmo xdddd
     private void OnDrawGizmos()
     {
         Gizmos.color = UnityEngine.Color.green;
-        Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
-        Gizmos.DrawWireCube(castingPosition.transform.position + transform.forward * dragHit.distance, transform.localScale);
+        //this logic is flawed 
+        //Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
+        Gizmos.DrawWireSphere(hit.point, dragSphereRadius);
     }
 
     public void Grab(Item item)
@@ -1038,66 +885,46 @@ public class PlayerScript : MonoBehaviour
         Destroy(poofVFX, 0.6f);
     }
 
-    public void StartDragging() // (Y)
+    public void StartDragging()
     {
-        Debug.Log("Start Dragging");
+        if (playerState == PlayerState.IsBeingDragged || holdingState != HoldingState.HoldingNothing)
+            return;
 
-        if (playerState != PlayerState.IsBeingDragged)
+        if (Physics.SphereCast(castingPosition.transform.position, dragSphereRadius, castingPosition.transform.forward, out dragHit, dragReach))
         {
-            if (holdingState == HoldingState.HoldingNothing)
+            GameObject hitObject = dragHit.collider.gameObject;
+
+            if (hitObject.TryGetComponent(out Item item) || (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))
             {
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
-                {
-                    
+                playerState = PlayerState.Dragging;
+                objectDragging = hitObject;
 
-                    Debug.Log("DragHit: " + dragHit.collider.gameObject);
-                    bool foundDragHit = false;
+                CreateDragEffects();
+            } 
+            else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
+            {
+                playerState = PlayerState.Dragging;
+                objectDragging = counterState.storedItem;
+                counterState.ReleaseItem(objectDragging);
 
-                    if (dragHit.collider.gameObject.GetComponent<Item>() || dragHit.collider.gameObject.GetComponent<PlayerScript>()) 
-                    {
-                        playerState = PlayerState.Dragging;
-
-                        objectDragging = dragHit.collider.gameObject;
-                        foundDragHit = true;
-                        Debug.Log("Not found hit");
-                    }
-                    else if(dragHit.collider.gameObject.GetComponent<CounterState>() && dragHit.collider.gameObject.GetComponent<CounterState>().storedItem != null)
-                    {
-                        playerState = PlayerState.Dragging;
-
-                        objectDragging = dragHit.collider.gameObject.GetComponent<CounterState>().storedItem;
-                        dragHit.collider.gameObject.GetComponent<CounterState>().ReleaseItem(objectDragging);
-                        foundDragHit = true;
-                        Debug.Log("Found hit");
-                    }
-
-                    if (foundDragHit)
-                    {
-                        GameObject start = Instantiate(dragStart, holdPosition);
-                        Destroy(start, 0.6f);
-                        GameObject hitEffekt;
-                        if (objectDragging.gameObject.GetComponent<PlayerScript>() == true)
-                        {
-                            hitEffekt = Instantiate(dragObejct[0], objectDragging.gameObject.transform);
-                        }
-                        else
-                        {
-                            hitEffekt = Instantiate(dragObejct[1], objectDragging.gameObject.transform);
-                        }
-                        
-                        //hitEffekt.gameObject.transform.parent = objectDragging.gameObject;
-                        Destroy(hitEffekt, 0.6f);
-
-                        lineEffekt = Instantiate(dragEffekt);
-                        lineEffekt.transform.position = new Vector3(0,0,0);
-                        dragline = lineEffekt.GetComponentInChildren<LineRenderer>();
-                        dragline.SetPosition(0, holdPosition.gameObject.transform.position);
-                        dragline.SetPosition(1, objectDragging.gameObject.transform.position);
-
-                    }
-                }
+                CreateDragEffects();
             }
         }
+    }
+
+    void CreateDragEffects()
+    {
+        GameObject start = Instantiate(dragStart, holdPosition);
+        Destroy(start, 0.6f);
+
+        GameObject hitEffect = Instantiate(objectDragging.GetComponent<PlayerScript>() ? dragObejct[0] : dragObejct[1], objectDragging.transform);
+        Destroy(hitEffect, 0.6f);
+
+        lineEffekt = Instantiate(dragEffekt);
+        lineEffekt.transform.position = Vector3.zero;
+        dragline = lineEffekt.GetComponentInChildren<LineRenderer>();
+        dragline.SetPosition(0, holdPosition.position);
+        dragline.SetPosition(1, objectDragging.transform.position);
     }
 
     public void Drag()
@@ -1112,9 +939,6 @@ public class PlayerScript : MonoBehaviour
 
                 // maybe replace MoveTowards with Lerp
                 //objectDragging.GetComponent<Rigidbody>().AddForce(transform.up * 2, ForceMode.Force);
-
-
-
 
                 dragline.SetPosition(1, objectDragging.gameObject.transform.position);
 
@@ -1131,7 +955,7 @@ public class PlayerScript : MonoBehaviour
 
                 // pickUp if close
                 //Debug.Log("Grab Boxcast!");
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
+                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
                 {
                     //Debug.Log("Hit Something");
                     //Debug.Log("hit: " + hit.collider.gameObject + " - object dragging: " + objectDragging);
@@ -1164,7 +988,7 @@ public class PlayerScript : MonoBehaviour
                 //}
 
                 // pickUp if close
-                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
+                if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
                 {
                     if (hit.collider.gameObject && hit.collider.gameObject == dragHit.collider.gameObject)
                     {
@@ -1378,7 +1202,6 @@ public class PlayerScript : MonoBehaviour
     }
     public void SetPlayerState(PlayerState newState)
     {
-        Debug.Log("SetPlayerState...");
         playerState = newState;
     }
     public HoldingState GetHoldingState()
@@ -1388,6 +1211,11 @@ public class PlayerScript : MonoBehaviour
     public void SetPlayerState(HoldingState newState)
     {
         holdingState = newState;
+    }
+
+    public UnityEngine.Color GetPlayerColor()
+    {
+        return color;
     }
 
     //This doesnt work really...
