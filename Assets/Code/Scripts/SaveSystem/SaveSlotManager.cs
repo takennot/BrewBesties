@@ -11,6 +11,7 @@ public class SaveSlotManager : MonoBehaviour
     [SerializeField] private Image levelImage;
     [SerializeField] private TMP_Text progress; // in %
     [SerializeField] private TMP_Text unlockedLevels;
+    [SerializeField] private SaveSlotSelectionManager saveSlotSelectionManager;
     // maybe have arraylist with images?
 
     // Start is called before the first frame update
@@ -28,10 +29,9 @@ public class SaveSlotManager : MonoBehaviour
     public void UpdateSlot(Dictionary<string, int> highscores)
     {
         string key = GetLastCompletedLevelName(highscores);
-        int highscore;
-        if(key != null)
+        if (key != null)
         {
-            highscores.TryGetValue(key, out highscore);
+            highscores.TryGetValue(key, out int highscore);
 
             List<int> levelreqs = CompletionRequirements.GetLevelRequirements(key);
             if (levelreqs[0] == 1)
@@ -68,12 +68,13 @@ public class SaveSlotManager : MonoBehaviour
     {
         for (int i = SceneManager.sceneCountInBuildSettings -1; i > 1; i--)
         {
-            string key = SceneManager.GetSceneByBuildIndex(i).name;
+            string key = saveSlotSelectionManager.allGameScenes[i].name;
+            Debug.Log(key);
             if (key != null)
             {
-                if (highscores.ContainsKey(SceneManager.GetSceneByBuildIndex(i).name))
+                if (highscores.ContainsKey(saveSlotSelectionManager.allGameScenes[i].name))
                 {
-                    return SceneManager.GetSceneByBuildIndex(i).name;
+                    return saveSlotSelectionManager.allGameScenes[i].name;
                 }
             }
         }
