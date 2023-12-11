@@ -109,6 +109,11 @@ public class TutorialManager2 : MonoBehaviour
         ScaleDownArrayInstantly(cauldrons);
         ScaleDownArrayInstantly(newCauldronPlatform);
         ScaleDownArrayInstantly(saws);
+        foreach(Saw saw in saws)
+        {
+            saw.gameObject.SetActive(false);
+        }
+
         newCauldron.gameObject.transform.localScale = new Vector3(0, 0, 0);
         newCauldron.gameObject.SetActive(false);
         foreach (CauldronState cauldron in cauldrons)
@@ -377,6 +382,7 @@ public class TutorialManager2 : MonoBehaviour
         foreach(Saw saw in saws)
         {
             animScale.ScaleUp(saw.gameObject);
+            saw.gameObject.SetActive(true);
         }
         sourceScale.PlayOneShot(sourceScale.clip);
     }
