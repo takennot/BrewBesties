@@ -187,10 +187,7 @@ public class PlayerScript : MonoBehaviour
 
         mainCamera = Camera.main;
 
-        if (!initialized)
-        {
-            Initialize();
-        }
+        Initialize();
     }
 
     private void Initialize()
@@ -252,9 +249,10 @@ public class PlayerScript : MonoBehaviour
             playerState = PlayerState.IsBeingThrown;
         }
 
+        if (!characterController.enabled) return;
+
 
         Movement();
-
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         //                     Input Mapping
@@ -903,6 +901,7 @@ public class PlayerScript : MonoBehaviour
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
 
+                source.PlayOneShot(dragClip);
                 CreateDragEffects();
             } 
             else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
@@ -913,6 +912,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = counterState.storedItem;
                     counterState.ReleaseItem(objectDragging);
 
+                    source.PlayOneShot(dragClip);
                     CreateDragEffects();
                 }
             }
@@ -950,13 +950,6 @@ public class PlayerScript : MonoBehaviour
 
                 objectDragging.transform.position = Vector3.MoveTowards(objectDragging.transform.position, dragToPosition.transform.position, 0.5f);
                 objectDragging.transform.position.Set(objectDragging.transform.position.x, objectDragging.transform.position.y, objectDragging.transform.position.z);
-
-
-                // sound
-                //if (!source.isPlaying)
-                //{
-                    source.PlayOneShot(dragClip);
-                //}
 
                 // USING PICKUP
                 //if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))

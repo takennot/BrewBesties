@@ -70,7 +70,8 @@ public class StartAndEnd : MonoBehaviour
     bool played2 = false;
     bool played3 = false;
 
-    private void Start() {
+    private void Start() 
+    {
         players = GameObject.FindGameObjectsWithTag("Player");
 
         //goal = GameObject.Find("Goal").GetComponent<Goal>();
@@ -123,6 +124,7 @@ public class StartAndEnd : MonoBehaviour
                     //playerScript.DropPlayer(false); // doesnt work. => isnt needed. Drop will go to DropPlayer() automatically if needed //saga
                 }
             }
+
             // or here????
 
             if (endOptionsPanel.activeSelf)
@@ -268,20 +270,26 @@ public class StartAndEnd : MonoBehaviour
             countdownTime--;
             if(countdownTime < 0.01f) {
                 hasStarted = true;
+
+                foreach (GameObject player in players)
+                {
+                    player.GetComponent<PlayerScript>().GetCharacterController().enabled = true;
+                }
+
                 timerLevel.StartTimer();
             }
         }
 
         countdownCanvas.enabled = false;
 
-        // Enable the players
-        foreach (GameObject player in players) {
-            PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            if (playerScript != null) {
-                playerScript.enabled = true;
-                playerScript.StartFootSteps();
-            }
-        }
+        //// Enable the players
+        //foreach (GameObject player in players) {
+        //    PlayerScript playerScript = player.GetComponent<PlayerScript>();
+        //    if (playerScript != null) {
+        //        playerScript.enabled = true;
+        //        playerScript.StartFootSteps();
+        //    }
+        //}
 
         countdownText.text = "";
     }
@@ -334,6 +342,7 @@ public class StartAndEnd : MonoBehaviour
         {
             player.GetCharacterController().enabled = true;
         }
+
         countdownCanvas.enabled = false;
 
         StartCoroutine(CloseBlackScreenAfterDelay());
