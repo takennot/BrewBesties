@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button playButton;
     [SerializeField] private SaveSlotManager[] saveSlots = new SaveSlotManager[3];
+    [SerializeField] public SceneAsset[] allGameScenes = new SceneAsset[9];
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +44,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
     private void LoadSaveSlot(int slot)
     {
         MainMenuData.SetSaveSlot(slot);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
     }
 
     public void OnSaveSlot1Select()
