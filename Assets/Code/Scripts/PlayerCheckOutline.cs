@@ -25,13 +25,13 @@ public class PlayerCheckOutline : MonoBehaviour
     {
         bool foundOutline = false;
 
-        if (Physics.BoxCast(player.castingPosition.transform.position, transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.grabReach))
+        if (Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.grabReach))
         {
             foundOutline = CheckOutlineForHoldingNothing(player.outLinehit.collider.gameObject) ||
                            CheckOutlineForHoldingItem(player.outLinehit.collider.gameObject);
         }
 
-        if (!foundOutline && Physics.Raycast(player.castingPosition.transform.position, player.castingPosition.transform.forward, out player.outLinehit, player.processReach))
+        if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.processReach))
         {
             foundOutline = CheckOutlineForProcess(player.outLinehit.collider.gameObject);
         }
@@ -39,7 +39,7 @@ public class PlayerCheckOutline : MonoBehaviour
         // BoxCast(player.castingPosition.transform.position, new Vector3(1, 1, 1), player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach)
         // SphereCast(player.castingPosition.transform.position, player.dragSphereRadius, player.castingPosition.transform.forward, out player.outLinehit, player.dragReach)
 
-        if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, new Vector3(1, 1, 1), player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach) && player.holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
+        if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach) && player.holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
         {
             foundOutline = CheckOutlineForDrag(player.outLinehit.collider.gameObject);
         }

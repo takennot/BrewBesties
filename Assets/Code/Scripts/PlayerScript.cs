@@ -156,7 +156,7 @@ public class PlayerScript : MonoBehaviour
     private RaycastHit dragHit;
     [HideInInspector] public RaycastHit outLinehit;
 
-    //float dragWidth = 5f;
+    //public Vector3 boxCastWidth = new Vector3(1, 1, 1);
 
     [Header("Other")]
     [SerializeField] public bool waitingForGround;
@@ -180,21 +180,23 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera = Camera.main;
+
+        Initialize();
+    }
+
+    private void InitCC()
+    {
         characterController = gameObject.AddComponent<CharacterController>();
         characterController.skinWidth = 0.25f;
         characterController.slopeLimit = 0.0f;
         characterController.stepOffset = 0.025f;
-
-        mainCamera = Camera.main;
-
-        if (!initialized)
-        {
-            Initialize();
-        }
     }
 
     private void Initialize()
     {
+        InitCC();
+
         playerState = PlayerStateMashineHandle.PlayerState.None;
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
 
@@ -252,9 +254,14 @@ public class PlayerScript : MonoBehaviour
             playerState = PlayerState.IsBeingThrown;
         }
 
+        // Set Up Animator
+        animatorPlayer.SetInteger("PlayerState", (int)playerState);
+        animatorPlayer.SetInteger("PlayerHoldingState", (int)holdingState);
+        animatorPlayer.SetBool("Moving", moving);
+
+        if (!characterController.enabled) return;
 
         Movement();
-
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         //                     Input Mapping
@@ -337,10 +344,6 @@ public class PlayerScript : MonoBehaviour
     private void Movement()
     {
         //Debug.Log("MOVEEEE");
-        animatorPlayer.SetInteger("PlayerState", (int)playerState);
-        animatorPlayer.SetInteger("PlayerHoldingState", (int)holdingState);
-        animatorPlayer.SetBool("Moving", moving);
-
         CheckPlayerControls();
 
         Vector3 cameraForward = mainCamera.transform.forward;
@@ -485,7 +488,13 @@ public class PlayerScript : MonoBehaviour
     {
         playerState = PlayerState.None;
 
+        Debug.Log("cc" + characterController);
+
+        if (!GetComponent<CharacterController>())
+            InitCC();
+
         characterController.enabled = false;
+
         transform.position = spawnpoint.position;
         characterController.enabled = true;
         velocity = new Vector3(0, 0, 0);
@@ -895,6 +904,7 @@ public class PlayerScript : MonoBehaviour
 
         if (Physics.BoxCast(castingPosition.transform.position, new Vector3(1, 1, 1), castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
         {
+            Debug.Log("Drag " + dragHit.collider.gameObject);
             GameObject hitObject = dragHit.collider.gameObject;
 
             if (hitObject.TryGetComponent(out Item item) || (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))
@@ -902,6 +912,7 @@ public class PlayerScript : MonoBehaviour
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
 
+                source.PlayOneShot(dragClip);
                 CreateDragEffects();
             } 
             else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
@@ -912,6 +923,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = counterState.storedItem;
                     counterState.ReleaseItem(objectDragging);
 
+                    source.PlayOneShot(dragClip);
                     CreateDragEffects();
                 }
             }
@@ -946,42 +958,22 @@ public class PlayerScript : MonoBehaviour
 
                 dragline.SetPosition(1, objectDragging.gameObject.transform.position);
 
-
                 objectDragging.transform.position = Vector3.MoveTowards(objectDragging.transform.position, dragToPosition.transform.position, 0.5f);
                 objectDragging.transform.position.Set(objectDragging.transform.position.x, objectDragging.transform.position.y, objectDragging.transform.position.z);
-
-
-                // sound
-                //if (!source.isPlaying)
-                //{
-                    source.PlayOneShot(dragClip);
-                //}
-
-                // USING PICKUP
-                //if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
-                //{
-                //    //Debug.Log("Hit Something");
-                //    //Debug.Log("hit: " + hit.collider.gameObject + " - object dragging: " + objectDragging);
-                //    if (hit.collider.gameObject && hit.collider.gameObject == objectDragging)
-                //    {
-                //        //Debug.Log("TRy to grab item!");
-                //        objectDragging.GetComponent<Item>().SetIsBeingDragged(false);
-                //        Grab(objectDragging.GetComponent<Item>());
-
-                //        objectDragging = null;
-                //    }
-                //}
 
                 // USING COLLISION
                 if (dragGrabHandler.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
                 {
-                    //Debug.Log("TRy to grab item!");
+                    Debug.Log("TRy to grab item!");
+
                     objectDragging.GetComponent<Item>().SetIsBeingDragged(false);
                     Grab(objectDragging.GetComponent<Item>());
+                    Destroy(lineEffekt);
 
                     objectDragging = null;
                 }
 
+                source.PlayOneShot(dragClip);
 
             }
             else if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<PlayerScript>())
@@ -995,36 +987,17 @@ public class PlayerScript : MonoBehaviour
                 objectDragging.transform.position = Vector3.MoveTowards(objectDragging.transform.position, holdPosition.position, 0.5f);
                 objectDragging.transform.position += new Vector3(0, 0.0004f, 0);
 
-                // sound
-                //if (!source.isPlaying)
-                //{
-                    source.PlayOneShot(dragClip);
-                //}
-
-                // pickUp if close
-                //if (Physics.BoxCast(castingPosition.transform.position, transform.localScale, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
-                //{
-                //    if (hit.collider.gameObject && hit.collider.gameObject == dragHit.collider.gameObject)
-                //    {
-                //        objectDragging = null;
-                //        PickUp();
-                //        Destroy(lineEffekt);
-                //    }
-                //    else
-                //    {
-                        
-                //        DropPlayer(false);
-                //        Destroy(lineEffekt);
-                //    }
-                //}
-
                 if (dragGrabHandler.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
                 {
-                    objectDragging = null;
-                    PickUp();
+                    Debug.Log("TRy to grab player!");
+
+                    GrabPlayer(objectDragging.GetComponent<PlayerScript>());
                     Destroy(lineEffekt);
+
+                    objectDragging = null;
                 }
 
+                source.PlayOneShot(dragClip);
             }
             else
             {
