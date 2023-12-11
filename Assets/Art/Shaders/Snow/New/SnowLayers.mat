@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SnowCounter
-  m_Shader: {fileID: -6465566751694194690, guid: 893cf296d6e450f4aab3bd112d15a806,
+  m_Name: SnowLayers
+  m_Shader: {fileID: -6465566751694194690, guid: c1ec7955cb4ca664a9ea5c0107d70b31,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,12 +24,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AmbientOclustion:
-        m_Texture: {fileID: 2800000, guid: 4e68e32ac18d86b4f8aa012427386a61, type: 3}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: f56871abe8b4e3741a6d7e75e31acd1b, type: 3}
+    - _BaseNormalTexture:
+        m_Texture: {fileID: 2800000, guid: df983353e719bfb4f88b02849bd221a2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
+        m_Texture: {fileID: 2800000, guid: 1f6d1a53c938f734b8c0c55b7c49afed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -52,20 +56,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Heightmap:
+        m_Texture: {fileID: 2800000, guid: bf9ad80f25568034a92b638cfdcbe733, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetalicMap:
-        m_Texture: {fileID: 2800000, guid: e6660c08a6b12f34794efaddc387e4a5, type: 3}
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 1f6d1a53c938f734b8c0c55b7c49afed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 5d72b1f36f0a85d428a09c6ce9ba0f41, type: 3}
+    - _NormalTexture:
+        m_Texture: {fileID: 2800000, guid: df983353e719bfb4f88b02849bd221a2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -74,6 +82,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SmoothnessTexture:
+        m_Texture: {fileID: 2800000, guid: f1bf0db112fe023429e1a09a73ba2b0e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowNormalTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowRamp:
+        m_Texture: {fileID: 2800000, guid: 560345a954218a84196150da7222b739, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -94,11 +114,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_1267c86eb0a84f8ea1679e0bb4c6834d: 0.676
+    - Vector1_cf46c58e607544eebea3cbd2145d1cd0: 0.5
     - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _AmbientOclustionStrenght: 0
     - _Blend: 0
-    - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -107,36 +126,46 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NoiseScale: 94.9
-    - _NormalStreangh: 1
+    - _NoiseSize: 175
+    - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SnowOpacilty: 1
+    - _SnowAmount: 0.7
+    - _SnowBlend: 0.025
+    - _SnowColorNoiseSize: 500
+    - _SnowColorNoiseStrength: 0.5
+    - _SnowStrength: 0.678
+    - _SnowVariationNoiseSize: 250
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _Thickness: 0.05
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_b7069fcbbd7a42a5a828e7897b4cb492: {r: 2.1185474, g: 2.1185474, b: 2.1185474,
+        a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SnowDirection: {r: 0, g: 2.08, b: 0, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _SnowColor: {r: 1.498039, g: 1.498039, b: 1.498039, a: 1}
+    - _SnowDirection: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling: {r: 15, g: 15, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &8650880123920825286
+--- !u!114 &2554800023297094126
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
