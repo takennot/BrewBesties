@@ -146,11 +146,6 @@ PrefabInstance:
       propertyPath: playerType
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 3182932229381019206, guid: 20d96b30d5d1a8644807e272e04f6566,
-        type: 3}
-      propertyPath: characterControllerA
-      value: 
-      objectReference: {fileID: 3803371742433217114}
     - target: {fileID: 3340041555366033599, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -235,9 +230,3 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20d96b30d5d1a8644807e272e04f6566, type: 3}
---- !u!143 &3803371742433217114 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 4003138028835727750, guid: 20d96b30d5d1a8644807e272e04f6566,
-    type: 3}
-  m_PrefabInstance: {fileID: 235958086838379484}
-  m_PrefabAsset: {fileID: 0}

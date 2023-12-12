@@ -20,7 +20,6 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Canvas credits;
     [SerializeField] private Canvas settings;
     [SerializeField] private Canvas saveSelection;
-    [SerializeField] private Canvas levelSelection;
     [SerializeField] private SaveSlotSelectionManager saveSlotSelectionManager;
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button fullscreenButton;
@@ -35,7 +34,6 @@ public class MainMenuScript : MonoBehaviour
         credits.gameObject.SetActive(false);
         settings.gameObject.SetActive(false);
         saveSelection.gameObject.SetActive(false);
-        levelSelection.gameObject.SetActive(false);
 
         colorSelected = toggle2p.colors;
         colorSelected.normalColor = toggleColorSelected;
