@@ -40,7 +40,12 @@ public class CounterState : MonoBehaviour {
             item.transform.parent = transform;
             item.transform.localPosition = new Vector3(0, yItemOffset, 0); 
             item.GetComponent<Rigidbody>().isKinematic = true;
-            item.transform.rotation = item.GetComponent<Item>().originalRotation;
+
+            Quaternion originalRotation = item.GetComponent<Item>().originalRotation;
+            float cameraYRotation = Camera.main.transform.rotation.eulerAngles.y;
+            Quaternion newRotation = Quaternion.Euler(originalRotation.eulerAngles.x, originalRotation.eulerAngles.y + cameraYRotation, originalRotation.eulerAngles.z);
+            item.transform.rotation = newRotation;
+
             //counterOutline.enabled = false;
             return true;
         } 

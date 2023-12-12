@@ -17,6 +17,8 @@ public class ReplacePlayerValues : MonoBehaviour
     private bool originalIsSlippery;
     private float originalAcceleration;
 
+    private float timer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,6 @@ public class ReplacePlayerValues : MonoBehaviour
             player.isSlippery = isSlippery;
             player.accelerationRate = acceleration;
             player.playerSpeed = originalSpeed + extraSpeed;
-            Debug.Log(player + ": PlayerSpeed, PlayerAcceleration, PlayerSlippery " + player.playerSpeed + " " + player.accelerationRate + " " + player.isSlippery);
         }
     }
 
@@ -62,7 +63,15 @@ public class ReplacePlayerValues : MonoBehaviour
             player.isSlippery = originalIsSlippery;
             player.accelerationRate = originalAcceleration;
             player.playerSpeed = originalSpeed;
-            Debug.Log(player + ": PlayerSpeed, PlayerAcceleration, PlayerSlippery" + player.playerSpeed + player.accelerationRate + player.isSlippery);
         }
-    }   
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        timer += Time.deltaTime;
+        if(timer > 0.15f)
+        {
+            timer = 0;
+            UpdateValues();
+        }
+    }
 }        
