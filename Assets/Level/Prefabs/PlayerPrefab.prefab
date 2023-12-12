@@ -178,7 +178,6 @@ GameObject:
   - component: {fileID: 5361539311480941451}
   - component: {fileID: 5680693358159162978}
   - component: {fileID: 3940719180354317064}
-  - component: {fileID: 4003138028835727750}
   m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -236,7 +235,6 @@ MonoBehaviour:
   verticalThrowForce: 2.5
   rotationSpeed: 25
   deadZone: 0.1
-  characterController: {fileID: 4003138028835727750}
   objectInHands: {fileID: 0}
   objectDragging: {fileID: 0}
   dragGrabTriggerCount: {fileID: 5889378141638689840}
@@ -253,7 +251,6 @@ MonoBehaviour:
   throwClip: {fileID: 8300000, guid: a213b772fec243e4f911aba2acd05352, type: 3}
   source: {fileID: 5361539311480941451}
   footstepSource: {fileID: 5680693358159162978}
-  isInitialized: 0
   consoleType: 0
   velocity: {x: 0, y: 0, z: 0}
   currentCounter: {fileID: 0}
@@ -556,32 +553,6 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 2.7, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &4003138028835727750
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7760768666410175827}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 0
-  m_StepOffset: 0.025
-  m_SkinWidth: 0.25
-  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8718473170645898869
 GameObject:
