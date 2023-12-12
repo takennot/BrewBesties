@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,9 +11,13 @@ using UnityEngine.UI;
 public class SaveSlotSelectionManager : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
+    [SerializeField] private Canvas levelSelectCanvas;
     [SerializeField] private Button playButton;
+    [SerializeField] private Button saveSlot1;
+    [SerializeField] private Button fakeButton;
     [SerializeField] private SaveSlotManager[] saveSlots = new SaveSlotManager[3];
     [SerializeField] public SceneAsset[] allGameScenes = new SceneAsset[10];
+    [SerializeField] public Button[] levelButtons = new Button[7];
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +49,15 @@ public class SaveSlotSelectionManager : MonoBehaviour
                 {
                     SaveSlotReset(2);
                 }
-                else
-                {
-                    Debug.Log(EventSystem.current.currentSelectedGameObject.name);
-                }
+            }
+        }
+        if (levelSelectCanvas.gameObject.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+            {
+                levelSelectCanvas.gameObject.SetActive(false);
+                canvas.gameObject.SetActive(true);
+                saveSlot1.Select();
             }
         }
     }
@@ -67,13 +77,86 @@ public class SaveSlotSelectionManager : MonoBehaviour
     {
         MainMenuData.SetSaveSlot(slot);
         // TODO load canvas with level selection
-        SceneManager.LoadScene(2);
+        //SceneManager.LoadScene(2);
+        levelSelectCanvas.gameObject.SetActive(true);
+        canvas.gameObject.SetActive(false);
+        
+        foreach (Button button in levelButtons)
+        {
+            button.enabled = false;
+            button.interactable = false;
+            //button.enabled = false;
+        }
+        Debug.Log(saveSlots[slot]);
+        if (saveSlots[slot].GetLastCompletedLevelName(SaveManager.GetHighscores(slot)) == null)
+        {
+            levelButtons[0].interactable = true;
+            levelButtons[0].enabled = true;
+        }
+        else
+        {
+            switch (saveSlots[slot].GetLastCompletedLevelName(SaveManager.GetHighscores(slot)).ToLower())
+            {
+                case "rotatinator":
+                    levelButtons[7].interactable = true;
+                    levelButtons[7].enabled = true;
+                    goto case "plate magic";
+                case "plate magic":
+                    levelButtons[6].interactable = true;
+                    levelButtons[7].interactable = true;
+                    levelButtons[6].enabled = true;
+                    levelButtons[7].enabled = true;
+                    goto case "icy platforms";
+                case "icy platforms":
+                    levelButtons[5].interactable = true;
+                    levelButtons[6].interactable = true;
+                    levelButtons[5].enabled = true;
+                    levelButtons[6].enabled = true;
+                    goto case "ghost house";
+                case "ghost house":
+                    levelButtons[4].interactable = true;
+                    levelButtons[5].interactable = true;
+                    levelButtons[4].enabled = true;
+                    levelButtons[5].enabled = true;
+                    goto case "moving field";
+                case "moving field":
+                    levelButtons[3].interactable = true;
+                    levelButtons[4].interactable = true;
+                    levelButtons[3].enabled = true;
+                    levelButtons[4].enabled = true;
+                    goto case "tutorial throw drag wood";
+                case "tutorial throw drag wood":
+                    levelButtons[2].interactable = true;
+                    levelButtons[3].interactable = true;
+                    levelButtons[2].enabled = true;
+                    levelButtons[3].enabled = true;
+                    goto case "get a grip";
+                case "get a grip":
+                    levelButtons[1].interactable = true;
+                    levelButtons[2].interactable = true;
+                    levelButtons[1].enabled = true;
+                    levelButtons[2].enabled = true;
+                    goto case "tutorial basics";
+                case "tutorial basics":
+                    levelButtons[0].interactable = true;
+                    levelButtons[1].interactable = true;
+                    levelButtons[0].enabled = true;
+                    levelButtons[1].enabled = true;
+                    break;
+            }
+        }
+        fakeButton.Select();
+
     }
 
+    public void OnSaveSlotSelect(int saveSlot)
+    {
+        LoadSaveSlot(saveSlot);
+    }
+    // remove and use method above
     public void OnSaveSlot0Select()
     {
        LoadSaveSlot(0);
-
     }
     public void OnSaveSlot1Select()
     {
@@ -101,5 +184,11 @@ public class SaveSlotSelectionManager : MonoBehaviour
         }
 
         PreviewSaveSlots();
+    }
+    public void LoadLevel(int levelIndex)
+    {
+        SceneManager.LoadScene(levelIndex);
+        // if above doesnt work I guess?
+        //SceneManager.LoadScene(allGameScenes[levelIndex].name);
     }
 }
