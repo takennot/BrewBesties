@@ -138,6 +138,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 4689161074965641288}
+    - targetCorrespondingSourceObject: {fileID: 5571554583639736194, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 4733654792251087189}
     - targetCorrespondingSourceObject: {fileID: 1781861668296804158, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
       insertIndex: -1
@@ -167,8 +171,30 @@ MonoBehaviour:
   meshRenderer: {fileID: 0}
   spriteNormal: {fileID: 0}
   spritemagic: {fileID: 0}
+  magicController: {fileID: 4733654792251087189}
   mainMaterialIndex: 0
   isMagic: 0
+--- !u!114 &4733654792251087189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761701098329104589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797273606bff17448bbed38f7efd44c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onlyOnePartical: 1
+  createOnce: 1
+  ingredientObject: {fileID: 761701098329104589}
+  particalPrefabTransform: {fileID: 8561189478049154601}
+  MagicObjectEffekt: {fileID: 3265319264911959637, guid: 45ce7c035ab911c4c91ba7d4c20f1e9d,
+    type: 3}
+  magiMushroomMaterial: {fileID: 2100000, guid: 502c34c0adce3ee498463ca7f1be995a,
+    type: 2}
+  magiEyeMaterial: {fileID: 2100000, guid: 77bfe08f4d04bd245b514a7854a0b576, type: 2}
 --- !u!1 &6879892727506573425 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1781861668296804158, guid: 8cd695656cc326648a7e1d759180a6ff,
@@ -199,3 +225,9 @@ MonoBehaviour:
   bakeValues: []
   showPlayerOutline: 0
   showManualOutline: 0
+--- !u!4 &8561189478049154601 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3535128052009490790, guid: 8cd695656cc326648a7e1d759180a6ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 5170194233212395343}
+  m_PrefabAsset: {fileID: 0}
