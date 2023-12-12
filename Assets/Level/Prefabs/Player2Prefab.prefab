@@ -153,7 +153,7 @@ PrefabInstance:
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: 8.49
       objectReference: {fileID: 0}
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
@@ -256,6 +256,11 @@ PrefabInstance:
       propertyPath: animatorPlayer
       value: 
       objectReference: {fileID: 1077141156377886733}
+    - target: {fileID: 3182932229381019206, guid: 20d96b30d5d1a8644807e272e04f6566,
+        type: 3}
+      propertyPath: characterControllerA
+      value: 
+      objectReference: {fileID: 6732924868972480516}
     - target: {fileID: 3340041555366033599, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -367,7 +372,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7760768666410175827, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6361066282183374842}
+      addedObject: {fileID: 6732924868972480516}
   m_SourcePrefab: {fileID: 100100000, guid: 20d96b30d5d1a8644807e272e04f6566, type: 3}
 --- !u!1 &1504021835529032467 stripped
 GameObject:
@@ -375,7 +380,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 9181874405641281088}
   m_PrefabAsset: {fileID: 0}
---- !u!143 &-6361066282183374842
+--- !u!143 &6732924868972480516
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

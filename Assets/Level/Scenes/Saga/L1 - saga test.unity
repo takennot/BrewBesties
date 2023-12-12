@@ -15902,6 +15902,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 669176811}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &670522568
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1030852820}
+    m_Modifications:
+    - target: {fileID: 1988156908919687055, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_Name
+      value: WS_Magicfield
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.0457115
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.66641
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 19.446367
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.88343585
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4685522
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 55.881
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 12919e49d6375584ead290d43d448c33, type: 3}
+--- !u!4 &670522569 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
+    type: 3}
+  m_PrefabInstance: {fileID: 670522568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &671598206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24050,6 +24124,7 @@ Transform:
   - {fileID: 1962257558}
   - {fileID: 141272230}
   - {fileID: 1495304792}
+  - {fileID: 670522569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1033286270
@@ -51139,6 +51214,11 @@ PrefabInstance:
       propertyPath: circleStartDelay
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3036710326827688601, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
+        type: 3}
+      propertyPath: timeToWaitForStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3219278018789515703, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
       propertyPath: m_Name
@@ -51148,6 +51228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: duration
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721704160814559817, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 32.25
       objectReference: {fileID: 0}
     - target: {fileID: 7239122137385727066, guid: 99f1561edd7f0b243a3f3a36b4e8fcd2,
         type: 3}
