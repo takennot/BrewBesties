@@ -13,6 +13,8 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private Sprite spriteNormal;
     [SerializeField] private Sprite spritemagic;
 
+    [SerializeField] private MagicController magicController;
+
     public int mainMaterialIndex;
 
     [SerializeField] private bool isMagic = false;
@@ -76,6 +78,12 @@ public class Ingredient : MonoBehaviour
     {
         ingredientType = newIngredient;
     }
+
+    public MagicController GetMagicController()
+    {
+        return magicController;
+    }
+
 }
 
 public class IngredientAbstract
@@ -169,5 +177,6 @@ public class IngredientAbstract
         return material;
     }
 
+    
     
 }

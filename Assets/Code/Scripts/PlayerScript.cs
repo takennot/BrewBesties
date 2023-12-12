@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
     private bool hasForcedLook = false;
 
     [Header("PlayerController")]
-    private CharacterController characterController;
+    [SerializeField] private CharacterController characterController;
     [SerializeField] private GameObject objectInHands;
     [SerializeField] private GameObject objectDragging;
     private Gamepad gamepad;
@@ -131,7 +131,6 @@ public class PlayerScript : MonoBehaviour
         KeyboardSolo //idk
     }
 
-
     [Header("Inputs")]
     private string horizontalName;
     private string verticalName;
@@ -163,8 +162,6 @@ public class PlayerScript : MonoBehaviour
 
     private GameObject currentProcessStation;
 
-    private bool initialized = false;
-
     private Camera mainCamera;
 
     [Header("VFX")]
@@ -182,12 +179,23 @@ public class PlayerScript : MonoBehaviour
     {
         mainCamera = Camera.main;
 
+        //Initialize();
+    }
+
+    public void InitializePlayer(int playerIndex)
+    {
         Initialize();
+        this.playerIndex = playerIndex;
     }
 
     private void InitCC()
     {
-        characterController = gameObject.AddComponent<CharacterController>();
+        Debug.Log("CC:" + characterController);
+        if(characterController == null)
+        {
+            characterController = gameObject.AddComponent<CharacterController>();
+        }
+
         characterController.skinWidth = 0.25f;
         characterController.slopeLimit = 0.0f;
         characterController.stepOffset = 0.025f;
@@ -225,14 +233,14 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
 
-        initialized = true;
+        isInitialized = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.Log("TIMEE PLAYERR");
-        if (!initialized)
+        if (!isInitialized)
         {
             Initialize();
         }
@@ -1109,12 +1117,7 @@ public class PlayerScript : MonoBehaviour
     }     
                                    
 
-    public void InitializePlayer(int playerIndex)
-    {
-        isInitialized = true;
-        this.playerIndex = playerIndex;
-        // Customize player appearance, controls, etc.
-    }
+    
 
     void PlaceOnCounter()
     {
