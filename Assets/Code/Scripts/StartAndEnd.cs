@@ -31,7 +31,6 @@ public class StartAndEnd : MonoBehaviour
 
     [SerializeField] private TMP_Text tip;
 
-
     [Header("Scene")]
     public bool shouldLoadSpecifiedLevel;
     public int specifiedLevelIndex = 1;

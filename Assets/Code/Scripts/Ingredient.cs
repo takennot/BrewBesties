@@ -44,6 +44,8 @@ public class Ingredient : MonoBehaviour
 
         Debug.Log("Magic material:" + magicMaterial);
         meshRenderer.material = magicMaterial;
+
+        magicController.CreateMagicSparkleEffect();
     }
 
     public void Magicify(Material magicalMaterial)
@@ -82,6 +84,11 @@ public class Ingredient : MonoBehaviour
     public MagicController GetMagicController()
     {
         return magicController;
+    }
+
+    public Material GetNormalMaterial()
+    {
+        return material;
     }
 
 }
@@ -171,12 +178,6 @@ public class IngredientAbstract
         }
     }
 
-
-    public Material normMaterial()
-    {
-        return material;
-    }
-
-    
-    
+    // OBS: DETTA ÄR INTE SAMMA KLASS SOM LÄNGST UPP, DET ÄR EN ABSTRAKT VERSION.
+    // OM DU SKA LÄGGA TILL EN METOD, SKROLLA UPP TILL RÄTT KLASS!!!!
 }

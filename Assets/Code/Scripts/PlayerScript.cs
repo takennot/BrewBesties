@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
     private bool hasForcedLook = false;
 
     [Header("PlayerController")]
-    [SerializeField] private CharacterController characterController;
+    [SerializeField] private CharacterController characterControllerA;
     [SerializeField] private GameObject objectInHands;
     [SerializeField] private GameObject objectDragging;
     private Gamepad gamepad;
@@ -83,7 +83,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioSource footstepSource;
 
-    private bool isInitialized = false;
+    [SerializeField] private bool isInitialized = false;
 
     public enum PlayerType
     {
@@ -179,7 +179,7 @@ public class PlayerScript : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        //Initialize();
+        Initialize();
     }
 
     public void InitializePlayer(int playerIndex)
@@ -188,23 +188,22 @@ public class PlayerScript : MonoBehaviour
         this.playerIndex = playerIndex;
     }
 
-    private void InitCC()
-    {
-        Debug.Log("CC:" + characterController);
-        if(characterController == null)
-        {
-            characterController = gameObject.AddComponent<CharacterController>();
-        }
+    //private void InitCC()
+    //{
+    //    Debug.Log("CC:" + characterControllerA + "::" + gameObject);
+    //    if(characterControllerA == null)
+    //    {
+    //        //characterController = gameObject.AddComponent<CharacterController>();
+    //    }
 
-        characterController.skinWidth = 0.25f;
-        characterController.slopeLimit = 0.0f;
-        characterController.stepOffset = 0.025f;
-    }
+    //    characterControllerA.skinWidth = 0.25f;
+    //    characterControllerA.slopeLimit = 0.0f;
+    //    characterControllerA.stepOffset = 0.025f;
+    //}
 
     private void Initialize()
     {
-        InitCC();
-
+        Debug.Log("CC:" + characterControllerA + "::" + gameObject);
         playerState = PlayerStateMashineHandle.PlayerState.None;
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
 
@@ -267,7 +266,7 @@ public class PlayerScript : MonoBehaviour
         animatorPlayer.SetInteger("PlayerHoldingState", (int)holdingState);
         animatorPlayer.SetBool("Moving", moving);
 
-        if (!characterController.enabled) return;
+        if (!characterControllerA.enabled) return;
 
         if(playerState != PlayerState.Interacting)
         {
@@ -391,7 +390,7 @@ public class PlayerScript : MonoBehaviour
         // Gravitation --------------------
 
         // dont fall if being dragged
-        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
+        if (playerState == PlayerState.IsBeingDragged || characterControllerA.isGrounded)
         {
             velocity.y = 0;
         } else
@@ -405,8 +404,8 @@ public class PlayerScript : MonoBehaviour
 
         //Debug.Log("Velocity: " + velocity);
 
-        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
-            characterController.Move(velocity * mass * Time.deltaTime);
+        if (characterControllerA.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
+            characterControllerA.Move(velocity * mass * Time.deltaTime);
 
         // ---------------------------------
 
@@ -417,9 +416,9 @@ public class PlayerScript : MonoBehaviour
         }
 
         // if allowed to move (state är none eller emoting)
-        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
+        if (characterControllerA.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
         {
-            characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
+            characterControllerA.Move(moveDirection * Time.deltaTime * playerSpeed);
         }
 
         // movedirection or charactecotroller
@@ -499,15 +498,12 @@ public class PlayerScript : MonoBehaviour
     {
         playerState = PlayerState.None;
 
-        Debug.Log("cc" + characterController);
+        Debug.Log("cc" + characterControllerA);
 
-        if (!GetComponent<CharacterController>())
-            InitCC();
-
-        characterController.enabled = false;
+        characterControllerA.enabled = false;
 
         transform.position = spawnpoint.position;
-        characterController.enabled = true;
+        characterControllerA.enabled = true;
         velocity = new Vector3(0, 0, 0);
     }
 
@@ -1167,7 +1163,7 @@ public class PlayerScript : MonoBehaviour
 
     public CharacterController GetCharacterController()
     {
-        return characterController;
+        return characterControllerA;
     }
 
     public GameObject GetObjectInHands()

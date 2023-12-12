@@ -9,7 +9,7 @@ public class WS_EffektController : MonoBehaviour
     [SerializeField] private Transform particalPrefabTransform;
 
     [Header("Vars")]
-    private MagicDuration[] magicDurations;
+    //private MagicDuration[] magicDurations;
     private GameObject partical;
     public bool onlyOnePartical = true;
 
@@ -42,18 +42,18 @@ public class WS_EffektController : MonoBehaviour
 
     }
 
-    public void CreateParticle(float durationVariable)
+    public void CreateParticle(/*float durationVariable*/)
     {
         if (onlyOnePartical)
         {
-            magicDurations = particalPrefab.GetComponentsInChildren<MagicDuration>();
+            //magicDurations = particalPrefab.GetComponentsInChildren<MagicDuration>();
             ToggelTextVisabilty(true);
             partical = Instantiate(particalPrefab, particalPrefabTransform);
             onlyOnePartical = false;
-            foreach (var duration in magicDurations)
-            {
-                duration.setMagicVariabels(durationVariable); // går vidare???+
-            }
+            //foreach (var duration in magicDurations)
+            //{
+            //    duration.setMagicVariabels(durationVariable); // går vidare???+
+            //}
         }
     }
 

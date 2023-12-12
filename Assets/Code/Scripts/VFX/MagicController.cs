@@ -24,7 +24,7 @@ public class MagicController : MonoBehaviour
     
     [SerializeField] private Transform particalPrefabTransform;
     
-    [SerializeField] GameObject MagicObejctEffekt;
+    [SerializeField] GameObject MagicObjectEffekt;
     private GameObject magicOnIngredient;
 
     [Header("Materials")]
@@ -32,40 +32,28 @@ public class MagicController : MonoBehaviour
     [SerializeField] Material magiEyeMaterial; 
 
     // Update is called once per frame
-    void Update()
-    {
-        if(ingredientObject == null)
-        {
-            return;
-        }
-
-        //if (ws.doWork == false && ingredientObject.GetComponent<Ingredient>().GetIsMagic() == false)
-        //{
-        //    if (magicOnIngredient != null)
-        //    {
-        //        Destroy(magicOnIngredient);
-        //    }
-        //}
-    }
 
     public void CreateParticle(float durationVariable)
     {
         if (onlyOnePartical)
         {
             onlyOnePartical = false;
-            foreach (var duration in magicDurations)
-            {
-                duration.setMagicVariabels(durationVariable);
-            }
+
+            //foreach (var duration in magicDurations)
+            //{
+            //    duration.setMagicVariabels(durationVariable);
+            //}
         }
     }
 
     public void DestoryParticle()
     {
-        if(ingredientObject != null)
-        {
-            ingredientObject = null;
-        }
+        Destroy(magicOnIngredient);
+
+        //if(ingredientObject != null)
+        //{
+        //    ingredientObject = null;
+        //}
     }
 
     public void MagicOnIngredient()
@@ -74,8 +62,10 @@ public class MagicController : MonoBehaviour
         {
             //ingredient = ws.GetIngridiense();
 
-            magicOnIngredient = Instantiate(MagicObejctEffekt, ingredientObject.transform);
-            Debug.Log("create effekts");
+            //Debug.Log(MagicObjectEffekt + " : " + ingredientObject);
+
+            CreateMagicSparkleEffect();
+            //Debug.Log("create effekts");
 
             Material[] newArry = new Material[ingredientObject.GetComponentInChildren<MeshRenderer>().materials.Length];
 
@@ -87,6 +77,31 @@ public class MagicController : MonoBehaviour
             {
                 newArry[0] = magiMushroomMaterial;
             }
+
+            ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
+
+        }
+    }
+
+    public void CreateMagicSparkleEffect()
+    {
+        magicOnIngredient = Instantiate(MagicObjectEffekt, ingredientObject.transform);
+    }
+
+    public void NotMagicOnIngredient()
+    {
+        if (createOnce)
+        {
+            //ingredient = ws.GetIngridiense();
+
+            //Debug.Log(MagicObjectEffekt + " : " + ingredientObject);
+
+            magicOnIngredient = Instantiate(MagicObjectEffekt, ingredientObject.transform);
+            //Debug.Log("goTo");
+
+            Material[] newArry = new Material[ingredientObject.GetComponentInChildren<MeshRenderer>().materials.Length];
+
+            newArry[0] = ingredientObject.GetComponent<Ingredient>().GetNormalMaterial();
 
             ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
 

@@ -79,11 +79,12 @@ public class Workstation : MonoBehaviour
             ingredientOnStation.GetMagicController().onlyOnePartical = false;
             ingredientOnStation.GetMagicController().createOnce = false;
 
-            effektController.CreateParticle(GetSlider().maxValue);
+            effektController.CreateParticle(/*GetSlider().maxValue*/);
             effektController.onlyOnePartical = false;
         }
-        else
+        else if(ingredientOnStation != null && ingredientOnStation.GetIsMagic() == false)
         {
+            ingredientOnStation.GetMagicController().NotMagicOnIngredient();
             ingredientOnStation.GetMagicController().onlyOnePartical = true;
             ingredientOnStation.GetMagicController().createOnce = true;
             ingredientOnStation.GetMagicController().DestoryParticle();
@@ -94,7 +95,6 @@ public class Workstation : MonoBehaviour
 
     public void DoWorkProcess(PlayerScript thisPlayer)
     {
-        
         doWork = true;
     }
 
