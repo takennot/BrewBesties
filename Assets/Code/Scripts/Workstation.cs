@@ -71,7 +71,7 @@ public class Workstation : MonoBehaviour
             
             magicSlider.value += Time.deltaTime;
             sliderValue = magicSlider.value;
-            magicController.MagicOnIngridanse();
+            magicController.MagicOnIngredient();
             magicController.CreatePartical();
             magicController.onlyOnePartical = false;
             magicController.createOnce = false;

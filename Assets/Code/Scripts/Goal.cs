@@ -13,9 +13,13 @@ public class Goal : MonoBehaviour, GoalInterface
 
     [Header("Refs")]
     [SerializeField] private Camera cam;
-    public int playersCollidingWIth = 0;
     [SerializeField] private CounterState counter;
     [SerializeField] private StartAndEnd startAndEnd;
+
+    [Header("ShowOrdersPlate")]
+    [SerializeField] private List<PlayerScript> playersColliding = new List<PlayerScript>();
+    [SerializeField] private CollidingTriggerCounting orderPlateTriggerCounting;
+    public int playersCollidingWIth = 0;
 
     [Header("dont edit")]
     [SerializeField] private int scoreTotal = 0;
@@ -280,9 +284,17 @@ public class Goal : MonoBehaviour, GoalInterface
             }
         }
 
+        int playersCount = 0;
         // customer trigger stuff
+        foreach (GameObject gameObject in orderPlateTriggerCounting.GetGameobjectsCollidingWith())
+        {
+            if (gameObject.GetComponent<PlayerScript>())
+            {
+                playersCount++;
+            }
+        }
 
-        if (playersCollidingWIth > 0)
+        if (playersCount > 0)
         {
             if (customer1)
             {
@@ -532,10 +544,9 @@ public class Goal : MonoBehaviour, GoalInterface
             }
         }
 
-        Debug.Log("ScoreAdd: " +  score);
         processCalc += " = " + score;
-
-        popUpManager.SpawnPopUp(cam, this.transform, processCalc, Color.blue);
+        Debug.Log("ScoreAdd: " + processCalc);
+        //popUpManager.SpawnPopUp(cam, this.transform, processCalc, Color.blue); // popUp
 
         return score;
     }
@@ -551,21 +562,6 @@ public class Goal : MonoBehaviour, GoalInterface
         Debug.Log("Total score: " + scoreTotal);
 
         //text.text = "Recipes Completed: " + scoreTotal;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<PlayerScript>())
-        {
-            playersCollidingWIth++;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<PlayerScript>())
-        {
-            playersCollidingWIth--;
-        }
     }
 
     public void NewCustomer() // CODE CAN BE IMPROVED AND SHORTEND
