@@ -32,8 +32,9 @@ public class CheatSelectLevel : MonoBehaviour
                     } else
                     {
                         index = i - (int)KeyCode.Alpha0;
-                    }
 
+                    }
+                    Debug.Log("Switched to level index = " + index);
                     SceneManager.LoadScene(index);
                     break;
                 }
