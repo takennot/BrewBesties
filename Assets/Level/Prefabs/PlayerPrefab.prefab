@@ -171,6 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 531608001307111340}
   - component: {fileID: 3182932229381019206}
+  - component: {fileID: 1374792128262410777}
   - component: {fileID: 7613992266541910808}
   - component: {fileID: 2574837807780697274}
   - component: {fileID: 6646115379442243327}
@@ -267,6 +268,32 @@ MonoBehaviour:
   dragObejct:
   - {fileID: 6439399029791077187, guid: 0eecb1a72637eea449b7f3677c53a376, type: 3}
   - {fileID: 9168030562640302774, guid: 39d300e10c309db43b8569a6e58b08a6, type: 3}
+--- !u!114 &1374792128262410777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760768666410175827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3b76744c94b7e4ba227a6ec430b17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPitch: 1.2
+  minPitch: 0.8
+  pickUpSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
+  pickUpVolume: 0.3
+  dropSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
+  dropVolume: 0.3
+  dragSound: {fileID: 8300000, guid: 0d0f6bea13c5cda42bcdcc7c08865f93, type: 3}
+  dragVolume: 0.5
+  grabSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
+  grabVolume: 0.3
+  throwSound: {fileID: 8300000, guid: a213b772fec243e4f911aba2acd05352, type: 3}
+  throwVolume: 0.5
+  footstepSound: {fileID: 0}
+  footstepVolume: 0.5
 --- !u!114 &7613992266541910808
 MonoBehaviour:
   m_ObjectHideFlags: 0

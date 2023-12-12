@@ -73,7 +73,7 @@ public class PlayerScript : MonoBehaviour
 
     // --------------------------------------------------------------
 
-    [Header("Audio")]
+    [Header("Audio Should be replaced with playeraudio script")]
     [SerializeField] private AudioClip grabClip;
     [SerializeField] private AudioClip pickupClip;
     [SerializeField] private AudioClip dropClip;
@@ -82,6 +82,7 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioSource footstepSource;
+    private PlayerAudio audio;
 
     private bool isInitialized = false;
 
@@ -202,6 +203,7 @@ public class PlayerScript : MonoBehaviour
 
         gamepad = Gamepad.current;
         source = GetComponent<AudioSource>();
+        audio = GetComponent<PlayerAudio>();
         GetComponent<Rigidbody>().drag = 1;
 
         // Get colors
@@ -791,7 +793,7 @@ public class PlayerScript : MonoBehaviour
         objectInHands.transform.position = holdPosition.position;
         objectInHands.GetComponent<Item>().SetIsPickedUp(true);
         objectInHands.GetComponent<Item>().lastHeldPlayer = this;
-        source.PlayOneShot(dropClip);
+        audio.PlayDrop();
 
     }
 
@@ -813,7 +815,7 @@ public class PlayerScript : MonoBehaviour
 
             objectInHands.GetComponent<PlayerScript>().SetPlayerState(PlayerState.IsBeingHeld);
 
-            source.PlayOneShot(grabClip);
+            audio.PlayGrab();
         }
     }
 
@@ -837,7 +839,7 @@ public class PlayerScript : MonoBehaviour
             objectInHands.GetComponent<Rigidbody>().isKinematic = false;
 
             holdingState = HoldingState.HoldingNothing;
-            source.PlayOneShot(dropClip);
+            audio.PlayDrop();
 
             objectInHands = null;
             //Debug.Log("object in hands should be null: " + objectInHands);
@@ -857,7 +859,7 @@ public class PlayerScript : MonoBehaviour
         // if holding true - get holding object reference and set parent to null.
         if (holdingState == HoldingState.HoldingPlayer)
         {
-            source.PlayOneShot(dropClip);
+            audio.PlayDrop();
 
             if (isThrowing)
             {
@@ -917,7 +919,7 @@ public class PlayerScript : MonoBehaviour
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
 
-                source.PlayOneShot(dragClip);
+                audio.PlayDrag();
                 CreateDragEffects();
             } 
             else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
@@ -928,7 +930,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = counterState.storedItem;
                     counterState.ReleaseItem(objectDragging);
 
-                    source.PlayOneShot(dragClip);
+                    audio.PlayDrag();
                     CreateDragEffects();
                 }
             }
@@ -978,7 +980,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = null;
                 }
 
-                source.PlayOneShot(dragClip);
+                audio.PlayDrag();
 
             }
             else if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<PlayerScript>())
@@ -1135,7 +1137,7 @@ public class PlayerScript : MonoBehaviour
                     //Debug.Log("FAAAALSEE");
                     objectInHands = null;
                     holdingState = HoldingState.HoldingNothing;
-                    source.PlayOneShot(dropClip);
+                    audio.PlayDrop();
                 }
 
             }
@@ -1158,7 +1160,7 @@ public class PlayerScript : MonoBehaviour
         if (pickedUpItem != null)
         {
             Grab(pickedUpItem.GetComponent<Item>());
-            source.PlayOneShot(grabClip);
+            audio.PlayGrab();
         }
     }
 
