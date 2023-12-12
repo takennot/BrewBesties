@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5532791285483828486}
   - component: {fileID: 1533874431643925098}
-  - component: {fileID: 1355297451230855482}
+  - component: {fileID: 5889378141638689840}
   m_Layer: 2
   m_Name: DragGrabHandle
   m_TagString: Untagged
@@ -54,7 +54,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.9666753, z: 1.282199}
   m_Center: {x: 0, y: 0.0502234, z: 0.049112964}
---- !u!114 &1355297451230855482
+--- !u!114 &5889378141638689840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 692770990944611829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23fa88fb5479bf745b5476fe54a51e77, type: 3}
+  m_Script: {fileID: 11500000, guid: cf91f8752966a264295321c2eb5138ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjectsCollidingWith: []
@@ -237,7 +237,7 @@ MonoBehaviour:
   deadZone: 0.1
   objectInHands: {fileID: 0}
   objectDragging: {fileID: 0}
-  dragGrabHandler: {fileID: 1355297451230855482}
+  dragGrabTriggerCount: {fileID: 5889378141638689840}
   popUpManager: {fileID: 2574837807780697274}
   canHoldPlayerHoldingPlayer: 0
   playerState: 0
@@ -257,7 +257,6 @@ MonoBehaviour:
   castingPosition: {fileID: 3049553749298121588}
   dragToPosition: {fileID: 8261037238083938519}
   holdPosition: {fileID: 2211889075445935333}
-  boxCastWidth: {x: 1, y: 1, z: 1}
   waitingForGround: 0
   walkVFX: {fileID: 2471139447857994406}
   dragEffekt: {fileID: 5744750333397886567, guid: 84ae4bb3cb57ef7458c1bd2ef7f6ed2b,

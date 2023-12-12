@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour
     private Gamepad gamepad;
 
     [Header("Drag")]
-    [SerializeField] private DragGrabHandler dragGrabHandler;
+    [SerializeField] private CollidingTriggerCounting dragGrabTriggerCount;
 
     [Header("Emote")]
     [SerializeField] private PopUpManager popUpManager;
@@ -261,7 +261,10 @@ public class PlayerScript : MonoBehaviour
 
         if (!characterController.enabled) return;
 
-        Movement();
+        if(playerState != PlayerState.Interacting)
+        {
+            Movement();
+        }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         //                     Input Mapping
@@ -829,6 +832,7 @@ public class PlayerScript : MonoBehaviour
                 objectInHands.GetComponent<Item>().SetIsPickedUp(false);
             }
 
+            //objectInHands.transform.position = objectInHands.transform.position + (this.transform.forward * 5);
             objectInHands.transform.parent = null;
             objectInHands.GetComponent<Rigidbody>().isKinematic = false;
 
@@ -884,13 +888,14 @@ public class PlayerScript : MonoBehaviour
         waitingForGround = false;
         playerState = PlayerState.None;
 
+        // wind vfx
         ParticleSystem ps = walkVFX.GetComponent<ParticleSystem>();
         ParticleSystem.MainModule main = ps.main;
         UnityEngine.Color newColor;
         UnityEngine.ColorUtility.TryParseHtmlString("#BFBEBE", out newColor);
         main.startColor = newColor;//System.Drawing.Color.FromArgb(0.7450981, 0.7450981, 0.7450981);
         
-
+        // poof vfx
         GameObject poofVFX = Instantiate(walkVFX, transform.position + new Vector3(0,-1,0), Quaternion.identity);
         poofVFX.transform.localScale = new Vector3(3,3,3);
         
@@ -902,7 +907,7 @@ public class PlayerScript : MonoBehaviour
         if (playerState == PlayerState.IsBeingDragged || holdingState != HoldingState.HoldingNothing)
             return;
 
-        if (Physics.BoxCast(castingPosition.transform.position, new Vector3(1, 1, 1), castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
+        if (Physics.BoxCast(castingPosition.transform.position, transform.localScale * 1.2f, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
         {
             Debug.Log("Drag " + dragHit.collider.gameObject);
             GameObject hitObject = dragHit.collider.gameObject;
@@ -962,7 +967,7 @@ public class PlayerScript : MonoBehaviour
                 objectDragging.transform.position.Set(objectDragging.transform.position.x, objectDragging.transform.position.y, objectDragging.transform.position.z);
 
                 // USING COLLISION
-                if (dragGrabHandler.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
+                if (dragGrabTriggerCount.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
                 {
                     Debug.Log("TRy to grab item!");
 
@@ -987,7 +992,7 @@ public class PlayerScript : MonoBehaviour
                 objectDragging.transform.position = Vector3.MoveTowards(objectDragging.transform.position, holdPosition.position, 0.5f);
                 objectDragging.transform.position += new Vector3(0, 0.0004f, 0);
 
-                if (dragGrabHandler.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
+                if (dragGrabTriggerCount.GetGameobjectsCollidingWith().Contains(objectDragging.gameObject))
                 {
                     Debug.Log("TRy to grab player!");
 
