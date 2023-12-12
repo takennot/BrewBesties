@@ -170,21 +170,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1293012185015638133, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
-        type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 960
-      objectReference: {fileID: 0}
     - target: {fileID: 3726668093100333289, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 4647792710753975912, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
-        type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4689161074965641288, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}
       propertyPath: material
@@ -217,11 +207,6 @@ PrefabInstance:
       propertyPath: mainMaterialIndex
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4733654792251087189, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
-        type: 3}
-      propertyPath: particalPrefabTransform
-      value: 
-      objectReference: {fileID: 2288717533548987030}
     - target: {fileID: 5031554918223835048, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}
       propertyPath: maxPushForce
@@ -321,6 +306,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IncludeLayers.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674797651809840499, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674797651809840499, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 7171728034524283437, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}

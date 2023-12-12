@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.49
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
@@ -78,17 +78,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 2b9ce7cee96b79e4887e7f559c0fe6e6, type: 2}
-    - target: {fileID: 3182932229381019206, guid: 20d96b30d5d1a8644807e272e04f6566,
-        type: 3}
-      propertyPath: dragEffekt
-      value: 
-      objectReference: {fileID: 4529648308791668398, guid: fa885a5992790964bb527dd60c6d2be0,
-        type: 3}
-    - target: {fileID: 3182932229381019206, guid: 20d96b30d5d1a8644807e272e04f6566,
-        type: 3}
-      propertyPath: characterControllerA
-      value: 
-      objectReference: {fileID: 1110821454644313414}
     - target: {fileID: 3340041555366033599, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -156,7 +145,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7760768666410175827, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1110821454644313414}
+      addedObject: {fileID: 8717454568402854576}
   m_SourcePrefab: {fileID: 100100000, guid: 20d96b30d5d1a8644807e272e04f6566, type: 3}
 --- !u!1 &5959709623088458514 stripped
 GameObject:
@@ -164,7 +153,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4109233017207547457}
   m_PrefabAsset: {fileID: 0}
---- !u!143 &1110821454644313414
+--- !u!143 &8717454568402854576
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -31,9 +31,17 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] private Goal goal;
 
-    private int saveSlot;
+    [SerializeField] private AnimationScale animScale;
 
     public bool runElementsInLevel = true;
+
+    private int saveSlot;
+
+    [Header("GarbageCheck")]
+    [SerializeField] private int ingredientMax = 25;
+    [SerializeField] private int bottleMax = 15;
+    [SerializeField] private int firewoodMax = 15;
+
 
     private void Awake()
     {
@@ -365,25 +373,25 @@ public class GameManagerScript : MonoBehaviour
         Ingredient[] ingredients = FindObjectsByType<Ingredient>(FindObjectsSortMode.InstanceID);
         Bottle[] bottles = FindObjectsByType<Bottle>(FindObjectsSortMode.InstanceID);
         Firewood[] firewoods = FindObjectsByType<Firewood>(FindObjectsSortMode.InstanceID);
-        if(ingredients != null && ingredients.Length > 15)
+        if(ingredients != null && ingredients.Length > ingredientMax)
         {
             if (!ingredients.Last().gameObject.GetComponent<Item>().IsPickedUp())
             {
-                Destroy(ingredients.Last().gameObject);
+                animScale.ScaleDownAndDestroy(ingredients.Last().gameObject);
             }
         }
-        if (bottles != null && bottles.Length > 10)
+        if (bottles != null && bottles.Length > bottleMax)
         {
             if (!bottles.Last().gameObject.GetComponent<Item>().IsPickedUp() && !bottles.Last().gameObject.GetComponent<Bottle>().IsEmpty())
             {
-                Destroy(bottles.Last().gameObject);
+                animScale.ScaleDownAndDestroy(bottles.Last().gameObject);
             }
         }
-        if (firewoods != null && firewoods.Length > 10)
+        if (firewoods != null && firewoods.Length > firewoodMax)
         {
             if (!firewoods.Last().gameObject.GetComponent<Item>().IsPickedUp())
             {
-                Destroy(firewoods.Last().gameObject);
+                animScale.ScaleDownAndDestroy(firewoods.Last().gameObject);
             }
         }
     }
