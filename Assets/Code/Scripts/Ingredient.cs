@@ -40,8 +40,15 @@ public class Ingredient : MonoBehaviour
     {
         isMagic = true;
 
+        Debug.Log("Magic material:" + magicMaterial);
         meshRenderer.material = magicMaterial;
+    }
+
+    public void Magicify(Material magicalMaterial)
+    {
+        isMagic = true; 
         
+        meshRenderer.material = magicalMaterial;
     }
 
     public bool GetIsMagic()

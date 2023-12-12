@@ -39,7 +39,7 @@ public class PlayerCheckOutline : MonoBehaviour
         // BoxCast(player.castingPosition.transform.position, new Vector3(1, 1, 1), player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach)
         // SphereCast(player.castingPosition.transform.position, player.dragSphereRadius, player.castingPosition.transform.forward, out player.outLinehit, player.dragReach)
 
-        if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach) && player.holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
+        if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale * 1.2f, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach) && player.holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
         {
             foundOutline = CheckOutlineForDrag(player.outLinehit.collider.gameObject);
         }

@@ -6,12 +6,16 @@ public class ReplacePlayerValues : MonoBehaviour
 {
     private PlayerScript[] players;
 
-    [Header("Movement")]
-    public bool isSlippery;
-    public float acceleration;
-    public float extraSpeed;
+    public bool needsTrigger;
     
+    [Header("Movement")]
+    public bool isSlippery = true;
+    public float acceleration = 0.95f;
+    public float extraSpeed = 2;
+
     private float originalSpeed;
+    private bool originalIsSlippery;
+    private float originalAcceleration;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +29,12 @@ public class ReplacePlayerValues : MonoBehaviour
         players = FindObjectsOfType<PlayerScript>();
 
         originalSpeed = players[0].playerSpeed;
+        originalIsSlippery = players[0].isSlippery;
+        originalAcceleration = players[0].accelerationRate;
 
-        foreach (PlayerScript player in players)
+        if (!needsTrigger)
         {
-            player.isSlippery = isSlippery;
-            player.accelerationRate = acceleration;
-            player.playerSpeed = originalSpeed += extraSpeed;
+            UpdateValues();
         }
     }
 
@@ -41,8 +45,24 @@ public class ReplacePlayerValues : MonoBehaviour
         {
             player.isSlippery = isSlippery;
             player.accelerationRate = acceleration;
-            player.playerSpeed = originalSpeed += extraSpeed;
+            player.playerSpeed = originalSpeed + extraSpeed;
+            Debug.Log(player + ": PlayerSpeed, PlayerAcceleration, PlayerSlippery " + player.playerSpeed + " " + player.accelerationRate + " " + player.isSlippery);
         }
     }
-    
-}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        UpdateValues();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        foreach (PlayerScript player in players)
+        {
+            player.isSlippery = originalIsSlippery;
+            player.accelerationRate = originalAcceleration;
+            player.playerSpeed = originalSpeed;
+            Debug.Log(player + ": PlayerSpeed, PlayerAcceleration, PlayerSlippery" + player.playerSpeed + player.accelerationRate + player.isSlippery);
+        }
+    }   
+}        
