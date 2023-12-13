@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0014833048, g: 0.0013571114, b: 0.0012931153, a: 1}
+  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18353,8 +18353,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -6361066282183374842, guid: e550719ace9a8d240ae37799018359a5, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -47174,8 +47173,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1Prefab
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8717454568402854576, guid: 16e27e2e6366fc8489115f51512f7055, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -50569,7 +50567,11 @@ MonoBehaviour:
   playerAmount: 2
   isTutorial: 1
   goal: {fileID: 852418707}
+  animScale: {fileID: 0}
   runElementsInLevel: 1
+  ingredientMax: 25
+  bottleMax: 15
+  firewoodMax: 15
 --- !u!1001 &752923735514817439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51350,6 +51352,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 10.199997
       objectReference: {fileID: 0}
+    - target: {fileID: 4960814046170822282, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5190606672428112027, guid: e8a987055069f8b4f8b3a7f077722b2a,
         type: 3}
       propertyPath: m_Layer
@@ -51369,6 +51376,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007587901731994156, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7779876002177214087, guid: e8a987055069f8b4f8b3a7f077722b2a,
         type: 3}

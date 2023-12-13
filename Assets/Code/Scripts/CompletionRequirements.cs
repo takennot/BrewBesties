@@ -7,7 +7,7 @@ public static class CompletionRequirements
     //seperating by 3 to view easier
     public static List<int> tutorialRequirements = new List<int>(new int[] { 1, 1, 1 });
     public static List<int> getAGripRequirements = new List<int>(new int[] { 250, 700, 900 });
-    public static List<int> completionistRequirements = new List<int>(new int[] { 170, 600, 780 });
+    public static List<int> completionistRequirements = new List<int>(new int[] { 230, 600, 780 });
 
     public static List<int> tutorial2Requirements = new List<int>(new int[] { 1, 1, 1 });
     public static List<int> movingFieldRequirements = new List<int>(new int[] { 300, 600, 900 });
