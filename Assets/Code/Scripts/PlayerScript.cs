@@ -161,10 +161,8 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] public bool waitingForGround;
-
     private GameObject currentProcessStation;
-
-    private Camera mainCamera;
+    public Camera mainCamera;
 
     [Header("VFX")]
     [SerializeField] private GameObject walkVFX;
@@ -179,7 +177,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mainCamera = Camera.main;
+        //mainCamera = Camera.main;
 
         Initialize();
     }
