@@ -288,7 +288,7 @@ public class Goal : MonoBehaviour, GoalInterface
         // customer trigger stuff
         foreach (GameObject gameObject in orderPlateTriggerCounting.GetGameobjectsCollidingWith())
         {
-            if (gameObject.GetComponent<PlayerScript>())
+            if (gameObject && gameObject.GetComponent<PlayerScript>())
             {
                 playersCount++;
             }
