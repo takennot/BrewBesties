@@ -43,7 +43,7 @@ public class PlayerAudio : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        source.GetComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
