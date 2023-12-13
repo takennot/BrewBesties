@@ -8,7 +8,7 @@ public class CollidingTriggerCounting : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherCollider)
     {
-        Debug.Log("Collision!!!: " + otherCollider.gameObject);
+        //Debug.Log("Collision!!!: " + otherCollider.gameObject);
 
         if (otherCollider.gameObject != this.gameObject && !gameObjectsCollidingWith.Contains(otherCollider.gameObject))
         {
@@ -18,7 +18,7 @@ public class CollidingTriggerCounting : MonoBehaviour
 
     private void OnTriggerExit(Collider otherCollider)
     {
-        Debug.Log("CollisionExit!!!: " + otherCollider.gameObject);
+        //Debug.Log("CollisionExit!!!: " + otherCollider.gameObject);
 
         if (gameObjectsCollidingWith.Contains(otherCollider.gameObject))
         {

@@ -84,7 +84,7 @@ public class GameManagerScript : MonoBehaviour
             if(goal == null)
                 goal = FindAnyObjectByType<Goal>();
 
-            goal.GetComponent<Goal>().SetActivated(false);
+            goal.SetActivated(false);
         }
         else
         {
@@ -96,7 +96,7 @@ public class GameManagerScript : MonoBehaviour
                 }
             }
 
-            goal.GetComponent<Goal>().SetActivated(true);
+            goal.SetActivated(true);
         }
 
         {

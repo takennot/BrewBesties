@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
     private bool hasForcedLook = false;
 
     [Header("PlayerController")]
-    private CharacterController characterController;
+    [SerializeField] private CharacterController characterController;
     [SerializeField] private GameObject objectInHands;
     [SerializeField] private GameObject objectDragging;
     private Gamepad gamepad;
@@ -164,8 +164,6 @@ public class PlayerScript : MonoBehaviour
 
     private GameObject currentProcessStation;
 
-    private bool initialized = false;
-
     private Camera mainCamera;
 
     [Header("VFX")]
@@ -186,17 +184,25 @@ public class PlayerScript : MonoBehaviour
         Initialize();
     }
 
-    private void InitCC()
+    //private void InitCC()
+    //{
+    //    characterController = gameObject.AddComponent<CharacterController>();
+    //    characterController.skinWidth = 0.25f;
+    //    characterController.slopeLimit = 0.0f;
+    //    characterController.stepOffset = 0.025f;
+    //}
+
+    public void InitializePlayer(int playerIndex)
     {
-        characterController = gameObject.AddComponent<CharacterController>();
-        characterController.skinWidth = 0.25f;
-        characterController.slopeLimit = 0.0f;
-        characterController.stepOffset = 0.025f;
+        Initialize();
+        this.playerIndex = playerIndex;
+
+        // Customize player appearance, controls, etc.
     }
 
     private void Initialize()
     {
-        InitCC();
+        //InitCC();
 
         playerState = PlayerStateMashineHandle.PlayerState.None;
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
@@ -227,14 +233,14 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
 
-        initialized = true;
+        isInitialized = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.Log("TIMEE PLAYERR");
-        if (!initialized)
+        if (!isInitialized)
         {
             Initialize();
         }
@@ -494,9 +500,6 @@ public class PlayerScript : MonoBehaviour
         playerState = PlayerState.None;
 
         Debug.Log("cc" + characterController);
-
-        if (!GetComponent<CharacterController>())
-            InitCC();
 
         characterController.enabled = false;
 
@@ -1111,12 +1114,7 @@ public class PlayerScript : MonoBehaviour
     }     
                                    
 
-    public void InitializePlayer(int playerIndex)
-    {
-        isInitialized = true;
-        this.playerIndex = playerIndex;
-        // Customize player appearance, controls, etc.
-    }
+    
 
     void PlaceOnCounter()
     {
