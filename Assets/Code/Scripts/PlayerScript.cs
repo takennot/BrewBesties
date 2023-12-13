@@ -965,6 +965,7 @@ public class PlayerScript : MonoBehaviour
                 // special for item
                 objectDragging.GetComponent<Rigidbody>().isKinematic = false;
                 objectDragging.GetComponent<Item>().SetIsBeingDragged(true);
+                objectDragging.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
                 dragline.SetPosition(1, objectDragging.gameObject.transform.position);
 

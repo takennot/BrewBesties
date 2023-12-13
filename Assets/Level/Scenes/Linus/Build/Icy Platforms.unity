@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028477, g: 0.22571571, b: 0.30692372, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -53513,6 +53513,21 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 587170954}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: leaveAfterSeconds
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: startRateThirdCustomer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: timeBeforeScorePenalty
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5258642914513974460, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: m_Enabled
@@ -53563,6 +53578,11 @@ PrefabInstance:
       propertyPath: pointsThreeStar
       value: 665
       objectReference: {fileID: 0}
+    - target: {fileID: 7723234847253258605, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: song
+      value: 
+      objectReference: {fileID: 8300000, guid: 1fc39450fb25ad14980f4b6138589541, type: 3}
     - target: {fileID: 7846096585859954009, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: m_LocalPosition.x
