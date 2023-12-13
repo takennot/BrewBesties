@@ -49,6 +49,12 @@ public class PauseMenuScript : MonoBehaviour
             Pause();
         }
 
+        // if options canvas enabled 
+        // if input is B pressed
+        // disable options canvas, focus on resume?
+        //pauseMenuCanvas.enabled = true;
+        //optionsCanvas.enabled = false;
+        //resumeButton.Select();
     }
 
     public void Pause()
@@ -126,7 +132,6 @@ public class PauseMenuScript : MonoBehaviour
         optionsCanvas.enabled = true;
         volumeSlider.Select();
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", 0.1f);
-        //later, maybe after alpha test?
     }
 
     public void OnBack()
