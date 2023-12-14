@@ -46,6 +46,12 @@ public class Timer : MonoBehaviour
             timeRemaining = timeSeconds + (timeMinutes * 60);
             DisplayTime(timeRemaining);
         }
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            timerIsRunning = true;
+            timeRemaining = 3;
+            DisplayTime(timeRemaining);
+        }
 
 
         if (timerIsRunning)
