@@ -68,13 +68,13 @@ public class SaveSlotManager : MonoBehaviour
     {
         for (int i = SceneManager.sceneCountInBuildSettings -1; i > 1; i--)
         {
-            string key = saveSlotSelectionManager.allGameScenes[i].name;
+            string key = saveSlotSelectionManager.allSceneNames[i];
             Debug.Log(key);
             if (key != null)
             {
-                if (highscores.ContainsKey(saveSlotSelectionManager.allGameScenes[i].name))
+                if (highscores.ContainsKey(saveSlotSelectionManager.allSceneNames[i]))
                 {
-                    return saveSlotSelectionManager.allGameScenes[i].name;
+                    return saveSlotSelectionManager.allSceneNames[i];
                 }
             }
         }
