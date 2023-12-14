@@ -12,7 +12,9 @@ public class OutlineHandler : MonoBehaviour
     {
         if(timeOut >= 1f)
         {
-           // Debug.Log("Disable outline");
+            // Debug.Log("Disable outline");
+            outline.HideOutline();
+
             outline.enabled = false;
         }
         else

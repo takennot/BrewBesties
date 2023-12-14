@@ -125,6 +125,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers:
+  - {fileID: 1119149613421083129}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &188285675414334027
@@ -211,6 +213,16 @@ PrefabInstance:
         type: 3}
       propertyPath: mainMaterialIndex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689161074965641288, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
+        type: 3}
+      propertyPath: magicalPotionColor
+      value: yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689161074965641288, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
+        type: 3}
+      propertyPath: neutralPotionColor
+      value: red
       objectReference: {fileID: 0}
     - target: {fileID: 5031554918223835048, guid: 8ca51ce3bb186214a8a58b2c202ab8ab,
         type: 3}
