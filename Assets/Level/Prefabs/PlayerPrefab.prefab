@@ -665,6 +665,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers:
+  - {fileID: 399706485695797053}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &5343836255644642540
@@ -819,6 +821,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc0b64c8d4f8454b955d42275db5db6, type: 3}
+--- !u!137 &399706485695797053 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5246820219401043257, guid: 0bc0b64c8d4f8454b955d42275db5db6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3648907601406776826}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3830662622537036305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0bc0b64c8d4f8454b955d42275db5db6,

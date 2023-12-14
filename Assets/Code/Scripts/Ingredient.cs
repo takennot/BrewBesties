@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Ingredient : MonoBehaviour
@@ -13,6 +14,10 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private Sprite spriteNormal;
     [SerializeField] private Sprite spritemagic;
 
+    [Header("Colors")]
+    [SerializeField] private string neutralPotionColor;
+    [SerializeField] private string magicalPotionColor;
+
     [SerializeField] private MagicController magicController;
 
     public int mainMaterialIndex;
@@ -24,6 +29,15 @@ public class Ingredient : MonoBehaviour
     public Material GetMaterial()
     {
         return meshRenderer.materials[mainMaterialIndex];
+    }
+    public string GetColorStr()
+    {
+        if (isMagic)
+        {
+            return magicalPotionColor;
+        }
+
+        return neutralPotionColor;
     }
 
     public void Magicify()

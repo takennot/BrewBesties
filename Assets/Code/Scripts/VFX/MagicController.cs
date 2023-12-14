@@ -56,13 +56,13 @@ public class MagicController : MonoBehaviour
             if (ingredientObject.GetComponent<Ingredient>().GetIngredientType() == Resource_Enum.Ingredient.MonsterEye)
 
             {
-                newArry[0] = magiEyeMaterial;
+                ingredientObject.GetComponentInChildren<MeshRenderer>().material = magiEyeMaterial;
             }
             else
             {
-                newArry[0] = magiMushroomMaterial;
+                ingredientObject.GetComponentInChildren<MeshRenderer>().material = magiMushroomMaterial;
             }
-            ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
+            //ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
         }
     }
 

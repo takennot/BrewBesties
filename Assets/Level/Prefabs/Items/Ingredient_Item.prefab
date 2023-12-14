@@ -171,6 +171,8 @@ MonoBehaviour:
   meshRenderer: {fileID: 7171728034524283437}
   spriteNormal: {fileID: 0}
   spritemagic: {fileID: 0}
+  neutralPotionColor: pink
+  magicalPotionColor: pink
   magicController: {fileID: 2144012047335199141}
   mainMaterialIndex: 0
   isMagic: 0
@@ -223,6 +225,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers:
+  - {fileID: 7171728034524283437}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!23 &7171728034524283437 stripped

@@ -203,18 +203,20 @@ public class CauldronState : MonoBehaviour
 
         if (success)
         {
+            liquidPlane.GetComponent<ChangePotionColor>().ChangeColor(ingredient.GetColorStr());
+
             switch (ingredientType)
             {
                 case Resource_Enum.Ingredient.Mushroom:
                     //Debug.Log("Cauldron red");
                     //liquidPlane.GetComponent<MeshRenderer>().material = red;
-                    liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("red");
+                    //liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("red");
                     drop.PlayEffect("mushroom");
                 break;
                 case Resource_Enum.Ingredient.MonsterEye:
                     //Debug.Log("Cauldron gray");
                     //liquidPlane.GetComponent<MeshRenderer>().material = gray;
-                    liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("gray");
+                    //liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("gray");
                     drop.PlayEffect("monstereye");
 
                     break;
@@ -222,7 +224,7 @@ public class CauldronState : MonoBehaviour
                     //Debug.Log("Cauldron blue");
                     //liquidPlane.GetComponent<MeshRenderer>().material = water; //!!!
                     //liquidPlane.GetComponent<ChangePotionColor>().changeColor("red");
-                    liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("pink");
+                    //liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("pink");
                     drop.PlayEffect("pixiedust");
                     break;
                 default:
