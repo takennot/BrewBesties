@@ -73,7 +73,7 @@ Shader "Custom/CircleTransition"
             {
                 // Now we draw a circle
                 float2 center = float2(_CenterX, _CenterY);
-                float smoothValue = 0.0001f;
+                float smoothValue = 0.001f;
                 float outputAlpha = 0;
                 drawCircle(i.uv, center, _Radius, smoothValue, outputAlpha);
                 

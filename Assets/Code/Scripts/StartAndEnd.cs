@@ -340,7 +340,8 @@ public class StartAndEnd : MonoBehaviour
 
         Debug.Log("Start the thing!");
 
-        FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
+        //This is throwing a bunch of errors
+        //FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
 
         ShowScore();
 
