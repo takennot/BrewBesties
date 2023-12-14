@@ -15,7 +15,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
     [SerializeField] private Button saveSlot1;
     [SerializeField] private Button fakeButton;
     [SerializeField] private SaveSlotManager[] saveSlots = new SaveSlotManager[3];
-    [SerializeField] public SceneAsset[] allGameScenes = new SceneAsset[11];
+    [SerializeField] public string[] allSceneNames = new string[11];
     [SerializeField] public Button[] levelButtons = new Button[7];
     // Start is called before the first frame update
     void Start()
