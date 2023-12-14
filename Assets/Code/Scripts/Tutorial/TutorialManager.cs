@@ -121,6 +121,7 @@ public class TutorialManager : MonoBehaviour
         cauldron.SetActive(false);
         goal.transform.localScale = new Vector3(0, 0, 0);
         goalState = goal.GetComponentInChildren<Goal>();
+        goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(false);
         goalState.magicMushroomPercent = 100f;
         potionBox.transform.localScale = new Vector3(0, 0, 0);
 
@@ -376,6 +377,7 @@ public class TutorialManager : MonoBehaviour
 
         animScale.ScaleUp(goal);
         goal.GetComponentInChildren<Goal>().SetActivated(true);
+        goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(true);
         sourceScale.PlayOneShot(source.clip);
         yield return new WaitForSeconds(0.5f);
 
