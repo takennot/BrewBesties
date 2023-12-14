@@ -148,7 +148,7 @@ public class PlayerCheckOutline : MonoBehaviour
 
     private bool CheckOutlineForDrag(GameObject hitObject)
     {
-        if (player.holdingState != PlayerStateMashineHandle.HoldingState.HoldingNothing || !hitObject)
+        if (player.holdingState != HoldingState.HoldingNothing || !hitObject)
             return false;
 
         OutlineHandler outlineHandler = null;

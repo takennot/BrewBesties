@@ -94,9 +94,14 @@ public class Outline : MonoBehaviour
     [SerializeField, HideInInspector]
     private List<ListVector3> bakeValues = new List<ListVector3>();
 
-    private Renderer[] renderers;
+    [Header("Renderers")]
+    [SerializeField] private Renderer[] renderers;
+
+    [Header("Masks")]
     private Material outlineMaskMaterial;
     private Material outlineFillMaterial;
+
+    //public int baseMaterialsCount = 1;
 
     //private bool needsUpdate;
     [SerializeField] private bool showPlayerOutline = false; // Flag for player-selected highlights
@@ -104,8 +109,9 @@ public class Outline : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("Awake: " + gameObject);
         // Cache renderers
-        renderers = GetComponentsInChildren<Renderer>();
+        //renderers = GetComponentsInChildren<Renderer>();
 
         // Instantiate outline materials
         outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
@@ -167,6 +173,7 @@ public class Outline : MonoBehaviour
 
         if (/*needsUpdate &&*/ showPlayerOutline)
         {
+            //Debug.Log("SPO" + showPlayerOutline);
             //needsUpdate = false;
             SetOnOutline();
             UpdateMaterialProperties();
@@ -187,13 +194,19 @@ public class Outline : MonoBehaviour
 
     void OnDisable()
     {
+        Debug.Log("Disable outline now!!" + gameObject);
+
         foreach (var renderer in renderers)
         {
             // Remove outline shaders
             var materials = renderer.sharedMaterials.ToList();
 
+            Debug.Log("renderer: " + renderer.gameObject + " - " + materials.Count);
+
             materials.Remove(outlineMaskMaterial);
             materials.Remove(outlineFillMaterial);
+
+            Debug.Log("After: " + renderer.gameObject + " - " + materials.Count);
 
             renderer.materials = materials.ToArray();
         }
@@ -446,6 +459,9 @@ public class Outline : MonoBehaviour
     public void HideOutline()
     {
         showPlayerOutline = false;
+
+        InvisibleOutline();
+        UpdateMaterialProperties();
     }
 
     public void HideManualOutline()
