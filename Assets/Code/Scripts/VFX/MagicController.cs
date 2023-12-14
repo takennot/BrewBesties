@@ -4,189 +4,57 @@ using UnityEngine;
 
 public class MagicController : MonoBehaviour
 {
-    MagicDuration[] magicDurations;
-    [SerializeField] Workstation ws;
-    //private bool setVariabels = true;
+    // THIS CLASS HANDLES MAGIC EFFEKTS AND SUCH ON INGREDIENTS!!!
+    //MagicDuration[] magicDurations;
 
-    //[SerializeField] private bool testDuration = false;
-    [SerializeField] public bool onlyOnePartical = true;
+    public bool onlyOnePartical = true;
+
     public bool createOnce = true;
 
-    [SerializeField] private GameObject book;
-    [SerializeField] private Material bookMaterial;
-    // Start is called before the first frame update
+    [Header("workStation stuff")]
 
-    [SerializeField] private GameObject particalPrefab;
+    [Header("Ingredient stuff")]
+    [SerializeField] private GameObject ingredientObject;
+
+    [Header("Magic VFX stuff")]
+
     [SerializeField] private Transform particalPrefabTransform;
-    GameObject partical;
-    [SerializeField] GameObject MagicObejctEffekt;
-    GameObject magicOnIngredient;
-    GameObject ingredient = null;
+
+    [SerializeField] GameObject MagicObjectEffekt;
+    private GameObject magicOnIngredient;
+
+    [Header("Materials")]
     [SerializeField] Material magiMushroomMaterial;
-    [SerializeField] Material magiEyeMaterial; 
-
-
-
-    void Start()
-    {
-        //ws = GetComponent<Workstation>();
-        //ws = GetComponent<Workstation>();
-        Material[] bookMatreials = book.GetComponent<MeshRenderer>().materials;
-        bookMaterial = bookMatreials[3];
-        ToggelTextVisabilty(false);
-      
-    }
+    [SerializeField] Material magiEyeMaterial;
 
     // Update is called once per frame
-    void Update()
-    {
-        /*
-        if(testDuration == false)
-        {
-            magicDurations = FindObjectsOfType(typeof(MagicDuration)) as MagicDuration[];
-            if (magicDurations.Length > 0 && magicDurations != null) // magic duration exist in scene
-            {
-                if (setVariabels)
-                {
-                    toggelTextVisabilty(true);
-                    foreach (var duration in magicDurations)
-                    {
-                        duration.effectTime = ws.GetSlider().maxValue; // 4f; // do something
-                    }
-                }
-                setVariabels = false;
-            }
-            else
-            {
-                setVariabels = true;
-                toggelTextVisabilty(false);
-            }
-        }
-        */
-        
-        if(ingredient == null)
-        {
-            return;
-        }
 
-        if (ws.doWork == false && ingredient.GetComponent<Ingredient>().GetIsMagic() == false)
-        {
-            if (magicOnIngredient != null)
-            {
-                Destroy(magicOnIngredient);
-            }
-        }
-        
-    }
-
-    public void CreateMagicSparkleEffect()
-    {
-        // DATA LOST
-        // restore from c689b10db693f1126397668a6507b6335153844f
-    }
-
-    public void CreatePartical()
+    public void CreateParticle(float durationVariable)
     {
         if (onlyOnePartical)
         {
-            magicDurations = particalPrefab.GetComponentsInChildren<MagicDuration>();
-            ToggelTextVisabilty(true);
-            partical = Instantiate(particalPrefab, particalPrefabTransform);
             onlyOnePartical = false;
-            foreach (var duration in magicDurations)
-            {
-                duration.setMagicVariabels(ws.GetSlider().maxValue); // går vidare???+
-                //duration.effectTime = ws.GetSlider().maxValue; // 4f; // do something
-                /*
-                while(duration.GetMoveOnToNext() == false)
-                {
-
-                }
-                */
-            }
-
-            //partical = Instantiate(particalPrefab, particalPrefabTransform);
-            //onlyOnePartical = false;
         }
-       
-    }
-    public void DestoryParticla()
-    {
-        ToggelTextVisabilty(false);
-        if (partical != null)
-        {
-            Destroy(partical);
-            onlyOnePartical = true;
-        }
-        
-        if(ingredient != null)
-        {
-            // Material[] material = ingredient.GetComponentInChildren<MeshRenderer>().materials;
-            // Material[] newArry = new Material[ingredient.GetComponentInChildren<MeshRenderer>().materials.Length];
-
-            //newArry[0] = ws.GetIngridiense().GetComponent<Ingredient>().normMaterial();
-
-
-
-            /*
-            if (inScript.GetIngredientType() == Resource_Enum.Ingredient.Water)
-            {
-               
-            }
-            else
-            {
-                //newArry[0] = inScript.GetNormalMaterial();
-            }
-
-            
-
-            Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length - 1];
-           
-            for(int i = 0; i <newArry.Length; i++)
-            {
-                newArry[i] = material[i];
-               
-            }
-          */
-            //ingredient.GetComponentInChildren<MeshRenderer>().materials = newArry;
-
-            // Detta övre förstör materialet som hamnar på ingredienserna när Magicify() körs.
-            // Men det fungerar utan denna kod så därför kommenterade jag ut den! //Saga
-
-            ingredient = null;
-            
-        }
-       
-
     }
 
-    void ToggelTextVisabilty(bool b)
+    public void DestoryParticle()
     {
-        if (b)
-        {
-            bookMaterial.SetFloat("_EmissonStreanght", 100f);
-        }
-        else
-        {
-            bookMaterial.SetFloat("_EmissonStreanght", 0f);
-        }
-        
+        Destroy(magicOnIngredient);
     }
 
     public void MagicOnIngredient()
     {
         if (createOnce)
         {
+            //Debug.Log(MagicObjectEffekt + " : " + ingredientObject);
 
-            ingredient = ws.GetIngridiense();
+            CreateMagicSparkleEffect();
+            //Debug.Log("create effekts");
 
-            magicOnIngredient = Instantiate(MagicObejctEffekt, ingredient.transform);
-            Debug.Log("create effekts");
+            Material[] newArry = new Material[ingredientObject.GetComponentInChildren<MeshRenderer>().materials.Length];
 
-            //Material[] material = ingredient.GetComponentInChildren<MeshRenderer>().materials;
-            Material[] newArry = new Material[ingredient.GetComponentInChildren<MeshRenderer>().materials.Length];
+            if (ingredientObject.GetComponent<Ingredient>().GetIngredientType() == Resource_Enum.Ingredient.MonsterEye)
 
-            if (ws.GetIngridiense().GetComponent<Ingredient>().GetIngredientType() == Resource_Enum.Ingredient.MonsterEye)
             {
                 newArry[0] = magiEyeMaterial;
             }
@@ -194,33 +62,34 @@ public class MagicController : MonoBehaviour
             {
                 newArry[0] = magiMushroomMaterial;
             }
-
-            ingredient.GetComponentInChildren<MeshRenderer>().materials = newArry;
-
-
-
-            //newArry[0] = ws.GetIngridiense().GetComponent<Ingredient>().GetMaterial();
-            /*
-            Material[] material = ingridanse.GetComponentInChildren<MeshRenderer>().materials;
-            Material[] newArry = new Material[ingridanse.GetComponentInChildren<MeshRenderer>().materials.Length + 1];
-
-            Debug.Log("material is " + material.Length + " new är " + newArry.Length);
-            int index = 0;
-            foreach(Material m in material)
-            {
-                newArry[index] = material[index];
-                index++;
-
-            }
-            newArry[index] = magiMaterial;
-            ingridanse.GetComponentInChildren<MeshRenderer>().materials = newArry;
-            Debug.Log("nyt materila är " + newArry[index]);
-            //ingridanse.GetComponent<MeshRenderer>().materials = newArry;
-            */
+            ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
         }
     }
 
+    public void CreateMagicSparkleEffect()
+    {
+        magicOnIngredient = Instantiate(MagicObjectEffekt, ingredientObject.transform);
+    }
 
-    
+    public void NotMagicOnIngredient()
+    {
+        if (createOnce)
+        {
+            //ingredient = ws.GetIngridiense();
+
+            //Debug.Log(MagicObjectEffekt + " : " + ingredientObject);
+
+            magicOnIngredient = Instantiate(MagicObjectEffekt, ingredientObject.transform);
+            //Debug.Log("goTo");
+
+            Material[] newArry = new Material[ingredientObject.GetComponentInChildren<MeshRenderer>().materials.Length];
+
+            //newArry[0] = ingredientObject.GetComponent<Ingredient>().GetNormalMaterial();
+
+            //ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
+
+            ingredientObject.GetComponentInChildren<MeshRenderer>().material = ingredientObject.GetComponent<Ingredient>().GetNormalMaterial();
+        }
+    }
 
 }
