@@ -273,7 +273,7 @@ public class TutorialManager2 : MonoBehaviour
         sliderManager.PlayExitAnimation(sliderCountPlayers);
         yield return new WaitForSeconds(1f);
         animScale.ScaleDown(triggerCountPlayers.gameObject);
-        animScale.ScaleUp(triggerCountPlayers2.gameObject, new Vector3(5.3f, 2.6f, 5.3f));
+        animScale.ScaleUp(triggerCountPlayers2.gameObject, new Vector3(7.1f, 2.6f, 7.1f));
         sourceScale.PlayOneShot(sourceScale.clip);
         sliderCountPlayers.value = 0;
         yield return new WaitForSeconds(0.75f);
