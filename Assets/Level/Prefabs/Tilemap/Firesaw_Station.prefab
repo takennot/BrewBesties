@@ -2613,7 +2613,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
-  baseMaterialsCount: 2
+  renderers:
+  - {fileID: 8588776157251017438}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &3953899224779298876
@@ -2630,6 +2631,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outline: {fileID: 5168911971315385468}
   timeOut: 1
+--- !u!23 &8588776157251017438 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: a943031024b9c6f428d941a0ce8ebd03,
+    type: 3}
+  m_PrefabInstance: {fileID: 6985333475400746586}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7591896054048579432
 PrefabInstance:
   m_ObjectHideFlags: 0

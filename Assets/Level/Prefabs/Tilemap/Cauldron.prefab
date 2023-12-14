@@ -2468,6 +2468,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8728675294342532422}
   m_SourcePrefab: {fileID: 100100000, guid: 9929e4204b71fae46885663a36e5f1b7, type: 3}
+--- !u!23 &2829499763734756734 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 9929e4204b71fae46885663a36e5f1b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 3496467501570892282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3967473186100594193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9929e4204b71fae46885663a36e5f1b7,
@@ -2502,6 +2508,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers:
+  - {fileID: 2829499763734756734}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &8728675294342532422
@@ -2762,6 +2770,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers:
+  - {fileID: 7343622993714674908}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &4253765370821049626

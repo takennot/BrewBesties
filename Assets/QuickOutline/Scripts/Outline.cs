@@ -104,6 +104,7 @@ public class Outline : MonoBehaviour
     //public int baseMaterialsCount = 1;
 
     //private bool needsUpdate;
+    [Header("Vars")]
     [SerializeField] private bool showPlayerOutline = false; // Flag for player-selected highlights
     [SerializeField] private bool showManualOutline = false; // Flag for manually selected highlights
 

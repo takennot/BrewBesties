@@ -274,7 +274,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
-  baseMaterialsCount: 1
+  renderers:
+  - {fileID: 8879880348710259500}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &5921735519549438563
@@ -294,6 +295,12 @@ MonoBehaviour:
 --- !u!4 &7741829585792610371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3d14371e0a2671746b149eec4b997eec,
+    type: 3}
+  m_PrefabInstance: {fileID: 7852652126394800040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8879880348710259500 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 3d14371e0a2671746b149eec4b997eec,
     type: 3}
   m_PrefabInstance: {fileID: 7852652126394800040}
   m_PrefabAsset: {fileID: 0}
