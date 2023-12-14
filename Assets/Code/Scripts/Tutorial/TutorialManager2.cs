@@ -35,6 +35,7 @@ public class TutorialManager2 : MonoBehaviour
 
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
+    [SerializeField] private Animator animWipe;
 
     [Header("Audio")]
     [SerializeField] private AudioSource sourceScale;
@@ -400,11 +401,13 @@ public class TutorialManager2 : MonoBehaviour
     private IEnumerator Mission5CompletionAction()
     {
         typewriter.SetNewText(finishText);
-        yield return new WaitForSeconds(0.5f);
-        Debug.Log("Done");
+        yield return new WaitForSeconds(3f);
 
+        FadeAllAudioSources(1, 0f);
 
-        yield return new WaitForSeconds(5f);
+        animWipe.SetTrigger("End");
+
+        yield return new WaitForSeconds(2f);
         LoadScene();
 
     }
@@ -426,6 +429,34 @@ public class TutorialManager2 : MonoBehaviour
     }
 
 
+    private void FadeAllAudioSources(float fadeDuration, float waitBeforeFading)
+    {
+        // Get all AudioSources in the scene
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            StartCoroutine(FadeAudioSource(audioSource, fadeDuration, waitBeforeFading));
+        }
+    }
+
+    // Coroutine to fade a single AudioSource
+    private IEnumerator FadeAudioSource(AudioSource audioSource, float fadeDuration, float waitBeforeFading)
+    {
+        yield return new WaitForSeconds(waitBeforeFading);
+        float startVolume = audioSource.volume;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+            yield return null;
+        }
+
+        audioSource.volume = 0f; // Ensure volume is zero at the end
+        audioSource.Stop(); // Stop the audio source
+    }
 
 
 

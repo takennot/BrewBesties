@@ -12,37 +12,39 @@ public class ColliderVisualizer : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        DrawColliderGizmo();
+        DrawAllColliderGizmos();
     }
 
     private void OnDrawGizmosSelected()
     {
-        DrawColliderGizmo();
+        DrawAllColliderGizmos();
     }
 
-    private void DrawColliderGizmo()
+    private void DrawAllColliderGizmos()
     {
-        Collider collider = GetComponent<Collider>();
+        Collider[] colliders = GetComponentsInChildren<Collider>();
 
-        if (collider != null)
+        foreach (Collider collider in colliders)
         {
-            Gizmos.color = wireframeColor;
+            if (collider != null)
+            {
+                Gizmos.color = wireframeColor;
 
-            if (collider is BoxCollider)
-            {
-                DrawBoxColliderGizmo((BoxCollider)collider);
-            } else if (collider is SphereCollider)
-            {
-                DrawSphereColliderGizmo((SphereCollider)collider);
-            }
-              // Add other collider types as needed
-              else
-            {
-                Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
+                if (collider is BoxCollider)
+                {
+                    DrawBoxColliderGizmo((BoxCollider)collider);
+                } else if (collider is SphereCollider)
+                {
+                    DrawSphereColliderGizmo((SphereCollider)collider);
+                }
+                  // Add other collider types as needed
+                  else
+                {
+                    Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
+                }
             }
         }
     }
-
 
     private void DrawBoxColliderGizmo(BoxCollider boxCollider)
     {

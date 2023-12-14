@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjectsCollidingWith: []
+  collider: {fileID: 0}
 --- !u!1 &2367535336460940330
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,13 +286,13 @@ MonoBehaviour:
   maxPitch: 1.2
   minPitch: 0.8
   pickUpSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
-  pickUpVolume: 0.7
+  pickUpVolume: 0.6
   dropSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
-  dropVolume: 0.7
+  dropVolume: 0.6
   dragSound: {fileID: 8300000, guid: 0d0f6bea13c5cda42bcdcc7c08865f93, type: 3}
-  dragVolume: 0.8
+  dragVolume: 1
   grabSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
-  grabVolume: 0.7
+  grabVolume: 0.6
   throwSound: {fileID: 8300000, guid: a213b772fec243e4f911aba2acd05352, type: 3}
   throwVolume: 1
   footstepSound: {fileID: 0}
