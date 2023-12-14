@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 6995113497440916804}
   - component: {fileID: 1756640848959498759}
   - component: {fileID: 7950988411885110681}
-  - component: {fileID: 7626992419557934421}
+  - component: {fileID: 3707925613659423046}
   m_Layer: 0
   m_Name: Workstation
   m_TagString: WorkstationDefault
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storedItem: {fileID: 0}
   yItemOffset: 1.3
-  counterOutline: {fileID: 0}
+  counterOutline: {fileID: 2331916786597772391}
 --- !u!65 &5215532282988134369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   doneSound: {fileID: 8300000, guid: 6cc81281beefec84e862849ae536c482, type: 3}
   source: {fileID: 1756640848959498759}
   sourceProcess: {fileID: 7950988411885110681}
-  magicController: {fileID: 7626992419557934421}
+  effektController: {fileID: 3707925613659423046}
 --- !u!82 &1756640848959498759
 AudioSource:
   m_ObjectHideFlags: 0
@@ -437,7 +437,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7626992419557934421
+--- !u!114 &3707925613659423046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,22 +446,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5379152439573911433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 797273606bff17448bbed38f7efd44c9, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0de34a3da04a6479735021b43b1b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ws: {fileID: 6995113497440916804}
+  workstation: {fileID: 6995113497440916804}
+  particalPrefabTransform: {fileID: 1915618908837908672}
   onlyOnePartical: 1
-  createOnce: 1
   book: {fileID: 2195027410053614162}
-  bookMaterial: {fileID: 0}
   particalPrefab: {fileID: 6326654190668291851, guid: 4782520f675f4f6439a0d468a8b5f5b7,
     type: 3}
-  particalPrefabTransform: {fileID: 1915618908837908672}
-  MagicObejctEffekt: {fileID: 3265319264911959637, guid: 45ce7c035ab911c4c91ba7d4c20f1e9d,
-    type: 3}
-  magiMushroomMaterial: {fileID: 2100000, guid: 502c34c0adce3ee498463ca7f1be995a,
-    type: 2}
-  magiEyeMaterila: {fileID: 2100000, guid: 77bfe08f4d04bd245b514a7854a0b576, type: 2}
 --- !u!1 &7782639626387207621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1051,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 390919966986597361}
   m_SourcePrefab: {fileID: 100100000, guid: 40d7e4c0ae1de5c4faa972e51bb92ee8, type: 3}
+--- !u!23 &2324529749988913021 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 40d7e4c0ae1de5c4faa972e51bb92ee8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4000312319648740345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3461385342827189266 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 40d7e4c0ae1de5c4faa972e51bb92ee8,
@@ -1092,6 +1091,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers:
+  - {fileID: 2324529749988913021}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &390919966986597361

@@ -13,6 +13,10 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private Sprite spriteNormal;
     [SerializeField] private Sprite spritemagic;
 
+    [Header("Colors")]
+    [SerializeField] private string neutralPotionColor;
+    [SerializeField] private string magicalPotionColor;
+
     [SerializeField] private MagicController magicController;
 
     public int mainMaterialIndex;
@@ -25,17 +29,14 @@ public class Ingredient : MonoBehaviour
     {
         return meshRenderer.materials[mainMaterialIndex];
     }
-
-    // Start is called before the first frame update
-    void Start()
+    public string GetColorStr()
     {
-        
-    }
+        if (isMagic)
+        {
+            return magicalPotionColor;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return neutralPotionColor;
     }
 
     public void Magicify()

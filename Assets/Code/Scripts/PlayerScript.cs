@@ -927,6 +927,7 @@ public class PlayerScript : MonoBehaviour
             } 
             else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
             {
+                Debug.Log("Drag found counterstate");
                 if (!counterState.GetComponent<Trashcan>())
                 {
                     playerState = PlayerState.Dragging;
@@ -936,6 +937,10 @@ public class PlayerScript : MonoBehaviour
                     audio.PlayDrag();
                     CreateDragEffects();
                 }
+            }
+            else
+            {
+                Debug.Log("Drag didnt find shit");
             }
         }
     }

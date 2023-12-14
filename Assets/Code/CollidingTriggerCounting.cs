@@ -5,6 +5,7 @@ using UnityEngine;
 public class CollidingTriggerCounting : MonoBehaviour
 {
     [SerializeField] private List<GameObject> gameObjectsCollidingWith = new List<GameObject>();
+    [SerializeField] private Collider collider;
 
     private void OnTriggerEnter(Collider otherCollider)
     {
@@ -14,6 +15,11 @@ public class CollidingTriggerCounting : MonoBehaviour
         {
             gameObjectsCollidingWith.Add(otherCollider.gameObject);
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        
     }
 
     private void OnTriggerExit(Collider otherCollider)
@@ -29,5 +35,10 @@ public class CollidingTriggerCounting : MonoBehaviour
     public List<GameObject> GetGameobjectsCollidingWith()
     {
         return gameObjectsCollidingWith;
+    }
+
+    public void SetEnableTrigger(bool state)
+    {
+        collider.enabled = state;
     }
 }

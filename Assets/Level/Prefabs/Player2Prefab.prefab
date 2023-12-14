@@ -124,6 +124,12 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 6888347461918342556}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &2582979775950812932 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -269998349459141992, guid: 6792b20389e45be4da37113c35144e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6888347461918342556}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6346393176791997047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6792b20389e45be4da37113c35144e6c,
@@ -153,7 +159,7 @@ PrefabInstance:
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.49
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
@@ -312,6 +318,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0f8f764f89aabef4f95d06ae41bb2311, type: 2}
+    - target: {fileID: 7143558059756262267, guid: 20d96b30d5d1a8644807e272e04f6566,
+        type: 3}
+      propertyPath: renderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2582979775950812932}
     - target: {fileID: 7528272950870282478, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_IsActive
@@ -367,11 +378,12 @@ PrefabInstance:
       objectReference: {fileID: -1818111873101695623, guid: d075fb85e43fc9f4abac19543671eee1,
         type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4495419194759702699, guid: 20d96b30d5d1a8644807e272e04f6566, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 114355469608804929, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 6346393176791997047}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7760768666410175827, guid: 20d96b30d5d1a8644807e272e04f6566,

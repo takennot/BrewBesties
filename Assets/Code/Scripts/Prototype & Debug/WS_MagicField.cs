@@ -5,6 +5,7 @@ using UnityEngine;
 public class WS_MagicField : MonoBehaviour
 {
 
+    [Header("State")]
     [SerializeField] private bool isActive = true;
     private bool originalActive;
     [SerializeField] private bool mustBeThrown = true;
@@ -14,10 +15,18 @@ public class WS_MagicField : MonoBehaviour
     [SerializeField] private float forceMagnitude = 1f;
 
     [SerializeField] private GameObject field;
-    [SerializeField] private Material magiMaterial;
+
+    [Header("VFX magic ingredient")]
+    private Ingredient ingredientObject;
+
+    //[SerializeField] private Material magiMaterialMushroom;
+    //[SerializeField] private Material magiMaterialEye;
+
     [SerializeField] GameObject MagicObejctEffekt;
     [SerializeField] float timeBeforeDestory = 2f;
-    GameObject gb;
+
+    [Header("Other")]
+
     [SerializeField] GameObject startPortal;
 
     // Start is called before the first frame update
@@ -27,12 +36,13 @@ public class WS_MagicField : MonoBehaviour
         field.SetActive(isActive);
         originalActive = isActive;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Ingredient"))
             return;
 
-        if(mustBeThrown)
+        if (mustBeThrown)
         {
             if (other.GetComponent<Item>().IsPickedUp())
             {
@@ -45,14 +55,14 @@ public class WS_MagicField : MonoBehaviour
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null && givesBoost)
         {
-            Vector3 forceDirection = other.GetComponent<Rigidbody>().velocity.normalized;  
+            Vector3 forceDirection = other.GetComponent<Rigidbody>().velocity.normalized;
             rb.AddForce(forceDirection * forceMagnitude, ForceMode.Impulse);
         }
 
         other.GetComponent<Ingredient>().Magicify();
         other.GetComponent<Item>().SetIsProcessed(true);
-        gb = other.gameObject;
-        StartCoroutine(addMoreMagic(timeBeforeDestory));
+        ingredientObject = other.GetComponent<Ingredient>();
+        StartCoroutine(AddMagic(timeBeforeDestory));
     }
 
     public void SetIsActive(bool state)
@@ -62,10 +72,11 @@ public class WS_MagicField : MonoBehaviour
 
     public void ReverseState(bool returnToOriginal)
     {
-        if(returnToOriginal)
+        if (returnToOriginal)
         {
             isActive = originalActive;
-        } else
+        }
+        else
         {
             isActive = !originalActive;
         }
@@ -73,49 +84,35 @@ public class WS_MagicField : MonoBehaviour
         field.SetActive(isActive);
     }
 
-
-    private IEnumerator addMoreMagic(float time)
+    private IEnumerator AddMagic(float time)
     {
-        //material
-        Material[] material1 = gb.GetComponentInChildren<MeshRenderer>().materials;
-        Material[] newArry1 = new Material[gb.GetComponentInChildren<MeshRenderer>().materials.Length + 1];
-
-        Debug.Log("material is " + material1.Length + " new är " + newArry1.Length);
-        int index = 0;
-        foreach (Material m in material1)
+        if (ingredientObject)
         {
-            newArry1[index] = material1[index];
-            index++;
+            ingredientObject.Magicify();
+
+            ingredientObject.GetMagicController().MagicOnIngredient();
+            ingredientObject.GetMagicController().CreateParticle(1f);
+            ingredientObject.GetMagicController().onlyOnePartical = false;
+            ingredientObject.GetMagicController().createOnce = false;
+
+            yield return new WaitForSeconds(time);
+
+            ingredientObject.GetMagicController().onlyOnePartical = true;
+            ingredientObject.GetMagicController().createOnce = true;
+            ingredientObject.GetMagicController().DestoryParticle();
 
         }
-        newArry1[index] = magiMaterial;
-        gb.GetComponentInChildren<MeshRenderer>().materials = newArry1;
-
-        GameObject effekt = Instantiate(MagicObejctEffekt, gb.transform);
-        // time
-        yield return new WaitForSeconds(time);
-
-        Destroy(effekt);
-
-        Material[] material2 = gb.GetComponentInChildren<MeshRenderer>().materials;
-        Material[] newArry2 = new Material[gb.GetComponentInChildren<MeshRenderer>().materials.Length - 1];
-
-        for (int i = 0; i < newArry2.Length; i++)
+        else
         {
-            newArry2[i] = material2[i];
-
+            yield return new WaitForSeconds(0.1f);
         }
+    }
 
-       gb.GetComponentInChildren<MeshRenderer>().materials = newArry2;
-      }
-
-    void startPortalMetod()
+    void StartPortalMetod()
     {
         Transform postion = this.transform.Find("PortalMagic");
         GameObject oldPortal = postion.gameObject;
         Destroy(oldPortal);
         Instantiate(startPortal, postion);
-
     }
-
 }

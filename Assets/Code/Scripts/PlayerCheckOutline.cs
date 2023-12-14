@@ -27,17 +27,21 @@ public class PlayerCheckOutline : MonoBehaviour
 
         if (Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.grabReach))
         {
-            foundOutline = CheckOutlineForHoldingNothing(player.outLinehit.collider.gameObject) ||
-                           CheckOutlineForHoldingItem(player.outLinehit.collider.gameObject);
+            if(player.GetHoldingState() == HoldingState.HoldingNothing)
+            {
+                foundOutline = CheckOutlineForHoldingNothing(player.outLinehit.collider.gameObject);
+            }
+            else if (player.GetHoldingState() == HoldingState.HoldingItem)
+            {
+                foundOutline = CheckOutlineForHoldingItem(player.outLinehit.collider.gameObject);
+            }
+            //foundOutline = CheckOutlineForHoldingNothing(player.outLinehit.collider.gameObject) || CheckOutlineForHoldingItem(player.outLinehit.collider.gameObject);
         }
 
         if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.processReach))
         {
             foundOutline = CheckOutlineForProcess(player.outLinehit.collider.gameObject);
         }
-
-        // BoxCast(player.castingPosition.transform.position, new Vector3(1, 1, 1), player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach)
-        // SphereCast(player.castingPosition.transform.position, player.dragSphereRadius, player.castingPosition.transform.forward, out player.outLinehit, player.dragReach)
 
         if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale * 1.2f, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach) && player.holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
         {
@@ -67,7 +71,7 @@ public class PlayerCheckOutline : MonoBehaviour
         }
         else if(hitObject.TryGetComponent(out CounterState counterState) && hitObject.GetComponent<CounterState>().storedItem)
         {
-            outlineHandler = counterState.GetComponentInChildren<OutlineHandler>();
+            outlineHandler = counterState.storedItem.GetComponentInChildren<OutlineHandler>();
         }
         else if (hitObject.TryGetComponent(out PlayerScript playerScript))
         {
@@ -93,10 +97,9 @@ public class PlayerCheckOutline : MonoBehaviour
         OutlineHandler outlineHandler = null;
 
         // counter in some way
-        if (hitObject.TryGetComponent(out CounterState counterState))
+        if (hitObject.TryGetComponent(out CounterState counterState) )
         {
             // Check and assign outlineHandler accordingly : FUCKOFF
-
             outlineHandler = counterState.GetComponentInChildren<OutlineHandler>();
         } 
         // workstation
@@ -148,7 +151,7 @@ public class PlayerCheckOutline : MonoBehaviour
 
     private bool CheckOutlineForDrag(GameObject hitObject)
     {
-        if (player.holdingState != PlayerStateMashineHandle.HoldingState.HoldingNothing || !hitObject)
+        if (player.holdingState != HoldingState.HoldingNothing || !hitObject)
             return false;
 
         OutlineHandler outlineHandler = null;
@@ -163,11 +166,13 @@ public class PlayerCheckOutline : MonoBehaviour
         } 
         else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
         {
+            Debug.Log("Drag outline counterstate");
             outlineHandler = counterState.storedItem.GetComponentInChildren<OutlineHandler>();
         }
 
         if (outlineHandler)
         {
+            Debug.Log("SHow outline on: " + outlineHandler.gameObject.name);
             outlineHandler.ShowOutline(player.GetPlayerColor(), false);
             return true;
         }
