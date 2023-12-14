@@ -79,6 +79,12 @@ public class MagicController : MonoBehaviour
         
     }
 
+    public void CreateMagicSparkleEffect()
+    {
+        // DATA LOST
+        // restore from c689b10db693f1126397668a6507b6335153844f
+    }
+
     public void CreatePartical()
     {
         if (onlyOnePartical)
