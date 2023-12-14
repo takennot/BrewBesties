@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +13,8 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private Sprite spriteNormal;
     [SerializeField] private Sprite spritemagic;
 
+    [SerializeField] private MagicController magicController;
+
     public int mainMaterialIndex;
 
     [SerializeField] private bool isMagic = false;
@@ -24,24 +26,14 @@ public class Ingredient : MonoBehaviour
         return meshRenderer.materials[mainMaterialIndex];
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Magicify()
     {
         isMagic = true;
 
         Debug.Log("Magic material:" + magicMaterial);
         meshRenderer.material = magicMaterial;
+
+        magicController.CreateMagicSparkleEffect();
     }
 
     public void Magicify(Material magicalMaterial)
@@ -76,6 +68,17 @@ public class Ingredient : MonoBehaviour
     {
         ingredientType = newIngredient;
     }
+
+    public MagicController GetMagicController()
+    {
+        return magicController;
+    }
+
+    public Material GetNormalMaterial()
+    {
+        return material;
+    }
+
 }
 
 public class IngredientAbstract
@@ -162,12 +165,6 @@ public class IngredientAbstract
             default: break;
         }
     }
-
-
-    public Material normMaterial()
-    {
-        return material;
-    }
-
-    
+    // OBS: DETTA ÄR INTE SAMMA KLASS SOM LÄNGST UPP, DET ÄR EN ABSTRAKT VERSION.
+    // OM DU SKA LÄGGA TILL EN METOD, SKROLLA UPP TILL RÄTT KLASS!!!!
 }
