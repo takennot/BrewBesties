@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028477, g: 0.22571571, b: 0.30692372, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028447, g: 0.22571531, b: 0.30692312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4702,7 +4702,7 @@ PrefabInstance:
     - target: {fileID: 6225363270351682223, guid: 7be28ec649450254fbe3c2e80fcf9a33,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.16
+      value: 11.94
       objectReference: {fileID: 0}
     - target: {fileID: 6225363270351682223, guid: 7be28ec649450254fbe3c2e80fcf9a33,
         type: 3}
@@ -12210,6 +12210,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2056307503}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1443577492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1443577493}
+  m_Layer: 0
+  m_Name: "\xD6zge dessa counters beh\xF6vs inte, om det blir snyggare utan "
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1443577493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443577492}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.61, y: 2.3, z: 19.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1446549586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15111,7 +15142,7 @@ PrefabInstance:
     - target: {fileID: 6225363270351682223, guid: 7be28ec649450254fbe3c2e80fcf9a33,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.41
+      value: -1.75
       objectReference: {fileID: 0}
     - target: {fileID: 6225363270351682223, guid: 7be28ec649450254fbe3c2e80fcf9a33,
         type: 3}
@@ -15849,6 +15880,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1809710389}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1811547560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1811547561}
+  m_Layer: 0
+  m_Name: "\xD6zge dessa \"portals\" m\xE5ste spelare tvingas g\xE5 igenom, man ska
+    inte kunna undvika dem. Bara s\xE5 du vet!"
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1811547561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811547560}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.76, y: 2.3, z: 14.896}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1828045379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19108,6 +19171,8 @@ SceneRoots:
   - {fileID: 2069929363}
   - {fileID: 1500895960}
   - {fileID: 1112169384}
+  - {fileID: 1443577493}
+  - {fileID: 1811547561}
   - {fileID: 1706256138}
   - {fileID: 1828045379}
   - {fileID: 480511634}
