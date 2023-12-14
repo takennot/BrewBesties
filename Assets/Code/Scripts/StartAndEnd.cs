@@ -11,18 +11,20 @@ using System.ComponentModel;
 
 public class StartAndEnd : MonoBehaviour 
 {
-
     [Header("Refs")]
     public TMP_Text countdownText;
     public TMP_Text scoreText;
     public TMP_Text nextLevelText;
     public Canvas countdownCanvas;
+    [SerializeField] private Animator wipeAnimation;
     private GameObject[] players;
+
 
     public CircleTransition circleTransition;
     public Timer timerLevel;
 
     private bool isEnding;
+    private bool hasStartedCircleTransition;
 
     bool completedLevel;
 
@@ -40,7 +42,7 @@ public class StartAndEnd : MonoBehaviour
     [Header("Delays")]
     [SerializeField] public int timeToWaitForStart = 3;
     [SerializeField] private float circleStartDelay = 3f;
-    //[SerializeField] private float levelEndDelay = 9f;
+    [SerializeField] private float levelEndDelay = 8f;
     public bool hasStarted = false;
 
     [Header("Win conditions")]
@@ -114,9 +116,16 @@ public class StartAndEnd : MonoBehaviour
     float count = 0f;
 
     private void Update() {
+
+        foreach (PlayerScript player in gameManager.GetPlayersList())
+        {
+            Debug.Log(player + " " + player.GetCharacterController().enabled);
+        }
+        
+
         //Spam drop items picked up by player
         //TODO remove this shit and make it better
-        if(isEnding) {
+        if(isEnding && !hasStartedCircleTransition) {
             foreach (GameObject player in players) {
                 PlayerScript playerScript = player.GetComponent<PlayerScript>();
                 if (playerScript != null) {
@@ -135,7 +144,7 @@ public class StartAndEnd : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
                 {
-                    OnRestart();
+                    StartCoroutine(OnRestart());
                 }
                 else if (Input.GetKeyDown(KeyCode.Joystick1Button2))
                 {
@@ -262,6 +271,9 @@ public class StartAndEnd : MonoBehaviour
     }
 
     IEnumerator StartGameCountdown() {
+        
+        yield return new WaitForSeconds(0.7f); //Should not be used. Used so to wait for the start wipe to finish
+
         int countdownTime = timeToWaitForStart;
 
         while (countdownTime > 0) {
@@ -338,9 +350,9 @@ public class StartAndEnd : MonoBehaviour
 
     public void OnNext()
     {
-        foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList())
+        foreach (GameObject player in players)
         {
-            player.GetCharacterController().enabled = true;
+            player.GetComponent<PlayerScript>().GetCharacterController().enabled = true;
         }
 
         countdownCanvas.enabled = false;
@@ -349,9 +361,12 @@ public class StartAndEnd : MonoBehaviour
         StartCoroutine(LoadNextSceneAfterDelay(true));
     }
 
-    public void OnRestart()
+    IEnumerator OnRestart()
     {
         countdownCanvas.enabled = false;
+        wipeAnimation.SetTrigger("End");
+        FadeAllAudioSources(1f, 0f);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -362,10 +377,18 @@ public class StartAndEnd : MonoBehaviour
     }
 
     IEnumerator LoadNextSceneAfterDelay(bool finishedLevel) {
+        yield return new WaitForSeconds(0.3f);
+        foreach (PlayerScript player in gameManager.GetPlayersList())
+        {
+            player.GetCharacterController().enabled = true;
+            player.enabled = true;
+        }
 
+        FadeAllAudioSources(2f, 5.5f);
+        yield return new WaitForSeconds(levelEndDelay);
         if (finishedLevel)
         {
-            if(shouldLoadSpecifiedLevel)
+            if (shouldLoadSpecifiedLevel)
             {
                 SceneManager.LoadScene(specifiedLevelIndex);
             } 
@@ -390,4 +413,32 @@ public class StartAndEnd : MonoBehaviour
         yield return null;
     }
 
+    private void FadeAllAudioSources(float fadeDuration, float waitBeforeFading)
+    {
+        // Get all AudioSources in the scene
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            StartCoroutine(FadeAudioSource(audioSource, fadeDuration, waitBeforeFading));
+        }
+    }
+
+    // Coroutine to fade a single AudioSource
+    private IEnumerator FadeAudioSource(AudioSource audioSource, float fadeDuration, float waitBeforeFading)
+    {
+        yield return new WaitForSeconds(waitBeforeFading);
+        float startVolume = audioSource.volume;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+            yield return null;
+        }
+
+        audioSource.volume = 0f; // Ensure volume is zero at the end
+        audioSource.Stop(); // Stop the audio source
+    }
 }
