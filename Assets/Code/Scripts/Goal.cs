@@ -46,6 +46,11 @@ public class Goal : MonoBehaviour, GoalInterface
     [SerializeField] private int notFirstOrderDividePenalty = 2;
     [SerializeField] private int customerLeavesPenalty = -20;
 
+    [Header("Scoring PLayer Adaptability")]
+    [SerializeField] private float twoPlayersMultiplier = 1f;
+    [SerializeField] private float threePlayersMultiplier = 0.92f;
+    [SerializeField] private float fourPlayersMultiplier = 0.885f;
+
     [Header("Seats")]
     [SerializeField] private Transform seat1;
     [SerializeField] private Transform seat2;
@@ -542,6 +547,24 @@ public class Goal : MonoBehaviour, GoalInterface
                 score /= notFirstOrderDividePenalty;
                 processCalc += " /" + notFirstOrderDividePenalty;
             }
+        }
+
+        switch (startAndEnd.GetPlayerAmount())
+        {
+            case 2:
+                score = (int) (score * twoPlayersMultiplier);
+                processCalc += " *" + twoPlayersMultiplier;
+                break;
+            case 3:
+                score = (int)(score * threePlayersMultiplier);
+                processCalc += " *" + threePlayersMultiplier;
+                break;
+            case 4:
+                score = (int)(score * fourPlayersMultiplier);
+                processCalc += " *" + fourPlayersMultiplier;
+                break;
+            default:
+                goto case 2;
         }
 
         processCalc += " = " + score;
