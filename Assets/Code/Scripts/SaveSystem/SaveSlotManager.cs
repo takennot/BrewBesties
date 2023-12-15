@@ -101,23 +101,24 @@ public class SaveSlotManager : MonoBehaviour
         {
             switch (name.ToLower())
             {
-                case "Tutorial Basics":
-                    return allSceneSprites[2];
+                // everything returns +1 on allSceneSprites array
+                case "tutorial basics":
+                    return allSceneSprites[2+1];
                 case "get a grip":
-                    return allSceneSprites[3];
+                    return allSceneSprites[3+1];
                 case "completionist":
-                    return allSceneSprites[4];
-                case "Tutorial Throw Drag Wood":
-                    return allSceneSprites[5];
-                case "Three islands":
-                    return allSceneSprites[6];
-                case "Ghost House":
-                    return allSceneSprites[7];
-                case "Moving Field":
-                    return allSceneSprites[8];
-                case "Icy Platforms":
-                    return allSceneSprites[9];
-                case "Rotatinator":
+                    return allSceneSprites[4 + 1];
+                case "tutorial throw drag wood":
+                    return allSceneSprites[5 + 1];
+                case "three islands":
+                    return allSceneSprites[6 + 1];
+                case "ghost house":
+                    return allSceneSprites[7 + 1];
+                case "moving field":
+                    return allSceneSprites[8 + 1];
+                case "icy platforms":
+                    return allSceneSprites[9 + 1];
+                case "rotatinator":
                     return allSceneSprites[10];
                 default:
                     return allSceneSprites[0];
