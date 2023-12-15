@@ -48,6 +48,7 @@ public class StartAndEnd : MonoBehaviour
     public bool hasStarted = false;
 
     [Header("Win conditions")]
+
     [SerializeField] private int pointsOneStar = 300;
     [SerializeField] private int pointsTwoStar = 450;
     [SerializeField] private int pointsThreeStar = 600;
@@ -507,5 +508,10 @@ public class StartAndEnd : MonoBehaviour
 
         audioSource.volume = 0f; // Ensure volume is zero at the end
         audioSource.Stop(); // Stop the audio source
+    }
+
+    public int GetPlayerAmount()
+    {
+        return gameManager.GetPlayerAmount();
     }
 }

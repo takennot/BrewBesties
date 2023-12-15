@@ -166,13 +166,11 @@ public class PlayerCheckOutline : MonoBehaviour
         } 
         else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
         {
-            Debug.Log("Drag outline counterstate");
             outlineHandler = counterState.storedItem.GetComponentInChildren<OutlineHandler>();
         }
 
         if (outlineHandler)
         {
-            Debug.Log("SHow outline on: " + outlineHandler.gameObject.name);
             outlineHandler.ShowOutline(player.GetPlayerColor(), false);
             return true;
         }

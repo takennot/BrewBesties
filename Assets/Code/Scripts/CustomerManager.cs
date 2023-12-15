@@ -91,7 +91,7 @@ public class CustomerManager : MonoBehaviour
 
         }
 
-        LongTermnAngry(patienceTimer);
+        //LongTermnAngry(patienceTimer);
     }
 
     private void Update()

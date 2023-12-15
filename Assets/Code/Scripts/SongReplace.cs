@@ -12,15 +12,16 @@ public class SongReplace : MonoBehaviour
     [Range(0, 1)]
     public float volume = 0.3f;
 
-    private void Awake()
-    {
-
-        
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+
+        StartCoroutine(DelayStart());
+    }
+    
+    IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(0.2f);
         audioController = FindObjectOfType<AudioController>();
         if (audioController == null)
         {
@@ -29,21 +30,12 @@ public class SongReplace : MonoBehaviour
             source = newAudioController.AddComponent<AudioSource>();
             audioController.song_source = source;
         }
-
+        audioController.song_source.Stop();
         audioController.song = song;
+        audioController.song_source.clip = audioController.song;
         audioController.song_source.volume = volume;
 
-        Invoke("PlaySong", 0.1f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void PlaySong()
-    {
+        yield return new WaitForSeconds(0.2f);
         audioController.PlaySong();
     }
 }
