@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +13,10 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private Sprite spriteNormal;
     [SerializeField] private Sprite spritemagic;
 
+    [Header("Colors")]
+    [SerializeField] private string neutralPotionColor;
+    [SerializeField] private string magicalPotionColor;
+
     [SerializeField] private MagicController magicController;
 
     public int mainMaterialIndex;
@@ -25,17 +29,14 @@ public class Ingredient : MonoBehaviour
     {
         return meshRenderer.materials[mainMaterialIndex];
     }
-
-    // Start is called before the first frame update
-    void Start()
+    public string GetColorStr()
     {
-        
-    }
+        if (isMagic)
+        {
+            return magicalPotionColor;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return neutralPotionColor;
     }
 
     public void Magicify()
@@ -177,7 +178,6 @@ public class IngredientAbstract
             default: break;
         }
     }
-
-    // OBS: DETTA ÄR INTE SAMMA KLASS SOM LÄNGST UPP, DET ÄR EN ABSTRAKT VERSION.
-    // OM DU SKA LÄGGA TILL EN METOD, SKROLLA UPP TILL RÄTT KLASS!!!!
+    // OBS: DETTA Ã„R INTE SAMMA KLASS SOM LÃ„NGST UPP, DET Ã„R EN ABSTRAKT VERSION.
+    // OM DU SKA LÃ„GGA TILL EN METOD, SKROLLA UPP TILL RÃ„TT KLASS!!!!
 }

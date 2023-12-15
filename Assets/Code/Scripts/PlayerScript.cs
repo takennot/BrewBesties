@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
     private bool hasForcedLook = false;
 
     [Header("PlayerController")]
-    [SerializeField] private CharacterController characterControllerA;
+    [SerializeField] private CharacterController characterController;
     [SerializeField] private GameObject objectInHands;
     [SerializeField] private GameObject objectDragging;
     private Gamepad gamepad;
@@ -73,7 +73,7 @@ public class PlayerScript : MonoBehaviour
 
     // --------------------------------------------------------------
 
-    [Header("Audio")]
+    [Header("Audio Should be replaced with playeraudio script")]
     [SerializeField] private AudioClip grabClip;
     [SerializeField] private AudioClip pickupClip;
     [SerializeField] private AudioClip dropClip;
@@ -82,8 +82,9 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioSource footstepSource;
+    private PlayerAudio audio;
 
-    [SerializeField] private bool isInitialized = false;
+    private bool isInitialized = false;
 
     public enum PlayerType
     {
@@ -130,6 +131,7 @@ public class PlayerScript : MonoBehaviour
         PlayStation, //idk
         KeyboardSolo //idk
     }
+
 
     [Header("Inputs")]
     private string horizontalName;
@@ -182,33 +184,32 @@ public class PlayerScript : MonoBehaviour
         Initialize();
     }
 
+    //private void InitCC()
+    //{
+    //    characterController = gameObject.AddComponent<CharacterController>();
+    //    characterController.skinWidth = 0.25f;
+    //    characterController.slopeLimit = 0.0f;
+    //    characterController.stepOffset = 0.025f;
+    //}
+
     public void InitializePlayer(int playerIndex)
     {
         Initialize();
         this.playerIndex = playerIndex;
+
+        // Customize player appearance, controls, etc.
     }
-
-    //private void InitCC()
-    //{
-    //    Debug.Log("CC:" + characterControllerA + "::" + gameObject);
-    //    if(characterControllerA == null)
-    //    {
-    //        //characterController = gameObject.AddComponent<CharacterController>();
-    //    }
-
-    //    characterControllerA.skinWidth = 0.25f;
-    //    characterControllerA.slopeLimit = 0.0f;
-    //    characterControllerA.stepOffset = 0.025f;
-    //}
 
     private void Initialize()
     {
-        Debug.Log("CC:" + characterControllerA + "::" + gameObject);
+        //InitCC();
+
         playerState = PlayerStateMashineHandle.PlayerState.None;
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
 
         gamepad = Gamepad.current;
         source = GetComponent<AudioSource>();
+        audio = GetComponent<PlayerAudio>();
         GetComponent<Rigidbody>().drag = 1;
 
         // Get colors
@@ -266,7 +267,7 @@ public class PlayerScript : MonoBehaviour
         animatorPlayer.SetInteger("PlayerHoldingState", (int)holdingState);
         animatorPlayer.SetBool("Moving", moving);
 
-        if (!characterControllerA.enabled) return;
+        if (!characterController.enabled) return;
 
         if(playerState != PlayerState.Interacting)
         {
@@ -390,7 +391,7 @@ public class PlayerScript : MonoBehaviour
         // Gravitation --------------------
 
         // dont fall if being dragged
-        if (playerState == PlayerState.IsBeingDragged || characterControllerA.isGrounded)
+        if (playerState == PlayerState.IsBeingDragged || characterController.isGrounded)
         {
             velocity.y = 0;
         } else
@@ -404,8 +405,8 @@ public class PlayerScript : MonoBehaviour
 
         //Debug.Log("Velocity: " + velocity);
 
-        if (characterControllerA.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
-            characterControllerA.Move(velocity * mass * Time.deltaTime);
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Dead))
+            characterController.Move(velocity * mass * Time.deltaTime);
 
         // ---------------------------------
 
@@ -416,9 +417,9 @@ public class PlayerScript : MonoBehaviour
         }
 
         // if allowed to move (state är none eller emoting)
-        if (characterControllerA.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
+        if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
         {
-            characterControllerA.Move(moveDirection * Time.deltaTime * playerSpeed);
+            characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
         }
 
         // movedirection or charactecotroller
@@ -498,12 +499,12 @@ public class PlayerScript : MonoBehaviour
     {
         playerState = PlayerState.None;
 
-        Debug.Log("cc" + characterControllerA);
+        Debug.Log("cc" + characterController);
 
-        characterControllerA.enabled = false;
+        characterController.enabled = false;
 
         transform.position = spawnpoint.position;
-        characterControllerA.enabled = true;
+        characterController.enabled = true;
         velocity = new Vector3(0, 0, 0);
     }
 
@@ -795,7 +796,7 @@ public class PlayerScript : MonoBehaviour
         objectInHands.transform.position = holdPosition.position;
         objectInHands.GetComponent<Item>().SetIsPickedUp(true);
         objectInHands.GetComponent<Item>().lastHeldPlayer = this;
-        source.PlayOneShot(dropClip);
+        audio.PlayDrop();
 
     }
 
@@ -817,7 +818,7 @@ public class PlayerScript : MonoBehaviour
 
             objectInHands.GetComponent<PlayerScript>().SetPlayerState(PlayerState.IsBeingHeld);
 
-            source.PlayOneShot(grabClip);
+            audio.PlayGrab();
         }
     }
 
@@ -841,7 +842,7 @@ public class PlayerScript : MonoBehaviour
             objectInHands.GetComponent<Rigidbody>().isKinematic = false;
 
             holdingState = HoldingState.HoldingNothing;
-            source.PlayOneShot(dropClip);
+            audio.PlayDrop();
 
             objectInHands = null;
             //Debug.Log("object in hands should be null: " + objectInHands);
@@ -861,7 +862,7 @@ public class PlayerScript : MonoBehaviour
         // if holding true - get holding object reference and set parent to null.
         if (holdingState == HoldingState.HoldingPlayer)
         {
-            source.PlayOneShot(dropClip);
+            audio.PlayDrop();
 
             if (isThrowing)
             {
@@ -921,20 +922,25 @@ public class PlayerScript : MonoBehaviour
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
 
-                source.PlayOneShot(dragClip);
+                audio.PlayDrag();
                 CreateDragEffects();
             } 
             else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
             {
+                Debug.Log("Drag found counterstate");
                 if (!counterState.GetComponent<Trashcan>())
                 {
                     playerState = PlayerState.Dragging;
                     objectDragging = counterState.storedItem;
                     counterState.ReleaseItem(objectDragging);
 
-                    source.PlayOneShot(dragClip);
+                    audio.PlayDrag();
                     CreateDragEffects();
                 }
+            }
+            else
+            {
+                Debug.Log("Drag didnt find shit");
             }
         }
     }
@@ -964,6 +970,7 @@ public class PlayerScript : MonoBehaviour
                 // special for item
                 objectDragging.GetComponent<Rigidbody>().isKinematic = false;
                 objectDragging.GetComponent<Item>().SetIsBeingDragged(true);
+                objectDragging.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
                 dragline.SetPosition(1, objectDragging.gameObject.transform.position);
 
@@ -982,7 +989,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = null;
                 }
 
-                source.PlayOneShot(dragClip);
+                audio.PlayDrag();
 
             }
             else if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<PlayerScript>())
@@ -1134,7 +1141,7 @@ public class PlayerScript : MonoBehaviour
                     //Debug.Log("FAAAALSEE");
                     objectInHands = null;
                     holdingState = HoldingState.HoldingNothing;
-                    source.PlayOneShot(dropClip);
+                    audio.PlayDrop();
                 }
 
             }
@@ -1157,13 +1164,13 @@ public class PlayerScript : MonoBehaviour
         if (pickedUpItem != null)
         {
             Grab(pickedUpItem.GetComponent<Item>());
-            source.PlayOneShot(grabClip);
+            audio.PlayGrab();
         }
     }
 
     public CharacterController GetCharacterController()
     {
-        return characterControllerA;
+        return characterController;
     }
 
     public GameObject GetObjectInHands()

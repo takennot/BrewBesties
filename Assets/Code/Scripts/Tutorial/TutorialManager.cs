@@ -37,6 +37,7 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
+    [SerializeField] private Animator animWipe;
 
     [Header("Audio")]
     [SerializeField] private AudioSource source;
@@ -74,7 +75,6 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Ending")]
     [SerializeField] private CircleTransition circleTransition;
-    [SerializeField] private float loadSceneDelay = 8f;
     [SerializeField] private int sceneIndexLoad = 1;
 
     AudioLowPassFilter lowPassFilter;
@@ -121,6 +121,7 @@ public class TutorialManager : MonoBehaviour
         cauldron.SetActive(false);
         goal.transform.localScale = new Vector3(0, 0, 0);
         goalState = goal.GetComponentInChildren<Goal>();
+        goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(false);
         goalState.magicMushroomPercent = 100f;
         potionBox.transform.localScale = new Vector3(0, 0, 0);
 
@@ -376,6 +377,7 @@ public class TutorialManager : MonoBehaviour
 
         animScale.ScaleUp(goal);
         goal.GetComponentInChildren<Goal>().SetActivated(true);
+        goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(true);
         sourceScale.PlayOneShot(source.clip);
         yield return new WaitForSeconds(0.5f);
 
@@ -505,7 +507,15 @@ public class TutorialManager : MonoBehaviour
     IEnumerator Mission5CompletionAction()
     {
         typewriter.SetNewText(writeGreatJob);
-        Invoke("LoadScene", loadSceneDelay);
+
+        yield return new WaitForSeconds(3f);
+
+        FadeAllAudioSources(1, 0f);
+
+        animWipe.SetTrigger("End");
+
+        yield return new WaitForSeconds(2f);
+        LoadScene();
         yield return null;
     }
 
@@ -522,6 +532,35 @@ public class TutorialManager : MonoBehaviour
             Debug.LogWarning("There is no next scene available. Loading scene index 1");
             SceneManager.LoadScene(1);
         }
+    }
+
+    private void FadeAllAudioSources(float fadeDuration, float waitBeforeFading)
+    {
+        // Get all AudioSources in the scene
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            StartCoroutine(FadeAudioSource(audioSource, fadeDuration, waitBeforeFading));
+        }
+    }
+
+    // Coroutine to fade a single AudioSource
+    private IEnumerator FadeAudioSource(AudioSource audioSource, float fadeDuration, float waitBeforeFading)
+    {
+        yield return new WaitForSeconds(waitBeforeFading);
+        float startVolume = audioSource.volume;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+            yield return null;
+        }
+
+        audioSource.volume = 0f; // Ensure volume is zero at the end
+        audioSource.Stop(); // Stop the audio source
     }
 
     private void ScaleUpArray(GameObject[] gameObjects)

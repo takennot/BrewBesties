@@ -44,79 +44,35 @@ public class Bottle : MonoBehaviour
         donePotion.SetActive(false);
         undonePotoin.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            //string one;
-            //string two;
-            //string three;
-
-            //potion.ingredient1.GetIngredientType()
-
-            if (potion != null)
-            {
-                string y‰‰ = "Potion: ";
-
-                if (potion.ingredient1 != null)
-                {
-                    y‰‰ += potion.ingredient1.GetIngredientType() + ", ";
-                }
-                else
-                {
-                    y‰‰ += "none" + ", ";
-                }
-
-                if (potion.ingredient2 != null)
-                {
-                    y‰‰ += potion.ingredient2.GetIngredientType() + ", ";
-                }
-                else
-                {
-                    y‰‰ += "none" + ", ";
-                }
-
-                if (potion.ingredient3 != null)
-                {
-                    y‰‰ += potion.ingredient3.GetIngredientType() + ", ";
-                }
-                else
-                {
-                    y‰‰ += "none" + ", ";
-                }
-
-                Debug.Log(y‰‰ + "(IsDone: " + potion.IsDone() + ")");
-
-                
-            }
-        }
-    }
-
     public void Fill()
     {
         if(potion.ingredient3 != null)
         {
-            switch (potion.ingredient3.GetIngredientType())
+            if(potion.ingredient3.GetIsMagic())
             {
-                case Resource_Enum.Ingredient.Mushroom:
-                    ChangeFlaskColor(ch.GetColor("red")[0], ch.GetColor("red")[1]);
-
-                    break;
-                case Resource_Enum.Ingredient.MonsterEye:
-                    ChangeFlaskColor(ch.GetColor("gray")[0], ch.GetColor("gray")[1]);
-
-                    break;
-                case Resource_Enum.Ingredient.Water:
-                    ChangeFlaskColor(ch.GetColor("blue")[0], ch.GetColor("blue")[1]);
-
-                    break;
-                default:
-                    ChangeFlaskColor(ch.GetColor("blue")[0], ch.GetColor("blue")[1]);
-                    break;
+                ChangeFlaskColor(ch.GetColor("yellow")[0], ch.GetColor("yellow")[1]);
             }
+            else
+            {
+                switch (potion.ingredient3.GetIngredientType())
+                {
+                    case Resource_Enum.Ingredient.Mushroom:
+                        ChangeFlaskColor(ch.GetColor("red")[0], ch.GetColor("red")[1]);
 
+                        break;
+                    case Resource_Enum.Ingredient.MonsterEye:
+                        ChangeFlaskColor(ch.GetColor("gray")[0], ch.GetColor("gray")[1]);
+
+                        break;
+                    case Resource_Enum.Ingredient.Water:
+                        ChangeFlaskColor(ch.GetColor("blue")[0], ch.GetColor("blue")[1]);
+
+                        break;
+                    default:
+                        ChangeFlaskColor(ch.GetColor("blue")[0], ch.GetColor("blue")[1]);
+                        break;
+                }
+            }
         }
         else
         {
@@ -134,22 +90,8 @@ public class Bottle : MonoBehaviour
         inside.material.SetColor(rimColorString, rippleColor);
     }
 
-    /*
-    public void SetTransparanteMaterila()
-    {
-        // funger inte just nu
-        Color transparent = new Color(0, 0, 0, 0);
-        inside.material.SetColor(baseColorString, transparent);
-        inside.material.SetColor(rippelColorString, transparent);
-        inside.material.SetColor(rimColorString, transparent);
-    }*/
-
     void UpdateUI()
     {
-
-        //Debug.Log("Ingredient1 Sprite: " + potion.ingredient1.GetImage().name);
-        //Debug.Log("Ingredient2 Sprite: " + potion.ingredient2.GetImage().name);
-        //Debug.Log("Ingredient3 Sprite: " + potion.ingredient3.GetImage().name);
         if (potion != null)
         {
             //Debug.Log("Potion != null");

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,7 +15,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
     [SerializeField] private Button saveSlot1;
     [SerializeField] private Button fakeButton;
     [SerializeField] private SaveSlotManager[] saveSlots = new SaveSlotManager[3];
-    [SerializeField] public SceneAsset[] allGameScenes = new SceneAsset[10];
+    [SerializeField] public string[] allSceneNames = new string[11];
     [SerializeField] public Button[] levelButtons = new Button[7];
     // Start is called before the first frame update
     void Start()
@@ -76,11 +75,11 @@ public class SaveSlotSelectionManager : MonoBehaviour
     private void LoadSaveSlot(int slot)
     {
         MainMenuData.SetSaveSlot(slot);
-        // TODO load canvas with level selection
+        // TODO update for new levels
         //SceneManager.LoadScene(2);
         levelSelectCanvas.gameObject.SetActive(true);
         canvas.gameObject.SetActive(false);
-        
+
         foreach (Button button in levelButtons)
         {
             button.enabled = false;
@@ -146,25 +145,11 @@ public class SaveSlotSelectionManager : MonoBehaviour
             }
         }
         fakeButton.Select();
-
     }
 
     public void OnSaveSlotSelect(int saveSlot)
     {
         LoadSaveSlot(saveSlot);
-    }
-    // remove and use method above
-    public void OnSaveSlot0Select()
-    {
-       LoadSaveSlot(0);
-    }
-    public void OnSaveSlot1Select()
-    {
-        LoadSaveSlot(1);
-    }
-    public void OnSaveSlot2Select()
-    {
-        LoadSaveSlot(2);
     }
 
     public void SaveSlotReset(int saveSlot)

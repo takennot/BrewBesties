@@ -24,6 +24,7 @@ namespace Collections.Shaders.CircleTransition {
         [SerializeField] private float beginRadius = 1f;
         [SerializeField] private float middleRadius = 0.5f; 
         [SerializeField] private float endRadius = Mathf.Epsilon;
+        [SerializeField] private float timeToWaitInMiddle = 4f;
 
 
         private void Awake() {
@@ -136,7 +137,7 @@ namespace Collections.Shaders.CircleTransition {
                 yield return null;
             }
 
-            yield return new WaitForSeconds(3f); // Delay for 3 seconds
+            yield return new WaitForSeconds(timeToWaitInMiddle);
 
             // Transition from middleRadius to endRadius with a slight increase
             float middleRadius = mat.GetFloat(RADIUS);

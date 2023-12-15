@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OutlineHandler : MonoBehaviour
@@ -12,7 +10,9 @@ public class OutlineHandler : MonoBehaviour
     {
         if(timeOut >= 1f)
         {
-           // Debug.Log("Disable outline");
+            // Debug.Log("Disable outline");
+            outline.HideOutline();
+
             outline.enabled = false;
         }
         else

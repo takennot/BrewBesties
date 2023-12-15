@@ -28,10 +28,10 @@ public class Workstation : MonoBehaviour
     [SerializeField] private AudioSource sourceProcess;
 
     [Header("VFX")]
-    [SerializeField] private WS_EffektController effektController;
+    [SerializeField] private WS_EffectController effektController;
 
 
-
+    // Start is called before the first frame update
     // Start is called before the first frame update
     void Start()
     {
@@ -59,20 +59,24 @@ public class Workstation : MonoBehaviour
             magicSlider.gameObject.SetActive(false);
             magicSlider.value = 0;
 
-           //magicController.DestoryParticla();
+            //magicController.DestoryParticla();
         }
 
-        if(doWork && ingredientOnStation != null && ingredientOnStation.GetIsMagic() == false)
+        if (doWork && ingredientOnStation != null && ingredientOnStation.GetIsMagic() == false)
         {
             magicSlider.gameObject.SetActive(true);
-            
+
 
             if (!sourceProcess.isPlaying)
                 sourceProcess.Play();
 
-            
+
             magicSlider.value += Time.deltaTime;
             sliderValue = magicSlider.value;
+
+
+
+
 
             ingredientOnStation.GetMagicController().MagicOnIngredient();
             ingredientOnStation.GetMagicController().CreateParticle(GetSlider().maxValue);
@@ -82,7 +86,7 @@ public class Workstation : MonoBehaviour
             effektController.CreateParticle(/*GetSlider().maxValue*/);
             effektController.onlyOnePartical = false;
         }
-        else if(ingredientOnStation != null && ingredientOnStation.GetIsMagic() == false)
+        else if (ingredientOnStation != null && ingredientOnStation.GetIsMagic() == false)
         {
             ingredientOnStation.GetMagicController().NotMagicOnIngredient();
             ingredientOnStation.GetMagicController().onlyOnePartical = true;
@@ -95,6 +99,7 @@ public class Workstation : MonoBehaviour
 
     public void DoWorkProcess(PlayerScript thisPlayer)
     {
+
         doWork = true;
     }
 
@@ -113,6 +118,7 @@ public class Workstation : MonoBehaviour
         magicSlider.gameObject.SetActive(false);
         counterState.storedItem.GetComponent<Ingredient>().Magicify();
         ingredientOnStation.GetMagicController().DestoryParticle();
+
     }
 
     public Transform GetMagicSliderTransform()

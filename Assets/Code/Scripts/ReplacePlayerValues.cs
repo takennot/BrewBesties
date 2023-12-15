@@ -17,6 +17,8 @@ public class ReplacePlayerValues : MonoBehaviour
     private bool originalIsSlippery;
     private float originalAcceleration;
 
+    private float timer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,31 +40,60 @@ public class ReplacePlayerValues : MonoBehaviour
         }
     }
 
-    [ContextMenu("Update Values")]
+
     private void UpdateValues()
     {
-        foreach (PlayerScript player in players)
+
+        foreach(PlayerScript player in players)
         {
             player.isSlippery = isSlippery;
             player.accelerationRate = acceleration;
             player.playerSpeed = originalSpeed + extraSpeed;
-            Debug.Log(player + ": PlayerSpeed, PlayerAcceleration, PlayerSlippery " + player.playerSpeed + " " + player.accelerationRate + " " + player.isSlippery);
-        }
+
+
+        }         
+
+    }
+
+    [ContextMenu("Update Values")]
+    private void UpdateValues(PlayerScript player)
+    {
+            player.isSlippery = isSlippery;
+            player.accelerationRate = acceleration;
+            player.playerSpeed = originalSpeed + extraSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        UpdateValues();
+        if(other.gameObject.CompareTag("Player"))
+        {
+            UpdateValues(other.gameObject.GetComponent<PlayerScript>());
+        }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        foreach (PlayerScript player in players)
+        if (other.CompareTag("Player"))
         {
-            player.isSlippery = originalIsSlippery;
-            player.accelerationRate = originalAcceleration;
-            player.playerSpeed = originalSpeed;
-            Debug.Log(player + ": PlayerSpeed, PlayerAcceleration, PlayerSlippery" + player.playerSpeed + player.accelerationRate + player.isSlippery);
+            other.gameObject.GetComponent<PlayerScript>().isSlippery = originalIsSlippery;
+            other.gameObject.GetComponent<PlayerScript>().accelerationRate = originalAcceleration;
+            other.gameObject.GetComponent<PlayerScript>().playerSpeed = originalSpeed;
         }
-    }   
+        
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        timer += Time.deltaTime;
+        if(timer > 0.15f)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                UpdateValues(other.gameObject.GetComponent<PlayerScript>());
+            }
+            timer = 0;
+
+        }
+
+    }
 }        

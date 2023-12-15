@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 6995113497440916804}
   - component: {fileID: 1756640848959498759}
   - component: {fileID: 7950988411885110681}
-  - component: {fileID: 6171050775640181950}
+  - component: {fileID: 3707925613659423046}
   m_Layer: 0
   m_Name: Workstation
   m_TagString: WorkstationDefault
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storedItem: {fileID: 0}
   yItemOffset: 1.3
-  counterOutline: {fileID: 0}
+  counterOutline: {fileID: 2331916786597772391}
 --- !u!65 &5215532282988134369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   doneSound: {fileID: 8300000, guid: 6cc81281beefec84e862849ae536c482, type: 3}
   source: {fileID: 1756640848959498759}
   sourceProcess: {fileID: 7950988411885110681}
-  effektController: {fileID: 6171050775640181950}
+  effektController: {fileID: 3707925613659423046}
 --- !u!82 &1756640848959498759
 AudioSource:
   m_ObjectHideFlags: 0
@@ -437,7 +437,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6171050775640181950
+--- !u!114 &3707925613659423046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5379152439573911433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ec62b07ecbed9740b425e87c20c02d3, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0de34a3da04a6479735021b43b1b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   workstation: {fileID: 6995113497440916804}
@@ -1051,6 +1051,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 390919966986597361}
   m_SourcePrefab: {fileID: 100100000, guid: 40d7e4c0ae1de5c4faa972e51bb92ee8, type: 3}
+--- !u!23 &2324529749988913021 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 40d7e4c0ae1de5c4faa972e51bb92ee8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4000312319648740345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3461385342827189266 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 40d7e4c0ae1de5c4faa972e51bb92ee8,
@@ -1085,6 +1091,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers:
+  - {fileID: 2324529749988913021}
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &390919966986597361
