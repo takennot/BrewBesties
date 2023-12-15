@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -1107,16 +1108,19 @@ public class PlayerScript : MonoBehaviour
         playerState = PlayerState.Emoting;
 
         //Pick a random text to use in emote pop up
-        string[] defaultMessages = new string[] { "slay", "slay", "wow","queen", "awesome", "haha", ">:D", "fantastic", "bestie" }; //Can add more pop up text here
-        string[] rareMessages = new string[] { "victory royale", "for the horde", "git gud", "poggers", "hadouken", };   // Add more rare messages here
+        string[] commonMessages = new string[] { "slay", "slay", "slay", "wow","queen", "awesome", "haha", "epic", "bestie", "sweet", "whoa", "yippie", "deserved" }; //Can add more pop up text here
+        string[] uncommonMessages = new string[] { ">:D", "git gud", "oops", "damn", "problem?", "yay", "*kiss*", "mvp" }; //Can add more pop up text here
+        string[] rareMessages = new string[] { "victory royale", "for the horde", "poggers", "hadouken", "therese approved", "bestest bestie", "it's a me, bestie" };   //Can add more pop up text here
 
         string[] emoteMessages;
-        // 95% chance to use default messages, 5% chance to use rare messages
-        if (Random.value < 0.95f)
+        float random = Random.value;
+        if (random < 0.70f)
         {
-            emoteMessages = defaultMessages;
-        } else
+            emoteMessages = commonMessages;
+        } else if (random < 0.96f)
         {
+            emoteMessages = uncommonMessages;
+        } else {
             emoteMessages = rareMessages;
         }
 
