@@ -11,6 +11,9 @@ using System.ComponentModel;
 
 public class StartAndEnd : MonoBehaviour 
 {
+    [Header("Scene")]
+    public bool isTutorial = false;
+
     [Header("Refs")]
     public TMP_Text countdownText;
     public TMP_Text scoreText;
@@ -18,7 +21,7 @@ public class StartAndEnd : MonoBehaviour
     public Canvas countdownCanvas;
     [SerializeField] private Animator wipeAnimation;
     private GameObject[] players;
-
+    [SerializeField] private Animator animWipe;
 
     public CircleTransition circleTransition;
     public Timer timerLevel;
@@ -32,7 +35,6 @@ public class StartAndEnd : MonoBehaviour
     [SerializeField] private GameManagerScript gameManager;
 
     [SerializeField] private TMP_Text tip;
-
 
     [Header("Scene")]
     public bool shouldLoadSpecifiedLevel;
@@ -102,11 +104,35 @@ public class StartAndEnd : MonoBehaviour
         star2Image.color = Color.gray;
         star3Image.color = Color.gray;
 
-        star1Text.text = "" + pointsOneStar;
-        star2Text.text = "" + pointsTwoStar;
-        star3Text.text = "" + pointsThreeStar;
+        if(!isTutorial)
+        {
+            star1Text.text = "" + pointsOneStar;
+            star2Text.text = "" + pointsTwoStar;
+            star3Text.text = "" + pointsThreeStar;
+        }
+        else
+        {
+            star1Text.text = "";
+            star2Text.text = "" + pointsOneStar;
+            star3Text.text = "";
+        }
 
-        StartCoroutine(StartGameCountdown());
+        if (!isTutorial)
+        {
+            StartCoroutine(StartGameCountdown());
+        }
+        else
+        {
+            hasStarted = true;
+            countdownCanvas.enabled = false;
+            countdownText.text = "";
+            timerLevel.DisableTimer();
+
+            foreach (GameObject player in players)
+            {
+                player.GetComponent<PlayerScript>().GetCharacterController().enabled = true;
+            }
+        }
     }
 
     // score Countdown stuff
@@ -117,11 +143,10 @@ public class StartAndEnd : MonoBehaviour
 
     private void Update() {
 
-        foreach (PlayerScript player in gameManager.GetPlayersList())
-        {
-            Debug.Log(player + " " + player.GetCharacterController().enabled);
-        }
-        
+        //foreach (PlayerScript player in gameManager.GetPlayersList())
+        //{
+        //    Debug.Log(player + " " + player.GetCharacterController().enabled);
+        //}
 
         //Spam drop items picked up by player
         //TODO remove this shit and make it better
@@ -138,15 +163,15 @@ public class StartAndEnd : MonoBehaviour
 
             if (endOptionsPanel.activeSelf)
             {
-                if (Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel)
+                if ((Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick2Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick3Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick4Button0) && completedLevel))
                 {
                     OnNext();
                 }
-                else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
                 {
                     StartCoroutine(OnRestart());
                 }
-                else if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.Joystick2Button2) || Input.GetKeyDown(KeyCode.Joystick3Button2) || Input.GetKeyDown(KeyCode.Joystick4Button2))
                 {
                     SceneManager.LoadScene(0);
                 }
@@ -166,36 +191,45 @@ public class StartAndEnd : MonoBehaviour
 
             if (count < score)
             {
-                if (count > score)
-                    count = score;
-
                 count += Time.deltaTime * 200;
             }
             else
             {
+                if (count > score)
+                    count = score;
+
                 FinishShowScore();
                 scoreCountdown = false;
             }
 
             // show stars
-            if (count >= pointsThreeStar)
+            if(!isTutorial)
             {
-                ShowStarImage(3);
-            }
-            else if (count >= pointsTwoStar)
-            {
-                ShowStarImage(2);
-            }
-            else if (count >= pointsOneStar)
-            {
-                completedLevel = score >= pointsOneStar;
+                if (count >= pointsThreeStar)
+                {
+                    ShowStarImage(3);
+                }
+                else if (count >= pointsTwoStar)
+                {
+                    ShowStarImage(2);
+                }
+                else if (count >= pointsOneStar)
+                {
+                    completedLevel = score >= pointsOneStar;
 
-                ShowStarImage(1);
+                    ShowStarImage(1);
+                }
             }
-
+            else
+            {
+                completedLevel = true;
+                TutorialStars();
+            }
+            
             scoreText.text = text + (int)count;
 
         }
+
         if (completedLevel)
         {
             nextLevelText.fontStyle = FontStyles.Normal;
@@ -204,6 +238,13 @@ public class StartAndEnd : MonoBehaviour
         {
             nextLevelText.fontStyle = FontStyles.Strikethrough;
         }
+    }
+
+    private void TutorialStars()
+    {
+        ShowStarImage(2);
+        star1Image.enabled = false;
+        star3Image.enabled = false;
     }
 
     private void ShowScore()
@@ -326,7 +367,14 @@ public class StartAndEnd : MonoBehaviour
 
         Pause();
 
-        score = goal.GetScore();
+        if(!isTutorial)
+        {
+            score = goal.GetScore();
+        }
+        else
+        {
+            score = 1;
+        }
 
         if(tip != null)
         {
@@ -340,8 +388,14 @@ public class StartAndEnd : MonoBehaviour
 
         Debug.Log("Start the thing!");
 
-        //This is throwing a bunch of errors
-        //FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
+        if (FindAnyObjectByType<MainMenuData>())
+        {
+            FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
+        }
+        else
+        {
+            Debug.LogWarning("No main menu data, so no save file for you bitchhh");
+        }
 
         ShowScore();
 
@@ -358,7 +412,13 @@ public class StartAndEnd : MonoBehaviour
 
         countdownCanvas.enabled = false;
 
-        StartCoroutine(CloseBlackScreenAfterDelay());
+        if(!isTutorial) 
+        {
+            StartCoroutine(CloseBlackScreenAfterDelay());
+        }
+
+        animWipe.SetTrigger("End");
+
         StartCoroutine(LoadNextSceneAfterDelay(true));
     }
 

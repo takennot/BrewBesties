@@ -239,7 +239,8 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("TIMEE PLAYERR");
+        Debug.Log("TIMEE PLAYERR");
+
         if (!isInitialized)
         {
             Initialize();
