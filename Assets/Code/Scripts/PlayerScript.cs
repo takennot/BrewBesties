@@ -734,6 +734,10 @@ public class PlayerScript : MonoBehaviour
                             Drop(false);
                         }
                     }
+                    else
+                    {
+                        Drop(false);
+                    }
                 }
                 else if (holdingState == HoldingState.HoldingPlayer)
                 {
@@ -1097,6 +1101,9 @@ public class PlayerScript : MonoBehaviour
 
     private void Emote()
     {
+        float rand = Random.Range(0, 2.1f);
+        animatorPlayer.SetFloat("EmoteToUse", rand);
+
         playerState = PlayerState.Emoting;
         popUpManager.SpawnPopUp(mainCamera, transform, "slay", color);
     }
