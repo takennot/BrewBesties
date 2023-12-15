@@ -591,19 +591,24 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4544684607543540440}
     m_Modifications:
+    - target: {fileID: 106414900569378845, guid: 1751fa7141e2af546a4f0905e01c5437,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132409659972473280, guid: 1751fa7141e2af546a4f0905e01c5437,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1139845202961199736, guid: 1751fa7141e2af546a4f0905e01c5437,
         type: 3}
       propertyPath: m_Name
       value: KillboxPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 2257808269541590272, guid: 1751fa7141e2af546a4f0905e01c5437,
+    - target: {fileID: 1977886327319568144, guid: 1751fa7141e2af546a4f0905e01c5437,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3614011328573458554, guid: 1751fa7141e2af546a4f0905e01c5437,
-        type: 3}
-      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3614011328573458554, guid: 1751fa7141e2af546a4f0905e01c5437,
@@ -656,37 +661,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
+    - target: {fileID: 7485915620703905286, guid: 1751fa7141e2af546a4f0905e01c5437,
         type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 7760768666410175827, guid: 20d96b30d5d1a8644807e272e04f6566,
-        type: 3}
-    - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
-        type: 3}
-      propertyPath: spawnpoint
-      value: 
-      objectReference: {fileID: 8679096075950078545}
-    - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
-        type: 3}
-      propertyPath: spawnpoint1
-      value: 
-      objectReference: {fileID: 8679096075950078545}
-    - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
-        type: 3}
-      propertyPath: spawnpoint2
-      value: 
-      objectReference: {fileID: 400741839181387648}
-    - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
-        type: 3}
-      propertyPath: spawnpoint3
-      value: 
-      objectReference: {fileID: 8148558822321283936}
-    - target: {fileID: 5576210972816294266, guid: 1751fa7141e2af546a4f0905e01c5437,
-        type: 3}
-      propertyPath: spawnpoint4
-      value: 
-      objectReference: {fileID: 5465763363952545004}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
