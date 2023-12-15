@@ -88,7 +88,10 @@ public class CustomerManager : MonoBehaviour
         else
         {
             patienceTimer += Time.deltaTime * patienceQueueMultiplier;
+
         }
+
+        LongTermnAngry(patienceTimer);
     }
 
     private void Update()
@@ -377,7 +380,7 @@ public class CustomerManager : MonoBehaviour
 
     public void LongTermnAngry(float timeGhostHasBeenAngry)
     {
-        if (longParticalEffekt != null)
+        if (longEffekt != null && longParticalEffekt == null)
         {
             InstancetLongTermEffekt();
         }

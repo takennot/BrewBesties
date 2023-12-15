@@ -46,12 +46,9 @@ public class MagicController : MonoBehaviour
     {
         if (createOnce)
         {
-            //Debug.Log(MagicObjectEffekt + " : " + ingredientObject);
 
             CreateMagicSparkleEffect();
             //Debug.Log("create effekts");
-
-            Material[] newArry = new Material[ingredientObject.GetComponentInChildren<MeshRenderer>().materials.Length];
 
             if (ingredientObject.GetComponent<Ingredient>().GetIngredientType() == Resource_Enum.Ingredient.MonsterEye)
 
@@ -62,7 +59,7 @@ public class MagicController : MonoBehaviour
             {
                 ingredientObject.GetComponentInChildren<MeshRenderer>().material = magiMushroomMaterial;
             }
-            //ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
+
         }
     }
 
@@ -75,18 +72,8 @@ public class MagicController : MonoBehaviour
     {
         if (createOnce)
         {
-            //ingredient = ws.GetIngridiense();
-
-            //Debug.Log(MagicObjectEffekt + " : " + ingredientObject);
-
             magicOnIngredient = Instantiate(MagicObjectEffekt, ingredientObject.transform);
             //Debug.Log("goTo");
-
-            Material[] newArry = new Material[ingredientObject.GetComponentInChildren<MeshRenderer>().materials.Length];
-
-            //newArry[0] = ingredientObject.GetComponent<Ingredient>().GetNormalMaterial();
-
-            //ingredientObject.GetComponentInChildren<MeshRenderer>().materials = newArry;
 
             ingredientObject.GetComponentInChildren<MeshRenderer>().material = ingredientObject.GetComponent<Ingredient>().GetNormalMaterial();
         }

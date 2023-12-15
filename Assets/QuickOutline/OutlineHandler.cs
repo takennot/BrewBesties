@@ -8,7 +8,7 @@ public class OutlineHandler : MonoBehaviour
 
     private void Update()
     {
-        if(timeOut >= 1f)
+        if(timeOut >= 0.1f)
         {
             // Debug.Log("Disable outline");
             outline.HideOutline();

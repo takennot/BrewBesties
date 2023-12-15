@@ -373,16 +373,17 @@ public class GameManagerScript : MonoBehaviour
         Ingredient[] ingredients = FindObjectsByType<Ingredient>(FindObjectsSortMode.InstanceID);
         Bottle[] bottles = FindObjectsByType<Bottle>(FindObjectsSortMode.InstanceID);
         Firewood[] firewoods = FindObjectsByType<Firewood>(FindObjectsSortMode.InstanceID);
+
         if(ingredients != null && ingredients.Length > ingredientMax)
         {
-            if (!ingredients.Last().gameObject.GetComponent<Item>().IsPickedUp())
+            if (!ingredients.Last().gameObject.GetComponent<Item>().IsPickedUp() && !ingredients.Last().gameObject.GetComponent<Ingredient>().GetIsMagic())
             {
                 animScale.ScaleDownAndDestroy(ingredients.Last().gameObject);
             }
         }
         if (bottles != null && bottles.Length > bottleMax)
         {
-            if (!bottles.Last().gameObject.GetComponent<Item>().IsPickedUp() && !bottles.Last().gameObject.GetComponent<Bottle>().IsEmpty())
+            if (!bottles.Last().gameObject.GetComponent<Item>().IsPickedUp() && bottles.Last().gameObject.GetComponent<Bottle>().IsEmpty())
             {
                 animScale.ScaleDownAndDestroy(bottles.Last().gameObject);
             }
