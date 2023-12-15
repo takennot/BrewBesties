@@ -16,7 +16,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
     [SerializeField] private Button fakeButton;
     [SerializeField] private SaveSlotManager[] saveSlots = new SaveSlotManager[3];
     [SerializeField] public string[] allSceneNames = new string[11];
-    [SerializeField] public Button[] levelButtons = new Button[7];
+    [SerializeField] public Button[] levelButtons = new Button[9];
     // Start is called before the first frame update
     void Start()
     {
@@ -100,34 +100,40 @@ public class SaveSlotSelectionManager : MonoBehaviour
             switch (saveSlots[slot].GetLastCompletedLevelName(SaveManager.GetHighscores(slot)).ToLower())
             {
                 case "rotatinator":
+                    levelButtons[8].interactable = true;
+                    levelButtons[8].enabled = true;
+                    goto case "icy platforms";
+                case "icy platforms":
                     levelButtons[7].interactable = true;
+                    levelButtons[8].interactable = true;
                     levelButtons[7].enabled = true;
-                    goto case "plate magic";
-                case "plate magic":
+                    levelButtons[8].enabled = true;
+                    goto case "moving field";
+                case "moving field":
                     levelButtons[6].interactable = true;
                     levelButtons[7].interactable = true;
                     levelButtons[6].enabled = true;
                     levelButtons[7].enabled = true;
-                    goto case "icy platforms";
-                case "icy platforms":
+                    goto case "ghost house";
+                case "ghost house":
                     levelButtons[5].interactable = true;
                     levelButtons[6].interactable = true;
                     levelButtons[5].enabled = true;
                     levelButtons[6].enabled = true;
-                    goto case "ghost house";
-                case "ghost house":
+                    goto case "three islands";
+                case "three islands":
                     levelButtons[4].interactable = true;
                     levelButtons[5].interactable = true;
                     levelButtons[4].enabled = true;
                     levelButtons[5].enabled = true;
-                    goto case "moving field";
-                case "moving field":
+                    goto case "tutorial throw drag wood";
+                case "tutorial throw drag wood":
                     levelButtons[3].interactable = true;
                     levelButtons[4].interactable = true;
                     levelButtons[3].enabled = true;
                     levelButtons[4].enabled = true;
-                    goto case "tutorial throw drag wood";
-                case "tutorial throw drag wood":
+                    goto case "completionist";
+                case "completionist":
                     levelButtons[2].interactable = true;
                     levelButtons[3].interactable = true;
                     levelButtons[2].enabled = true;
