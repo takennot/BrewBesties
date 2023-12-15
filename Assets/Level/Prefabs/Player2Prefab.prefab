@@ -363,17 +363,17 @@ PrefabInstance:
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.94000006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.582
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 531608001307111340, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
@@ -480,7 +480,7 @@ PrefabInstance:
         type: 3}
       propertyPath: characterController
       value: 
-      objectReference: {fileID: -6361066282183374842}
+      objectReference: {fileID: 5999190765299205807}
     - target: {fileID: 3340041555366033599, guid: 20d96b30d5d1a8644807e272e04f6566,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -644,44 +644,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6346393176791997047}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7760768666410175827, guid: 20d96b30d5d1a8644807e272e04f6566,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -6361066282183374842}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20d96b30d5d1a8644807e272e04f6566, type: 3}
---- !u!1 &1504021835529032467 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7760768666410175827, guid: 20d96b30d5d1a8644807e272e04f6566,
+--- !u!143 &5999190765299205807 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 3183475563893971183, guid: 20d96b30d5d1a8644807e272e04f6566,
     type: 3}
   m_PrefabInstance: {fileID: 9181874405641281088}
   m_PrefabAsset: {fileID: 0}
---- !u!143 &-6361066282183374842
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504021835529032467}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 0
-  m_StepOffset: 0.025
-  m_SkinWidth: 0.25
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &9149862736494607361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114355469608804929, guid: 20d96b30d5d1a8644807e272e04f6566,
