@@ -35,7 +35,6 @@ public class SaveSlotSelectionManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Joystick1Button2))
             {
-                // EventSystem.current.currentSelectedGameObject
                 if (EventSystem.current.currentSelectedGameObject.transform.parent.name.Equals("SaveSlot0"))
                 {
                     SaveSlotReset(0);
@@ -47,6 +46,10 @@ public class SaveSlotSelectionManager : MonoBehaviour
                 else if (EventSystem.current.currentSelectedGameObject.transform.parent.name.Equals("SaveSlot2"))
                 {
                     SaveSlotReset(2);
+                }
+                else
+                {
+                    Debug.Log("other");
                 }
             }
         }
