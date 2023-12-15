@@ -45,11 +45,7 @@ public class Saw : MonoBehaviour
     public bool hasSawed;
 
     [Header("VFX")]
-    [SerializeField] GameObject sawEffect;
-    [SerializeField] Transform particalSystemPostion;
-    GameObject instanciestEffect;
-    private bool createOnce = true;
-
+    [SerializeField] private ParticleSystem sawEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +64,8 @@ public class Saw : MonoBehaviour
 
         if (playersSawing.Count > 0)
         {
-            animator.speed = players * baseSpeed; 
+            animator.speed = players * baseSpeed;
+            PlayWoodEffect();
 
             float speedCalc = 0;
             foreach (PlayerScript player in playersSawing)
@@ -85,6 +82,8 @@ public class Saw : MonoBehaviour
             {
                 sourceSawing.Pause();
             }
+
+            PauseWoodEffect();
 
             currentSawSpeed = 0;
             animator.speed = 0;
@@ -109,7 +108,6 @@ public class Saw : MonoBehaviour
                 Debug.Log("added to saw: " + thisPlayer.name);
                 playersSawing.Add(thisPlayer);
                 sourceSawing.Play();
-                createWoodEffekt();
             }
         }
     }
@@ -119,7 +117,7 @@ public class Saw : MonoBehaviour
         Debug.Log("Removing from saw: " + thisPlayer.name);
         playersSawing.Remove(thisPlayer);
         sourceSawing.Pause();
-        createOnce = true;
+        //createOnce = true;
         //Destroy(instanciestEffect);
     }
 
@@ -160,15 +158,14 @@ public class Saw : MonoBehaviour
         return sawingPlate1.GetPlayerColliding() == playerScript || sawingPlate2.GetPlayerColliding() == playerScript;
     }
 
-    void createWoodEffekt()
+    private void PlayWoodEffect()
     {
-        if (createOnce)
-        {
-            Debug.Log("ska skapa particle saw");
-            instanciestEffect = Instantiate(sawEffect, particalSystemPostion);
-            //instanciestEffect.SetTransform = particalSystemPostion;
-            createOnce = false;
-        }
-      
+        if(!sawEffect.isPlaying)
+            sawEffect.Play();
+    }
+    private void PauseWoodEffect()
+    {
+        if (sawEffect.isPlaying)
+            sawEffect.Stop();
     }
 }

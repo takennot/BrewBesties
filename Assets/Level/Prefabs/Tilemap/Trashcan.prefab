@@ -38,6 +38,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trashcan
       objectReference: {fileID: 0}
+    - target: {fileID: 5379152439573911433, guid: 18551e2867af28b40a364e55c4bb0840,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6051669666258731403, guid: 18551e2867af28b40a364e55c4bb0840,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -206,7 +211,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.0444412
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -367,6 +372,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trashcan_Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 715e872bea0db104c861f74a036b7dcd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

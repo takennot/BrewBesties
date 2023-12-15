@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 707821929289501071}
   - component: {fileID: 2149333722534460601}
   - component: {fileID: 1703351833281847869}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spot Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3026492872761125514}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cubes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 9098998923007348236}
   - component: {fileID: 5081851368742887903}
   - component: {fileID: 7841790197882151579}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7053476682815966616}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WS_Magicfield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 512879827943857998}
   - component: {fileID: 3248422729217590619}
   - component: {fileID: 4478801317019919598}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Field (MainObject)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,8 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e04e8b2a658a145afde9f9078bccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  mustBeThrown: 1
+  isActive: 1
+  mustBeThrown: 0
   givesBoost: 0
   forceMagnitude: 1
   field: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 2755654080745218335}
   - component: {fileID: 2136771473700411831}
   - component: {fileID: 5050742150918582973}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 7731552701582343725}
   - component: {fileID: 6556530437476531345}
   - component: {fileID: 5827055911912978394}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 6648714026642724952}
   - component: {fileID: 1279743923470083965}
   - component: {fileID: 1299347753568132964}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 7707418408477796464}
   - component: {fileID: 2032652658955429422}
   - component: {fileID: 3487383578591097143}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +848,7 @@ GameObject:
   - component: {fileID: 6063144608843828112}
   - component: {fileID: 6895653303988187059}
   - component: {fileID: 6831279131741699823}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 4617366995361976401}
   - component: {fileID: 2312179762549734626}
   - component: {fileID: 4223377986289502140}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1058,7 +1058,7 @@ GameObject:
   - component: {fileID: 7374349640871908846}
   - component: {fileID: 2316533320467059593}
   - component: {fileID: 6760959010674745943}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,6 +1159,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7053476682815966616}
     m_Modifications:
+    - target: {fileID: 651628091511069336, guid: b6fcfcebb23273048b0f9588dbc0f422,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 725692390863008734, guid: b6fcfcebb23273048b0f9588dbc0f422,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092115316169827193, guid: b6fcfcebb23273048b0f9588dbc0f422,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1106879639962533684, guid: b6fcfcebb23273048b0f9588dbc0f422,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1209,10 +1224,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1341966927695342058, guid: b6fcfcebb23273048b0f9588dbc0f422,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845491931413448318, guid: b6fcfcebb23273048b0f9588dbc0f422,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5457119086096587404, guid: b6fcfcebb23273048b0f9588dbc0f422,
         type: 3}
       propertyPath: m_Name
       value: PortalMagic
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457119086096587404, guid: b6fcfcebb23273048b0f9588dbc0f422,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704771580662366485, guid: b6fcfcebb23273048b0f9588dbc0f422,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

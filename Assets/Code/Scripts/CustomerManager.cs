@@ -93,28 +93,6 @@ public class CustomerManager : MonoBehaviour
 
     private void Update()
     {
-        /*
-        if (patienceTimer > patienceTimerMax * 0.5 && meshRenderer.material != materialAngry)
-        {
-            //meshRenderer.material = materialAngry;
-            if (playParticalOnce)
-            {
-                PlayParticleSystem("angry");
-                StartCoroutine(CountTillParticalDestruction());
-                playParticalOnce = false;
-            }
-        }
-        else if (patienceTimer > patienceTimerMax * 0.75 && meshRenderer.material != materialIrritated && meshRenderer.material != materialAngry)
-        {
-            //meshRenderer.material = materialIrritated;
-            if (playParticalTwise)
-            {
-                PlayParticleSystem("angry");
-                StartCoroutine(CountTillParticalDestruction());
-                playParticalTwise = false;
-            }
-        }
-        */
 
     }
 
@@ -127,7 +105,7 @@ public class CustomerManager : MonoBehaviour
     {
         currentGoal = goal.gameObject;
 
-        Debug.Log("NewOrderRuns");
+        //Debug.Log("NewOrderRuns");
         IngredientAbstract newIngredient1 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
         IngredientAbstract newIngredient2 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
         IngredientAbstract newIngredient3 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
@@ -136,7 +114,7 @@ public class CustomerManager : MonoBehaviour
         newIngredient2.SetImages(goal.spriteManager);
         newIngredient3.SetImages(goal.spriteManager);
 
-        Debug.Log("3 Ingredient");
+        //Debug.Log("3 Ingredient");
         customerOrder = new CustomerOrder(newIngredient1, newIngredient2, newIngredient3);
         ingredient1 = newIngredient1.GetString();
         ingredient2 = newIngredient2.GetString();
@@ -155,7 +133,7 @@ public class CustomerManager : MonoBehaviour
         newIngredient2.SetImages(goal.spriteManager);
         newIngredient3.SetImages(goal.spriteManager);
 
-        Debug.Log("3 Ingredient");
+        //Debug.Log("3 Ingredient");
         customerOrder = new CustomerOrder(newIngredient1, newIngredient2, newIngredient3);
         ingredient1 = newIngredient1.GetString();
         ingredient2 = newIngredient2.GetString();

@@ -41,10 +41,11 @@ public class GameManagerScript : MonoBehaviour
         {
             playerAmount = MainMenuData.playerAmount;
         }
-            
 
+        Debug.Log("player amount: " + playerAmount);
         for (int i = 1; i <= playerAmount; i++)
         {
+            Debug.Log("Spawn player: " + i);
             SpawnPlayer(i);
         }
     }
@@ -54,11 +55,6 @@ public class GameManagerScript : MonoBehaviour
     {
         InvokeRepeating("GarbageCheck", 5.0f, 0.5f);
 
-        //gamepads = Gamepad.all;
-        //foreach (Gamepad gamepad in gamepads) {
-        //    Debug.Log(gamepad.displayName);
-        //}
-        //Debug.Log(gamepads.Count);
     }
 
 
@@ -66,6 +62,7 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // IS THIS NEEDED??? VVV
         if (!runElementsInLevel)
         {
             foreach (PlayerScript player in players)
@@ -76,7 +73,22 @@ public class GameManagerScript : MonoBehaviour
                 }
             }
 
+            if(goal == null)
+                goal = FindAnyObjectByType<Goal>();
+
             goal.GetComponent<Goal>().SetActivated(false);
+        }
+        else
+        {
+            foreach (PlayerScript player in players)
+            {
+                if (player != null)
+                {
+                    player.enabled = true;
+                }
+            }
+
+            goal.GetComponent<Goal>().SetActivated(true);
         }
 
         {
@@ -130,10 +142,51 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    private bool isPaused = false;
+    public void PauseGame()
+    {
+        
+        switch (isPaused)
+        {
+            case true:
+                Debug.Log("UnPause gm");
+                isPaused = false;
+                goal.SetActivated(!isPaused);
+                runElementsInLevel = true;
+
+                // handle players
+                foreach (PlayerScript player in GetPlayersList())
+                {
+                    player.GetCharacterController().enabled = true;
+                }
+
+                break;
+            case false:
+                Debug.Log("Pause gm");
+                isPaused = true;
+                goal.SetActivated(!isPaused);
+                runElementsInLevel = false;
+
+                foreach (PlayerScript player in GetPlayersList())
+                {
+                    player.GetCharacterController().enabled = false;
+                }
+
+                break;
+        }
+
+        // handle cauldrons
+        foreach (CauldronState cauldronState in FindObjectsOfType<CauldronState>())
+        {
+            cauldronState.Pause();
+        }
+    }
+
     void SpawnPlayer(int playerIndex)
     {
         GameObject newPlayer;
         PlayerScript playerController;
+
         switch (isTutorial)
         {
             case true:
@@ -154,6 +207,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player1.GetComponent<PlayerScript>().Respawn(spawnpoint1);
+
                         break;
                     case 2:
                         //newPlayer = Instantiate(player2, spawnpoint2.position, Quaternion.identity);
@@ -170,6 +224,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player2.GetComponent<PlayerScript>().Respawn(spawnpoint2);
+
                         break;
                     case 3:
                         //newPlayer = Instantiate(player3, spawnpoint3.position, Quaternion.identity);
@@ -186,6 +241,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player3.GetComponent<PlayerScript>().Respawn(spawnpoint3);
+
                         break;
                     case 4:
                         //newPlayer = Instantiate(player4, spawnpoint4.position, Quaternion.identity);
@@ -202,6 +258,7 @@ public class GameManagerScript : MonoBehaviour
                         players.Add(playerController);
 
                         player4.GetComponent<PlayerScript>().Respawn(spawnpoint4);
+
                         break;
 
                     default:
@@ -377,7 +434,7 @@ public class GameManagerScript : MonoBehaviour
                 {
                     sw.WriteLine("Session ID: " + AnalyticsSessionInfo.sessionId);
                     sw.WriteLine("Level: " + SceneManager.GetActiveScene().name);
-                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetComponent<Goal>().GetScore());
+                    sw.WriteLine("Score in level " + SceneManager.GetActiveScene().name + ": " + goal.GetScore());
                     sw.WriteLine("----------------------------------------------");
                 }
 

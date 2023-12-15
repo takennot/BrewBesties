@@ -13,6 +13,8 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private Sprite spriteNormal;
     [SerializeField] private Sprite spritemagic;
 
+    [SerializeField] private MagicController magicController;
+
     public int mainMaterialIndex;
 
     [SerializeField] private bool isMagic = false;
@@ -40,8 +42,17 @@ public class Ingredient : MonoBehaviour
     {
         isMagic = true;
 
+        Debug.Log("Magic material:" + magicMaterial);
         meshRenderer.material = magicMaterial;
+
+        magicController.CreateMagicSparkleEffect();
+    }
+
+    public void Magicify(Material magicalMaterial)
+    {
+        isMagic = true; 
         
+        meshRenderer.material = magicalMaterial;
     }
 
     public bool GetIsMagic()
@@ -69,6 +80,17 @@ public class Ingredient : MonoBehaviour
     {
         ingredientType = newIngredient;
     }
+
+    public MagicController GetMagicController()
+    {
+        return magicController;
+    }
+
+    public Material GetNormalMaterial()
+    {
+        return material;
+    }
+
 }
 
 public class IngredientAbstract
@@ -155,4 +177,7 @@ public class IngredientAbstract
             default: break;
         }
     }
+
+    // OBS: DETTA ÄR INTE SAMMA KLASS SOM LÄNGST UPP, DET ÄR EN ABSTRAKT VERSION.
+    // OM DU SKA LÄGGA TILL EN METOD, SKROLLA UPP TILL RÄTT KLASS!!!!
 }

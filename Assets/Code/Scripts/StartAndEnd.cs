@@ -27,10 +27,9 @@ public class StartAndEnd : MonoBehaviour
     bool completedLevel;
 
     [SerializeField] private Goal goal;
-    [SerializeField] private GameObject gameManager;
+    [SerializeField] private GameManagerScript gameManager;
 
     [SerializeField] private TMP_Text tip;
-
 
     [Header("Scene")]
     public bool shouldLoadSpecifiedLevel;
@@ -70,18 +69,17 @@ public class StartAndEnd : MonoBehaviour
     bool played2 = false;
     bool played3 = false;
 
-    private void Start() {
+    private void Start() 
+    {
         players = GameObject.FindGameObjectsWithTag("Player");
 
         //goal = GameObject.Find("Goal").GetComponent<Goal>();
 
-        foreach (GameObject player in players) {
-            PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            if (playerScript != null) {
-                playerScript.enabled = false;
-            }
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerScript>().GetCharacterController().enabled = false;
         }
-        
+
         AudioController audioController = FindAnyObjectByType<AudioController>();
         if (audioController)
         {
@@ -125,6 +123,7 @@ public class StartAndEnd : MonoBehaviour
                     //playerScript.DropPlayer(false); // doesnt work. => isnt needed. Drop will go to DropPlayer() automatically if needed //saga
                 }
             }
+
             // or here????
 
             if (endOptionsPanel.activeSelf)
@@ -270,48 +269,44 @@ public class StartAndEnd : MonoBehaviour
             countdownTime--;
             if(countdownTime < 0.01f) {
                 hasStarted = true;
+
+                foreach (GameObject player in players)
+                {
+                    player.GetComponent<PlayerScript>().GetCharacterController().enabled = true;
+                }
+
                 timerLevel.StartTimer();
             }
         }
 
         countdownCanvas.enabled = false;
 
-        // Enable the players
-        foreach (GameObject player in players) {
-            PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            if (playerScript != null) {
-                playerScript.enabled = true;
-                playerScript.StartFootSteps();
-            }
-        }
+        //// Enable the players
+        //foreach (GameObject player in players) {
+        //    PlayerScript playerScript = player.GetComponent<PlayerScript>();
+        //    if (playerScript != null) {
+        //        playerScript.enabled = true;
+        //        playerScript.StartFootSteps();
+        //    }
+        //}
 
         countdownText.text = "";
     }
 
-    private bool isPaused = false;
+    //private bool isPaused = false;
 
     public void Pause()
     {
-        switch (isPaused)
-        {
-            case true:
-                
-                isPaused = false;
-                goal.SetActivated(!isPaused);
-                break;
-            case false:
+        Debug.Log("Pause or UnPause");
 
-                isPaused = true;
-                goal.SetActivated(!isPaused);
-                break;
-        }
+        gameManager.PauseGame();
     }
 
     public void End() {
         Debug.Log("Reached End()");
         isEnding = true;
 
-        foreach (PlayerScript player in gameManager.GetComponent<GameManagerScript>().GetPlayersList()) 
+        foreach (PlayerScript player in gameManager.GetPlayersList()) 
         { 
             player.GetCharacterController().enabled = false;
         }
@@ -325,16 +320,14 @@ public class StartAndEnd : MonoBehaviour
             tip.enabled = false;
         }
 
-        
-
         countdownCanvas.enabled = true;
 
-        gameManager.GetComponent<GameManagerScript>().SaveLog();
+        gameManager.SaveLog();
 
 
         Debug.Log("Start the thing!");
 
-        FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
+        //FindAnyObjectByType<MainMenuData>().UpdateHighscore(SceneManager.GetActiveScene().name, score);
 
         ShowScore();
 
@@ -348,6 +341,7 @@ public class StartAndEnd : MonoBehaviour
         {
             player.GetCharacterController().enabled = true;
         }
+
         countdownCanvas.enabled = false;
 
         StartCoroutine(CloseBlackScreenAfterDelay());

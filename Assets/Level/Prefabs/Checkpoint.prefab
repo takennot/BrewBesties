@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6225363270351682223}
   - component: {fileID: 2003109348348511338}
   - component: {fileID: 5036362584170611107}
-  m_Layer: 0
+  - component: {fileID: 4144254485905847903}
+  m_Layer: 2
   m_Name: Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,6 +75,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4144254485905847903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975675699459519200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7c762a9de66fb4eb8f07e61f979f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidColor: {r: 0.21226418, g: 0.21226418, b: 1, a: 0.03529412}
+  wireframeColor: {r: 1, g: 1, b: 1, a: 0.2627451}
 --- !u!1 &2053340802721807963
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7665690046296193682}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CheckPointP2
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -114,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045684183631250808}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CheckPointP4
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -145,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5060241387996081621}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CheckPointP1
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -176,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5215683101339043921}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CheckPointP3
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
