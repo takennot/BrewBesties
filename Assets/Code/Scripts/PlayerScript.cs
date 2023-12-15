@@ -36,12 +36,12 @@ public class PlayerScript : MonoBehaviour
     private UnityEngine.Color color;
 
     [Header("Throw Player")]
-    [SerializeField] float horizontalThrowForcePlayer = 4;
-    [SerializeField] float verticalThrowForcePlayer = 4;
+    public float horizontalThrowForcePlayer = 4;
+    public float verticalThrowForcePlayer = 4;
 
     [Header("Throw Item")]
-    [SerializeField] float horizontalThrowForce = 4;
-    [SerializeField] float verticalThrowForce = 4;
+    public float horizontalThrowForce = 4;
+    public float verticalThrowForce = 4;
 
     [Header("Rotation")]
     [SerializeField] private float rotationSpeed = 20f;

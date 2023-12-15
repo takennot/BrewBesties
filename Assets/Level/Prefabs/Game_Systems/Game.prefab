@@ -230,10 +230,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eadad965fee4444d867a03063b1d15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needsTrigger: 0
+  needsTriggerForMovement: 0
+  horizontalThrowForcePlayerExtra: 0
+  verticalThrowForcePlayerExtra: 0
+  horizontalThrowForceItemExtra: 0
+  verticalThrowForceItemExtra: 0
+  changeMovement: 1
   isSlippery: 1
   acceleration: 0.95
   extraSpeed: 2
+  hasExitValues: 0
+  replacePlayerValues: {fileID: 0}
 --- !u!1 &2784986051754548971
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,6 +781,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6465970929582582692, guid: 902841f2161e571459d38bc1900b1c64,
+        type: 3}
+      propertyPath: swayYZ
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6624785758824214767, guid: 902841f2161e571459d38bc1900b1c64,
         type: 3}

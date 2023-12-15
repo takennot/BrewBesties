@@ -11,7 +11,7 @@ public static class CompletionRequirements
 
     public static List<int> tutorial2Requirements = new List<int>(new int[] { 1, 1, 1 });
     public static List<int> threeIslandsRequirements = new List<int>(new int[] { 300, 550, 700 });
-    public static List<int> ghostHouseRequirements = new List<int>(new int[] { 185, 255, 400 });
+    public static List<int> ghostHouseRequirements = new List<int>(new int[] { 355, 500, 640 });
 
 
     public static List<int> movingFieldRequirements = new List<int>(new int[] { 435, 770, 925 });

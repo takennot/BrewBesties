@@ -1674,7 +1674,7 @@ PrefabInstance:
     - target: {fileID: 5181378450864725889, guid: 33f996fbb60d98245a470895212e61d3,
         type: 3}
       propertyPath: woodValue
-      value: 35
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5181378450864725889, guid: 33f996fbb60d98245a470895212e61d3,
         type: 3}
@@ -1701,6 +1701,11 @@ PrefabInstance:
       propertyPath: infiniteFireCanvas
       value: 
       objectReference: {fileID: 5447490177917906450}
+    - target: {fileID: 5181378450864725889, guid: 33f996fbb60d98245a470895212e61d3,
+        type: 3}
+      propertyPath: fourPlayersDecreaseMultiplier
+      value: 1.385
+      objectReference: {fileID: 0}
     - target: {fileID: 5377823045394228287, guid: 33f996fbb60d98245a470895212e61d3,
         type: 3}
       propertyPath: m_LocalPosition.x
