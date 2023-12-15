@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class FireState : MonoBehaviour
 {
+     private GameManagerScript gameManager;
+
     [Header("Gameplay")]
     [SerializeField] private bool needsFire = true;
     [SerializeField] private float maxFireValue = 35f;
     [SerializeField] private float woodValue = 7f;
     [SerializeField] private float fireDecreaseSpeed = 1f;
     private float minValue = 10f;
+
+    [Header("Scoring PLayer Adaptability")]
+    [SerializeField] private float twoPlayersDecreaseMultiplier = 1f;
+    [SerializeField] private float threePlayersDecreaseMultiplier = 1.225f;
+    [SerializeField] private float fourPlayersDecreaseMultiplier = 1.325f;
+    [SerializeField] private float playerAmountDecreaseMultiplier;
 
     [Header("Visuals")]
     [SerializeField] private Material off;
@@ -45,6 +54,23 @@ public class FireState : MonoBehaviour
         {
             infiniteFireCanvas.gameObject.SetActive(false);
         }
+
+        gameManager = FindAnyObjectByType<GameManagerScript>();
+        if (gameManager == null) return;
+        switch (gameManager.GetPlayerAmount())
+        {
+            case 2:
+            playerAmountDecreaseMultiplier = twoPlayersDecreaseMultiplier;
+            break;
+            case 3:
+            playerAmountDecreaseMultiplier = threePlayersDecreaseMultiplier;
+            break;
+            case 4:
+            playerAmountDecreaseMultiplier = fourPlayersDecreaseMultiplier;
+            break;
+            default:
+            goto case 2;
+        }
     }
 
     // Update is called once per frame
@@ -60,7 +86,7 @@ public class FireState : MonoBehaviour
 
         if(needsFire)
         {
-            fireSlider.value -= Time.deltaTime * fireDecreaseSpeed;
+            fireSlider.value -= (Time.deltaTime * fireDecreaseSpeed) * playerAmountDecreaseMultiplier;
 
             if (!IsWarm())
             {
