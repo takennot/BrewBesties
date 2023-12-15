@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -1105,7 +1106,27 @@ public class PlayerScript : MonoBehaviour
         animatorPlayer.SetFloat("EmoteToUse", rand);
 
         playerState = PlayerState.Emoting;
-        popUpManager.SpawnPopUp(mainCamera, transform, "slay", color);
+
+        //Pick a random text to use in emote pop up
+        string[] commonMessages = new string[] { "slay", "slay", "slay", "wow","queen", "awesome", "haha", "epic", "bestie", "sweet", "whoa", "yippie", "deserved" }; //Can add more pop up text here
+        string[] uncommonMessages = new string[] { ">:D", "git gud", "oops", "damn", "problem?", "yay", "*kiss*", "mvp" }; //Can add more pop up text here
+        string[] rareMessages = new string[] { "victory royale", "for the horde", "poggers", "hadouken", "therese approved", "bestest bestie", "it's a me, bestie" };   //Can add more pop up text here
+
+        string[] emoteMessages;
+        float random = Random.value;
+        if (random < 0.70f)
+        {
+            emoteMessages = commonMessages;
+        } else if (random < 0.96f)
+        {
+            emoteMessages = uncommonMessages;
+        } else {
+            emoteMessages = rareMessages;
+        }
+
+        int randomIndex = Random.Range(0, emoteMessages.Length);
+        string selectedMessage = emoteMessages[randomIndex];
+        popUpManager.SpawnPopUp(mainCamera, transform, selectedMessage, color);
     }
 
     public void OnCollisionEnter(Collision collision)

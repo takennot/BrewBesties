@@ -17,6 +17,10 @@ public class ReplacePlayerValues : MonoBehaviour
     private bool originalIsSlippery;
     private float originalAcceleration;
 
+    [Header("Exit Values")]
+    public bool hasExitValues;
+    public ReplacePlayerValues replacePlayerValues;
+
     private float timer;
 
     // Start is called before the first frame update
@@ -76,9 +80,17 @@ public class ReplacePlayerValues : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerScript>().isSlippery = originalIsSlippery;
-            other.gameObject.GetComponent<PlayerScript>().accelerationRate = originalAcceleration;
-            other.gameObject.GetComponent<PlayerScript>().playerSpeed = originalSpeed;
+            if (hasExitValues)
+            {
+                other.gameObject.GetComponent<PlayerScript>().isSlippery = replacePlayerValues.isSlippery;
+                other.gameObject.GetComponent<PlayerScript>().accelerationRate = replacePlayerValues.acceleration;
+                other.gameObject.GetComponent<PlayerScript>().playerSpeed = replacePlayerValues.originalSpeed + replacePlayerValues.extraSpeed;
+            } else
+            {
+                other.gameObject.GetComponent<PlayerScript>().isSlippery = originalIsSlippery;
+                other.gameObject.GetComponent<PlayerScript>().accelerationRate = originalAcceleration;
+                other.gameObject.GetComponent<PlayerScript>().playerSpeed = originalSpeed;
+            }
         }
         
     }
