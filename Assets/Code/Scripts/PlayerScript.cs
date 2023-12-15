@@ -1105,7 +1105,24 @@ public class PlayerScript : MonoBehaviour
         animatorPlayer.SetFloat("EmoteToUse", rand);
 
         playerState = PlayerState.Emoting;
-        popUpManager.SpawnPopUp(mainCamera, transform, "slay", color);
+
+        //Pick a random text to use in emote pop up
+        string[] defaultMessages = new string[] { "slay", "slay", "wow","queen", "awesome", "haha", ">:D", "fantastic", "bestie" }; //Can add more pop up text here
+        string[] rareMessages = new string[] { "victory royale", "for the horde", "git gud", "poggers", "hadouken", };   // Add more rare messages here
+
+        string[] emoteMessages;
+        // 95% chance to use default messages, 5% chance to use rare messages
+        if (Random.value < 0.95f)
+        {
+            emoteMessages = defaultMessages;
+        } else
+        {
+            emoteMessages = rareMessages;
+        }
+
+        int randomIndex = Random.Range(0, emoteMessages.Length);
+        string selectedMessage = emoteMessages[randomIndex];
+        popUpManager.SpawnPopUp(mainCamera, transform, selectedMessage, color);
     }
 
     public void OnCollisionEnter(Collision collision)
