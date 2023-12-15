@@ -138,15 +138,15 @@ public class StartAndEnd : MonoBehaviour
 
             if (endOptionsPanel.activeSelf)
             {
-                if (Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel)
+                if ((Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick2Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick3Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick4Button0) && completedLevel))
                 {
                     OnNext();
                 }
-                else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
                 {
                     StartCoroutine(OnRestart());
                 }
-                else if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.Joystick2Button2) || Input.GetKeyDown(KeyCode.Joystick3Button2) || Input.GetKeyDown(KeyCode.Joystick4Button2))
                 {
                     SceneManager.LoadScene(0);
                 }
@@ -211,8 +211,6 @@ public class StartAndEnd : MonoBehaviour
         scoreCountdown = true;
         audioSourceShuffle.clip = shuffle_audio;
         audioSourceShuffle.Play();
-
-        //score = 700; // TA BORTTTT --------------------------------------------
 
         scoreText.text = text + "0";
 

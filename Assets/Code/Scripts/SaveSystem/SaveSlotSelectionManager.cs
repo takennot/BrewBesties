@@ -28,7 +28,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
     {
         if (canvas.gameObject.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
             {
                 canvas.gameObject.SetActive(false);
                 playButton.Select();
@@ -52,7 +52,7 @@ public class SaveSlotSelectionManager : MonoBehaviour
         }
         if (levelSelectCanvas.gameObject.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
             {
                 levelSelectCanvas.gameObject.SetActive(false);
                 canvas.gameObject.SetActive(true);
