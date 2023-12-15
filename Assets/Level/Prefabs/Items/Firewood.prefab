@@ -78,6 +78,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1131776003682813999, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: renderers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131776003682813999, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: renderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 6041500335309885130}
     - target: {fileID: 1624194750893590225, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
       propertyPath: m_Enabled
@@ -241,3 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0419230339880a64bbe501bf2c7c02c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &6041500335309885130 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2614094277736799586, guid: 8cd695656cc326648a7e1d759180a6ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8615553689491248040}
+  m_PrefabAsset: {fileID: 0}

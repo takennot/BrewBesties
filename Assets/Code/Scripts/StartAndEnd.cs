@@ -349,6 +349,9 @@ public class StartAndEnd : MonoBehaviour
 
     //private bool isPaused = false;
 
+    /// <summary>
+    /// Will Pause or unpause the state of the game. 
+    /// </summary>
     public void Pause()
     {
         Debug.Log("Pause or UnPause");
@@ -405,19 +408,22 @@ public class StartAndEnd : MonoBehaviour
 
     public void OnNext()
     {
-        foreach (GameObject player in players)
-        {
-            player.GetComponent<PlayerScript>().GetCharacterController().enabled = true;
-        }
+        //foreach (GameObject player in players)
+        //{
+        //    player.GetComponent<PlayerScript>().GetCharacterController().enabled = true;
+        //}
 
         countdownCanvas.enabled = false;
 
         if(!isTutorial) 
         {
+            Pause();
             StartCoroutine(CloseBlackScreenAfterDelay());
         }
-
-        animWipe.SetTrigger("End");
+        else
+        {
+            animWipe.SetTrigger("End");
+        }
 
         StartCoroutine(LoadNextSceneAfterDelay(true));
     }
