@@ -9,9 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [DisallowMultipleComponent]
 public class Outline : MonoBehaviour
@@ -132,6 +130,11 @@ public class Outline : MonoBehaviour
 
     void OnEnable()
     {
+        if(renderers.Length == 0)
+        {
+            Debug.LogError(gameObject + " outline script has no referense to a mesh renderer. Outline will not show.");
+        }
+
         foreach (var renderer in renderers)
         {
             // Append outline shaders
