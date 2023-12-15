@@ -936,11 +936,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ece7b0c24dd0848bbb7b0688e53e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorial: 0
   countdownText: {fileID: 7596529204583065812}
   scoreText: {fileID: 1931443931587972}
   nextLevelText: {fileID: 9090400184589876440}
   countdownCanvas: {fileID: 8610066418371340518}
   wipeAnimation: {fileID: 4769547399082084995}
+  animWipe: {fileID: 0}
   circleTransition: {fileID: 3803019194604411598}
   timerLevel: {fileID: 7239122137385727066}
   goal: {fileID: 0}
@@ -1237,7 +1239,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
