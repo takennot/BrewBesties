@@ -11,6 +11,9 @@ using System.ComponentModel;
 
 public class StartAndEnd : MonoBehaviour 
 {
+    [Header("Scene")]
+    public bool isTutorial = false;
+
     [Header("Refs")]
     public TMP_Text countdownText;
     public TMP_Text scoreText;
@@ -18,7 +21,7 @@ public class StartAndEnd : MonoBehaviour
     public Canvas countdownCanvas;
     [SerializeField] private Animator wipeAnimation;
     private GameObject[] players;
-
+    [SerializeField] private Animator animWipe;
 
     public CircleTransition circleTransition;
     public Timer timerLevel;
@@ -32,7 +35,6 @@ public class StartAndEnd : MonoBehaviour
     [SerializeField] private GameManagerScript gameManager;
 
     [SerializeField] private TMP_Text tip;
-
 
     [Header("Scene")]
     public bool shouldLoadSpecifiedLevel;
@@ -102,11 +104,35 @@ public class StartAndEnd : MonoBehaviour
         star2Image.color = Color.gray;
         star3Image.color = Color.gray;
 
-        star1Text.text = "" + pointsOneStar;
-        star2Text.text = "" + pointsTwoStar;
-        star3Text.text = "" + pointsThreeStar;
+        if(!isTutorial)
+        {
+            star1Text.text = "" + pointsOneStar;
+            star2Text.text = "" + pointsTwoStar;
+            star3Text.text = "" + pointsThreeStar;
+        }
+        else
+        {
+            star1Text.text = "";
+            star2Text.text = "" + pointsOneStar;
+            star3Text.text = "";
+        }
 
-        StartCoroutine(StartGameCountdown());
+        if (!isTutorial)
+        {
+            StartCoroutine(StartGameCountdown());
+        }
+        else
+        {
+            hasStarted = true;
+            countdownCanvas.enabled = false;
+            countdownText.text = "";
+            timerLevel.DisableTimer();
+
+            foreach (GameObject player in players)
+            {
+                player.GetComponent<PlayerScript>().GetCharacterController().enabled = true;
+            }
+        }
     }
 
     // score Countdown stuff
@@ -117,11 +143,10 @@ public class StartAndEnd : MonoBehaviour
 
     private void Update() {
 
-        foreach (PlayerScript player in gameManager.GetPlayersList())
-        {
-            Debug.Log(player + " " + player.GetCharacterController().enabled);
-        }
-        
+        //foreach (PlayerScript player in gameManager.GetPlayersList())
+        //{
+        //    Debug.Log(player + " " + player.GetCharacterController().enabled);
+        //}
 
         //Spam drop items picked up by player
         //TODO remove this shit and make it better
@@ -166,36 +191,45 @@ public class StartAndEnd : MonoBehaviour
 
             if (count < score)
             {
-                if (count > score)
-                    count = score;
-
                 count += Time.deltaTime * 200;
             }
             else
             {
+                if (count > score)
+                    count = score;
+
                 FinishShowScore();
                 scoreCountdown = false;
             }
 
             // show stars
-            if (count >= pointsThreeStar)
+            if(!isTutorial)
             {
-                ShowStarImage(3);
-            }
-            else if (count >= pointsTwoStar)
-            {
-                ShowStarImage(2);
-            }
-            else if (count >= pointsOneStar)
-            {
-                completedLevel = score >= pointsOneStar;
+                if (count >= pointsThreeStar)
+                {
+                    ShowStarImage(3);
+                }
+                else if (count >= pointsTwoStar)
+                {
+                    ShowStarImage(2);
+                }
+                else if (count >= pointsOneStar)
+                {
+                    completedLevel = score >= pointsOneStar;
 
-                ShowStarImage(1);
+                    ShowStarImage(1);
+                }
             }
-
+            else
+            {
+                completedLevel = true;
+                TutorialStars();
+            }
+            
             scoreText.text = text + (int)count;
 
         }
+
         if (completedLevel)
         {
             nextLevelText.fontStyle = FontStyles.Normal;
@@ -206,11 +240,20 @@ public class StartAndEnd : MonoBehaviour
         }
     }
 
+    private void TutorialStars()
+    {
+        ShowStarImage(2);
+        star1Image.enabled = false;
+        star3Image.enabled = false;
+    }
+
     private void ShowScore()
     {
         scoreCountdown = true;
         audioSourceShuffle.clip = shuffle_audio;
         audioSourceShuffle.Play();
+
+        //score = 700; // TA BORTTTT --------------------------------------------
 
         scoreText.text = text + "0";
 
@@ -324,7 +367,14 @@ public class StartAndEnd : MonoBehaviour
 
         Pause();
 
-        score = goal.GetScore();
+        if(!isTutorial)
+        {
+            score = goal.GetScore();
+        }
+        else
+        {
+            score = 1;
+        }
 
         if(tip != null)
         {
@@ -344,7 +394,7 @@ public class StartAndEnd : MonoBehaviour
         }
         else
         {
-            Debug.Log("No main menu data, so no save file for you bitchhh");
+            Debug.LogWarning("No main menu data, so no save file for you bitchhh");
         }
 
         ShowScore();
@@ -362,7 +412,13 @@ public class StartAndEnd : MonoBehaviour
 
         countdownCanvas.enabled = false;
 
-        StartCoroutine(CloseBlackScreenAfterDelay());
+        if(!isTutorial) 
+        {
+            StartCoroutine(CloseBlackScreenAfterDelay());
+        }
+
+        animWipe.SetTrigger("End");
+
         StartCoroutine(LoadNextSceneAfterDelay(true));
     }
 
