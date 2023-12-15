@@ -116,11 +116,6 @@ public class StartAndEnd : MonoBehaviour
     float count = 0f;
 
     private void Update() {
-
-        foreach (PlayerScript player in gameManager.GetPlayersList())
-        {
-            Debug.Log(player + " " + player.GetCharacterController().enabled);
-        }
         
 
         //Spam drop items picked up by player
