@@ -16,10 +16,6 @@ public class KillboxManager : MonoBehaviour
     [SerializeField] private float cooldown = 3;
 
     // player images
-    [SerializeField] private Image imagePlayer1;
-    [SerializeField] private Image imagePlayer2;
-    [SerializeField] private Image imagePlayer3;
-    [SerializeField] private Image imagePlayer4;
 
     // text timer
     [SerializeField] private TMP_Text timerPlayer1;
@@ -46,16 +42,12 @@ public class KillboxManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        imagePlayer1.enabled = false;
         timerPlayer1.enabled = false;
 
-        imagePlayer2.enabled = false;
         timerPlayer2.enabled = false;
 
-        imagePlayer3.enabled = false;
         timerPlayer3.enabled = false;
 
-        imagePlayer4.enabled = false;
         timerPlayer4.enabled = false;
 
         count1 = cooldown;
@@ -136,56 +128,48 @@ public class KillboxManager : MonoBehaviour
         {
             case PlayerScript.PlayerType.PlayerOne:
                 Debug.Log("Killbox found player1");
-                imagePlayer1.enabled = true;
                 timerPlayer1.enabled = true;
                 isPlayer1Dead = true;
                 yield return new WaitForSecondsRealtime(cooldown);
                 other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint1);
                 respawnVFXInstance = Instantiate(respawnVFX, spawnpoint1);
                 Destroy(respawnVFXInstance, 1);
-                imagePlayer1.enabled = false;
                 timerPlayer1.enabled = false;
                 isPlayer1Dead = false;
                 count1 = cooldown;
                 break;
             case PlayerScript.PlayerType.PlayerTwo:
                 Debug.Log("Killbox found player2");
-                imagePlayer2.enabled = true;
                 timerPlayer2.enabled = true;
                 isPlayer2Dead = true;
                 yield return new WaitForSecondsRealtime(cooldown);
                 other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint2);
                 respawnVFXInstance = Instantiate(respawnVFX, spawnpoint2);
                 Destroy(respawnVFXInstance, 1);
-                imagePlayer2.enabled = false;
                 timerPlayer2.enabled = false;
                 isPlayer2Dead = false;
                 count2 = cooldown;
                 break;
             case PlayerScript.PlayerType.PlayerThree:
                 Debug.Log("Killbox found player3");
-                imagePlayer3.enabled = true;
                 timerPlayer3.enabled = true;
                 isPlayer3Dead = true;
                 yield return new WaitForSecondsRealtime(cooldown);
                 other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint3);
                 respawnVFXInstance = Instantiate(respawnVFX, spawnpoint3);
                 Destroy(respawnVFXInstance, 1);
-                imagePlayer3.enabled = false;
                 timerPlayer3.enabled = false;
                 isPlayer3Dead = false;
                 count3 = cooldown;
                 break;
             case PlayerScript.PlayerType.PlayerFour:
                 Debug.Log("Killbox found player4");
-                imagePlayer4.enabled = true;
                 timerPlayer4.enabled = true;
                 isPlayer4Dead = true;
                 yield return new WaitForSecondsRealtime(cooldown);
                 other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint4);
                 respawnVFXInstance = Instantiate(respawnVFX, spawnpoint4);
                 Destroy(respawnVFXInstance, 1);
-                imagePlayer4.enabled = false;
                 timerPlayer4.enabled = false;
                 isPlayer4Dead = false;
                 count4 = cooldown;
