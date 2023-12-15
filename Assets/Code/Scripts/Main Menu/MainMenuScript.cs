@@ -99,7 +99,7 @@ public class MainMenuScript : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("PickUpOne"))
+        if (Input.GetButtonDown("PickUpOne") || Input.GetButtonDown("PickUpTwo") || Input.GetButtonDown("PickUpThree") || Input.GetButtonDown("PickUpFour"))
         {
             if (EventSystem.current.currentSelectedGameObject.GetComponent<Button>())
             {
@@ -113,7 +113,7 @@ public class MainMenuScript : MonoBehaviour
         if (credits.gameObject.activeSelf)
         {
             creditsButton.Select();
-            if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
             {
                 credits.gameObject.SetActive(false);
             }   
@@ -145,9 +145,6 @@ public class MainMenuScript : MonoBehaviour
         settings.gameObject.SetActive(true);
         fullscreenButton.Select();
     }
-
-
-
     public void OnQuitGame()
     {
         Application.Quit();
