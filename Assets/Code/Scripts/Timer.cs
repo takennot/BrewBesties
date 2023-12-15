@@ -97,5 +97,10 @@ public class Timer : MonoBehaviour
     public void StartTimer() {
         timerIsRunning = true;
     }
+
+    public void DisableTimer()
+    {
+        timerText.text = "";
+    }
 }
 

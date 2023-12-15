@@ -66,16 +66,11 @@ public class Workstation : MonoBehaviour
         {
             magicSlider.gameObject.SetActive(true);
 
-
             if (!sourceProcess.isPlaying)
                 sourceProcess.Play();
 
-
             magicSlider.value += Time.deltaTime;
             sliderValue = magicSlider.value;
-
-
-
 
 
             ingredientOnStation.GetMagicController().MagicOnIngredient();

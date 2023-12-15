@@ -12,9 +12,12 @@ using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
+    [Header("Refs")]
     [SerializeField] private GameManagerScript gameManager;
     [SerializeField] private SliderManager sliderManager;
     [SerializeField] private KillboxManager killboxManager;
+    [SerializeField] private StartAndEnd startAndEnd;
+
     private List<int> successfulMagicPotionsIDs = new List<int>();
     private List<int> successfulMagicMushroomsIDs = new List<int>();
     private int potionCount = 0;
@@ -129,6 +132,14 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("TIMEE TutorialManager");
+
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            StartCoroutine(Mission5CompletionAction());
+        }
+
         foreach (Mission mission in missions)
         {
             if (!mission.isCompleted && mission.missionCondition())
@@ -512,10 +523,11 @@ public class TutorialManager : MonoBehaviour
 
         FadeAllAudioSources(1, 0f);
 
-        animWipe.SetTrigger("End");
+        
 
-        yield return new WaitForSeconds(2f);
-        LoadScene();
+        yield return new WaitForSeconds(0.5f);
+        startAndEnd.End();  
+        //LoadScene();
         yield return null;
     }
 
