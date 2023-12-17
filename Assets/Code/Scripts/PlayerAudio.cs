@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
-    private AudioSource source;
-
-    [SerializeField] private float maxPitch = 1.2f;
-    [SerializeField] private float minPitch = 0.8f;
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource sourceFootsteps;
+    [Header("Default Pitch Variance")]
+    [SerializeField] private float maxPitch = 1.175f;
+    [SerializeField] private float minPitch = 0.825f;
 
     [Header("Pick Up")]
     [SerializeField] private AudioClip pickUpSound;
@@ -23,7 +24,7 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private AudioClip dragSound;
     [Range(0, 1)]
     [SerializeField] private float dragVolume = 0.5f;
-
+    [SerializeField] private Vector2 dragPitchRange = new Vector2(0.9f, 1.1f);
 
     [Header("Grab")]
     [SerializeField] private AudioClip grabSound;
@@ -43,7 +44,8 @@ public class PlayerAudio : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        sourceFootsteps.Pause();
+        sourceFootsteps.volume = footstepVolume;
     }
 
     // Update is called once per frame
@@ -55,6 +57,11 @@ public class PlayerAudio : MonoBehaviour
     public void RandomPitch()
     {
         source.pitch = Random.Range(minPitch, maxPitch);
+    }
+
+    public void RandomPitch(Vector2 randomPitch)
+    {
+        source.pitch = Random.Range(randomPitch.x, randomPitch.y);
     }
 
     public void PlayPickUp()
@@ -71,7 +78,13 @@ public class PlayerAudio : MonoBehaviour
 
     public void PlayDrag()
     {
-        RandomPitch();
+        if (dragSound != null && source.isPlaying && source.clip == dragSound)
+        {
+            Debug.Log("Drag sound already playing");
+            source.Stop();
+        }
+        source.clip = dragSound;
+        RandomPitch(dragPitchRange);
         source.PlayOneShot(dragSound, dragVolume);
     }
 
@@ -87,8 +100,18 @@ public class PlayerAudio : MonoBehaviour
         source.PlayOneShot(throwSound, throwVolume);
     }
 
-    public void PlayFootstep()
+    public void PlayFootstep(bool enabled) 
     {
-
+        if(enabled)
+        {
+            sourceFootsteps.clip = footstepSound;
+            sourceFootsteps.UnPause();
+        }
+        else
+        {
+            sourceFootsteps.Pause();
+        }
     }
+
+
 }
