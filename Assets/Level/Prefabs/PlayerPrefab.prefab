@@ -600,13 +600,6 @@ MonoBehaviour:
   holdingState: 0
   moving: 0
   animatorPlayer: {fileID: 7190299757121792107}
-  grabClip: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
-  pickupClip: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
-  dropClip: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
-  dragClip: {fileID: 8300000, guid: 0d0f6bea13c5cda42bcdcc7c08865f93, type: 3}
-  throwClip: {fileID: 8300000, guid: a213b772fec243e4f911aba2acd05352, type: 3}
-  source: {fileID: 5361539311480941451}
-  footstepSource: {fileID: 5680693358159162978}
   consoleType: 0
   velocity: {x: 0, y: 0, z: 0}
   currentCounter: {fileID: 0}
@@ -635,20 +628,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3b76744c94b7e4ba227a6ec430b17b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPitch: 1.2
-  minPitch: 0.8
+  source: {fileID: 5361539311480941451}
+  sourceFootsteps: {fileID: 5680693358159162978}
+  maxPitch: 1.17
+  minPitch: 0.83
   pickUpSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
   pickUpVolume: 0.6
   dropSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
   dropVolume: 0.6
   dragSound: {fileID: 8300000, guid: 0d0f6bea13c5cda42bcdcc7c08865f93, type: 3}
   dragVolume: 1
+  dragPitchRange: {x: 0.9, y: 1.1}
   grabSound: {fileID: 8300000, guid: 238f785a25ff90740bfbd18faa50760b, type: 3}
   grabVolume: 0.6
   throwSound: {fileID: 8300000, guid: a213b772fec243e4f911aba2acd05352, type: 3}
   throwVolume: 1
-  footstepSound: {fileID: 0}
-  footstepVolume: 1
+  footstepSound: {fileID: 8300000, guid: 49fd67b2e533ad94e8b35a246129ed2f, type: 3}
+  footstepVolume: 0.602
 --- !u!114 &7613992266541910808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,8 +826,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 49fd67b2e533ad94e8b35a246129ed2f, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.225
+  m_PlayOnAwake: 1
+  m_Volume: 0.425
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
 {
     [Header("Gameplay")]
     public float playerSpeed = 5.4f;
-    public bool isSlippery = false; 
+    public bool isSlippery = false;
     public float accelerationRate = 0.4f;
     private float currentVerticalInput;
     private float currentHorizontalInput;
@@ -73,25 +73,15 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Animator animatorPlayer;
 
     // --------------------------------------------------------------
-
-    [Header("Audio Should be replaced with playeraudio script")]
-    [SerializeField] private AudioClip grabClip;
-    [SerializeField] private AudioClip pickupClip;
-    [SerializeField] private AudioClip dropClip;
-    [SerializeField] private AudioClip dragClip;
-    [SerializeField] private AudioClip throwClip;
-
-    [SerializeField] private AudioSource source;
-    [SerializeField] private AudioSource footstepSource;
     private PlayerAudio audio;
 
     private bool isInitialized = false;
 
     public enum PlayerType
     {
-        PlayerOne, 
-        PlayerTwo, 
-        PlayerThree, 
+        PlayerOne,
+        PlayerTwo,
+        PlayerThree,
         PlayerFour
     }
 
@@ -114,7 +104,7 @@ public class PlayerScript : MonoBehaviour
         ThrowThree,
         ThrowFour,
         DragOne,
-        DragTwo, 
+        DragTwo,
         DragThree,
         DragFour,
         ProcessOne,
@@ -209,7 +199,6 @@ public class PlayerScript : MonoBehaviour
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
 
         gamepad = Gamepad.current;
-        source = GetComponent<AudioSource>();
         audio = GetComponent<PlayerAudio>();
         GetComponent<Rigidbody>().drag = 1;
 
@@ -219,19 +208,19 @@ public class PlayerScript : MonoBehaviour
         switch (playerType)
         {
             case PlayerType.PlayerOne:
-                color = UnityEngine.Color.red;
-                break;
+            color = UnityEngine.Color.red;
+            break;
             case PlayerType.PlayerTwo:
-                color = UnityEngine.Color.blue;
-                break;
+            color = UnityEngine.Color.blue;
+            break;
             case PlayerType.PlayerThree:
-                color = UnityEngine.Color.yellow;
-                break;
+            color = UnityEngine.Color.yellow;
+            break;
             case PlayerType.PlayerFour:
-                color = UnityEngine.Color.green;
-                break;
+            color = UnityEngine.Color.green;
+            break;
             default:
-                break;
+            break;
         }
 
         isInitialized = true;
@@ -240,19 +229,19 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("TIMEE PLAYERR");
+        //Debug.Log("TIMEE PLAYERR");
 
         if (!isInitialized)
         {
             Initialize();
         }
 
-        if(playerState == PlayerState.IsBeingHeld || playerState == PlayerState.IsBeingThrown)
+        if (playerState == PlayerState.IsBeingHeld || playerState == PlayerState.IsBeingThrown)
         {
             gameObject.layer = LayerMask.NameToLayer("PlayerThrown");
         }
 
-        if(!(playerState == PlayerState.IsBeingHeld) && !(playerState == PlayerState.IsBeingThrown) && !isInFence)
+        if (!(playerState == PlayerState.IsBeingHeld) && !(playerState == PlayerState.IsBeingThrown) && !isInFence)
         {
             gameObject.layer = LayerMask.NameToLayer("Player");
         }
@@ -271,7 +260,7 @@ public class PlayerScript : MonoBehaviour
 
         if (!characterController.enabled) return;
 
-        if(playerState != PlayerState.Interacting)
+        if (playerState != PlayerState.Interacting)
         {
             Movement();
         }
@@ -289,16 +278,16 @@ public class PlayerScript : MonoBehaviour
         // Throw (B)
         if (Input.GetButtonDown(throwName))
         {
-            if(holdingState != HoldingState.HoldingNothing)
+            if (holdingState != HoldingState.HoldingNothing)
                 Throw();
             else
                 StartDragging();
         }
 
         // Dragging (Y)
-        if(consoleType == ConsoleType.Xbox)
+        if (consoleType == ConsoleType.Xbox)
         {
-            if (Input.GetButtonDown(dragName)) // (Y) på xbox
+            if (Input.GetButtonDown(dragName)) // (Y) pï¿½ xbox
             {
                 //StartDragging(); 
 
@@ -306,10 +295,9 @@ public class PlayerScript : MonoBehaviour
                 Emote();
             }
 
-        }
-        else if(consoleType == ConsoleType.ArcadeMachine)
+        } else if (consoleType == ConsoleType.ArcadeMachine)
         {
-            if (Input.GetButtonDown(processName)) // (X) på xbox
+            if (Input.GetButtonDown(processName)) // (X) pï¿½ xbox
             {
                 //StartDragging();
 
@@ -321,25 +309,24 @@ public class PlayerScript : MonoBehaviour
         // PROCESS (X)
         if (consoleType == ConsoleType.Xbox)
         {
-            if (Input.GetButtonDown(processName)) // (X) på xbox
+            if (Input.GetButtonDown(processName)) // (X) pï¿½ xbox
             {
                 playerState = PlayerState.Interacting;
                 Process();
             }
-            if (Input.GetButtonUp(processName)) // (X) på xbox
+            if (Input.GetButtonUp(processName)) // (X) pï¿½ xbox
             {
                 EndProcess();
             }
-        }
-        else if (consoleType == ConsoleType.ArcadeMachine)
+        } else if (consoleType == ConsoleType.ArcadeMachine)
         {
-            if (Input.GetButtonDown(dragName)) // (Y) på xbox
+            if (Input.GetButtonDown(dragName)) // (Y) pï¿½ xbox
             {
                 playerState = PlayerState.Interacting;
                 Process();
             }
 
-            if (Input.GetButtonUp(dragName)) // (Y) på xbox
+            if (Input.GetButtonUp(dragName)) // (Y) pï¿½ xbox
             {
                 EndProcess();
             }
@@ -353,7 +340,7 @@ public class PlayerScript : MonoBehaviour
         //CheckOutLine();
     }
 
- 
+
     private void Movement()
     {
         //Debug.Log("MOVEEEE");
@@ -399,7 +386,7 @@ public class PlayerScript : MonoBehaviour
         } else
         {
             velocity.y -= gravity * Time.deltaTime;
-            if(velocity.y < -1)
+            if (velocity.y < -1)
             {
                 velocity.y = -1;
             }
@@ -414,11 +401,11 @@ public class PlayerScript : MonoBehaviour
 
         if (playerState == PlayerState.Dead)
         {
-            footstepSource.Pause();
+            audio.PlayFootstep(false);
             return;
         }
 
-        // if allowed to move (state är none eller emoting)
+        // if allowed to move (state ï¿½r none eller emoting)
         if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
         {
             characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
@@ -444,10 +431,10 @@ public class PlayerScript : MonoBehaviour
 
         if (Mathf.Abs(targetHorizontalInput) > 0.4f || Mathf.Abs(targetVerticalInput) > 0.4f)
         {
-            footstepSource.UnPause();
+            audio.PlayFootstep(true);
         } else
         {
-            footstepSource.Pause();
+            audio.PlayFootstep(false);
         }
 
         // Rotation
@@ -457,7 +444,7 @@ public class PlayerScript : MonoBehaviour
             {
                 if (moveDirection != Vector3.zero)
                 {
-                    if(isSlippery)
+                    if (isSlippery)
                     {
                         Vector3 joystickDirection = new Vector3(targetHorizontalInput, 0f, targetVerticalInput);
                         Quaternion cameraRotation = Quaternion.Euler(0f, mainCamera.transform.rotation.eulerAngles.y, 0f);
@@ -515,45 +502,45 @@ public class PlayerScript : MonoBehaviour
         switch (playerType)
         {
             case PlayerType.PlayerOne:
-                horizontalName = nameof(ControlVariant.HorizontalOne);
-                verticalName = nameof(ControlVariant.VerticalOne);
-                pickUpName = nameof(ControlVariant.PickUpOne);
-                throwName = nameof(ControlVariant.ThrowOne);
-                dragName = nameof(ControlVariant.DragOne);
-                processName = nameof(ControlVariant.ProcessOne);
-                break;
+            horizontalName = nameof(ControlVariant.HorizontalOne);
+            verticalName = nameof(ControlVariant.VerticalOne);
+            pickUpName = nameof(ControlVariant.PickUpOne);
+            throwName = nameof(ControlVariant.ThrowOne);
+            dragName = nameof(ControlVariant.DragOne);
+            processName = nameof(ControlVariant.ProcessOne);
+            break;
             case PlayerType.PlayerTwo:
-                horizontalName = nameof(ControlVariant.HorizontalTwo);
-                verticalName = nameof(ControlVariant.VerticalTwo);
-                pickUpName = nameof(ControlVariant.PickUpTwo);
-                throwName = nameof(ControlVariant.ThrowTwo);
-                dragName = nameof(ControlVariant.DragTwo);
-                processName = nameof(ControlVariant.ProcessTwo);
-                break;
+            horizontalName = nameof(ControlVariant.HorizontalTwo);
+            verticalName = nameof(ControlVariant.VerticalTwo);
+            pickUpName = nameof(ControlVariant.PickUpTwo);
+            throwName = nameof(ControlVariant.ThrowTwo);
+            dragName = nameof(ControlVariant.DragTwo);
+            processName = nameof(ControlVariant.ProcessTwo);
+            break;
             case PlayerType.PlayerThree:
-                horizontalName = nameof(ControlVariant.HorizontalThree);
-                verticalName = nameof(ControlVariant.VerticalThree);
-                pickUpName = nameof(ControlVariant.PickUpThree);
-                throwName = nameof(ControlVariant.ThrowThree);
-                dragName = nameof(ControlVariant.DragThree);
-                processName = nameof(ControlVariant.ProcessThree);
-                break;
+            horizontalName = nameof(ControlVariant.HorizontalThree);
+            verticalName = nameof(ControlVariant.VerticalThree);
+            pickUpName = nameof(ControlVariant.PickUpThree);
+            throwName = nameof(ControlVariant.ThrowThree);
+            dragName = nameof(ControlVariant.DragThree);
+            processName = nameof(ControlVariant.ProcessThree);
+            break;
             case PlayerType.PlayerFour:
-                horizontalName = nameof(ControlVariant.HorizontalFour);
-                verticalName = nameof(ControlVariant.VerticalFour);
-                pickUpName = nameof(ControlVariant.PickUpFour);
-                throwName = nameof(ControlVariant.ThrowFour);
-                dragName = nameof(ControlVariant.DragFour);
-                processName = nameof(ControlVariant.ProcessFour);
-                break;
+            horizontalName = nameof(ControlVariant.HorizontalFour);
+            verticalName = nameof(ControlVariant.VerticalFour);
+            pickUpName = nameof(ControlVariant.PickUpFour);
+            throwName = nameof(ControlVariant.ThrowFour);
+            dragName = nameof(ControlVariant.DragFour);
+            processName = nameof(ControlVariant.ProcessFour);
+            break;
             default:
-                horizontalName = nameof(ControlVariant.HorizontalFour);
-                verticalName = nameof(ControlVariant.VerticalFour);
-                pickUpName = nameof(ControlVariant.PickUpFour);
-                throwName = nameof(ControlVariant.ThrowFour);
-                dragName = nameof(ControlVariant.DragFour);
-                processName = nameof(ControlVariant.ProcessFour);
-                break;
+            horizontalName = nameof(ControlVariant.HorizontalFour);
+            verticalName = nameof(ControlVariant.VerticalFour);
+            pickUpName = nameof(ControlVariant.PickUpFour);
+            throwName = nameof(ControlVariant.ThrowFour);
+            dragName = nameof(ControlVariant.DragFour);
+            processName = nameof(ControlVariant.ProcessFour);
+            break;
         }
     }
 
@@ -569,14 +556,14 @@ public class PlayerScript : MonoBehaviour
 
             // DEN RAYCASTEN FUNGERAR INTE
             //Debug.Log("RayCast!");
-                        
+
             GameObject hitObject = hit.collider.gameObject;
 
             Debug.Log("hitObject: " + hitObject);
 
             if (holdingState == HoldingState.HoldingNothing && playerState == PlayerState.Interacting)
             {
-                // sågen
+                // sï¿½gen
                 if (hitObject.GetComponent<Saw>())
                 {
                     Debug.Log("Saw");
@@ -585,19 +572,17 @@ public class PlayerScript : MonoBehaviour
 
                     saw.DoSawProcess(this);
                     currentProcessStation = saw.gameObject;
-                    
-                }
-                else if (hitObject.GetComponent<SawingPlate>())
+
+                } else if (hitObject.GetComponent<SawingPlate>())
                 {
                     Debug.Log("SawingPlate --> saw");
 
                     Saw saw = hitObject.GetComponent<SawingPlate>().GetSaw();
                     saw.DoSawProcess(this);
                     currentProcessStation = saw.gameObject;
-                }
-                else if (hitObject.GetComponent<Workstation>())
+                } else if (hitObject.GetComponent<Workstation>())
                 {
-                    
+
                     Workstation workstation = hitObject.GetComponent<Workstation>();
 
                     workstation.DoWorkProcess(this);
@@ -618,8 +603,7 @@ public class PlayerScript : MonoBehaviour
         if (currentProcessStation && currentProcessStation.GetComponent<Saw>())
         {
             currentProcessStation.GetComponent<Saw>().StopSawProcess(this);
-        }
-        else if (currentProcessStation && currentProcessStation.GetComponent<Workstation>())
+        } else if (currentProcessStation && currentProcessStation.GetComponent<Workstation>())
         {
             Workstation workstation = currentProcessStation.GetComponent<Workstation>();
 
@@ -647,41 +631,38 @@ public class PlayerScript : MonoBehaviour
                 {
                     //Debug.Log("Try to grab Item");
                     Grab(hitObject.GetComponent<Item>());
-                }
-                else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<CounterState>() && hitObject.GetComponent<CounterState>().storedItem == null)
+                } else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<CounterState>() && hitObject.GetComponent<CounterState>().storedItem == null)
                 {
                     //Debug.Log("hit ResourceBox");
                     ResourceBoxHandler resourceBoxHandler = hitObject.GetComponent<ResourceBoxHandler>();
 
                     resourceBoxHandler.GetResource(this);
                 }
-                // bottle box
-                else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<ResourceBoxState>().GetResource() == Resource_Enum.Resource.Bottle)
+                  // bottle box
+                  else if (hitObject.GetComponent<ResourceBoxState>() && hitObject.GetComponent<ResourceBoxState>().GetResource() == Resource_Enum.Resource.Bottle)
                 {
                     //Debug.Log("hit BottleBox");
                     ResourceBoxHandler resourceBoxHandler = hitObject.GetComponent<ResourceBoxHandler>();
 
                     resourceBoxHandler.GetResource(this);
-                }
-                else if (hitObject.GetComponent<CounterState>())
+                } else if (hitObject.GetComponent<CounterState>())
                 {
                     //Debug.Log("Hit counter, not holding");
                     currentCounter = hitObject.GetComponent<CounterState>();
                     GrabFromCounter();
                 }
-                //player
-                else if (hitObject.GetComponent<PlayerScript>())
+                  //player
+                  else if (hitObject.GetComponent<PlayerScript>())
                 {
                     //Debug.Log("Try to grab Player");
-                    
+
                     GrabPlayer(hitObject.GetComponent<PlayerScript>());
 
                 }
 
-            }
-            else if (holdingState != HoldingState.HoldingNothing)
+            } else if (holdingState != HoldingState.HoldingNothing)
             {
-                if(holdingState == HoldingState.HoldingItem)
+                if (holdingState == HoldingState.HoldingItem)
                 {
                     if (hitObject.GetComponent<CounterState>())
                     {
@@ -692,8 +673,7 @@ public class PlayerScript : MonoBehaviour
                             currentCounter = hitObject.GetComponent<CounterState>();
                             PlaceOnCounter();
                         }
-                    }
-                    else if (hitObject.GetComponent<CauldronState>())
+                    } else if (hitObject.GetComponent<CauldronState>())
                     {
                         //Debug.Log("hit Cauldron");
 
@@ -707,8 +687,7 @@ public class PlayerScript : MonoBehaviour
                                 Destroy(objectInHands);
                                 holdingState = HoldingState.HoldingNothing;
                             }
-                        }
-                        else if (objectInHands.GetComponent<Bottle>())
+                        } else if (objectInHands.GetComponent<Bottle>())
                         {
                             CauldronState cauldronState = hitObject.GetComponent<CauldronState>();
 
@@ -722,31 +701,26 @@ public class PlayerScript : MonoBehaviour
                             {
                                 objectInHands.GetComponent<Bottle>().SetPotion(cauldronPotion);
                             }
-                        }
-                        else if (objectInHands.GetComponent<Item>().GetItemType() == Resource_Enum.Resource.FireWood)
+                        } else if (objectInHands.GetComponent<Item>().GetItemType() == Resource_Enum.Resource.FireWood)
                         {
                             FireState fireState = hitObject.GetComponent<FireState>();
                             fireState.AddWood();
                             Destroy(objectInHands);
                             holdingState = HoldingState.HoldingNothing;
-                        }
-                        else
+                        } else
                         {
                             Drop(false);
                         }
-                    }
-                    else
+                    } else
                     {
                         Drop(false);
                     }
-                }
-                else if (holdingState == HoldingState.HoldingPlayer)
+                } else if (holdingState == HoldingState.HoldingPlayer)
                 {
                     DropPlayer(false);
                 }
             }
-        }
-        else
+        } else
         {
             //Debug.Log("hit nothing");
 
@@ -755,8 +729,7 @@ public class PlayerScript : MonoBehaviour
                 if (holdingState == HoldingState.HoldingPlayer)
                 {
                     DropPlayer(false);
-                }
-                else
+                } else
                 {
                     Drop(false);
                 }
@@ -775,7 +748,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Grab(Item item)
     {
-        if(holdingState != HoldingState.HoldingNothing)
+        if (holdingState != HoldingState.HoldingNothing)
         {
             return;
         }
@@ -793,12 +766,11 @@ public class PlayerScript : MonoBehaviour
             objectInHands.transform.rotation = Quaternion.Euler(objectInHands.GetComponent<Item>().originalRotation.eulerAngles.x, // X
                                                                 transform.rotation.eulerAngles.y + 90f,                             // Y
                                                                 objectInHands.GetComponent<Item>().originalRotation.eulerAngles.z); // Z
-        }
-        else
+        } else
         {
             objectInHands.transform.rotation = holdPosition.rotation;
         }
-        
+
         objectInHands.transform.position = holdPosition.position;
         objectInHands.GetComponent<Item>().SetIsPickedUp(true);
         objectInHands.GetComponent<Item>().lastHeldPlayer = this;
@@ -852,8 +824,7 @@ public class PlayerScript : MonoBehaviour
 
             objectInHands = null;
             //Debug.Log("object in hands should be null: " + objectInHands);
-        }
-        else
+        } else
         {
             DropPlayer(false);
         }
@@ -873,8 +844,7 @@ public class PlayerScript : MonoBehaviour
             if (isThrowing)
             {
                 objectInHands.GetComponent<PlayerScript>().waitingForGround = true;
-            }
-            else
+            } else
             {
                 objectInHands.GetComponent<PlayerScript>().GetDropped();
             }
@@ -905,11 +875,11 @@ public class PlayerScript : MonoBehaviour
         UnityEngine.Color newColor;
         UnityEngine.ColorUtility.TryParseHtmlString("#BFBEBE", out newColor);
         main.startColor = newColor;//System.Drawing.Color.FromArgb(0.7450981, 0.7450981, 0.7450981);
-        
+
         // poof vfx
-        GameObject poofVFX = Instantiate(walkVFX, transform.position + new Vector3(0,-1,0), Quaternion.identity);
-        poofVFX.transform.localScale = new Vector3(3,3,3);
-        
+        GameObject poofVFX = Instantiate(walkVFX, transform.position + new Vector3(0, -1, 0), Quaternion.identity);
+        poofVFX.transform.localScale = new Vector3(3, 3, 3);
+
         Destroy(poofVFX, 0.6f);
     }
 
@@ -930,8 +900,7 @@ public class PlayerScript : MonoBehaviour
 
                 audio.PlayDrag();
                 CreateDragEffects();
-            } 
-            else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
+            } else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
             {
                 Debug.Log("Drag found counterstate");
                 if (!counterState.GetComponent<Trashcan>())
@@ -943,8 +912,7 @@ public class PlayerScript : MonoBehaviour
                     audio.PlayDrag();
                     CreateDragEffects();
                 }
-            }
-            else
+            } else
             {
                 Debug.Log("Drag didnt find shit");
             }
@@ -969,7 +937,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Drag()
     {
-        if(holdingState == HoldingState.HoldingNothing)
+        if (holdingState == HoldingState.HoldingNothing)
         {
             if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<Item>())
             {
@@ -997,8 +965,7 @@ public class PlayerScript : MonoBehaviour
 
                 audio.PlayDrag();
 
-            }
-            else if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<PlayerScript>())
+            } else if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<PlayerScript>())
             {
 
                 // special for player
@@ -1019,20 +986,18 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = null;
                 }
 
-                source.PlayOneShot(dragClip);
-            }
-            else
+                audio.PlayDrag();
+            } else
             {
                 playerState = PlayerState.None;
                 Destroy(lineEffekt);
             }
-        }
-        else if(playerState == PlayerState.Dragging) // ?????????
+        } else if (playerState == PlayerState.Dragging) // ?????????
         {
             playerState = PlayerState.None;
             Destroy(lineEffekt);
         }
-        
+
     }
 
 
@@ -1045,8 +1010,7 @@ public class PlayerScript : MonoBehaviour
             {
                 Drop(false);
                 objectDragging = null;
-            }
-            else if (objectDragging.GetComponent<PlayerScript>())
+            } else if (objectDragging.GetComponent<PlayerScript>())
             {
                 DropPlayer(false);
 
@@ -1054,7 +1018,7 @@ public class PlayerScript : MonoBehaviour
                 objectDragging = null;
             }
         }
-        
+
     }
 
     public void Throw()
@@ -1067,7 +1031,7 @@ public class PlayerScript : MonoBehaviour
                 objectInHands.GetComponent<PlayerScript>().gameObject.transform.parent = null;
                 objectInHands.GetComponent<Rigidbody>().isKinematic = false;
                 objectInHands.GetComponent<Rigidbody>().AddForce((transform.forward * horizontalThrowForcePlayer) + (transform.up * verticalThrowForcePlayer), ForceMode.Impulse);
-                
+
                 objectInHands.GetComponent<PlayerScript>().waitingForGround = true;
 
                 //holdingState = HoldingState.HoldingNothing;
@@ -1076,13 +1040,12 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                    source.PlayOneShot(throwClip);
+                audio.PlayThrow();
                 //}
 
                 // HERE
                 DropPlayer(true);
-            }
-            else
+            } else
             {
                 objectInHands.GetComponent<Rigidbody>().isKinematic = false;
                 objectInHands.GetComponent<Rigidbody>().AddForce((transform.forward * horizontalThrowForce) + (transform.up * verticalThrowForce), ForceMode.Impulse);
@@ -1092,7 +1055,7 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                    source.PlayOneShot(throwClip);
+                audio.PlayThrow();
                 //}
 
                 Drop(true);
@@ -1108,7 +1071,7 @@ public class PlayerScript : MonoBehaviour
         playerState = PlayerState.Emoting;
 
         //Pick a random text to use in emote pop up
-        string[] commonMessages = new string[] { "slay", "slay", "slay", "wow","queen", "awesome", "haha", "epic", "bestie", "sweet", "whoa", "yippie", "deserved" }; //Can add more pop up text here
+        string[] commonMessages = new string[] { "slay", "slay", "slay", "wow", "queen", "awesome", "haha", "epic", "bestie", "sweet", "whoa", "yippie", "deserved" }; //Can add more pop up text here
         string[] uncommonMessages = new string[] { ">:D", "git gud", "oops", "damn", "problem?", "yay", "*kiss*", "mvp" }; //Can add more pop up text here
         string[] rareMessages = new string[] { "victory royale", "for the horde", "poggers", "hadouken", "therese approved", "bestest bestie", "it's a me, bestie" };   //Can add more pop up text here
 
@@ -1120,7 +1083,8 @@ public class PlayerScript : MonoBehaviour
         } else if (random < 0.96f)
         {
             emoteMessages = uncommonMessages;
-        } else {
+        } else
+        {
             emoteMessages = rareMessages;
         }
 
@@ -1146,10 +1110,10 @@ public class PlayerScript : MonoBehaviour
                 GetDropped();
             }
         }
-    }     
-                                   
+    }
 
-    
+
+
 
     void PlaceOnCounter()
     {
@@ -1173,8 +1137,7 @@ public class PlayerScript : MonoBehaviour
                     audio.PlayDrop();
                 }
 
-            }
-            else
+            } else
             {
                 // Attempt to pick up an item from the counter
                 GameObject pickedUpItem = currentCounter.PickUpItem();
@@ -1225,10 +1188,6 @@ public class PlayerScript : MonoBehaviour
     {
         hasForcedLook = forceLook;
     }
-    public void StartFootSteps()
-    {
-        footstepSource.Play();
-    }
 
     public PlayerState GetPlayerState()
     {
@@ -1255,7 +1214,7 @@ public class PlayerScript : MonoBehaviour
     //This doesnt work really...
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Fence"))
+        if (other.CompareTag("Fence"))
         {
             isInFence = true;
         }
@@ -1273,15 +1232,15 @@ public class PlayerScript : MonoBehaviour
         switch (playerType)
         {
             case (PlayerType.PlayerOne):
-                return "p1";
+            return "p1";
             case (PlayerType.PlayerTwo):
-                return "p2";
+            return "p2";
             case (PlayerType.PlayerThree):
-                return "p3";
+            return "p3";
             case (PlayerType.PlayerFour):
-                return "p4";
+            return "p4";
             default:
-                return "p1";
+            return "p1";
         }
     }
 }
