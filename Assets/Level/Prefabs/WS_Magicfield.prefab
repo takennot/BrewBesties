@@ -1272,17 +1272,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 2.85
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
@@ -1292,7 +1292,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.95
+      value: 1.842
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
@@ -1334,26 +1334,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d19d2f67d098ccb488fc7806eabcccd8,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e7f3ee0302b122447bcee37adb44522c, type: 2}
+      objectReference: {fileID: 8368722655750445499, guid: 797db711d7a7e7241acf3fdc1ce626bf,
+        type: 3}
     - target: {fileID: -7511558181221131132, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 0eee3858d8c333c4eb8b47c27a0340b0, type: 2}
+      objectReference: {fileID: 8748892135801146194, guid: 797db711d7a7e7241acf3fdc1ce626bf,
+        type: 3}
     - target: {fileID: -7511558181221131132, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: b6c23c0ab0c8d8f4a98d6f28db30b217, type: 2}
+    - target: {fileID: -5754084199372789682, guid: d19d2f67d098ccb488fc7806eabcccd8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4189575836506834876, guid: 797db711d7a7e7241acf3fdc1ce626bf,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
       propertyPath: m_Name
@@ -1361,8 +1374,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d19d2f67d098ccb488fc7806eabcccd8,
         type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d19d2f67d098ccb488fc7806eabcccd8,
+        type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1459,7 +1477,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.09, y: 1.57, z: 0.24144775}
-  m_Center: {x: 0.42, y: -0.08, z: -0.00000023841858}
+  m_Center: {x: 0.33, y: -0.08, z: -0.00000023841858}
 --- !u!65 &5829438347284450585
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1480,7 +1498,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.09, y: 1.57, z: 0.24144775}
-  m_Center: {x: -0.42, y: -0.08, z: -0.00000023841858}
+  m_Center: {x: -0.33, y: -0.08, z: -0.00000023841858}
 --- !u!1001 &8738162793939787381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1583,6 +1601,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NewMirror_Real
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 797db711d7a7e7241acf3fdc1ce626bf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -108,7 +108,7 @@ public class Outline : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Awake: " + gameObject);
+        //Debug.Log("Awake: " + gameObject);
         // Cache renderers
         //renderers = GetComponentsInChildren<Renderer>();
 
@@ -198,19 +198,19 @@ public class Outline : MonoBehaviour
 
     void OnDisable()
     {
-        Debug.Log("Disable outline now!!" + gameObject);
+        //Debug.Log("Disable outline now!!" + gameObject);
 
         foreach (var renderer in renderers)
         {
             // Remove outline shaders
             var materials = renderer.sharedMaterials.ToList();
 
-            Debug.Log("renderer: " + renderer.gameObject + " - " + materials.Count);
+            //Debug.Log("renderer: " + renderer.gameObject + " - " + materials.Count);
 
             materials.Remove(outlineMaskMaterial);
             materials.Remove(outlineFillMaterial);
 
-            Debug.Log("After: " + renderer.gameObject + " - " + materials.Count);
+            //Debug.Log("After: " + renderer.gameObject + " - " + materials.Count);
 
             renderer.materials = materials.ToArray();
         }
