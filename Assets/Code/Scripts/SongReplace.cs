@@ -29,8 +29,6 @@ public class SongReplace : MonoBehaviour
             audioController = newAudioController.AddComponent<AudioController>();
             source = newAudioController.AddComponent<AudioSource>();
             audioController.song_source = source;
-            Debug.Log("<color=yellow>Did not find audiocontroller > Lowering music volume</color>");
-            volume /=  3.25f;
         }
         audioController.song_source.Stop();
         audioController.song = song;

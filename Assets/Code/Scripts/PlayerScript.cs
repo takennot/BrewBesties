@@ -73,6 +73,16 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Animator animatorPlayer;
 
     // --------------------------------------------------------------
+
+    [Header("Audio Should be replaced with playeraudio script")]
+    [SerializeField] private AudioClip grabClip;
+    [SerializeField] private AudioClip pickupClip;
+    [SerializeField] private AudioClip dropClip;
+    [SerializeField] private AudioClip dragClip;
+    [SerializeField] private AudioClip throwClip;
+
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource footstepSource;
     private PlayerAudio audio;
 
     private bool isInitialized = false;
@@ -199,6 +209,7 @@ public class PlayerScript : MonoBehaviour
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
 
         gamepad = Gamepad.current;
+        source = GetComponent<AudioSource>();
         audio = GetComponent<PlayerAudio>();
         GetComponent<Rigidbody>().drag = 1;
 
@@ -229,7 +240,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("TIMEE PLAYERR");
+        Debug.Log("TIMEE PLAYERR");
 
         if (!isInitialized)
         {
@@ -403,7 +414,7 @@ public class PlayerScript : MonoBehaviour
 
         if (playerState == PlayerState.Dead)
         {
-            audio.PlayFootstep(false);
+            footstepSource.Pause();
             return;
         }
 
@@ -433,10 +444,10 @@ public class PlayerScript : MonoBehaviour
 
         if (Mathf.Abs(targetHorizontalInput) > 0.4f || Mathf.Abs(targetVerticalInput) > 0.4f)
         {
-            audio.PlayFootstep(true);
+            footstepSource.UnPause();
         } else
         {
-            audio.PlayFootstep(false);
+            footstepSource.Pause();
         }
 
         // Rotation
@@ -1008,7 +1019,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = null;
                 }
 
-                audio.PlayDrag();
+                source.PlayOneShot(dragClip);
             }
             else
             {
@@ -1065,7 +1076,7 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                audio.PlayThrow();
+                    source.PlayOneShot(throwClip);
                 //}
 
                 // HERE
@@ -1081,7 +1092,7 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                audio.PlayThrow();
+                    source.PlayOneShot(throwClip);
                 //}
 
                 Drop(true);
@@ -1213,6 +1224,10 @@ public class PlayerScript : MonoBehaviour
     public void SetHasForcedLook(bool forceLook)
     {
         hasForcedLook = forceLook;
+    }
+    public void StartFootSteps()
+    {
+        footstepSource.Play();
     }
 
     public PlayerState GetPlayerState()
