@@ -1,5 +1,86 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &532685244663852728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3596912178033511902}
+  - component: {fileID: 6629077414438181593}
+  - component: {fileID: 7437927637982387836}
+  - component: {fileID: 2526544315343242022}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3596912178033511902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532685244663852728}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.003678799, y: -1.784, z: 0.060912374}
+  m_LocalScale: {x: 2.2222223, y: 2.2222223, z: 2.2222223}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 531608001307111340}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6629077414438181593
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532685244663852728}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 3939312
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.31, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7437927637982387836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532685244663852728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3adcd8fc99df884d99afbb94e8d498d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2526544315343242022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532685244663852728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf91f8752966a264295321c2eb5138ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectsCollidingWith: []
+  collider: {fileID: 6629077414438181593}
 --- !u!1 &692770990944611829
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +641,7 @@ Transform:
   - {fileID: 5532791285483828486}
   - {fileID: 924777105676732717}
   - {fileID: 2362730052934090068}
+  - {fileID: 3596912178033511902}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3182932229381019206
@@ -578,6 +660,7 @@ MonoBehaviour:
   isSlippery: 0
   accelerationRate: 0.8
   allowedToDragPlayers: 1
+  moveDirection: {x: 0, y: 0, z: 0}
   mass: 10
   grabReach: 1
   processReach: 1
@@ -591,6 +674,8 @@ MonoBehaviour:
   rotationSpeed: 25
   deadZone: 0.1
   characterController: {fileID: 3183475563893971183}
+  groundCheckColliderCounter: {fileID: 2526544315343242022}
+  isGrounded: 0
   objectInHands: {fileID: 0}
   objectDragging: {fileID: 0}
   dragGrabTriggerCount: {fileID: 5889378141638689840}

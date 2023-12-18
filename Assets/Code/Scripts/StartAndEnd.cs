@@ -21,7 +21,7 @@ public class StartAndEnd : MonoBehaviour
     public Canvas countdownCanvas;
     [SerializeField] private Animator wipeAnimation;
     private GameObject[] players;
-    [SerializeField] private Animator animWipe;
+    //[SerializeField] private Animator animWipe;
 
     public CircleTransition circleTransition;
     public Timer timerLevel;
@@ -423,7 +423,7 @@ public class StartAndEnd : MonoBehaviour
         }
         else
         {
-            animWipe.SetTrigger("End");
+            wipeAnimation.SetTrigger("End");
         }
 
         StartCoroutine(LoadNextSceneAfterDelay(true));
