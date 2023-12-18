@@ -26,6 +26,9 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Button fullscreenButton;
     [SerializeField] private Button saveSlot1;
     [SerializeField] private EventSystem eventSystem;
+    [SerializeField] private AudioClip buttonSelectAudio;
+    [SerializeField] private AudioClip buttonClickAudio;
+    [SerializeField] private AudioSource audioSource;
 
     private ColorBlock colorSelected;
     private ColorBlock colorUnSelected;
@@ -151,5 +154,13 @@ public class MainMenuScript : MonoBehaviour
         // if teachers complain about Quitting speed, takes too long yada yada bla bla - use this xDDDDDDDDDDDDD :letscook: babyyyyyyyy
         // be careful - THIS WILL SHUTDOWN EDITOR TOO
         //System.Diagnostics.Process.GetCurrentProcess().Kill();
+    }
+    public void OnSelect()
+    {
+        audioSource.PlayOneShot(buttonSelectAudio);
+    }
+    public void OnClickSound()
+    {
+        audioSource.PlayOneShot(buttonClickAudio);
     }
 }
