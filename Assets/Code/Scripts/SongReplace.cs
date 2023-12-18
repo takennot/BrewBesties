@@ -18,7 +18,7 @@ public class SongReplace : MonoBehaviour
 
         StartCoroutine(DelayStart());
     }
-
+    
     IEnumerator DelayStart()
     {
         yield return new WaitForSeconds(0.2f);
@@ -30,7 +30,7 @@ public class SongReplace : MonoBehaviour
             source = newAudioController.AddComponent<AudioSource>();
             audioController.song_source = source;
             Debug.Log("<color=yellow>Did not find audiocontroller > Lowering music volume</color>");
-            volume /= 3.25f;
+            volume /=  3.25f;
         }
         audioController.song_source.Stop();
         audioController.song = song;

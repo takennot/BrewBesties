@@ -48,6 +48,12 @@ public class PlayerAudio : MonoBehaviour
         sourceFootsteps.volume = footstepVolume;
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     public void RandomPitch()
     {
         source.pitch = Random.Range(minPitch, maxPitch);
@@ -94,13 +100,14 @@ public class PlayerAudio : MonoBehaviour
         source.PlayOneShot(throwSound, throwVolume);
     }
 
-    public void PlayFootstep(bool enabled)
+    public void PlayFootstep(bool enabled) 
     {
-        if (enabled)
+        if(enabled)
         {
             sourceFootsteps.clip = footstepSound;
             sourceFootsteps.UnPause();
-        } else
+        }
+        else
         {
             sourceFootsteps.Pause();
         }
