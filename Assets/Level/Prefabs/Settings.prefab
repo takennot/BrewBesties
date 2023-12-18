@@ -88,6 +88,7 @@ MonoBehaviour:
   buttonSelectAudio: {fileID: 8300000, guid: e0e6ce88903281048b9ad428fc191537, type: 3}
   buttonClickAudio: {fileID: 8300000, guid: 90df6aa1fe717ee448781a7ed0240c73, type: 3}
   audioSource: {fileID: 4829733438070693610}
+  pauseMenu: {fileID: 0}
 --- !u!1 &330231420386031161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,7 +1403,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

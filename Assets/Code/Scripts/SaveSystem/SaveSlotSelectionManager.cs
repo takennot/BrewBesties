@@ -17,6 +17,9 @@ public class SaveSlotSelectionManager : MonoBehaviour
     [SerializeField] private SaveSlotManager[] saveSlots = new SaveSlotManager[3];
     [SerializeField] public string[] allSceneNames = new string[11];
     [SerializeField] public Button[] levelButtons = new Button[9];
+    [SerializeField] private AudioClip buttonSelectAudio;
+    [SerializeField] private AudioClip buttonClickAudio;
+    [SerializeField] private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -184,5 +187,13 @@ public class SaveSlotSelectionManager : MonoBehaviour
         SceneManager.LoadScene(levelIndex);
         // if above doesnt work I guess?
         //SceneManager.LoadScene(allGameScenes[levelIndex].name);
+    }
+    public void OnSelect()
+    {
+        audioSource.PlayOneShot(buttonSelectAudio);
+    }
+    public void OnClickSound()
+    {
+        audioSource.PlayOneShot(buttonClickAudio);
     }
 }
