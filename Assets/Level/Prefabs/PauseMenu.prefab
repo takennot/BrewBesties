@@ -715,10 +715,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuCanvas: {fileID: 7314421522749699960}
   optionsCanvas: {fileID: 2899678817426302834}
+  options: {fileID: 2076949160361838075}
   resumeButton: {fileID: 870109194860978141}
+  restartButton: {fileID: 1532490753908630375}
   isPaused: 0
   gameManager: {fileID: 0}
   volumeSlider: {fileID: 8018819180967751469}
+  canPressPause: 1
+  isInOptions: 0
 --- !u!1 &3476826091381310438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,6 +1985,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9021207621661605012, guid: 06fed93a2f7a57a4894b485da4bc8320,
         type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 3723301955186332321}
+    - target: {fileID: 9021207621661605012, guid: 06fed93a2f7a57a4894b485da4bc8320,
+        type: 3}
       propertyPath: optionsCanvas
       value: 
       objectReference: {fileID: 2899678817426302834}
@@ -1997,6 +2006,12 @@ PrefabInstance:
 --- !u!4 &288826405408858049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1923168051432502936, guid: 06fed93a2f7a57a4894b485da4bc8320,
+    type: 3}
+  m_PrefabInstance: {fileID: 2211946033232374105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2076949160361838075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 171320900129369250, guid: 06fed93a2f7a57a4894b485da4bc8320,
     type: 3}
   m_PrefabInstance: {fileID: 2211946033232374105}
   m_PrefabAsset: {fileID: 0}
