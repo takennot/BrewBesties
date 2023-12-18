@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static CustomerOrder;
 using UnityEngine.SceneManagement;
+using UnityEditor.Rendering;
 
 public class TutorialManager2 : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class TutorialManager2 : MonoBehaviour
     [SerializeField] private SliderManager sliderManager;
     [SerializeField] private KillboxManager killboxManager;
     [SerializeField] private StartAndEnd startAndEnd;
+    [SerializeField] private CameraUIManager cameraUI;
 
     [Header("GameObjects")]
     [SerializeField] private TriggerCount triggerCountPlayers;  
@@ -330,6 +332,7 @@ public class TutorialManager2 : MonoBehaviour
             cauldron.gameObject.SetActive(true);
         }
         sourceScale.PlayOneShot(sourceScale.clip);
+        cameraUI.Initilize();
         yield return new WaitForSeconds(1f);
         
         typewriter.SetNewText(dragIngredients);
@@ -359,6 +362,7 @@ public class TutorialManager2 : MonoBehaviour
         animScale.ScaleUp(newCauldron.gameObject, new Vector3(2, 2, 2));
         ScaleUpArray(newCauldronPlatform);
         newCauldron.gameObject.SetActive(true);
+        cameraUI.Initilize();
         yield return new WaitForSeconds(1f);
 
         typewriter.SetNewText(fillNewCualdron);
@@ -393,6 +397,7 @@ public class TutorialManager2 : MonoBehaviour
             saw.gameObject.SetActive(true);
         }
         sourceScale.PlayOneShot(sourceScale.clip);
+        cameraUI.Initilize();
     }
 
     private bool CheckFuelCauldron()
