@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -35,12 +36,12 @@ public class PlayerScript : MonoBehaviour
     private UnityEngine.Color color;
 
     [Header("Throw Player")]
-    [SerializeField] float horizontalThrowForcePlayer = 4;
-    [SerializeField] float verticalThrowForcePlayer = 4;
+    public float horizontalThrowForcePlayer = 4;
+    public float verticalThrowForcePlayer = 4;
 
     [Header("Throw Item")]
-    [SerializeField] float horizontalThrowForce = 4;
-    [SerializeField] float verticalThrowForce = 4;
+    public float horizontalThrowForce = 4;
+    public float verticalThrowForce = 4;
 
     [Header("Rotation")]
     [SerializeField] private float rotationSpeed = 20f;
@@ -72,16 +73,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Animator animatorPlayer;
 
     // --------------------------------------------------------------
-
-    [Header("Audio Should be replaced with playeraudio script")]
-    [SerializeField] private AudioClip grabClip;
-    [SerializeField] private AudioClip pickupClip;
-    [SerializeField] private AudioClip dropClip;
-    [SerializeField] private AudioClip dragClip;
-    [SerializeField] private AudioClip throwClip;
-
-    [SerializeField] private AudioSource source;
-    [SerializeField] private AudioSource footstepSource;
     private PlayerAudio audio;
 
     private bool isInitialized = false;
@@ -208,7 +199,6 @@ public class PlayerScript : MonoBehaviour
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
 
         gamepad = Gamepad.current;
-        source = GetComponent<AudioSource>();
         audio = GetComponent<PlayerAudio>();
         GetComponent<Rigidbody>().drag = 1;
 
@@ -413,7 +403,7 @@ public class PlayerScript : MonoBehaviour
 
         if (playerState == PlayerState.Dead)
         {
-            footstepSource.Pause();
+            audio.PlayFootstep(false);
             return;
         }
 
@@ -443,10 +433,10 @@ public class PlayerScript : MonoBehaviour
 
         if (Mathf.Abs(targetHorizontalInput) > 0.4f || Mathf.Abs(targetVerticalInput) > 0.4f)
         {
-            footstepSource.UnPause();
+            audio.PlayFootstep(true);
         } else
         {
-            footstepSource.Pause();
+            audio.PlayFootstep(false);
         }
 
         // Rotation
@@ -1018,7 +1008,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = null;
                 }
 
-                source.PlayOneShot(dragClip);
+                audio.PlayDrag();
             }
             else
             {
@@ -1075,7 +1065,7 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                    source.PlayOneShot(throwClip);
+                audio.PlayThrow();
                 //}
 
                 // HERE
@@ -1091,7 +1081,7 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                    source.PlayOneShot(throwClip);
+                audio.PlayThrow();
                 //}
 
                 Drop(true);
@@ -1105,7 +1095,27 @@ public class PlayerScript : MonoBehaviour
         animatorPlayer.SetFloat("EmoteToUse", rand);
 
         playerState = PlayerState.Emoting;
-        popUpManager.SpawnPopUp(mainCamera, transform, "slay", color);
+
+        //Pick a random text to use in emote pop up
+        string[] commonMessages = new string[] { "slay", "slay", "slay", "wow","queen", "awesome", "haha", "epic", "bestie", "sweet", "whoa", "yippie", "deserved" }; //Can add more pop up text here
+        string[] uncommonMessages = new string[] { ">:D", "git gud", "oops", "damn", "problem?", "yay", "*kiss*", "mvp" }; //Can add more pop up text here
+        string[] rareMessages = new string[] { "victory royale", "for the horde", "poggers", "hadouken", "therese approved", "bestest bestie", "it's a me, bestie" };   //Can add more pop up text here
+
+        string[] emoteMessages;
+        float random = Random.value;
+        if (random < 0.70f)
+        {
+            emoteMessages = commonMessages;
+        } else if (random < 0.96f)
+        {
+            emoteMessages = uncommonMessages;
+        } else {
+            emoteMessages = rareMessages;
+        }
+
+        int randomIndex = Random.Range(0, emoteMessages.Length);
+        string selectedMessage = emoteMessages[randomIndex];
+        popUpManager.SpawnPopUp(mainCamera, transform, selectedMessage, color);
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -1203,10 +1213,6 @@ public class PlayerScript : MonoBehaviour
     public void SetHasForcedLook(bool forceLook)
     {
         hasForcedLook = forceLook;
-    }
-    public void StartFootSteps()
-    {
-        footstepSource.Play();
     }
 
     public PlayerState GetPlayerState()

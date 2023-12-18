@@ -108,7 +108,7 @@ public class Outline : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Awake: " + gameObject);
+        //Debug.Log("Awake: " + gameObject);
         // Cache renderers
         //renderers = GetComponentsInChildren<Renderer>();
 

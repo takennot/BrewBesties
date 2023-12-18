@@ -6,9 +6,21 @@ public class ReplacePlayerValues : MonoBehaviour
 {
     private PlayerScript[] players;
 
-    public bool needsTrigger;
-    
+    public bool needsTriggerForMovement;
+
+    [Header("Player Strength, 0 = original")]
+    public float horizontalThrowForcePlayerExtra = 0;
+    public float verticalThrowForcePlayerExtra = 0;
+    public float horizontalThrowForceItemExtra = 0;
+    public float verticalThrowForceItemExtra = 0;
+
+    private float originalHorizontalThrowForcePlayer = 0;
+    private float originalVerticalThrowForcePlayer = 0;
+    private float originalHorizontalThrowForceItem = 0;
+    private float originalVerticalThrowForceItem = 0;
+
     [Header("Movement")]
+    public bool changeMovement = true;
     public bool isSlippery = true;
     public float acceleration = 0.95f;
     public float extraSpeed = 2;
@@ -16,6 +28,10 @@ public class ReplacePlayerValues : MonoBehaviour
     private float originalSpeed;
     private bool originalIsSlippery;
     private float originalAcceleration;
+
+    [Header("Exit Values")]
+    public bool hasExitValues;
+    public ReplacePlayerValues replacePlayerValues;
 
     private float timer;
 
@@ -34,7 +50,12 @@ public class ReplacePlayerValues : MonoBehaviour
         originalIsSlippery = players[0].isSlippery;
         originalAcceleration = players[0].accelerationRate;
 
-        if (!needsTrigger)
+        originalHorizontalThrowForcePlayer = players[0].horizontalThrowForcePlayer;
+        originalVerticalThrowForcePlayer = players[0].verticalThrowForcePlayer;
+        originalHorizontalThrowForceItem = players[0].horizontalThrowForce;
+        originalVerticalThrowForceItem = players[0].verticalThrowForce;
+
+        if (!needsTriggerForMovement)
         {
             UpdateValues();
         }
@@ -46,21 +67,32 @@ public class ReplacePlayerValues : MonoBehaviour
 
         foreach(PlayerScript player in players)
         {
-            player.isSlippery = isSlippery;
-            player.accelerationRate = acceleration;
-            player.playerSpeed = originalSpeed + extraSpeed;
-
-
+            if(changeMovement)
+            {
+                player.isSlippery = isSlippery;
+                player.accelerationRate = acceleration;
+                player.playerSpeed = originalSpeed + extraSpeed;
+            }
+            player.horizontalThrowForce = originalHorizontalThrowForceItem + horizontalThrowForceItemExtra;
+            player.verticalThrowForce = originalVerticalThrowForceItem + verticalThrowForceItemExtra;
+            player.horizontalThrowForcePlayer = originalHorizontalThrowForcePlayer + horizontalThrowForcePlayerExtra;
+            player.verticalThrowForcePlayer = originalVerticalThrowForcePlayer + verticalThrowForcePlayerExtra;
         }         
-
     }
 
     [ContextMenu("Update Values")]
     private void UpdateValues(PlayerScript player)
     {
+        if (changeMovement)
+        {
             player.isSlippery = isSlippery;
             player.accelerationRate = acceleration;
             player.playerSpeed = originalSpeed + extraSpeed;
+        }
+        player.horizontalThrowForce = originalHorizontalThrowForceItem + horizontalThrowForceItemExtra;
+        player.verticalThrowForce = originalVerticalThrowForceItem + verticalThrowForceItemExtra;
+        player.horizontalThrowForcePlayer = originalHorizontalThrowForcePlayer + horizontalThrowForcePlayerExtra;
+        player.verticalThrowForcePlayer = originalVerticalThrowForcePlayer + verticalThrowForcePlayerExtra;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -76,9 +108,17 @@ public class ReplacePlayerValues : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerScript>().isSlippery = originalIsSlippery;
-            other.gameObject.GetComponent<PlayerScript>().accelerationRate = originalAcceleration;
-            other.gameObject.GetComponent<PlayerScript>().playerSpeed = originalSpeed;
+            if (hasExitValues)
+            {
+                other.gameObject.GetComponent<PlayerScript>().isSlippery = replacePlayerValues.isSlippery;
+                other.gameObject.GetComponent<PlayerScript>().accelerationRate = replacePlayerValues.acceleration;
+                other.gameObject.GetComponent<PlayerScript>().playerSpeed = replacePlayerValues.originalSpeed + replacePlayerValues.extraSpeed;
+            } else
+            {
+                other.gameObject.GetComponent<PlayerScript>().isSlippery = originalIsSlippery;
+                other.gameObject.GetComponent<PlayerScript>().accelerationRate = originalAcceleration;
+                other.gameObject.GetComponent<PlayerScript>().playerSpeed = originalSpeed;
+            }
         }
         
     }
