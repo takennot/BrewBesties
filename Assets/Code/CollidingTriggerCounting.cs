@@ -15,7 +15,7 @@ public class CollidingTriggerCounting : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("I am Destroyed");
+        //Debug.Log("I am Destroyed");
     }
 
     private void OnTriggerEnter(Collider otherCollider)

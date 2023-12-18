@@ -10,17 +10,23 @@ public class PauseMenuScript : MonoBehaviour
 
     [SerializeField] Canvas pauseMenuCanvas;
     [SerializeField] Canvas optionsCanvas;
+    [SerializeField] GameObject options;
     [SerializeField] Button resumeButton;
+    [SerializeField] Button restartButton;
     public bool isPaused = false;
     private bool isArcade;
     [SerializeField] GameManagerScript gameManager;
     [SerializeField] Slider volumeSlider;
 
+    public bool canPressPause = true;
+    public bool isInOptions = false;
+
     // Start is called before the first frame update
     void Start()
     {
         pauseMenuCanvas.enabled = false;
-        optionsCanvas.enabled = false;
+        //optionsCanvas.enabled = false;
+        options.SetActive(false);
         Time.timeScale = 1f;
         if (FindAnyObjectByType<PlayerScript>().consoleType == PlayerScript.ConsoleType.ArcadeMachine)
         {
@@ -37,16 +43,41 @@ public class PauseMenuScript : MonoBehaviour
     {
         StartAndEnd startAndEnd = FindAnyObjectByType<StartAndEnd>();
 
-        if(startAndEnd == null)
+        if(!isPaused )
+        {
+            resumeButton.enabled = false;
+        }
+        else
+        {
+            resumeButton.enabled = true;
+        }
+
+        if (isPaused && isInOptions)
+        {
+            pauseMenuCanvas.enabled = false;
+        }
+        else if(isPaused)
+        {
+            pauseMenuCanvas.enabled = true;
+        }
+
+
+        if (startAndEnd == null)
         {
             if((Input.GetButtonDown("Pause") && !isArcade) || (Input.GetKeyDown(KeyCode.UpArrow) && !isArcade))
             {
-                Pause();
+                if (canPressPause)
+                {
+                    Pause();
+                }
             }
         } 
         else if (FindAnyObjectByType<StartAndEnd>().hasStarted && ((Input.GetButtonDown("Pause") && !isArcade) || (Input.GetKeyDown(KeyCode.UpArrow) && !isArcade)))
         {
-            Pause();
+            if (canPressPause)
+            {
+                Pause();
+            }
         }
 
         // if options canvas enabled 
@@ -87,6 +118,7 @@ public class PauseMenuScript : MonoBehaviour
 
     public void OnResume() 
     {
+        Debug.Log("OnResume");
         Debug.Log("Resume");
 
         switch (isPaused)
@@ -121,6 +153,8 @@ public class PauseMenuScript : MonoBehaviour
                 isPaused = false;
                 Time.timeScale = 1f;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                restartButton.enabled = false;
+
                 break;
             case false: return;
         }
@@ -128,17 +162,25 @@ public class PauseMenuScript : MonoBehaviour
 
     public void OnOptions()
     {
-        pauseMenuCanvas.enabled = false;
-        optionsCanvas.enabled = true;
+        Debug.Log("OnOptions");
+        canPressPause = false;
+        isInOptions = true;
+        
+        //optionsCanvas.enabled = true;
+        options.SetActive(true);
         volumeSlider.Select();
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", 0.1f);
     }
 
     public void OnBack()
     {
+        Debug.Log("OnBack");
+        canPressPause = true;
+        isInOptions = false;
         pauseMenuCanvas.enabled = true;
-        optionsCanvas.enabled = false;
-        resumeButton.Select();
+        //optionsCanvas.enabled = false;
+        options.SetActive(false);
+        //resumeButton.Select();
     }
 
     public void OnVolumeChange()
