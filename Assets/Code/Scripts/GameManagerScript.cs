@@ -157,7 +157,7 @@ public class GameManagerScript : MonoBehaviour
         switch (isPaused)
         {
             case true:
-                Debug.Log("UnPause gm");
+                //Debug.Log("UnPause gm");
                 isPaused = false;
                 goal.SetActivated(!isPaused);
                 runElementsInLevel = true;
@@ -170,7 +170,7 @@ public class GameManagerScript : MonoBehaviour
 
                 break;
             case false:
-                Debug.Log("Pause gm");
+                //Debug.Log("Pause gm");
                 isPaused = true;
                 goal.SetActivated(!isPaused);
                 runElementsInLevel = false;

@@ -11,6 +11,7 @@ public class Settings : MonoBehaviour
     [SerializeField] private AudioClip buttonSelectAudio;
     [SerializeField] private AudioClip buttonClickAudio;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private PauseMenuScript pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +39,9 @@ public class Settings : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
             {
-                optionsCanvas.gameObject.SetActive(false);
+                Debug.Log("OptionsBack");
+                //optionsCanvas.gameObject.SetActive(false);
+                pauseMenu.OnBack();
                 settingsButton.Select();
             }
         }
