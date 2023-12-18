@@ -116,9 +116,10 @@ public class Saw : MonoBehaviour
     {
         Debug.Log("Removing from saw: " + thisPlayer.name);
         playersSawing.Remove(thisPlayer);
-        sourceSawing.Pause();
-        //createOnce = true;
-        //Destroy(instanciestEffect);
+        if(playersSawing.Count == 0)
+        {
+            sourceSawing.Pause();
+        }
     }
 
     private void DropWood()
