@@ -249,6 +249,12 @@ public class PlayerScript : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("Player");
         }
 
+
+        if(objectInHands == null && holdingState != HoldingState.HoldingNothing)
+        {
+            holdingState = HoldingState.HoldingNothing;
+        }
+
         //Debug.Log((int)playerState + " | " + (int)holdingState);
 
         // ground stuff
