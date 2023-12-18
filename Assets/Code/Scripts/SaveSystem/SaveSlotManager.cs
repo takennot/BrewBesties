@@ -71,6 +71,7 @@ public class SaveSlotManager : MonoBehaviour
     {
         for (int i = SceneManager.sceneCountInBuildSettings -2; i > 1; i--)
         {
+            Debug.Log("DEBUGGG" + i);
             string key = saveSlotSelectionManager.allSceneNames[i];
             Debug.Log(key);
             if (key != null)

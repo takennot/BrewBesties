@@ -203,33 +203,24 @@ public class CauldronState : MonoBehaviour
 
         if (success)
         {
-            liquidPlane.GetComponent<ChangePotionColor>().ChangeColor(ingredient.GetColorStr());
+            if(liquidPlane)
+                liquidPlane.GetComponent<ChangePotionColor>().ChangeColor(ingredient.GetColorStr());
 
             switch (ingredientType)
             {
                 case Resource_Enum.Ingredient.Mushroom:
-                    //Debug.Log("Cauldron red");
-                    //liquidPlane.GetComponent<MeshRenderer>().material = red;
-                    //liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("red");
                     drop.PlayEffect("mushroom");
                 break;
                 case Resource_Enum.Ingredient.MonsterEye:
-                    //Debug.Log("Cauldron gray");
-                    //liquidPlane.GetComponent<MeshRenderer>().material = gray;
-                    //liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("gray");
                     drop.PlayEffect("monstereye");
 
                     break;
                 case Resource_Enum.Ingredient.PixieDust:
-                    //Debug.Log("Cauldron blue");
-                    //liquidPlane.GetComponent<MeshRenderer>().material = water; //!!!
-                    //liquidPlane.GetComponent<ChangePotionColor>().changeColor("red");
-                    //liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("pink");
                     drop.PlayEffect("pixiedust");
                     break;
                 default:
-                    //liquidPlane.GetComponent<MeshRenderer>().material = water; //!!!!
-                    liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("blue");
+                    if (liquidPlane)
+                        liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("blue");
                     drop.PlayEffect(" ");
 
                     break;
@@ -318,7 +309,6 @@ public class CauldronState : MonoBehaviour
         bool isDone = processSlider.value >= processSlider.maxValue;
         if (hasToBeDone == true && isDone == false) //For tutorial
         {
-            //Debug.Log("hasToBeDone == true && isDone == false");
             return null;
         }
 
@@ -340,12 +330,10 @@ public class CauldronState : MonoBehaviour
         // process
         ResetCauldronProcess();
 
-        //Material tempMaterial = meshRendererCauldron.GetComponent<ChangePotionColor>().GetMaterial();
-
         // liquid
-        //liquidPlane.GetComponent<MeshRenderer>().material = water;
-        liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("blue");
-        
+
+        if (liquidPlane)
+            liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("blue");
 
         // slots ingredients
         foreach (Image slot in canvasImageSlots)
