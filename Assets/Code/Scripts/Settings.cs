@@ -37,7 +37,7 @@ public class Settings : MonoBehaviour
     {
         if (optionsCanvas.gameObject.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
                 Debug.Log("OptionsBack");
                 //optionsCanvas.gameObject.SetActive(false);
