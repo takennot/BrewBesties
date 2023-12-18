@@ -19857,6 +19857,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1504021835529032467, guid: e550719ace9a8d240ae37799018359a5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5998963893091305478, guid: e550719ace9a8d240ae37799018359a5,
         type: 3}
       propertyPath: dragReach
@@ -41603,6 +41608,11 @@ PrefabInstance:
       propertyPath: horizontalThrowForcePlayer
       value: 8.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5979949719872530412, guid: 6e3b445e41a3a934ba8ff2a599bc8ec5,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 1285194536}
     - target: {fileID: 7563095575612993167, guid: 6e3b445e41a3a934ba8ff2a599bc8ec5,
         type: 3}
       propertyPath: m_Name
@@ -41618,6 +41628,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e3b445e41a3a934ba8ff2a599bc8ec5, type: 3}
+--- !u!65 &1285194536 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 1589524421072214454, guid: 6e3b445e41a3a934ba8ff2a599bc8ec5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1285194535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1288888471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53293,6 +53309,11 @@ PrefabInstance:
       propertyPath: horizontalThrowForcePlayer
       value: 8.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5607457515121226395, guid: 4893e7244f85de84d892e6028278e435,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 1693518274}
     - target: {fileID: 8636003210767268856, guid: 4893e7244f85de84d892e6028278e435,
         type: 3}
       propertyPath: m_Name
@@ -53308,6 +53329,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4893e7244f85de84d892e6028278e435, type: 3}
+--- !u!65 &1693518274 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 658542021640096961, guid: 4893e7244f85de84d892e6028278e435,
+    type: 3}
+  m_PrefabInstance: {fileID: 1693518273}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1705210106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54466,11 +54493,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5959709623088458514, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7547377250495455857, guid: 16e27e2e6366fc8489115f51512f7055,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 1772550598}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16e27e2e6366fc8489115f51512f7055, type: 3}
+--- !u!65 &1772550598 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3192919109491153963, guid: 16e27e2e6366fc8489115f51512f7055,
+    type: 3}
+  m_PrefabInstance: {fileID: 1772550597}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1772796049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7331627345210978889, guid: aeab51b3068b7c94cbfd049d754be9c1,
