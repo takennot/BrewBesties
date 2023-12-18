@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     private float currentHorizontalInput;
     public bool allowedToDragPlayers = true;
 
-    private Vector3 moveDirection;
+    [SerializeField] private Vector3 moveDirection;
     private float movementSpeed;
     public float mass = 2f;
     private bool isInFence = false;
@@ -413,22 +413,49 @@ public class PlayerScript : MonoBehaviour
             characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
         }
 
-        // movedirection or charactecotroller
-        if (moveDirection.x != 0 || moveDirection.z != 0)
+        if (isSlippery)
         {
-            if (onlyPlayVFX)
+            //Debug.Log("Move: " + (moveDirection.x > 0.1f) + (moveDirection.z > 0.1f) + (velocity.x > 0.1f) + (velocity.z > 0.1f));
+
+            if (moveDirection.x > 0.1f || moveDirection.z > 0.1f || moveDirection.x < -0.2f|| moveDirection.z < -0.2f )
             {
                 moving = true;
 
                 if (playerState == PlayerState.Emoting)
                     playerState = PlayerState.None;
 
-                StartCoroutine(PlayWalkingPoof());
+                if (onlyPlayVFX)
+                {
+                    StartCoroutine(PlayWalkingPoof());
+                }
             }
-        } else
+            else
+            {
+                moving = false;
+                walkVFX.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
+            }
+        }
+        else
         {
-            moving = false;
-            walkVFX.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
+            if (moveDirection.x != 0.0f || moveDirection.z != 0.0f)
+            {
+                moving = true;
+
+                if (playerState == PlayerState.Emoting)
+                    playerState = PlayerState.None;
+
+                if (onlyPlayVFX)
+                {
+                    StartCoroutine(PlayWalkingPoof());
+                }
+
+            }
+            else
+            {
+                moving = false;
+                walkVFX.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
+            }
+
         }
 
         if (Mathf.Abs(targetHorizontalInput) > 0.4f || Mathf.Abs(targetVerticalInput) > 0.4f)
