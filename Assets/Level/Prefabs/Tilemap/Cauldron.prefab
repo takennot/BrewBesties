@@ -961,12 +961,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8086836829775785018}
-  m_Father: {fileID: 5880199697258903546}
+  m_Father: {fileID: 1727380117115248320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8695214514888914320
 CanvasRenderer:
@@ -2139,7 +2139,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 125986718312329224}
-    - targetCorrespondingSourceObject: {fileID: 9195114359771278803, guid: 33f996fbb60d98245a470895212e61d3,
+    - targetCorrespondingSourceObject: {fileID: 4177601722732070121, guid: 33f996fbb60d98245a470895212e61d3,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1726029427388930070}
@@ -2165,6 +2165,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5097907481701333550}
   m_SourcePrefab: {fileID: 100100000, guid: 33f996fbb60d98245a470895212e61d3, type: 3}
+--- !u!224 &1727380117115248320 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4177601722732070121, guid: 33f996fbb60d98245a470895212e61d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 3314985443580926505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5002854788415476069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7740707402938747724, guid: 33f996fbb60d98245a470895212e61d3,
@@ -2267,12 +2273,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!224 &5880199697258903546 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9195114359771278803, guid: 33f996fbb60d98245a470895212e61d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 3314985443580926505}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8361565922532593881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6488295447376579312, guid: 33f996fbb60d98245a470895212e61d3,
