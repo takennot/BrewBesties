@@ -336,15 +336,6 @@ public class StartAndEnd : MonoBehaviour
 
         countdownCanvas.enabled = false;
 
-        //// Enable the players
-        //foreach (GameObject player in players) {
-        //    PlayerScript playerScript = player.GetComponent<PlayerScript>();
-        //    if (playerScript != null) {
-        //        playerScript.enabled = true;
-        //        playerScript.StartFootSteps();
-        //    }
-        //}
-
         countdownText.text = "";
     }
 

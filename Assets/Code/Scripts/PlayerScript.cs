@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour
     public float grabReach = 1;
     public float processReach = 0.8f;
     public float dragReach = 5.5f;
-    public float dragSphereRadius = 1f;
+    //[SerializeField] private float dragSphereRadius = 1f;
 
     [Header("Player Type")]
     public PlayerType playerType;
@@ -800,13 +800,13 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Remove from release version, will perma draw on screen xd
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = UnityEngine.Color.green;
-        //this logic is flawed 
-        //Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
-        Gizmos.DrawWireSphere(hit.point, dragSphereRadius);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = UnityEngine.Color.green;
+    //    //this logic is flawed 
+    //    //Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
+    //    Gizmos.DrawWireSphere(hit.point, dragSphereRadius);
+    //}
 
     public void Grab(Item item)
     {
