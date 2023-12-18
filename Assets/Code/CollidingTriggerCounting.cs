@@ -7,6 +7,17 @@ public class CollidingTriggerCounting : MonoBehaviour
     [SerializeField] private List<GameObject> gameObjectsCollidingWith = new List<GameObject>();
     [SerializeField] private Collider collider;
 
+    private void Start()
+    {
+        if(collider == null)
+            collider = GetComponent<Collider>();
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("I am Destroyed");
+    }
+
     private void OnTriggerEnter(Collider otherCollider)
     {
         //Debug.Log("Collision!!!: " + otherCollider.gameObject);
@@ -15,11 +26,6 @@ public class CollidingTriggerCounting : MonoBehaviour
         {
             gameObjectsCollidingWith.Add(otherCollider.gameObject);
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
     }
 
     private void OnTriggerExit(Collider otherCollider)

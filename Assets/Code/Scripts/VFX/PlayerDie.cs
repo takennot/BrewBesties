@@ -12,7 +12,7 @@ public class PlayerDie : MonoBehaviour
     {
         if(other.gameObject.GetComponent<PlayerScript>() == true)
         {
-            Debug.Log("hittade spelaren");
+            //Debug.Log("hittade spelaren");
             GameObject effektToPlay;
             switch (other.gameObject.GetComponent<PlayerScript>().GetPlayerTypeString())
             {
