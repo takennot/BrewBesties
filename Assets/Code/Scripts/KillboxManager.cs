@@ -88,7 +88,7 @@ public class KillboxManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Killbox triggered");
+        Debug.Log("Killbox triggered: " + other);
         if (other.GetComponent<PlayerScript>())
         {
             Debug.Log("Killbox triggered player");
@@ -112,68 +112,77 @@ public class KillboxManager : MonoBehaviour
                 }
             }
 
-            other.gameObject.GetComponent<PlayerScript>().Die();
-            StartCoroutine(RespawnWithCooldown(other));
-            Debug.Log("Killbox respawning player");
+            Debug.Log("Start killing player");
+            if(other.gameObject.GetComponent<PlayerScript>().GetPlayerState() != PlayerStateMashineHandle.PlayerState.Dead)
+            {
+                other.gameObject.GetComponent<PlayerScript>().Die();
+                StartCoroutine(RespawnWithCooldown(other));
+                Debug.Log("Killbox respawning player");
+            }
         }
         else
         {
+            Debug.Log("Destroyed: " + other.gameObject.name);
             Destroy(other.gameObject);
         }
     }
 
     IEnumerator RespawnWithCooldown(Collider other)
     {
-        switch (other.gameObject.GetComponent<PlayerScript>().playerType)
+        PlayerScript player = other.gameObject.GetComponent<PlayerScript>();
+        if(player != null)
         {
-            case PlayerScript.PlayerType.PlayerOne:
-                Debug.Log("Killbox found player1");
-                timerPlayer1.enabled = true;
-                isPlayer1Dead = true;
-                yield return new WaitForSecondsRealtime(cooldown);
-                other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint1);
-                respawnVFXInstance = Instantiate(respawnVFX, spawnpoint1);
-                Destroy(respawnVFXInstance, 1);
-                timerPlayer1.enabled = false;
-                isPlayer1Dead = false;
-                count1 = cooldown;
-                break;
-            case PlayerScript.PlayerType.PlayerTwo:
-                Debug.Log("Killbox found player2");
-                timerPlayer2.enabled = true;
-                isPlayer2Dead = true;
-                yield return new WaitForSecondsRealtime(cooldown);
-                other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint2);
-                respawnVFXInstance = Instantiate(respawnVFX, spawnpoint2);
-                Destroy(respawnVFXInstance, 1);
-                timerPlayer2.enabled = false;
-                isPlayer2Dead = false;
-                count2 = cooldown;
-                break;
-            case PlayerScript.PlayerType.PlayerThree:
-                Debug.Log("Killbox found player3");
-                timerPlayer3.enabled = true;
-                isPlayer3Dead = true;
-                yield return new WaitForSecondsRealtime(cooldown);
-                other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint3);
-                respawnVFXInstance = Instantiate(respawnVFX, spawnpoint3);
-                Destroy(respawnVFXInstance, 1);
-                timerPlayer3.enabled = false;
-                isPlayer3Dead = false;
-                count3 = cooldown;
-                break;
-            case PlayerScript.PlayerType.PlayerFour:
-                Debug.Log("Killbox found player4");
-                timerPlayer4.enabled = true;
-                isPlayer4Dead = true;
-                yield return new WaitForSecondsRealtime(cooldown);
-                other.gameObject.GetComponent<PlayerScript>().Respawn(spawnpoint4);
-                respawnVFXInstance = Instantiate(respawnVFX, spawnpoint4);
-                Destroy(respawnVFXInstance, 1);
-                timerPlayer4.enabled = false;
-                isPlayer4Dead = false;
-                count4 = cooldown;
-                break;
+            switch (player.playerType)
+            {
+                case PlayerScript.PlayerType.PlayerOne:
+                    Debug.Log("Killbox found player1");
+                    timerPlayer1.enabled = true;
+                    isPlayer1Dead = true;
+                    yield return new WaitForSecondsRealtime(cooldown);
+                    player.Respawn(spawnpoint1);
+                    respawnVFXInstance = Instantiate(respawnVFX, spawnpoint1);
+                    Destroy(respawnVFXInstance, 1);
+                    timerPlayer1.enabled = false;
+                    isPlayer1Dead = false;
+                    count1 = cooldown;
+                    break;
+                case PlayerScript.PlayerType.PlayerTwo:
+                    Debug.Log("Killbox found player2");
+                    timerPlayer2.enabled = true;
+                    isPlayer2Dead = true;
+                    yield return new WaitForSecondsRealtime(cooldown);
+                    player.Respawn(spawnpoint2);
+                    respawnVFXInstance = Instantiate(respawnVFX, spawnpoint2);
+                    Destroy(respawnVFXInstance, 1);
+                    timerPlayer2.enabled = false;
+                    isPlayer2Dead = false;
+                    count2 = cooldown;
+                    break;
+                case PlayerScript.PlayerType.PlayerThree:
+                    Debug.Log("Killbox found player3");
+                    timerPlayer3.enabled = true;
+                    isPlayer3Dead = true;
+                    yield return new WaitForSecondsRealtime(cooldown);
+                    player.Respawn(spawnpoint3);
+                    respawnVFXInstance = Instantiate(respawnVFX, spawnpoint3);
+                    Destroy(respawnVFXInstance, 1);
+                    timerPlayer3.enabled = false;
+                    isPlayer3Dead = false;
+                    count3 = cooldown;
+                    break;
+                case PlayerScript.PlayerType.PlayerFour:
+                    Debug.Log("Killbox found player4");
+                    timerPlayer4.enabled = true;
+                    isPlayer4Dead = true;
+                    yield return new WaitForSecondsRealtime(cooldown);
+                    player.Respawn(spawnpoint4);
+                    respawnVFXInstance = Instantiate(respawnVFX, spawnpoint4);
+                    Destroy(respawnVFXInstance, 1);
+                    timerPlayer4.enabled = false;
+                    isPlayer4Dead = false;
+                    count4 = cooldown;
+                    break;
+            }
         }
     }
 
