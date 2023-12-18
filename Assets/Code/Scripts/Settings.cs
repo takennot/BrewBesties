@@ -8,6 +8,9 @@ public class Settings : MonoBehaviour
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Canvas optionsCanvas;
+    [SerializeField] private AudioClip buttonSelectAudio;
+    [SerializeField] private AudioClip buttonClickAudio;
+    [SerializeField] private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -109,5 +112,13 @@ public class Settings : MonoBehaviour
         }
         PlayerPrefs.SetFloat("Volume", volumeSlider.value);
         PlayerPrefs.Save();
+    }
+    public void OnSelect()
+    {
+        audioSource.PlayOneShot(buttonSelectAudio);
+    }
+    public void OnClickSound()
+    {
+        audioSource.PlayOneShot(buttonClickAudio);
     }
 }
