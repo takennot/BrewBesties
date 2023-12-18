@@ -12,6 +12,7 @@ public class Settings : MonoBehaviour
     [SerializeField] private AudioClip buttonClickAudio;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private PauseMenuScript pauseMenu;
+    [SerializeField] public bool isInPause;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,10 +40,18 @@ public class Settings : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
+                switch (isInPause)
+                {
+                    case true:
+                        pauseMenu.OnBack();
+                        settingsButton.Select();
+                        break;
+                    case false:
+                        optionsCanvas.gameObject.SetActive(false);
+                        settingsButton.Select();
+                        break;
+                }
                 Debug.Log("OptionsBack");
-                //optionsCanvas.gameObject.SetActive(false);
-                pauseMenu.OnBack();
-                settingsButton.Select();
             }
         }
     }
