@@ -4737,6 +4737,16 @@ PrefabInstance:
       propertyPath: settingsButton
       value: 
       objectReference: {fileID: 376002827}
+    - target: {fileID: 9021207621661605012, guid: 06fed93a2f7a57a4894b485da4bc8320,
+        type: 3}
+      propertyPath: buttonClickAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ba191ec5c5674e42b31a88ea65e3e65, type: 3}
+    - target: {fileID: 9021207621661605012, guid: 06fed93a2f7a57a4894b485da4bc8320,
+        type: 3}
+      propertyPath: buttonSelectAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 49d23a93b9c9e3945b38fc2dd581a92d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5328,8 +5338,8 @@ MonoBehaviour:
   fullscreenButton: {fileID: 27046784}
   saveSlot1: {fileID: 1866875458}
   eventSystem: {fileID: 792754616}
-  buttonSelectAudio: {fileID: 8300000, guid: e0e6ce88903281048b9ad428fc191537, type: 3}
-  buttonClickAudio: {fileID: 8300000, guid: 90df6aa1fe717ee448781a7ed0240c73, type: 3}
+  buttonSelectAudio: {fileID: 8300000, guid: 49d23a93b9c9e3945b38fc2dd581a92d, type: 3}
+  buttonClickAudio: {fileID: 8300000, guid: 9ba191ec5c5674e42b31a88ea65e3e65, type: 3}
   audioSource: {fileID: 21575147}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
