@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using static PlayerStateMashineHandle;
 using static Unity.VisualScripting.Member;
 
@@ -49,6 +50,9 @@ public class PlayerScript : MonoBehaviour
 
     [Header("PlayerController")]
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private CollidingTriggerCounting groundCheckColliderCounter;
+    public bool isGrounded = false;
+
     [SerializeField] private GameObject objectInHands;
     [SerializeField] private GameObject objectDragging;
     private Gamepad gamepad;
@@ -247,9 +251,19 @@ public class PlayerScript : MonoBehaviour
 
         //Debug.Log((int)playerState + " | " + (int)holdingState);
 
+        // ground stuff
         if (waitingForGround)
         {
             playerState = PlayerState.IsBeingThrown;
+        }
+
+        if (groundCheckColliderCounter.GetGameobjectsCollidingWith().Count > 0)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded= false;
         }
 
         // Set Up Animator
@@ -1117,6 +1131,9 @@ public class PlayerScript : MonoBehaviour
 
     private void Emote()
     {
+        if (!isGrounded)
+            return;
+
         float rand = Random.Range(0, 2.1f);
         animatorPlayer.SetFloat("EmoteToUse", rand);
 
