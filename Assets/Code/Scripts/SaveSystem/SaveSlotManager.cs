@@ -54,6 +54,10 @@ public class SaveSlotManager : MonoBehaviour
 
             UpdateImage(GetSceneImage(key), false);
             UpdateUnlockedLevels(key);
+            if(key.Equals("Rotatinator") && highscore >= levelreqs[0])
+            {
+                UpdateUnlockedLevels("Completed");
+            }
         }
         else
         {
@@ -65,8 +69,9 @@ public class SaveSlotManager : MonoBehaviour
 
     public string GetLastCompletedLevelName(Dictionary<string, int> highscores)
     {
-        for (int i = SceneManager.sceneCountInBuildSettings -1; i > 1; i--)
+        for (int i = SceneManager.sceneCountInBuildSettings -2; i > 1; i--)
         {
+            Debug.Log("DEBUGGG" + i);
             string key = saveSlotSelectionManager.allSceneNames[i];
             Debug.Log(key);
             if (key != null)

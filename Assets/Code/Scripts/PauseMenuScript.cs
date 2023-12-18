@@ -17,6 +17,9 @@ public class PauseMenuScript : MonoBehaviour
     private bool isArcade;
     [SerializeField] GameManagerScript gameManager;
     [SerializeField] Slider volumeSlider;
+    [SerializeField] private AudioClip buttonSelectAudio;
+    [SerializeField] private AudioClip buttonClickAudio;
+    [SerializeField] private AudioSource audioSource;
 
     public bool canPressPause = true;
     public bool isInOptions = false;
@@ -214,5 +217,13 @@ public class PauseMenuScript : MonoBehaviour
         {
             Application.Quit();
         } 
+    }
+    public void OnSelect()
+    {
+        audioSource.PlayOneShot(buttonSelectAudio);
+    }
+    public void OnClickSound()
+    {
+        audioSource.PlayOneShot(buttonClickAudio);
     }
 }

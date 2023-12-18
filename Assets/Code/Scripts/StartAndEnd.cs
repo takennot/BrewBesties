@@ -164,15 +164,15 @@ public class StartAndEnd : MonoBehaviour
 
             if (endOptionsPanel.activeSelf)
             {
-                if ((Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick2Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick3Button0) && completedLevel) || (Input.GetKeyDown(KeyCode.Joystick4Button0) && completedLevel))
+                if ((Input.GetKeyDown(KeyCode.Joystick1Button0) && completedLevel))
                 {
                     OnNext();
                 }
-                else if (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick3Button1) || Input.GetKeyDown(KeyCode.Joystick4Button1))
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
                 {
                     StartCoroutine(OnRestart());
                 }
-                else if (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.Joystick2Button2) || Input.GetKeyDown(KeyCode.Joystick3Button2) || Input.GetKeyDown(KeyCode.Joystick4Button2))
+                else if (Input.GetKeyDown(KeyCode.Joystick1Button2))
                 {
                     SceneManager.LoadScene(0);
                 }
@@ -335,15 +335,6 @@ public class StartAndEnd : MonoBehaviour
         }
 
         countdownCanvas.enabled = false;
-
-        //// Enable the players
-        //foreach (GameObject player in players) {
-        //    PlayerScript playerScript = player.GetComponent<PlayerScript>();
-        //    if (playerScript != null) {
-        //        playerScript.enabled = true;
-        //        playerScript.StartFootSteps();
-        //    }
-        //}
 
         countdownText.text = "";
     }

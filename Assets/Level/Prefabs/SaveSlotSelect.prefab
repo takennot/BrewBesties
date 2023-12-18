@@ -416,12 +416,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 1456243657170047425}
   - component: {fileID: 6940140855124379310}
   - component: {fileID: 6971337944220493923}
+  - component: {fileID: 9178984547159031390}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -593,6 +594,47 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2533577285550731934}
+        m_TargetAssemblyTypeName: SaveSlotSelectionManager, Assembly-CSharp
+        m_MethodName: OnClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9178984547159031390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826272830264896065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2533577285550731934}
+          m_TargetAssemblyTypeName: SaveSlotSelectionManager, Assembly-CSharp
+          m_MethodName: OnSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1027330508681514390
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,12 +926,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.1
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 68.1
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -938,6 +980,7 @@ GameObject:
   - component: {fileID: 3618537859546495841}
   - component: {fileID: 4630942681882848109}
   - component: {fileID: 6296857757456174714}
+  - component: {fileID: 2783740696879712067}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -1061,6 +1104,47 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2533577285550731934}
+        m_TargetAssemblyTypeName: SaveSlotSelectionManager, Assembly-CSharp
+        m_MethodName: OnClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2783740696879712067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844587169474541506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2533577285550731934}
+          m_TargetAssemblyTypeName: SaveSlotSelectionManager, Assembly-CSharp
+          m_MethodName: OnSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1879186549409954328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,8 +1214,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a64a0c6af260e61428e9bb1d5d0d6a78, type: 3}
   - {fileID: 21300000, guid: b608e48579d00154498a129c26624231, type: 3}
   - {fileID: 21300000, guid: 72f048e07bccbff46b5d81d2ef9e67a1, type: 3}
-  - {fileID: 21300000, guid: 55480c8145dd7604bb40523a36f461e1, type: 3}
   - {fileID: 21300000, guid: 7b31c0cfb4cc8f946a289c9006c933dc, type: 3}
+  - {fileID: 21300000, guid: 55480c8145dd7604bb40523a36f461e1, type: 3}
   - {fileID: 21300000, guid: 359c337263448484abd60049aad26824, type: 3}
   - {fileID: 21300000, guid: 9826924e95be3274c957283d211540b6, type: 3}
   - {fileID: 21300000, guid: 2ad45d9bcccdc4945996285a4f69f817, type: 3}
@@ -1227,12 +1311,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1269,6 +1353,134 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &2559416161646000752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5214638773050962550}
+  - component: {fileID: 8562552546897229500}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5214638773050962550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559416161646000752}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6883829793095390997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &8562552546897229500
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559416161646000752}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2599331769693601220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,6 +1627,7 @@ GameObject:
   - component: {fileID: 2215170885633471113}
   - component: {fileID: 8302286960897891185}
   - component: {fileID: 1662370381033683292}
+  - component: {fileID: 6121078956633615233}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -1538,6 +1751,47 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2533577285550731934}
+        m_TargetAssemblyTypeName: SaveSlotSelectionManager, Assembly-CSharp
+        m_MethodName: OnClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6121078956633615233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2855926136871130783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2533577285550731934}
+          m_TargetAssemblyTypeName: SaveSlotSelectionManager, Assembly-CSharp
+          m_MethodName: OnSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2897298789967772769
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,8 +1861,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a64a0c6af260e61428e9bb1d5d0d6a78, type: 3}
   - {fileID: 21300000, guid: b608e48579d00154498a129c26624231, type: 3}
   - {fileID: 21300000, guid: 72f048e07bccbff46b5d81d2ef9e67a1, type: 3}
-  - {fileID: 21300000, guid: 55480c8145dd7604bb40523a36f461e1, type: 3}
   - {fileID: 21300000, guid: 7b31c0cfb4cc8f946a289c9006c933dc, type: 3}
+  - {fileID: 21300000, guid: 55480c8145dd7604bb40523a36f461e1, type: 3}
   - {fileID: 21300000, guid: 359c337263448484abd60049aad26824, type: 3}
   - {fileID: 21300000, guid: 9826924e95be3274c957283d211540b6, type: 3}
   - {fileID: 21300000, guid: 2ad45d9bcccdc4945996285a4f69f817, type: 3}
@@ -1681,8 +1935,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a64a0c6af260e61428e9bb1d5d0d6a78, type: 3}
   - {fileID: 21300000, guid: b608e48579d00154498a129c26624231, type: 3}
   - {fileID: 21300000, guid: 72f048e07bccbff46b5d81d2ef9e67a1, type: 3}
-  - {fileID: 21300000, guid: 55480c8145dd7604bb40523a36f461e1, type: 3}
   - {fileID: 21300000, guid: 7b31c0cfb4cc8f946a289c9006c933dc, type: 3}
+  - {fileID: 21300000, guid: 55480c8145dd7604bb40523a36f461e1, type: 3}
   - {fileID: 21300000, guid: 359c337263448484abd60049aad26824, type: 3}
   - {fileID: 21300000, guid: 9826924e95be3274c957283d211540b6, type: 3}
   - {fileID: 21300000, guid: 2ad45d9bcccdc4945996285a4f69f817, type: 3}
@@ -1778,12 +2032,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.1
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 53.1
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1986,6 +2240,7 @@ Transform:
   m_Children:
   - {fileID: 5926929848931730299}
   - {fileID: 3408017073368544265}
+  - {fileID: 5214638773050962550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2533577285550731934
@@ -2016,8 +2271,8 @@ MonoBehaviour:
   - Get A Grip
   - Completionist
   - Tutorial Throw Drag Wood
-  - Three islands
   - Ghost House
+  - Three islands
   - Moving Field
   - Icy Platforms
   - Rotatinator
@@ -2031,6 +2286,9 @@ MonoBehaviour:
   - {fileID: 7428152584087449029}
   - {fileID: 8469949407105393265}
   - {fileID: 6609450737778834581}
+  buttonSelectAudio: {fileID: 8300000, guid: 49d23a93b9c9e3945b38fc2dd581a92d, type: 3}
+  buttonClickAudio: {fileID: 8300000, guid: 9ba191ec5c5674e42b31a88ea65e3e65, type: 3}
+  audioSource: {fileID: 8562552546897229500}
 --- !u!1 &4105315267866316833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,12 +2833,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.1
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 57.1
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3173,12 +3431,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -4400,12 +4658,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -5210,7 +5468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ghost House
+  m_text: Three Islands
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5237,12 +5495,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -5344,7 +5602,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Three Islands
+  m_text: Ghost House
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5371,12 +5629,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 16.94
+  m_fontSizeMax: 45.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
