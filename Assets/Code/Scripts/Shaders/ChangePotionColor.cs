@@ -63,9 +63,9 @@ public class ChangePotionColor : MonoBehaviour
     void Start()
     {
 
-        //renderer = GetComponent<MeshRenderer>();
-        //materialToChange = Instantiate(GetComponent<Renderer>().sharedMaterial);
-        //GetComponent<Renderer>().material = materialToChange;
+        //meshRenderer = GetComponent<MeshRenderer>();
+        materialToChange = Instantiate(GetComponent<Renderer>().sharedMaterial);
+        GetComponent<Renderer>().material = materialToChange;
 
         //colorHandler = FindObjectOfType<ColorHandeler>();
 
@@ -121,9 +121,15 @@ public class ChangePotionColor : MonoBehaviour
     {  
         UnityEngine.Color baseColor = colorHandler.GetColor(color)[0];
         UnityEngine.Color rippel = colorHandler.GetColor(color)[1];
+
+        Debug.Log("Colors: " + baseColor + " - " + rippel);
+
         materialToChange.SetColor(baseColorString, baseColor);
         materialToChange.SetColor(rippelColorString, rippel);
+
+        meshRenderer.material = materialToChange;
     }
+
     /*
     public void ChangeColor(string color)
     {

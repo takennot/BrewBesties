@@ -6294,6 +6294,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8387e883d6558404fa47e5977d73a303, type: 3}
+--- !u!23 &303196195 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7451885591268430694, guid: 92db393ef3d7c6047a302cc03056c7c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1776600414}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &303406828
 GameObject:
   m_ObjectHideFlags: 0
@@ -8859,6 +8865,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 490464101}
     m_Modifications:
+    - target: {fileID: 3393153862572372924, guid: 92db393ef3d7c6047a302cc03056c7c4,
+        type: 3}
+      propertyPath: renderers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393153862572372924, guid: 92db393ef3d7c6047a302cc03056c7c4,
+        type: 3}
+      propertyPath: renderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 795660683}
     - target: {fileID: 6056977785004649802, guid: 92db393ef3d7c6047a302cc03056c7c4,
         type: 3}
       propertyPath: m_Name
@@ -15456,6 +15472,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 425675002}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &726745124 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8151074609311816228, guid: 4fee1db33b138ad4ca433400cc33021a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1791991441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &728845829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17401,6 +17423,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 234bfaae58cd482408479448aab60c42,
     type: 3}
   m_PrefabInstance: {fileID: 847065115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &795660683 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7451885591268430694, guid: 92db393ef3d7c6047a302cc03056c7c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 406020024}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &796487859
 GameObject:
@@ -21600,6 +21628,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 773081c7bf1d2d844bf6dc7fe5f1bbfa, type: 3}
+--- !u!23 &1011029383 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7451885591268430694, guid: 92db393ef3d7c6047a302cc03056c7c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1764896802}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1012927128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40485,6 +40519,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 490464101}
     m_Modifications:
+    - target: {fileID: 3393153862572372924, guid: 92db393ef3d7c6047a302cc03056c7c4,
+        type: 3}
+      propertyPath: renderers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393153862572372924, guid: 92db393ef3d7c6047a302cc03056c7c4,
+        type: 3}
+      propertyPath: renderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1011029383}
     - target: {fileID: 6056977785004649802, guid: 92db393ef3d7c6047a302cc03056c7c4,
         type: 3}
       propertyPath: m_Name
@@ -40559,6 +40603,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 490464101}
     m_Modifications:
+    - target: {fileID: 3393153862572372924, guid: 92db393ef3d7c6047a302cc03056c7c4,
+        type: 3}
+      propertyPath: renderers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393153862572372924, guid: 92db393ef3d7c6047a302cc03056c7c4,
+        type: 3}
+      propertyPath: renderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 303196195}
     - target: {fileID: 6056977785004649802, guid: 92db393ef3d7c6047a302cc03056c7c4,
         type: 3}
       propertyPath: m_Name
@@ -40894,6 +40948,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 490464101}
     m_Modifications:
+    - target: {fileID: 717965942089576714, guid: 4fee1db33b138ad4ca433400cc33021a,
+        type: 3}
+      propertyPath: renderers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 717965942089576714, guid: 4fee1db33b138ad4ca433400cc33021a,
+        type: 3}
+      propertyPath: renderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 726745124}
     - target: {fileID: 1313885018085683122, guid: 4fee1db33b138ad4ca433400cc33021a,
         type: 3}
       propertyPath: m_Name
