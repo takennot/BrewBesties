@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static CustomerOrder;
 using UnityEngine.SceneManagement;
+using UnityEditor.Rendering;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Slider sliderMagicMushrooms;
     [SerializeField] private Slider sliderMagicPotions;
     [SerializeField] private Slider sliderServePotions;
+    [SerializeField] private CameraUIManager cameraUI;
     [SerializeField] private TextTypewriter typewriter;
 
     [SerializeField] private List<TMP_Text> writeGreatJob = new();
@@ -328,6 +330,7 @@ public class TutorialManager : MonoBehaviour
         sliderManager.PlayExitAnimation(sliderMagicMushrooms);
         cauldron.SetActive(true);
         animScale.ScaleUp(cauldron, new(2,2,2));
+        cameraUI.Initilize();
         sourceScale.PlayOneShot(source.clip);
         yield return new WaitForSeconds(0.5f)
 ;
@@ -394,7 +397,7 @@ public class TutorialManager : MonoBehaviour
 
         sliderManager.PlayEntryAnimation(sliderServePotions);
         yield return new WaitForSeconds(0.5f);
-
+        cameraUI.Initilize();
         typewriter.SetNewText(writeServe);
 
         yield return null;

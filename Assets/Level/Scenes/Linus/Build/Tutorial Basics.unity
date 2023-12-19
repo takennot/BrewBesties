@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0014833048, g: 0.0013571114, b: 0.0012931153, a: 1}
+  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23890,6 +23890,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1400660098}
   m_SourcePrefab: {fileID: 100100000, guid: 902841f2161e571459d38bc1900b1c64, type: 3}
+--- !u!114 &861436528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6649979367611036490, guid: 902841f2161e571459d38bc1900b1c64,
+    type: 3}
+  m_PrefabInstance: {fileID: 861436527}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400660089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1b43b64042be34ba74e3af7a8e8e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &866267776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1663022233122309764, guid: f7f3f49b07c8458489ac258a1ec0cafb,
@@ -30188,6 +30200,7 @@ MonoBehaviour:
   sliderMagicMushrooms: {fileID: 742763688}
   sliderMagicPotions: {fileID: 825528095}
   sliderServePotions: {fileID: 1007264952}
+  cameraUI: {fileID: 861436528}
   typewriter: {fileID: 2096582954}
   writeGreatJob:
   - {fileID: 1366378312}
@@ -41741,6 +41754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableLevelCheats: 1
+  startAndEnd: {fileID: 0}
 --- !u!114 &2978809908526785280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42501,7 +42515,22 @@ PrefabInstance:
       objectReference: {fileID: 46890534591621482}
     - target: {fileID: 4960814046170822282, guid: e8a987055069f8b4f8b3a7f077722b2a,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960814046170822282, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960814046170822282, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007587901731994156, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6007587901731994156, guid: e8a987055069f8b4f8b3a7f077722b2a,
