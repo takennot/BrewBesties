@@ -927,6 +927,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 502c34c0adce3ee498463ca7f1be995a, type: 2}
     - target: {fileID: 4478801317019919598, guid: 12919e49d6375584ead290d43d448c33,
         type: 3}
+      propertyPath: forceMagnitude
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4478801317019919598, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
       propertyPath: MagicObejctEffekt
       value: 
       objectReference: {fileID: 3265319264911959637, guid: 45ce7c035ab911c4c91ba7d4c20f1e9d,
@@ -3548,7 +3553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToLookAt: {fileID: 1795265701}
   rotationSpeed: 90
-  maxAngleThreshold: 20
+  maxAngleThreshold: 25
 --- !u!4 &228823050 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1363995605864350716, guid: d00e4df70aea5cd4bb6da3203b3e2d8e,
@@ -3715,7 +3720,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3090911388964639661, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090911388964639661, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090911388964639661, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423230561705697035, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423230561705697035, guid: fddbb2baf89de074aae19a15bd4c93de,
@@ -12693,6 +12713,16 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.0033329725
       objectReference: {fileID: 0}
+    - target: {fileID: 528767113703588445, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.82047874
+      objectReference: {fileID: 0}
+    - target: {fileID: 528767113703588445, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.11023936
+      objectReference: {fileID: 0}
     - target: {fileID: 1745637987678992384, guid: 2c39c37ca3dd4d8479c9cb26fded2562,
         type: 3}
       propertyPath: hasToBeDone
@@ -20011,7 +20041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToLookAt: {fileID: 1795265701}
   rotationSpeed: 90
-  maxAngleThreshold: 20
+  maxAngleThreshold: 25
 --- !u!1001 &1582092080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22578,7 +22608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToLookAt: {fileID: 1795265701}
   rotationSpeed: 90
-  maxAngleThreshold: 20
+  maxAngleThreshold: 25
 --- !u!4 &1777918443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1363995605864350716, guid: d00e4df70aea5cd4bb6da3203b3e2d8e,
@@ -23533,7 +23563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToLookAt: {fileID: 1795265701}
   rotationSpeed: 90
-  maxAngleThreshold: 20
+  maxAngleThreshold: 25
 --- !u!4 &1839675831 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1363995605864350716, guid: d00e4df70aea5cd4bb6da3203b3e2d8e,
