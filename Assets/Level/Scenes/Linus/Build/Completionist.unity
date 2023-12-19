@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028477, g: 0.22571576, b: 0.3069241, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028454, g: 0.22571538, b: 0.30692348, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12798,6 +12798,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
+      propertyPath: newCustomerRate
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
       propertyPath: twoPlayersMultiplier
       value: 1.12
       objectReference: {fileID: 0}
@@ -12805,6 +12810,11 @@ PrefabInstance:
         type: 3}
       propertyPath: fourPlayersMultiplier
       value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: startRateThirdCustomer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
@@ -12891,6 +12901,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7723234847253258605, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: song
+      value: 
+      objectReference: {fileID: 8300000, guid: 14400cddfb764be43bc753c7bb8ea228, type: 3}
     - target: {fileID: 7723234847253258605, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: volume
@@ -13216,7 +13231,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.51
+  m_Volume: 0.345
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -13329,7 +13344,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 95db185a46380254d8a393a6d8b86823, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.115
+  m_Volume: 0.168
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -16762,11 +16777,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trashcan
-      objectReference: {fileID: 0}
-    - target: {fileID: 6682102089213010477, guid: 32c866ea6cb137344b83714d8df9189c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7782549936314888087, guid: 32c866ea6cb137344b83714d8df9189c,
         type: 3}
