@@ -40,6 +40,7 @@ public class StartAndEnd : MonoBehaviour
     public bool shouldLoadSpecifiedLevel;
     public int specifiedLevelIndex = 1;
     private int nextSceneIndex;
+    private bool canInteract;
 
     [Header("Delays")]
     [SerializeField] public int timeToWaitForStart = 3;
@@ -98,6 +99,7 @@ public class StartAndEnd : MonoBehaviour
         played2 = false;
         played3 = false;
 
+        canInteract = false;
         starPanel.SetActive(false);
         endOptionsPanel.SetActive(false);
 
@@ -265,7 +267,7 @@ public class StartAndEnd : MonoBehaviour
     {
         audioSourceShuffle.Stop();
         endOptionsPanel.SetActive(true);
-
+        canInteract = true;
         Debug.Log("Done!!!!!!!!!");
     }
 
