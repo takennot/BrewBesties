@@ -7,12 +7,8 @@ using static Resource_Enum;
 
 public class CauldronState : MonoBehaviour
 {
-    //[SerializeField] private MeshRenderer meshRendererCauldron;
     [SerializeField] private GameObject liquidPlane;
-
-    //[SerializeField] private Material water;
-    //[SerializeField] private Material red;
-    //[SerializeField] private Material gray;
+    [SerializeField] private ChangePotionColor liquidPlaneChangePotionColor;
 
     [SerializeField] private GameObject[] slots;
     [SerializeField] private Image[] canvasImageSlots;
@@ -53,8 +49,6 @@ public class CauldronState : MonoBehaviour
     [SerializeField] private AudioSource boilingSource;
     private bool hasPlayedClip = false;
 
-    //[SerializeField] bool changeToRed = false;
-
     [SerializeField] bool hasInit = false;
 
     private bool checkpoint1Reached = false;
@@ -71,10 +65,8 @@ public class CauldronState : MonoBehaviour
     void Start()
     {
         // process
-        EmptyCauldron(); // reset
-        source = GetComponent<AudioSource>();
-        drop = GetComponent<DropEffectHandeler>();
-        onlyDoOnce = true;
+        //EmptyCauldron(); // reset
+
     }
 
     // Update is called once per frame
@@ -85,6 +77,9 @@ public class CauldronState : MonoBehaviour
             Potion potion = EmptyCauldron(); // init reset
 
             source = GetComponent<AudioSource>();
+            drop = GetComponent<DropEffectHandeler>();
+            onlyDoOnce = true;
+
             boilingSource.Play();
         }
 
@@ -203,8 +198,8 @@ public class CauldronState : MonoBehaviour
 
         if (success)
         {
-            if(liquidPlane)
-                liquidPlane.GetComponent<ChangePotionColor>().ChangeColor(ingredient.GetColorStr());
+            if(liquidPlaneChangePotionColor)
+                liquidPlaneChangePotionColor.ChangeColor(ingredient.GetColorStr());
 
             switch (ingredientType)
             {
@@ -219,8 +214,8 @@ public class CauldronState : MonoBehaviour
                     drop.PlayEffect("pixiedust");
                     break;
                 default:
-                    if (liquidPlane)
-                        liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("blue");
+                    if (liquidPlaneChangePotionColor)
+                        liquidPlaneChangePotionColor.ChangeColor("blue");
                     drop.PlayEffect(" ");
 
                     break;
@@ -240,7 +235,6 @@ public class CauldronState : MonoBehaviour
             {
                 if (slot != null && slot.gameObject.activeSelf == false)
                 {
-                    //slot.GetComponent<MeshRenderer>().material = ingredient.GetMaterial();
                     slot.GetComponent<Image>().sprite = ingredient.GetImage();
                     slot.gameObject.SetActive(true);
 
@@ -257,30 +251,19 @@ public class CauldronState : MonoBehaviour
 
                     if (ingredient1 == null)
                     {
-                        //Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
-
                         ingredient1 = new(ingredient.GetIngredientType(), ingredient.GetIsMagic());
-
-                        //Debug.Log(ingredient1.GetIngredientType() + "(" + ingredient1.GetIsMagic() + ")");
-                        //Debug.Log(ingredient1type + "(" + magic1 + ")");
                     }
                     else if (ingredient2 == null)
                     {
-                        //Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
-
                         ingredient2 = new(ingredient.GetIngredientType(), ingredient.GetIsMagic());
-
-                        //Debug.Log(ingredient2.GetIngredientType() + "(" + ingredient2.GetIsMagic() + ")");
-                        //Debug.Log(ingredient2type + "(" + magic2 + ")");
                     }
                     else if (ingredient3 == null)
                     {
-                        //Debug.Log("AddTOCauldron:" + ingredient.GetIngredientType() + "(" + ingredient.GetIsMagic() + ")");
-
                         ingredient3 = new(ingredient.GetIngredientType(), ingredient.GetIsMagic());
-
-                        //Debug.Log(ingredient3.GetIngredientType() + "(" + ingredient3.GetIsMagic() + ")");
-                        //Debug.Log(ingredient3type + "(" + magic3 + ")");
+                    }
+                    else
+                    {
+                        source.PlayOneShot(processDoneClip);
                     }
 
                     source.PlayOneShot(waterDropClip);
@@ -321,7 +304,7 @@ public class CauldronState : MonoBehaviour
         ingredientCount = 0;
         bool isDone = processSlider.value >= processSlider.maxValue;
 
-        if (!isDone && hasInit)
+        if (hasInit && !isDone)
         {
             drop.PlayUnFinishEffect();
         }
@@ -332,8 +315,8 @@ public class CauldronState : MonoBehaviour
 
         // liquid
 
-        if (liquidPlane)
-            liquidPlane.GetComponent<ChangePotionColor>().ChangeColor("blue");
+        if (liquidPlaneChangePotionColor)
+            liquidPlaneChangePotionColor.ChangeColor("blue");
 
         // slots ingredients
         foreach (Image slot in canvasImageSlots)
@@ -344,6 +327,7 @@ public class CauldronState : MonoBehaviour
                 slot.gameObject.SetActive(false);
             }
         }
+
         foreach (GameObject slot in canvasImageSlotsBackgrounds)
         {
             if (slot != null)
