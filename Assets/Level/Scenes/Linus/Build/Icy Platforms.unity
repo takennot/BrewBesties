@@ -3364,6 +3364,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6995113497440916804, guid: 66b67cb26fcb518478f05288dc7c0ee5,
+        type: 3}
+      propertyPath: maxWorkProcess
+      value: 1.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7482042777494617750, guid: 66b67cb26fcb518478f05288dc7c0ee5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8816,6 +8821,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Workstation
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995113497440916804, guid: 66b67cb26fcb518478f05288dc7c0ee5,
+        type: 3}
+      propertyPath: maxWorkProcess
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 7482042777494617750, guid: 66b67cb26fcb518478f05288dc7c0ee5,
         type: 3}
@@ -24719,6 +24729,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Workstation
       objectReference: {fileID: 0}
+    - target: {fileID: 6995113497440916804, guid: 66b67cb26fcb518478f05288dc7c0ee5,
+        type: 3}
+      propertyPath: maxWorkProcess
+      value: 1.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7482042777494617750, guid: 66b67cb26fcb518478f05288dc7c0ee5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25776,7 +25791,7 @@ PrefabInstance:
     - target: {fileID: 1095710555383612909, guid: c23d035cf2859b84abb5c2a6e72f572e,
         type: 3}
       propertyPath: acceleration
-      value: 2.2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1095710555383612909, guid: c23d035cf2859b84abb5c2a6e72f572e,
         type: 3}
@@ -28115,7 +28130,7 @@ MonoBehaviour:
   platform2: {fileID: 1111324973}
   moveDistance: 3.25
   moveDuration: 5
-  delayBetweenMovements: 34
+  delayBetweenMovements: 37
   startShakeSecondsBeforeMoving: 6
   maxShakeIntensity: 10
   shakeSpeed: 10
@@ -37123,6 +37138,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Workstation
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995113497440916804, guid: 66b67cb26fcb518478f05288dc7c0ee5,
+        type: 3}
+      propertyPath: maxWorkProcess
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 7482042777494617750, guid: 66b67cb26fcb518478f05288dc7c0ee5,
         type: 3}
@@ -53638,6 +53658,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 319255736616566956, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 32.25
+      objectReference: {fileID: 0}
     - target: {fileID: 400741839181387648, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -53720,7 +53745,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3090911388964639661, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090911388964639661, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090911388964639661, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3422504555592173247, guid: fddbb2baf89de074aae19a15bd4c93de,
@@ -53752,6 +53787,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423230561705697035, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423230561705697035, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
