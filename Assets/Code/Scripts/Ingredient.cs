@@ -33,9 +33,11 @@ public class Ingredient : MonoBehaviour
     {
         if (isMagic)
         {
+            Debug.Log(magicalPotionColor);
             return magicalPotionColor;
         }
 
+        Debug.Log(neutralPotionColor);
         return neutralPotionColor;
     }
 
