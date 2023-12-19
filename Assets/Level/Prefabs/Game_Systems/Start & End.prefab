@@ -942,7 +942,6 @@ MonoBehaviour:
   nextLevelText: {fileID: 9090400184589876440}
   countdownCanvas: {fileID: 8610066418371340518}
   wipeAnimation: {fileID: 4769547399082084995}
-  animWipe: {fileID: 0}
   circleTransition: {fileID: 3803019194604411598}
   timerLevel: {fileID: 7239122137385727066}
   goal: {fileID: 0}
@@ -3114,6 +3113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas Circle Transition
+      objectReference: {fileID: 0}
+    - target: {fileID: 4647463418207754453, guid: ab3236e3d93259a4aac7a6c215ecadd5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5985775054462885350, guid: ab3236e3d93259a4aac7a6c215ecadd5,
         type: 3}

@@ -51,21 +51,23 @@ public class ChangePotionColor : MonoBehaviour
     Color yellowRippleColor;
     */
 
-    public Material materialToChange; 
+    public Material materialToChange;
+    public MeshRenderer meshRenderer;
 
-    string rippelColorString = "_RippelColor";
-    string baseColorString = "_BaseColor";
-    ColorHandeler ch;
+    private string rippelColorString = "_RippelColor";
+    private string baseColorString = "_BaseColor";
+
+    public ColorHandeler colorHandler;
 
     // liquidPlane.GetComponent<ChangePotionColor>().changeColor("red");
     void Start()
     {
 
-        var renderer = GetComponent<MeshRenderer>();
-        materialToChange = Instantiate(renderer.sharedMaterial);
-        renderer.material = materialToChange;
+        //renderer = GetComponent<MeshRenderer>();
+        //materialToChange = Instantiate(GetComponent<Renderer>().sharedMaterial);
+        //GetComponent<Renderer>().material = materialToChange;
 
-      ch = FindObjectOfType<ColorHandeler>();
+        //colorHandler = FindObjectOfType<ColorHandeler>();
 
         /*
         // set color: base, ripple
@@ -82,18 +84,23 @@ public class ChangePotionColor : MonoBehaviour
 
 
     }
+
     private void OnDestroy()
     {
-        if (materialToChange != null)
-        {
-            Destroy(materialToChange);
-        }
+        //if (materialToChange != null)
+        //{
+        //    Destroy(materialToChange);
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(meshRenderer.material == null)
+        {
+            meshRenderer.material = materialToChange;
+        }
+
         if (testColors)
         {
             materialToChange.SetColor(baseColorString, testbase);
@@ -112,8 +119,8 @@ public class ChangePotionColor : MonoBehaviour
 
     public void ChangeColor(string color)
     {  
-        UnityEngine.Color baseColor = ch.GetColor(color)[0];
-        UnityEngine.Color rippel = ch.GetColor(color)[1];
+        UnityEngine.Color baseColor = colorHandler.GetColor(color)[0];
+        UnityEngine.Color rippel = colorHandler.GetColor(color)[1];
         materialToChange.SetColor(baseColorString, baseColor);
         materialToChange.SetColor(rippelColorString, rippel);
     }
@@ -181,7 +188,7 @@ public class ChangePotionColor : MonoBehaviour
                     break;
                 
                 default:
-                    Debug.Log("hittade inte färgen");
+                    Debug.Log("hittade inte fï¿½rgen");
                     break;
 
             }
