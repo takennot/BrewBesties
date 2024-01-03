@@ -128,6 +128,21 @@ PrefabInstance:
       propertyPath: m_ExcludeLayers.m_Bits
       value: 960
       objectReference: {fileID: 0}
+    - target: {fileID: 7657140018992972352, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657140018992972352, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[0]
+      value: 
+      objectReference: {fileID: 5157437539873409165}
+    - target: {fileID: 7657140018992972352, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[1]
+      value: 
+      objectReference: {fileID: 6879892727506573425}
     m_RemovedComponents:
     - {fileID: 782253077141759501, guid: 8cd695656cc326648a7e1d759180a6ff, type: 3}
     - {fileID: 2065683645990417225, guid: 8cd695656cc326648a7e1d759180a6ff, type: 3}
@@ -197,6 +212,12 @@ MonoBehaviour:
   magiMushroomMaterial: {fileID: 2100000, guid: 502c34c0adce3ee498463ca7f1be995a,
     type: 2}
   magiEyeMaterial: {fileID: 2100000, guid: 77bfe08f4d04bd245b514a7854a0b576, type: 2}
+--- !u!1 &5157437539873409165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 23325439658203074, guid: 8cd695656cc326648a7e1d759180a6ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 5170194233212395343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6879892727506573425 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1781861668296804158, guid: 8cd695656cc326648a7e1d759180a6ff,

@@ -23,6 +23,9 @@ public class Item : MonoBehaviour
 
     public PlayerScript lastHeldPlayer;
 
+    [SerializeField] private GameObject[] gameObjectsToRenderOnPortrait; //For playerPortraits
+    Dictionary<PlayerScript.PlayerType, string> playerLayerMap;
+
     private void Awake()
     {
         originalRotation = transform.rotation;
@@ -38,6 +41,19 @@ public class Item : MonoBehaviour
         {
             //ingredientType = resourceEnumHandler.GetIngredientFromResource(itemType);
         }
+   
+        if(gameObjectsToRenderOnPortrait.Length == 0) { Debug.LogWarning("No gameObjects set as gameObjectsToRenderOnPortrait in " + gameObject.name); }
+
+        // Create a dictionary to map player types to layer names
+        playerLayerMap = new Dictionary<PlayerScript.PlayerType, string>()
+        {
+            {PlayerScript.PlayerType.PlayerOne, "Player1Render"},
+            {PlayerScript.PlayerType.PlayerTwo, "Player2Render"},
+            {PlayerScript.PlayerType.PlayerThree, "Player3Render"},
+            {PlayerScript.PlayerType.PlayerFour, "Player4Render"},
+        };
+
+
     }
     public Item(bool isPickedUp, bool isProcessed)
     {
@@ -58,14 +74,30 @@ public class Item : MonoBehaviour
         if (itemState == ItemStateMachine.ItemState.IsBeingHeld)
         {
             gameObject.layer = 2;
+
+            if (playerLayerMap.ContainsKey(lastHeldPlayer.playerType))
+            {
+                foreach (GameObject obj in gameObjectsToRenderOnPortrait) { 
+                    obj.layer = LayerMask.NameToLayer(playerLayerMap[lastHeldPlayer.playerType]);
+                }
+            }
+
         }
         else if(itemState == ItemStateMachine.ItemState.IsBeingDragged || itemState == ItemStateMachine.ItemState.IsBeingThrown)
         {
             gameObject.layer = LayerMask.NameToLayer("IngredientThrown");
+            foreach (GameObject obj in gameObjectsToRenderOnPortrait)
+            {
+                obj.layer = 0;
+            }
         }
         else
         {
             gameObject.layer = 6;
+            foreach (GameObject obj in gameObjectsToRenderOnPortrait)
+            {
+                obj.layer = 0;
+            }
         }
     }
 

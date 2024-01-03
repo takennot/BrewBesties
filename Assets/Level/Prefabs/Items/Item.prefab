@@ -107,6 +107,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  renderers: []
   showPlayerOutline: 0
   showManualOutline: 0
 --- !u!114 &1787271897179868991
@@ -183,6 +184,9 @@ MonoBehaviour:
     m_Bits: 64
   poofVFX: {fileID: 23325439658203074}
   lastHeldPlayer: {fileID: 0}
+  gameObjectsToRenderOnPortrait:
+  - {fileID: 1781861668296804158}
+  - {fileID: 23325439658203074}
 --- !u!114 &149626803961213159
 MonoBehaviour:
   m_ObjectHideFlags: 0
