@@ -884,6 +884,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3777503290354607402, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.033
+      objectReference: {fileID: 0}
     - target: {fileID: 4029703704523514719, guid: 12919e49d6375584ead290d43d448c33,
         type: 3}
       propertyPath: givesBoost
@@ -954,7 +959,7 @@ PrefabInstance:
     - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.32
+      value: -0.27
       objectReference: {fileID: 0}
     - target: {fileID: 7053476682815966616, guid: 12919e49d6375584ead290d43d448c33,
         type: 3}
@@ -8834,7 +8839,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.8379568, b: 0, a: 1}
   m_Intensity: 30
-  m_Range: 10
+  m_Range: 8
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
