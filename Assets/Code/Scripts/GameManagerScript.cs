@@ -61,7 +61,7 @@ public class GameManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("GarbageCheck", 5.0f, 0.5f);
+        InvokeRepeating("GarbageCheck", 5.0f, 0.1f);
 
     }
 
@@ -364,8 +364,7 @@ public class GameManagerScript : MonoBehaviour
 
     /// <summary>
     /// Checks for ingredients, bottles and wood logs.
-    /// Whenever there are more than 15 ingredients, or
-    /// 10 bottles, or 10 logs.
+    /// Whenever there are more than X amount of ingredients/bottles/logs.
     /// It will remove one of items.
     /// </summary>
     void GarbageCheck()
