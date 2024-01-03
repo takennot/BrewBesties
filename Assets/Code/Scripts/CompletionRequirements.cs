@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,20 @@ public static class CompletionRequirements
     public static List<int> movingFieldRequirements = new List<int>(new int[] { 435, 770, 925 });
     public static List<int> icyPlatformsRequirements = new List<int>(new int[] { 270, 490, 665 }); 
     public static List<int> rotatinatorRequirements = new List<int>(new int[] { 300, 450, 600 });
+
+
+    public enum RequirementsForLevels
+    {
+        TutorialOne,
+        GetAGrip,
+        Completionist,
+        TutorialTwo,
+        ThreeIslands,
+        GhostHouse,
+        MovingField,
+        IcyPlatforms,
+        Rotatinator
+    }
 
     //Defualt
     public static List<int> defaultRequirements = new List<int>(new int[] { 300, 600, 900 });
@@ -62,6 +77,44 @@ public static class CompletionRequirements
             //Unused
             case "plate magic":
                 return plateMagicRequirements;
+
+            default:
+                return defaultRequirements;
+        }
+    }
+    public static List<int> GetLevelRequirements(RequirementsForLevels levelEnum)
+    {
+        switch (levelEnum)
+        {
+            //bunch 1
+            case RequirementsForLevels.TutorialOne:
+                return tutorialRequirements;
+
+            case RequirementsForLevels.GetAGrip:
+                return getAGripRequirements;
+
+            case RequirementsForLevels.Completionist:
+                return completionistRequirements;
+
+            //bunch 2
+            case RequirementsForLevels.TutorialTwo:
+                return tutorial2Requirements;
+
+            case RequirementsForLevels.ThreeIslands:
+                return threeIslandsRequirements;
+
+            case RequirementsForLevels.GhostHouse:
+                return ghostHouseRequirements;
+
+            //bunch 3
+            case RequirementsForLevels.MovingField:
+                return movingFieldRequirements;
+
+            case RequirementsForLevels.IcyPlatforms:
+                return icyPlatformsRequirements;
+
+            case RequirementsForLevels.Rotatinator:
+                return rotatinatorRequirements;
 
             default:
                 return defaultRequirements;
