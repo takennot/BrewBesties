@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028477, g: 0.22571571, b: 0.30692372, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028447, g: 0.22571531, b: 0.30692312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2194,7 +2194,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: afc122ebee52a524293e1c102a8764a4, type: 2}
+      objectReference: {fileID: 2100000, guid: ce4ab06ac5fd7c448b8d4aec07dfcb85, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21483,7 +21483,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: afc122ebee52a524293e1c102a8764a4, type: 2}
+      objectReference: {fileID: 2100000, guid: ce4ab06ac5fd7c448b8d4aec07dfcb85, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28131,10 +28131,10 @@ MonoBehaviour:
   moveDistance: 3.25
   moveDuration: 5
   delayBetweenMovements: 37
-  startShakeSecondsBeforeMoving: 6
+  startShakeSecondsBeforeMoving: 7.5
   maxShakeIntensity: 10
-  shakeSpeed: 10
-  shakeDuration: 1
+  shakeSpeed: 13
+  shakeDuration: 2
   intensityRampUp: 0.8
 --- !u!1001 &1090692093
 PrefabInstance:
@@ -53772,6 +53772,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932223751776535847, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.4
       objectReference: {fileID: 0}
     - target: {fileID: 4164814149406841599, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
