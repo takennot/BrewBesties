@@ -54,6 +54,8 @@ public class ColorHandeler : MonoBehaviour
 
     public Color[] GetColor(string color)
     {
+        Debug.Log("Color: " + color);
+
         Color baseC = greenbaseColor;
         Color rippelC = greenRippleColor;
 
