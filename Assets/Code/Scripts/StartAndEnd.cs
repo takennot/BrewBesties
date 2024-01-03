@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SocialPlatforms.Impl;
 using System.ComponentModel;
+using System.Collections.Generic;
 //using static System.Net.Mime.MediaTypeNames;
 
 public class StartAndEnd : MonoBehaviour 
@@ -50,9 +51,10 @@ public class StartAndEnd : MonoBehaviour
 
     [Header("Win conditions")]
 
-    [SerializeField] private int pointsOneStar = 300;
-    [SerializeField] private int pointsTwoStar = 450;
-    [SerializeField] private int pointsThreeStar = 600;
+    [SerializeField] private CompletionRequirements.RequirementsForLevels winConditions;
+    private int pointsOneStar;
+    private int pointsTwoStar;
+    private int pointsThreeStar;
 
     [Header("StarsPanelStuff")]
     [SerializeField] private GameObject starPanel;
@@ -78,6 +80,9 @@ public class StartAndEnd : MonoBehaviour
 
     private void Start() 
     {
+        pointsOneStar = CompletionRequirements.GetLevelRequirements(winConditions)[0];
+        pointsTwoStar = CompletionRequirements.GetLevelRequirements(winConditions)[1];
+        pointsThreeStar = CompletionRequirements.GetLevelRequirements(winConditions)[2];
         players = GameObject.FindGameObjectsWithTag("Player");
 
         //goal = GameObject.Find("Goal").GetComponent<Goal>();
