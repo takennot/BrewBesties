@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PortalMaterial
+  m_Name: PortalMaterial_basic
   m_Shader: {fileID: -6465566751694194690, guid: d1458341b5fbe1a4da3364be0de8a716,
     type: 3}
   m_Parent: {fileID: -876546973899608171, guid: d1458341b5fbe1a4da3364be0de8a716,
@@ -44,17 +44,14 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _Mode: 0
-    - _Power: 2.72
+    - _Power: 2.75
     - _QueueControl: 0
     - _SrcBlend: 1
     - _ZWrite: 1
     m_Colors:
-    - _Center: {r: 0.44, g: 0.5, b: 0, a: 0}
-    - _Color: {r: 7.906699, g: 2.4009871, b: 0, a: 0}
+    - _Color: {r: 3.9533496, g: 1.2004936, b: 0, a: 0}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Offsett: {r: 0, g: 0, b: 0, a: 0}
-    - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8314687764486170701
 MonoBehaviour:
