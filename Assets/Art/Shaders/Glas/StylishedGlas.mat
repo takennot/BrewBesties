@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LiquiedShaderBase
-  m_Shader: {fileID: -6465566751694194690, guid: 5e3a47f989b66184e9e5ef27f6c2678d,
+  m_Name: StylishedGlas
+  m_Shader: {fileID: -6465566751694194690, guid: aa70d9791ed1c604ab78a5795b60d657,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,14 +24,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 47e310a5578180a4ebd6b2b6a00fdc84, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_5f14d5312b524a19a5dcbe813d16a329_Texture_1_Texture2D:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,25 +38,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_18854F8C: 0
+    - Vector1_28BC39B5: 0.35
+    - Vector1_40385CE1: 0.95
+    - Vector1_48BDE471: 1
+    - Vector1_66425DE2: 1
+    - Vector1_7C2E78E4: 0.703
+    - Vector1_A0DB3845: 0.75
+    - Vector1_F1294C90: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RimPower: 2.17
-    - _RippelColorIntensety: 3.4
-    - _RippelContrast: 1.66
-    - _RippelDissolve: 2.81
-    - _RippelScale: 3.36
-    - _RippelSpeed: 1.77
-    - _WobbleX: 3.586543e-18
-    - _WobbleZ: 3.586543e-18
     m_Colors:
-    - _BaseColor: {r: 0.764151, g: 0.21987355, b: 0.21987355, a: 0.5176471}
-    - _FillAmount: {r: 0, g: -0.3, b: 0, a: 0}
-    - _RimColor: {r: 1, g: 0.74664915, b: 0, a: 0.5882353}
-    - _RippelColor: {r: 1, g: 0.70173734, b: 0, a: 0.56078434}
-    - _Tint: {r: 0.7665372, g: 1, b: 0.30588233, a: 1}
-    - _TopColor: {r: 0, g: 0.43538427, b: 1, a: 1}
+    - Color_9B881ED6: {r: 1, g: 1, b: 1, a: 1}
+    - Color_BED8F987: {r: 1, g: 1, b: 1, a: 1}
+    - Color_CA4EAD0D: {r: 1, g: 1, b: 1, a: 1}
+    - Color_E9CFA916: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0.1647059}
   m_BuildTextureStacks: []
---- !u!114 &2206688495015150537
+--- !u!114 &6514821588576954216
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
