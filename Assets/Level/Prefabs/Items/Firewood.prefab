@@ -218,6 +218,21 @@ PrefabInstance:
       propertyPath: itemType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7657140018992972352, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657140018992972352, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[0]
+      value: 
+      objectReference: {fileID: 8010471974660330646}
+    - target: {fileID: 7657140018992972352, guid: 8cd695656cc326648a7e1d759180a6ff,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[1]
+      value: 
+      objectReference: {fileID: 8629537024415630442}
     - target: {fileID: 8392441008924837798, guid: 8cd695656cc326648a7e1d759180a6ff,
         type: 3}
       propertyPath: m_Mesh
@@ -254,6 +269,18 @@ MonoBehaviour:
 --- !u!23 &6041500335309885130 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2614094277736799586, guid: 8cd695656cc326648a7e1d759180a6ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8615553689491248040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8010471974660330646 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1781861668296804158, guid: 8cd695656cc326648a7e1d759180a6ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8615553689491248040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8629537024415630442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 23325439658203074, guid: 8cd695656cc326648a7e1d759180a6ff,
     type: 3}
   m_PrefabInstance: {fileID: 8615553689491248040}
   m_PrefabAsset: {fileID: 0}

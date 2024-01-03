@@ -63,13 +63,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1248974344624981352, guid: 9f5d2e14e9a09e343a37515016090434,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.339
+      objectReference: {fileID: 0}
     - target: {fileID: 5459786247299291811, guid: 9f5d2e14e9a09e343a37515016090434,
         type: 3}
       propertyPath: m_Name
-      value: Mushroom_Ingredient Variant
+      value: (Tutorial) Mushroom No Gravity
       objectReference: {fileID: 0}
+    - target: {fileID: 7842048650508035937, guid: 9f5d2e14e9a09e343a37515016090434,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842048650508035937, guid: 9f5d2e14e9a09e343a37515016090434,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[0]
+      value: 
+      objectReference: {fileID: 1083276505766072240}
+    - target: {fileID: 7842048650508035937, guid: 9f5d2e14e9a09e343a37515016090434,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[1]
+      value: 
+      objectReference: {fileID: 2109260509796689279}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d2e14e9a09e343a37515016090434, type: 3}
+--- !u!1 &1083276505766072240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 488064041115415267, guid: 9f5d2e14e9a09e343a37515016090434,
+    type: 3}
+  m_PrefabInstance: {fileID: 706328016693099859}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2109260509796689279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1479706070780024876, guid: 9f5d2e14e9a09e343a37515016090434,
+    type: 3}
+  m_PrefabInstance: {fileID: 706328016693099859}
+  m_PrefabAsset: {fileID: 0}
