@@ -4566,6 +4566,21 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: twoPlayersMultiplier
+      value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: fourPlayersMultiplier
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: threePlayersMultiplier
+      value: 0.95
+      objectReference: {fileID: 0}
     - target: {fileID: 5465763363952545004, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4605,6 +4620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pointsTwoStar
       value: 770
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002293728411095164, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: winConditions
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7002293728411095164, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
@@ -6337,8 +6357,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.8349056, b: 0.8349056, a: 1}
-      maxColor: {r: 1, g: 0.6462264, b: 0.7478855, a: 1}
+      minColor: {r: 0.78823537, g: 0.24705884, b: 0.5294118, a: 1}
+      maxColor: {r: 0.9294118, g: 0.63529414, b: 0.6901961, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19108,7 +19128,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -22323,7 +22343,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -27065,6 +27085,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081851368742887903, guid: 12919e49d6375584ead290d43d448c33,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5081851368742887903, guid: 12919e49d6375584ead290d43d448c33,
         type: 3}
@@ -34313,8 +34338,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.8349056, b: 0.8349056, a: 1}
-      maxColor: {r: 1, g: 0.6462264, b: 0.7478855, a: 1}
+      minColor: {r: 0.78823537, g: 0.24705884, b: 0.5294118, a: 1}
+      maxColor: {r: 0.9294118, g: 0.63529414, b: 0.6901961, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -42805,32 +42830,32 @@ PrefabInstance:
     - target: {fileID: 533749133949853786, guid: 00ab6dda58e96f644b2d691ce240bc05,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.7478855
+      value: 0.6901961
       objectReference: {fileID: 0}
     - target: {fileID: 533749133949853786, guid: 00ab6dda58e96f644b2d691ce240bc05,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.6462264
+      value: 0.63529414
       objectReference: {fileID: 0}
     - target: {fileID: 533749133949853786, guid: 00ab6dda58e96f644b2d691ce240bc05,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
+      value: 0.9294118
       objectReference: {fileID: 0}
     - target: {fileID: 533749133949853786, guid: 00ab6dda58e96f644b2d691ce240bc05,
         type: 3}
       propertyPath: InitialModule.startColor.minColor.b
-      value: 0.8349056
+      value: 0.5294118
       objectReference: {fileID: 0}
     - target: {fileID: 533749133949853786, guid: 00ab6dda58e96f644b2d691ce240bc05,
         type: 3}
       propertyPath: InitialModule.startColor.minColor.g
-      value: 0.8349056
+      value: 0.24705884
       objectReference: {fileID: 0}
     - target: {fileID: 533749133949853786, guid: 00ab6dda58e96f644b2d691ce240bc05,
         type: 3}
       propertyPath: InitialModule.startColor.minColor.r
-      value: 1
+      value: 0.78823537
       objectReference: {fileID: 0}
     - target: {fileID: 533749133949853786, guid: 00ab6dda58e96f644b2d691ce240bc05,
         type: 3}
