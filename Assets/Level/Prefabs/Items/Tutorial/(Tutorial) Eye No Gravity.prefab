@@ -63,13 +63,40 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5088435658585023538, guid: bc3ade5fcdd9df349956a3e01c3d8da2,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088435658585023538, guid: bc3ade5fcdd9df349956a3e01c3d8da2,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[0]
+      value: 
+      objectReference: {fileID: 2058461646753938140}
+    - target: {fileID: 5088435658585023538, guid: bc3ade5fcdd9df349956a3e01c3d8da2,
+        type: 3}
+      propertyPath: gameObjectsToRenderOnPortrait.Array.data[1]
+      value: 
+      objectReference: {fileID: 2913812828063691047}
     - target: {fileID: 7029066087286086128, guid: bc3ade5fcdd9df349956a3e01c3d8da2,
         type: 3}
       propertyPath: m_Name
-      value: Eye_Ingredient (3) Variant
+      value: (Tutorial) Eye No Gravity
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3ade5fcdd9df349956a3e01c3d8da2, type: 3}
+--- !u!1 &2058461646753938140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3210151051817365936, guid: bc3ade5fcdd9df349956a3e01c3d8da2,
+    type: 3}
+  m_PrefabInstance: {fileID: 3467103938948565868}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2913812828063691047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1761560553585998411, guid: bc3ade5fcdd9df349956a3e01c3d8da2,
+    type: 3}
+  m_PrefabInstance: {fileID: 3467103938948565868}
+  m_PrefabAsset: {fileID: 0}
