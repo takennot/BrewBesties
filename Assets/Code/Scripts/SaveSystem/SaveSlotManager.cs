@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,19 +70,27 @@ public class SaveSlotManager : MonoBehaviour
 
     public string GetLastCompletedLevelName(Dictionary<string, int> highscores)
     {
+        // go through every scene backwards
         for (int i = SceneManager.sceneCountInBuildSettings -2; i > 1; i--)
         {
-            Debug.Log("DEBUGGG" + i);
             string key = saveSlotSelectionManager.allSceneNames[i];
-            Debug.Log(key);
             if (key != null)
             {
-                if (highscores.ContainsKey(saveSlotSelectionManager.allSceneNames[i]))
+                // key exists highscores
+                if (highscores.ContainsKey(key))
                 {
-                    return saveSlotSelectionManager.allSceneNames[i];
+                    int savedHighscore = 0;
+                    if (highscores.TryGetValue(key, out savedHighscore))
+                    {
+                        if(savedHighscore >= CompletionRequirements.GetLevelRequirements(key)[0])
+                        {
+                            return key;
+                        }
+                    }
                 }
             }
         }
+        // return null if didnt return key in for loop
         return null;
     }
 
