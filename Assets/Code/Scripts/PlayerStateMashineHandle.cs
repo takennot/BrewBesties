@@ -18,9 +18,9 @@ public static class PlayerStateMashineHandle
     
     public enum HoldingState
     {
-        HoldingNothing,
-        HoldingItem,
-        HoldingPlayer
+        HoldingNothing, //A
+        HoldingItem, //B
+        HoldingPlayer //C
     }
 
 }
