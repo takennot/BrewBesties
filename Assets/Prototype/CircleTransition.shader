@@ -69,19 +69,35 @@ Shader "Custom/CircleTransition"
                 }
             }
 
-            fixed4 frag(v2f i) : SV_Target
-            {
-                // Now we draw a circle
-                float2 center = float2(_CenterX, _CenterY);
-                float smoothValue = 0.001f;
-                float outputAlpha = 0;
-                drawCircle(i.uv, center, _Radius, smoothValue, outputAlpha);
-                
-                // It's work but it not circle
-                // Because the Black Screen Image is not fully square
-                
-                return fixed4(_Color.rgb, 1 - outputAlpha);
-            }
+fixed4 frag(v2f i) : SV_Target
+{
+    float2 center = float2(_CenterX, _CenterY);
+    float smoothValue = 0.001f;
+
+    // Calculate distance from the center
+    float sqrDistance = pow(i.uv.x - center.x, 2) + pow(i.uv.y - center.y, 2);
+    float sqrRadius = pow(_Radius, 2);
+
+    // Inside the circle, make it fully transparent
+    if (sqrDistance < sqrRadius)
+    {
+        return fixed4(0.0, 0.0, 0.0, 0.0);
+    }
+    else
+    {
+        // Calculate alpha based on the distance from the circle's edge
+        float alpha = smoothstep(sqrRadius, sqrRadius + smoothValue, sqrDistance);
+
+        // Adjust the alpha to maintain partial transparency outside the circle
+        fixed4 finalColor = _Color;
+        finalColor.a *= alpha;
+
+        return finalColor;
+    }
+}
+
+
+
             ENDCG
         }
     }
