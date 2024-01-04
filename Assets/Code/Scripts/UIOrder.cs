@@ -87,9 +87,9 @@ public class UIOrder : MonoBehaviour
         if(animator.GetBool("Show") != showPaper)
         {
             if (showPaper)
-                audioSource.pitch = 1;
+                audioSource.pitch = 1.1f;
             else
-                audioSource.pitch = 0.8f;
+                audioSource.pitch = 0.9f;
 
             audioSource.PlayOneShot(swooshClip);
         }
