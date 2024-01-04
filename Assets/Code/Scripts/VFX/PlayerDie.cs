@@ -7,16 +7,21 @@ public class PlayerDie : MonoBehaviour
 {
     [SerializeField] GameObject[] deathEffects;
     bool playOnce = true;
-    PlayerScript playersScript;
+    PlayerScript playersScript = null;
 
     // Start is called before the first frame update
 
     private void Update()
     {
-        if (playersScript.GetPlayerState() == PlayerState.Dead)
+        if(playersScript != null)
         {
-            playOnce = true;
+            if (playersScript.GetPlayerState() == PlayerState.Dead)
+            {
+                playOnce = true;
+                playersScript = null;
+            }
         }
+       
 
 
     }
