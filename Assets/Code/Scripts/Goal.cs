@@ -192,6 +192,7 @@ public class Goal : MonoBehaviour, GoalInterface
         }
         if (!activated) return;
 
+        // Start of buggfixing
         if (counter.storedItem != null) {
 
             if(counter.storedItem.GetComponent<Bottle>())
@@ -250,18 +251,22 @@ public class Goal : MonoBehaviour, GoalInterface
                             switch (satisfiedCustomer)
                             {
                                 case 1:
+                                    Debug.Log("serve first customer");
                                     ServeCustomer(customer1);
 
                                     break;
                                 case 2:
+                                    Debug.Log("serve second customer");
                                     ServeCustomer(customer2);
 
                                     break;
                                 case 3:
+                                    Debug.Log("serve third customer");
                                     ServeCustomer(customer3);
 
                                     break;
                                 default:
+                                    Debug.Log("serve no one");
                                     break;
                             }
                         }
@@ -479,7 +484,7 @@ public class Goal : MonoBehaviour, GoalInterface
             //popUpManager.SpawnPopUp(cam, this.transform, "" + customerLeavesPenalty, Color.red);
         }
 
-        customer1 = null;
+        //customer1 = null;
 
         if (customer == customer1)
             customer1 = null;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028447, g: 0.22571531, b: 0.30692312, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028477, g: 0.22571571, b: 0.30692372, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -53820,6 +53820,16 @@ PrefabInstance:
       objectReference: {fileID: 587170954}
     - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
         type: 3}
+      propertyPath: seat1
+      value: 
+      objectReference: {fileID: 2033074448}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
+      propertyPath: seat3
+      value: 
+      objectReference: {fileID: 2033074447}
+    - target: {fileID: 4960826395998521225, guid: fddbb2baf89de074aae19a15bd4c93de,
+        type: 3}
       propertyPath: eyeAllowed
       value: 0
       objectReference: {fileID: 0}
@@ -54155,6 +54165,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1090340379}
   m_SourcePrefab: {fileID: 100100000, guid: fddbb2baf89de074aae19a15bd4c93de, type: 3}
+--- !u!4 &2033074447 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7492783910611206318, guid: fddbb2baf89de074aae19a15bd4c93de,
+    type: 3}
+  m_PrefabInstance: {fileID: 2033074446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2033074448 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7958414452590229769, guid: fddbb2baf89de074aae19a15bd4c93de,
+    type: 3}
+  m_PrefabInstance: {fileID: 2033074446}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2033074450 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7846096585859954009, guid: fddbb2baf89de074aae19a15bd4c93de,

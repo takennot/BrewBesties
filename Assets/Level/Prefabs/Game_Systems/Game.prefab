@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableLevelCheats: 1
+  startAndEnd: {fileID: 0}
 --- !u!114 &1546152740410304212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,7 +436,7 @@ GameObject:
   - component: {fileID: 187089439207745042}
   - component: {fileID: 4641212212513107149}
   m_Layer: 5
-  m_Name: Text Count
+  m_Name: Text Count Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -490,8 +491,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Score: 0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dcaf3bbc1a8e34946aa9368602694396, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: dcaf3bbc1a8e34946aa9368602694396, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1354,7 +1355,17 @@ PrefabInstance:
       objectReference: {fileID: 46890534464639424}
     - target: {fileID: 4960814046170822282, guid: e8a987055069f8b4f8b3a7f077722b2a,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960814046170822282, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960814046170822282, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5190606672428112027, guid: e8a987055069f8b4f8b3a7f077722b2a,
@@ -1376,6 +1387,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007587901731994156, guid: e8a987055069f8b4f8b3a7f077722b2a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6007587901731994156, guid: e8a987055069f8b4f8b3a7f077722b2a,
         type: 3}
