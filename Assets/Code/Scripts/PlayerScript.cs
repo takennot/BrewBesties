@@ -169,6 +169,8 @@ public class PlayerScript : MonoBehaviour
     GameObject lineEffekt;
     [SerializeField] GameObject dragStart;
     [SerializeField] GameObject[] dragObejct;
+    private UnityEngine.Color walkVFXOrgColor;
+    private float walkVFXSize;
 
     // Start is called before the first frame update
     void Start()
@@ -443,9 +445,11 @@ public class PlayerScript : MonoBehaviour
                 if (playerState == PlayerState.Emoting)
                     playerState = PlayerState.None;
 
+
+                // vanliga är 0.8)
                 if (onlyPlayVFX)
                 {
-                    StartCoroutine(PlayWalkingPoof());
+                    StartCoroutine(PlayWalkingPoof(0.3f));
                 }
             }
             else
@@ -465,7 +469,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (onlyPlayVFX)
                 {
-                    StartCoroutine(PlayWalkingPoof());
+                    StartCoroutine(PlayWalkingPoof(0.3f));
                 }
 
             }
@@ -510,14 +514,25 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayWalkingPoof()
+    private IEnumerator PlayWalkingPoof(float time)
     {
         onlyPlayVFX = false;
-        yield return new WaitForSeconds(0.3f);
+       
+       
+        yield return new WaitForSeconds(time);
+        
         walkVFX.GetComponent<ParticleSystem>().Play();
         onlyPlayVFX = true;
         yield break;
     }
+    /*
+    void getWalkingFXStartVariabelse()
+    {
+        ParticleSystem ps = walkVFX.GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = ps.main;
+        walkVFXOrgColor = main.startColor;
+        walkVFXSize = main.startSize;
+    }*/
 
     private void FixedUpdate()
     {
