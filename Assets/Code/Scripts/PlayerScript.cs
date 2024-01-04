@@ -76,7 +76,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Animator animatorPlayer;
 
     // --------------------------------------------------------------
-    private PlayerAudio audio;
+    private PlayerAudio playerAudio;
 
     private bool isInitialized = false;
 
@@ -204,7 +204,7 @@ public class PlayerScript : MonoBehaviour
         holdingState = PlayerStateMashineHandle.HoldingState.HoldingNothing;
 
         gamepad = Gamepad.current;
-        audio = GetComponent<PlayerAudio>();
+        playerAudio = GetComponent<PlayerAudio>();
         GetComponent<Rigidbody>().drag = 1;
 
         // Get colors
@@ -424,7 +424,7 @@ public class PlayerScript : MonoBehaviour
 
         if (playerState == PlayerState.Dead)
         {
-            audio.PlayFootstep(false);
+            playerAudio.PlayFootstep(false);
             return;
         }
 
@@ -483,10 +483,10 @@ public class PlayerScript : MonoBehaviour
 
         if (Mathf.Abs(targetHorizontalInput) > 0.4f || Mathf.Abs(targetVerticalInput) > 0.4f)
         {
-            audio.PlayFootstep(true);
+            playerAudio.PlayFootstep(true);
         } else
         {
-            audio.PlayFootstep(false);
+            playerAudio.PlayFootstep(false);
         }
 
         // Rotation
@@ -647,13 +647,24 @@ public class PlayerScript : MonoBehaviour
                 }
                 else if (hitObject.GetComponent<Workstation>())
                 {
-                    
                     Workstation workstation = hitObject.GetComponent<Workstation>();
 
                     workstation.DoWorkProcess(this);
                     currentProcessStation = workstation.gameObject;
                 }
 
+            }
+            else if(hitObject.GetComponent<Workstation>() && holdingState == HoldingState.HoldingItem && objectInHands.GetComponent<Ingredient>() && !objectInHands.GetComponent<Ingredient>().GetIsMagic())
+            {
+                Debug.Log("hit counter, holding");
+                currentCounter = hitObject.GetComponent<CounterState>();
+                PlaceOnCounter();
+
+                //playerState = PlayerState.Interacting;
+                Workstation workstation = hitObject.GetComponent<Workstation>();
+
+                workstation.DoWorkProcess(this);
+                currentProcessStation = workstation.gameObject;
             }
         }
 
@@ -716,8 +727,7 @@ public class PlayerScript : MonoBehaviour
                 else if (hitObject.GetComponent<CounterState>())
                 {
                     //Debug.Log("Hit counter, not holding");
-                    currentCounter = hitObject.GetComponent<CounterState>();
-                    GrabFromCounter();
+                    GrabFromCounter(hitObject.GetComponent<CounterState>());
                 }
                 //player
                 else if (hitObject.GetComponent<PlayerScript>())
@@ -725,7 +735,6 @@ public class PlayerScript : MonoBehaviour
                     //Debug.Log("Try to grab Player");
                     
                     GrabPlayer(hitObject.GetComponent<PlayerScript>());
-
                 }
 
             }
@@ -852,7 +861,7 @@ public class PlayerScript : MonoBehaviour
         objectInHands.transform.position = holdPosition.position;
         objectInHands.GetComponent<Item>().SetIsPickedUp(true);
         objectInHands.GetComponent<Item>().lastHeldPlayer = this;
-        audio.PlayDrop();
+        playerAudio.PlayDrop();
 
     }
 
@@ -874,7 +883,7 @@ public class PlayerScript : MonoBehaviour
 
             objectInHands.GetComponent<PlayerScript>().SetPlayerState(PlayerState.IsBeingHeld);
 
-            audio.PlayGrab();
+            playerAudio.PlayGrab();
         }
     }
 
@@ -898,7 +907,7 @@ public class PlayerScript : MonoBehaviour
             objectInHands.GetComponent<Rigidbody>().isKinematic = false;
 
             holdingState = HoldingState.HoldingNothing;
-            audio.PlayDrop();
+            playerAudio.PlayDrop();
 
             objectInHands = null;
             //Debug.Log("object in hands should be null: " + objectInHands);
@@ -918,7 +927,7 @@ public class PlayerScript : MonoBehaviour
         // if holding true - get holding object reference and set parent to null.
         if (holdingState == HoldingState.HoldingPlayer)
         {
-            audio.PlayDrop();
+            playerAudio.PlayDrop();
 
             if (isThrowing)
             {
@@ -978,7 +987,7 @@ public class PlayerScript : MonoBehaviour
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
 
-                audio.PlayDrag();
+                playerAudio.PlayDrag();
                 CreateDragEffects();
             } 
             else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
@@ -990,7 +999,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = counterState.storedItem;
                     counterState.ReleaseItem(objectDragging);
 
-                    audio.PlayDrag();
+                    playerAudio.PlayDrag();
                     CreateDragEffects();
                 }
             }
@@ -1045,7 +1054,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = null;
                 }
 
-                audio.PlayDrag();
+                playerAudio.PlayDrag();
 
             }
             else if (playerState == PlayerState.Dragging && objectDragging && objectDragging.GetComponent<PlayerScript>())
@@ -1069,7 +1078,7 @@ public class PlayerScript : MonoBehaviour
                     objectDragging = null;
                 }
 
-                audio.PlayDrag();
+                playerAudio.PlayDrag();
             }
             else
             {
@@ -1126,7 +1135,7 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                audio.PlayThrow();
+                playerAudio.PlayThrow();
                 //}
 
                 // HERE
@@ -1142,7 +1151,7 @@ public class PlayerScript : MonoBehaviour
 
                 //if (!source.isPlaying)
                 //{
-                audio.PlayThrow();
+                playerAudio.PlayThrow();
                 //}
 
                 Drop(true);
@@ -1223,7 +1232,7 @@ public class PlayerScript : MonoBehaviour
                     //Debug.Log("FAAAALSEE");
                     objectInHands = null;
                     holdingState = HoldingState.HoldingNothing;
-                    audio.PlayDrop();
+                    playerAudio.PlayDrop();
                 }
 
             }
@@ -1239,14 +1248,15 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void GrabFromCounter()
+    public void GrabFromCounter(CounterState counter)
     {
+        currentCounter = counter;
         // Attempt to pick up an item from the counter
         GameObject pickedUpItem = currentCounter.PickUpItem();
         if (pickedUpItem != null)
         {
             Grab(pickedUpItem.GetComponent<Item>());
-            audio.PlayGrab();
+            playerAudio.PlayGrab();
         }
     }
 
