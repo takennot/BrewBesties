@@ -18,6 +18,7 @@ public class Workstation : MonoBehaviour
     [SerializeField] private Slider magicSlider;
     [SerializeField] private Image magicSliderFillArea;
     [SerializeField] private Transform magicSlider_Pos;
+    private PlayerScript currentPlayerWorking;
 
     public bool doWork = false;
 
@@ -94,12 +95,21 @@ public class Workstation : MonoBehaviour
 
     public void DoWorkProcess(PlayerScript thisPlayer)
     {
+        if(currentPlayerWorking == null)
+        {
+            currentPlayerWorking = thisPlayer;
+        }
 
         doWork = true;
     }
 
     public void StopWorkProcess(PlayerScript thisPlayer)
     {
+        if(currentPlayerWorking != null && currentPlayerWorking == thisPlayer)
+        {
+            currentPlayerWorking = null;
+        }
+
         doWork = false;
         sourceProcess.Pause();
     }
@@ -114,6 +124,10 @@ public class Workstation : MonoBehaviour
         counterState.storedItem.GetComponent<Ingredient>().Magicify();
         ingredientOnStation.GetMagicController().DestoryParticle();
 
+        if(currentPlayerWorking != null && counterState)
+        {
+            currentPlayerWorking.GrabFromCounter(counterState);
+        }
     }
 
     public Transform GetMagicSliderTransform()
