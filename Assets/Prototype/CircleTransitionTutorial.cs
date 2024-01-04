@@ -25,6 +25,8 @@ namespace Collections.Shaders.CircleTransition {
 
         [SerializeField] private GameObject gameObjectToFocusOn;
 
+        [SerializeField] private Image textToPosition;
+
         private void Awake() {
             _canvas = GetComponent<Canvas>();
             _blackScreen = GetComponentInChildren<Image>();
@@ -46,11 +48,12 @@ namespace Collections.Shaders.CircleTransition {
             }
             
             DrawBlackScreen(gameObjectToFocusOn);
-
+            DrawTextAtCenter(gameObjectToFocusOn);
         }
 
         public void CloseBlackScreen() {
             DrawBlackScreen(gameObjectToFocusOn);
+            DrawTextAtCenter(gameObjectToFocusOn);
             StartCoroutine(Transition(duration, endRadius)); // Change the endRadius to middleRadius
         }
 
@@ -59,7 +62,22 @@ namespace Collections.Shaders.CircleTransition {
             StartCoroutine(Transition(duration, beginRadius)); // Change the beginRadius to middleRadius
         }
 
-    
+        private void DrawTextAtCenter(GameObject gameObject)
+        {
+            var gameObjectScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+            var canvasRect = _canvas.GetComponent<RectTransform>().rect;
+            var canvasWidth = canvasRect.width;
+            var canvasHeight = canvasRect.height;
+
+            var gameObjectCanvasPos = new Vector2(
+                gameObjectScreenPos.x / Screen.width * canvasWidth,
+                gameObjectScreenPos.y / Screen.height * canvasHeight
+            );
+
+            textToPosition.rectTransform.anchoredPosition = gameObjectCanvasPos;
+        }
+
+
         private void DrawBlackScreen(GameObject gameObject)
         {
             var screenWidth = Screen.width;
@@ -119,6 +137,19 @@ namespace Collections.Shaders.CircleTransition {
         public void SetGameObjectToFocusOn(GameObject gameObject)
         {
             gameObjectToFocusOn = gameObject;
+        }
+        public GameObject GetGameObjectToFocusOn()
+        {
+            return gameObjectToFocusOn;
+        }
+        public void SetTextToPosition(Image text)
+        {
+            textToPosition = text;
+        }
+
+        public Image GetTextToPosition()
+        {
+            return textToPosition;
         }
     }
 

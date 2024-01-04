@@ -80,7 +80,6 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Ending")]
     [SerializeField] private CircleTransition circleTransition;
-    [SerializeField] private int sceneIndexLoad = 1;
 
     AudioLowPassFilter lowPassFilter;
     private float originalVolume;
@@ -134,8 +133,6 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("TIMEE TutorialManager");
-
 
         if (Input.GetKeyDown(KeyCode.U))
         {
