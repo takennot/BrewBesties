@@ -692,6 +692,8 @@ public class PlayerScript : MonoBehaviour
 
     public void PickUp() // (A)
     {
+        //ADD: if colliding with a mushroom you can also pick that up
+
         // if object in front of player && not holding- set object as child of player?
         if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
         {

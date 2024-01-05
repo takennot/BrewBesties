@@ -52,8 +52,6 @@ public class Item : MonoBehaviour
             {PlayerScript.PlayerType.PlayerThree, "Player3Render"},
             {PlayerScript.PlayerType.PlayerFour, "Player4Render"},
         };
-
-
     }
     public Item(bool isPickedUp, bool isProcessed)
     {
