@@ -63,10 +63,6 @@ public class TutorialManager2 : MonoBehaviour
     [Header("Players")]
     [SerializeField] private List<PlayerScript> players;
 
-    [Header("Ending")]
-    [SerializeField] private float loadSceneDelay = 8f;
-    [SerializeField] private int sceneIndexLoad = 1;
-
     //Original Spawnpoints
     private Transform sp1;
     private Transform sp2;
