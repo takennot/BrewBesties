@@ -107,7 +107,7 @@ public class PlayerCheckOutline : MonoBehaviour
         {
             outlineHandler = workstation.GetComponentInChildren<OutlineHandler>();
         }
-        // cauldron
+        // cauldronLeft
         else if (hitObject.GetComponent<CauldronState>())
         {
 
