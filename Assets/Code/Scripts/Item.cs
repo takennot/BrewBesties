@@ -103,11 +103,23 @@ public class Item : MonoBehaviour
     {
         if (itemState == ItemStateMachine.ItemState.IsBeingThrown)
         {
-            if (other.gameObject.GetComponent<PlayerScript>() && other.gameObject.GetComponent<PlayerScript>() != lastHeldPlayer)
+            Debug.Log("slay: " + other.gameObject);
+
+            //check if player can be found in the collider hit or in its parent
+
+            PlayerScript foundPlayer = other.GetComponentInParent<PlayerScript>();
+            if(!foundPlayer)
+                foundPlayer = other.gameObject.GetComponent<PlayerScript>();
+
+            if (foundPlayer)
             {
-                Debug.Log("Item HitPlayer");
-                other.gameObject.GetComponent<PlayerScript>().Grab(this);
-                lastHeldPlayer = other.gameObject.GetComponent<PlayerScript>();
+                Debug.Log("slay found player");
+                if(foundPlayer != lastHeldPlayer)
+                {
+                    Debug.Log("Item HitPlayer");
+                    foundPlayer.Grab(this);
+                    lastHeldPlayer = foundPlayer;
+                }
             }
         }
     }
@@ -168,7 +180,7 @@ public class Item : MonoBehaviour
             }
             else if (collision.gameObject.GetComponent<PlayerScript>())
             {
-                //Debug.Log("Item HitPlayer");
+                Debug.Log("Item HitPlayer");
                 collision.gameObject.GetComponent<PlayerScript>().Grab(this);
             }
             else if (collision.gameObject.GetComponent<Item>())

@@ -697,7 +697,7 @@ public class PlayerScript : MonoBehaviour
         // if object in front of player && not holding- set object as child of player?
         if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
         {
-            //Debug.DrawRay(castingPosition.transform.position, castingPosition.transform.forward * hit.distance, Color.yellow, 5, true);
+            Debug.DrawRay(castingPosition.transform.position, castingPosition.transform.forward * hit.distance, UnityEngine.Color.yellow, 5, true);
             GameObject hitObject = hit.collider.gameObject;
 
             Debug.Log("hitObject: " + hitObject);
