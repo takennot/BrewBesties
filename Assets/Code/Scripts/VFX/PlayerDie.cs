@@ -1,22 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerStateMashineHandle;
 
 public class PlayerDie : MonoBehaviour
 {
     [SerializeField] GameObject[] deathEffects;
     bool playOnce = true;
+    PlayerScript playersScript = null;
+
     // Start is called before the first frame update
 
+    private void Update()
+    {
+        if(playersScript != null)
+        {
+            if (playersScript.GetPlayerState() == PlayerState.Dead)
+            {
+                playOnce = true;
+                playersScript = null;
+            }
+        }
+       
+
+
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<PlayerScript>() == true)
+        if (other.gameObject.GetComponent<PlayerScript>() == true)
         {
+            playersScript = other.gameObject.GetComponent<PlayerScript>();
             //Debug.Log("hittade spelaren");
             GameObject effektToPlay;
-            switch (other.gameObject.GetComponent<PlayerScript>().GetPlayerTypeString())
+            switch (playersScript.GetPlayerTypeString())
             {
-                case("p1"):
+                case ("p1"):
                     effektToPlay = deathEffects[0];
                     break;
                 case ("p2"):
@@ -39,11 +57,13 @@ public class PlayerDie : MonoBehaviour
                 GameObject gb = Instantiate(effektToPlay);
                 gb.transform.position = other.gameObject.transform.position;
                 Destroy(gb, 5);
+                playOnce = false;
             }
-           
+
         }
     }
 
+    /*
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.GetComponent<PlayerScript>() == true)
@@ -51,4 +71,5 @@ public class PlayerDie : MonoBehaviour
             playOnce = false;
         }
     }
+    */
 }

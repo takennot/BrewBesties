@@ -7,6 +7,11 @@ public class UIOrder : MonoBehaviour
 {
     [Header("Animation")]
     [SerializeField] private Animator animator;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioClip swooshClip;
+    [SerializeField] private AudioClip swooshAwayClip;
+    [SerializeField] private AudioSource audioSource;
 
     [Header("Customer")]
     [SerializeField] private CustomerManager customer;
@@ -78,6 +83,16 @@ public class UIOrder : MonoBehaviour
         sliderFill.color = newColor;
         if(customer)
             customer.SetGhostColor(newColor);
+
+        if(animator.GetBool("Show") != showPaper)
+        {
+            if (showPaper)
+                audioSource.pitch = 1.1f;
+            else
+                audioSource.pitch = 0.9f;
+
+            audioSource.PlayOneShot(swooshClip);
+        }
 
         animator.SetBool("Show", showPaper);
     }
