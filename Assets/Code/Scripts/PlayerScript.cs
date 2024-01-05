@@ -60,6 +60,9 @@ public class PlayerScript : MonoBehaviour
     [Header("Drag")]
     [SerializeField] private CollidingTriggerCounting dragGrabTriggerCount;
 
+    [Header("GrabOnFloorCheck")]
+    [SerializeField] public CollidingTriggerCounting grabItemOnFloorCheck;
+
     [Header("Emote")]
     [SerializeField] private PopUpManager popUpManager;
 
@@ -692,8 +695,6 @@ public class PlayerScript : MonoBehaviour
 
     public void PickUp() // (A)
     {
-        //ADD: if colliding with a mushroom you can also pick that up
-
         // if object in front of player && not holding- set object as child of player?
         if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out hit, Quaternion.identity, grabReach))
         {
@@ -809,7 +810,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            //Debug.Log("hit nothing");
+            Debug.Log("hit nothing");
 
             if (holdingState != HoldingState.HoldingNothing)
             {
@@ -820,6 +821,21 @@ public class PlayerScript : MonoBehaviour
                 else
                 {
                     Drop(false);
+                }
+            }
+            else
+            {
+                //see if item is directlyy under player. AKA raycast misses
+                foreach (GameObject gameObjectYä in grabItemOnFloorCheck.GetGameobjectsCollidingWith())
+                {
+                    if (!gameObjectYä.GetComponent<PlayerScript>())
+                    {
+                        if (gameObjectYä.GetComponent<Item>() && !gameObjectYä.GetComponent<Item>().IsPickedUp())
+                        {
+                            Grab(gameObjectYä.GetComponent<Item>());
+                            return;
+                        }
+                    }
                 }
             }
         }
