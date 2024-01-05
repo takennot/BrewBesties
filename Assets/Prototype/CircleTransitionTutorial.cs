@@ -48,12 +48,12 @@ namespace Collections.Shaders.CircleTransition {
             }
             
             DrawBlackScreen(gameObjectToFocusOn);
-            DrawTextAtCenter(gameObjectToFocusOn);
+            //DrawTextAtCenter(gameObjectToFocusOn);
         }
 
         public void CloseBlackScreen() {
             DrawBlackScreen(gameObjectToFocusOn);
-            DrawTextAtCenter(gameObjectToFocusOn);
+            //DrawTextAtCenter(gameObjectToFocusOn);
             StartCoroutine(Transition(duration, endRadius)); // Change the endRadius to middleRadius
         }
 

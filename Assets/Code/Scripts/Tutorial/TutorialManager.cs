@@ -20,22 +20,30 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Tutorial Conditions")]
 
-
+    [Space(10)]
     [Header("GameObjects")]
     [SerializeField] private CounterState[] counterGhosts;
+    [SerializeField] private GameObject[] ghostMushrooms;
+
     [SerializeField] private GameObject[] resourceBoxes;
+    [SerializeField] private GameObject resourceBoxLeft;
+    [SerializeField] private GameObject resourceBoxRight;
+
+    [SerializeField] private GameObject cauldronLeft;
+    [SerializeField] private GameObject cauldronRight;
+
     [SerializeField] private GameObject[] workstationsPrompts;
-    [SerializeField] private GameObject cauldron;
     [SerializeField] private GameObject goal;
     private Goal goalState;
     [SerializeField] private GameObject potionBox;
     [SerializeField] private AudioController audioController;
 
-
+    [Space(10)]
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
     [SerializeField] private Animator animWipe;
 
+    [Space(10)]
     [Header("Audio")]
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioSource sourceSuccess;
@@ -44,6 +52,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private AudioClip smallFailClip; // used when picked up from counter with ghost ingredient.
     [SerializeField] private AudioSource sourceScale;
 
+    [Space(10)]
     [Header("Missions")]
     [SerializeField] private List<Mission> missions;
 
@@ -95,8 +104,11 @@ public class TutorialManager : MonoBehaviour
         {
             workstationPrompt.transform.localScale = new Vector3(0, 0, 0);
         }
-        cauldron.transform.localScale = new Vector3(0, 0, 0);
-        cauldron.SetActive(false);
+        cauldronLeft.transform.localScale = new Vector3(0, 0, 0);
+        cauldronLeft.SetActive(false);
+        cauldronRight.transform.localScale = new Vector3(0, 0, 0);
+        cauldronRight.SetActive(false);
+
         goal.transform.localScale = new Vector3(0, 0, 0);
         goalState = goal.GetComponentInChildren<Goal>();
         goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(false);
@@ -188,23 +200,24 @@ public class TutorialManager : MonoBehaviour
             playerFulfillment = new List<bool>(),
             completionAction = Mission1CompletionAction(),
         },
-        /*
+        
         new Mission
         {
-            missionName = "Make x magic mushrooms",
-            missionCondition = () => CheckMagicMushrooms(),
+            missionName = "Fill cauldron (right)",
+            missionCondition = () => CheckFillCauldronRight(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
             completionAction = Mission2CompletionAction(),
         },
         new Mission
         {
-            missionName = "Make x magic potions",
-            missionCondition = () => CheckMagicPotions(),
+            missionName = "Fill cauldron (left)",
+            missionCondition = () => CheckFillCauldronLeft(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
             completionAction = Mission3CompletionAction(),
         },
+        /*
         new Mission
         {
             missionName = "Serve x magic potions",
@@ -252,25 +265,61 @@ public class TutorialManager : MonoBehaviour
                 success = false;
             }
         }
-
-        if(success)
-        {
-            Debug.Log("<color=green>Success on placing ingredients</color>");
-        }
-
         return success;
     }
 
+    private bool CheckFillCauldronRight()
+    {
+        return cauldronRight.GetComponent<CauldronState>().GetIngredientCount() >= 3;
+    }
+
+    private bool CheckFillCauldronLeft()
+    {
+        return cauldronLeft.GetComponent<CauldronState>().GetIngredientCount() >= 3;
+    }
 
     // ************** COMPLETE MISSION SPECIFIC ***********************
 
     IEnumerator Mission1CompletionAction()
     {
+        yield return new WaitForSeconds(0.3f);
+        sourceScale.PlayOneShot(sourceScale.clip);
+        foreach(GameObject ghostMushroom in ghostMushrooms)
+        {
+            animScale.ScaleDownAndDestroy(ghostMushroom);
+        }
+        List<Item> items = FindObjectsOfType<Item>().ToList();
+        foreach (Item item in items)
+        {
+            animScale.ScaleDownAndDestroy(item.gameObject);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        sourceScale.PlayOneShot(sourceScale.clip);
+        cauldronRight.SetActive(true);
+        animScale.ScaleUp(cauldronRight, new(2,2,2));
+        resourceBoxRight.SetActive(false);
+        animScale.ScaleDown(resourceBoxRight);
+
         yield return null;
     }
 
     IEnumerator Mission2CompletionAction()
     {
+        yield return new WaitForSeconds(0.75f);
+        sourceScale.PlayOneShot(sourceScale.clip);
+        animScale.ScaleDown(cauldronRight);
+        animScale.ScaleDown(resourceBoxLeft);
+
+        cauldronLeft.SetActive(true);
+        resourceBoxRight.SetActive(true);
+        animScale.ScaleUp(cauldronLeft, new(2,2,2));
+        animScale.ScaleUp(resourceBoxRight);
+
+        yield return new WaitForSeconds(1f);
+
+        cauldronRight.SetActive(false);
+        resourceBoxLeft.SetActive(false);
         yield return null;
     }
 
