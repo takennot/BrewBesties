@@ -277,10 +277,18 @@ public class Item : MonoBehaviour
         if (currentCounter != null)
         {
             Debug.Log("current counter isnt null");
+            Debug.Log("HELLO HELLO HELLO HELLO HELLO");
+
+            itemState = ItemStateMachine.ItemState.None;
 
             return currentCounter.PlaceItem(this.gameObject);
         }
 
         return false;
+    }
+
+    public void SetItemState(ItemStateMachine.ItemState newItemState)
+    {
+        itemState = newItemState;
     }
 }
