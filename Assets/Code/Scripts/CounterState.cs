@@ -40,6 +40,7 @@ public class CounterState : MonoBehaviour {
             item.transform.parent = transform;
             item.transform.localPosition = new Vector3(0, yItemOffset, 0); 
             item.GetComponent<Rigidbody>().isKinematic = true;
+            item.GetComponent<Item>().SetItemState(ItemStateMachine.ItemState.None);
 
             Quaternion originalRotation = item.GetComponent<Item>().originalRotation;
             float cameraYRotation = Camera.main.transform.rotation.eulerAngles.y;

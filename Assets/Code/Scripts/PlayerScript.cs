@@ -308,7 +308,7 @@ public class PlayerScript : MonoBehaviour
         // Dragging (Y)
         if(consoleType == ConsoleType.Xbox)
         {
-            if (Input.GetButtonDown(dragName)) // (Y) på xbox
+            if (Input.GetButtonDown(dragName)) // (Y) pÃ¥ xbox
             {
                 //StartDragging(); 
 
@@ -319,7 +319,7 @@ public class PlayerScript : MonoBehaviour
         }
         else if(consoleType == ConsoleType.ArcadeMachine)
         {
-            if (Input.GetButtonDown(processName)) // (X) på xbox
+            if (Input.GetButtonDown(processName)) // (X) pÃ¥ xbox
             {
                 //StartDragging();
 
@@ -331,25 +331,25 @@ public class PlayerScript : MonoBehaviour
         // PROCESS (X)
         if (consoleType == ConsoleType.Xbox)
         {
-            if (Input.GetButtonDown(processName)) // (X) på xbox
+            if (Input.GetButtonDown(processName)) // (X) pÃ¥ xbox
             {
                 playerState = PlayerState.Interacting;
                 Process();
             }
-            if (Input.GetButtonUp(processName)) // (X) på xbox
+            if (Input.GetButtonUp(processName)) // (X) pÃ¥ xbox
             {
                 EndProcess();
             }
         }
         else if (consoleType == ConsoleType.ArcadeMachine)
         {
-            if (Input.GetButtonDown(dragName)) // (Y) på xbox
+            if (Input.GetButtonDown(dragName)) // (Y) pÃ¥ xbox
             {
                 playerState = PlayerState.Interacting;
                 Process();
             }
 
-            if (Input.GetButtonUp(dragName)) // (Y) på xbox
+            if (Input.GetButtonUp(dragName)) // (Y) pÃ¥ xbox
             {
                 EndProcess();
             }
@@ -428,7 +428,7 @@ public class PlayerScript : MonoBehaviour
             return;
         }
 
-        // if allowed to move (state är none eller emoting)
+        // if allowed to move (state Ã¤r none eller emoting)
         if (characterController.enabled && (playerState == PlayerState.None || playerState == PlayerState.Emoting))
         {
             characterController.Move(moveDirection * Time.deltaTime * playerSpeed);
@@ -446,7 +446,7 @@ public class PlayerScript : MonoBehaviour
                     playerState = PlayerState.None;
 
 
-                // vanliga är 0.8)
+                // vanliga Ã¤r 0.8)
                 if (onlyPlayVFX)
                 {
                     StartCoroutine(PlayWalkingPoof(0.3f));
@@ -626,7 +626,7 @@ public class PlayerScript : MonoBehaviour
 
             if (holdingState == HoldingState.HoldingNothing && playerState == PlayerState.Interacting)
             {
-                // sågen
+                // sÃ¥gen
                 if (hitObject.GetComponent<Saw>())
                 {
                     Debug.Log("Saw");

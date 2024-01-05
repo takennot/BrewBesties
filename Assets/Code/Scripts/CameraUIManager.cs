@@ -17,9 +17,6 @@ public class CameraUIManager : MonoBehaviour
     private Camera cam;
     private CameraSway cameraSway;
 
-    float timer = 0;
-    bool hasInitilizedTwice = false;
-
     // Start is called before the first frame update
     void Start()
     {
