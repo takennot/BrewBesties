@@ -35,7 +35,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject[] workstationsPrompts;
     [SerializeField] private GameObject goal;
     private Goal goalState;
-    [SerializeField] private GameObject potionBox;
+    [SerializeField] private GameObject potionBoxLeft;
+    [SerializeField] private GameObject potionBoxRight;
     [SerializeField] private AudioController audioController;
 
     [Space(10)]
@@ -113,8 +114,11 @@ public class TutorialManager : MonoBehaviour
         goalState = goal.GetComponentInChildren<Goal>();
         goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(false);
         goalState.magicMushroomPercent = 100f;
-        potionBox.transform.localScale = new Vector3(0, 0, 0);
 
+        potionBoxLeft.transform.localScale = new Vector3(0, 0, 0);
+        potionBoxLeft.SetActive(false);
+        potionBoxRight.transform.localScale = new Vector3(0, 0, 0);
+        potionBoxLeft.SetActive(true);
     }
 
     void Update()
@@ -217,15 +221,15 @@ public class TutorialManager : MonoBehaviour
             playerFulfillment = new List<bool>(),
             completionAction = Mission3CompletionAction(),
         },
-        /*
         new Mission
         {
-            missionName = "Serve x magic potions",
-            missionCondition = () => CheckServeMagicPotions(),
+            missionName = "Fill bottle",
+            missionCondition = () => CheckFillPotion(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
             completionAction = Mission4CompletionAction(),
         },
+        /*
         new Mission
         {
             missionName = "Serve x potions",
@@ -277,6 +281,24 @@ public class TutorialManager : MonoBehaviour
     {
         return cauldronLeft.GetComponent<CauldronState>().GetIngredientCount() >= 3;
     }
+    private bool CheckFillPotion()
+    {
+        int potionCount = 0;
+
+        GameObject[] bottles = GameObject.FindGameObjectsWithTag("Bottle");
+
+        foreach (GameObject bottle in bottles)
+        {
+            Potion potion = bottle.GetComponent<Bottle>().GetPotion();
+
+            // Check if the ingredients in the potion are magic
+            if (potion.isPotionDone)
+            {
+                potionCount++;
+            }
+        }
+        return potionCount >= 1;
+    }
 
     // ************** COMPLETE MISSION SPECIFIC ***********************
 
@@ -326,7 +348,10 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator Mission3CompletionAction()
     {
-
+        yield return new WaitForSeconds(0.75f);
+        sourceScale.PlayOneShot(sourceScale.clip);
+        animScale.ScaleUp(potionBoxRight);
+        potionBoxRight.SetActive(true);
         yield return null;
     }
 
