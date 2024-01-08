@@ -185,13 +185,13 @@ public class PlayerCheckOutline : MonoBehaviour
 
         OutlineHandler outlineHandler = null;
 
-        if (hitObject.TryGetComponent(out PlayerScript playerScript) && player.allowedToDragPlayers)
+        if (player.allowedToDragPlayers && hitObject.GetComponent<PlayerScript>() && hitObject.GetComponent<PlayerScript>().GetPlayerState() != PlayerState.IsBeingHeld && hitObject.GetComponent<PlayerScript>().GetHoldingState() != HoldingState.HoldingPlayer)
         {
-            outlineHandler = playerScript.GetComponentInChildren<OutlineHandler>();
+            outlineHandler = hitObject.GetComponent<PlayerScript>().GetComponentInChildren<OutlineHandler>();
         } 
-        else if (hitObject.TryGetComponent(out Item item))
+        else if (hitObject.GetComponent<Item>() && !hitObject.GetComponent<Item>().IsPickedUp())
         {
-            outlineHandler = item.GetComponentInChildren<OutlineHandler>();
+            outlineHandler = GetComponent<Item>().GetComponentInChildren<OutlineHandler>();
         } 
         else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
         {
