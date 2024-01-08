@@ -32,7 +32,13 @@ public class Settings : MonoBehaviour
         }
         Screen.SetResolution(PlayerPrefs.GetInt("Resolution Width", 1920), PlayerPrefs.GetInt("Resolution Height", 1080), Screen.fullScreenMode, Screen.currentResolution.refreshRateRatio);
         Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.ExclusiveFullScreen, new RefreshRate() { numerator = Convert.ToUInt32(PlayerPrefs.GetInt("Refresh Rate", 60)), denominator = 1 });
+        Invoke("SetStartVolume", 0.3f);
+    }
+    private void SetStartVolume()
+    {
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", 0.1f);
+
+        // You can add additional actions here if needed
     }
 
     // Update is called once per frame
@@ -145,7 +151,7 @@ public class Settings : MonoBehaviour
                 button.enabled = false;
             }
         }
-        else if (Screen.fullScreenMode == FullScreenMode.FullScreenWindow)
+        else if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen)
         {
             foreach (Button button in framerateButtons)
             {

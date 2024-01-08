@@ -170,7 +170,7 @@ public class PlayerCheckOutline : MonoBehaviour
 
         if (hitObject.TryGetComponent(out Saw saw))
         {
-            saw.ShowSawOutlineIfOk(player, player.GetPlayerColor(), true);
+            saw.ShowSawOutlineIfOk(player, player.GetPlayerColor(), false);
             return true;
         }
 
