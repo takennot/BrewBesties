@@ -62,7 +62,7 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         InvokeRepeating("GarbageCheck", 5.0f, 0.1f);
-
+        CheckAndCleanLogs();
     }
 
 
@@ -449,5 +449,29 @@ public class GameManagerScript : MonoBehaviour
                 Console.WriteLine($"Data appended to {logPath}");
             }
         }
+    }
+
+    public void CheckAndCleanLogs()
+    {
+        // %userprofile%\AppData\LocalLow\<companyname>\<productname>
+        //string logPath = Application.persistentDataPath + "\\SessionLogs\\";
+        string logPath = Path.Combine(Application.persistentDataPath, "SessionLogs");
+        DirectoryInfo d = new DirectoryInfo(logPath);
+        long size = 0;
+        // Add file sizes.
+        FileInfo[] fis = d.GetFiles();
+        foreach (FileInfo fi in fis)
+        {
+            size += fi.Length;
+        }
+        // if size is bigger than 1 million bytes aka 1 mb
+        if (size > 1000000)
+        {
+            // go through the files and delete them
+            for (int i = 0; i < fis.Length; i++)
+            {
+                fis[i].Delete();
+            }
+        };
     }
 }
