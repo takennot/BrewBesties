@@ -33,7 +33,7 @@ public class CameraUIManager : MonoBehaviour
 
     public void Initilize()
     {
-        Debug.Log("Initilized camera:" + gameObject.name);
+        //Debug.Log("Initilized camera:" + gameObject.name);
 
         cauldrons = FindObjectsOfType<CauldronState>();
         fireStates = FindObjectsOfType<FireState>();
