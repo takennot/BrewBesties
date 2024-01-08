@@ -75,9 +75,6 @@ public class UIOrder : MonoBehaviour
             //empty images?
         }
 
-        //old color change
-        //sliderFill.color = Color.Lerp(Color.red, Color.green, slider.value / slider.maxValue);
-
         // calculate color at the given time
         Color newColor = gradient.Evaluate(slider.value / slider.maxValue);
         sliderFill.color = newColor;

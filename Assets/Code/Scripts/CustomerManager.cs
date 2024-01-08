@@ -109,9 +109,9 @@ public class CustomerManager : MonoBehaviour
         currentGoal = goal.gameObject;
 
         //Debug.Log("NewOrderRuns");
-        IngredientAbstract newIngredient1 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
-        IngredientAbstract newIngredient2 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
-        IngredientAbstract newIngredient3 = GetRandomIngredient(goal.mushroomAllowed, goal.magicMushroomPercent, goal.eyeAllowed, goal.magicEyePercent);
+        IngredientAbstract newIngredient1 = GetRandomIngredient(goal.mushroomInOrderPerc, goal.magicMushroomPercent, goal.eyeInOrderPerc, goal.magicEyePercent);
+        IngredientAbstract newIngredient2 = GetRandomIngredient(goal.mushroomInOrderPerc, goal.magicMushroomPercent, goal.eyeInOrderPerc, goal.magicEyePercent);
+        IngredientAbstract newIngredient3 = GetRandomIngredient(goal.mushroomInOrderPerc, goal.magicMushroomPercent, goal.eyeInOrderPerc, goal.magicEyePercent);
 
         newIngredient1.SetImages(goal.spriteManager);
         newIngredient2.SetImages(goal.spriteManager);
@@ -149,7 +149,7 @@ public class CustomerManager : MonoBehaviour
     }
 
 
-    public IngredientAbstract GetRandomIngredient(bool mushR, float magicM, bool eye, float magicEye)
+    public IngredientAbstract GetRandomIngredient(float mushR, float magicM, float eye, float magicEye)
     {
         // var v = Resource_Enum.Ingredient.GetValues(typeof(Ingredient));
 
