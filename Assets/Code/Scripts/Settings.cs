@@ -145,7 +145,7 @@ public class Settings : MonoBehaviour
                 button.enabled = false;
             }
         }
-        else if (Screen.fullScreenMode == FullScreenMode.FullScreenWindow)
+        else if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen)
         {
             foreach (Button button in framerateButtons)
             {
