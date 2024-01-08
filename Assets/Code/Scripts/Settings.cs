@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class Settings : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private PauseMenuScript pauseMenu;
     [SerializeField] public bool isInPause;
+    [SerializeField] public List<Button> framerateButtons;
     // Start is called before the first frame update
     void Start()
     {
@@ -132,5 +134,24 @@ public class Settings : MonoBehaviour
     public void OnClickSound()
     {
         audioSource.PlayOneShot(buttonClickAudio);
+    }
+    public void CheckScreenState()
+    {
+        if (Screen.fullScreenMode == FullScreenMode.FullScreenWindow)
+        {
+            foreach (Button button in framerateButtons)
+            {
+                button.interactable = false;
+                button.enabled = false;
+            }
+        }
+        else if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen)
+        {
+            foreach (Button button in framerateButtons)
+            {
+                button.interactable = true;
+                button.enabled = true;
+            }
+        }
     }
 }

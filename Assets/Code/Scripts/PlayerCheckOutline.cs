@@ -47,8 +47,9 @@ public class PlayerCheckOutline : MonoBehaviour
             foundOutline = CheckOutlineForProcess(player.outLinehit.collider.gameObject);
         }
 
-        if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale * 1.2f, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach) && player.holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
+        if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.dragReach) && player.holdingState == PlayerStateMashineHandle.HoldingState.HoldingNothing)
         {
+            Debug.DrawRay(player.castingPosition.transform.position, player.castingPosition.transform.forward * 3, UnityEngine.Color.blue, 0.5f, true);
             foundOutline = CheckOutlineForDrag(player.outLinehit.collider.gameObject);
         }
     }
@@ -169,7 +170,7 @@ public class PlayerCheckOutline : MonoBehaviour
 
         if (hitObject.TryGetComponent(out Saw saw))
         {
-            saw.ShowSawOutlineIfOk(player, player.GetPlayerColor(), true);
+            saw.ShowSawOutlineIfOk(player, player.GetPlayerColor(), false);
             return true;
         }
 
@@ -185,13 +186,13 @@ public class PlayerCheckOutline : MonoBehaviour
 
         OutlineHandler outlineHandler = null;
 
-        if (hitObject.TryGetComponent(out PlayerScript playerScript) && player.allowedToDragPlayers)
+        if (player.allowedToDragPlayers && hitObject.GetComponent<PlayerScript>() && hitObject.GetComponent<PlayerScript>().GetPlayerState() != PlayerState.IsBeingHeld && hitObject.GetComponent<PlayerScript>().GetHoldingState() != HoldingState.HoldingPlayer)
         {
-            outlineHandler = playerScript.GetComponentInChildren<OutlineHandler>();
+            outlineHandler = hitObject.GetComponent<PlayerScript>().GetComponentInChildren<OutlineHandler>();
         } 
-        else if (hitObject.TryGetComponent(out Item item))
+        else if (hitObject.GetComponent<Item>() && !hitObject.GetComponent<Item>().IsPickedUp())
         {
-            outlineHandler = item.GetComponentInChildren<OutlineHandler>();
+            outlineHandler = hitObject.GetComponent<Item>().GetComponentInChildren<OutlineHandler>();
         } 
         else if (hitObject.TryGetComponent(out CounterState counterState) && counterState.storedItem != null)
         {

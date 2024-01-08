@@ -44,56 +44,46 @@ public static class Resource_Enum
 
     public static Ingredient GetRandomIngredient()
     {
-        return GetRandomIngredient(true, true);
+        return GetRandomIngredient(1.0f, 1.0f);
     }
 
-    public static Ingredient GetRandomIngredient(bool mushR, bool eye)
+    public static Ingredient GetRandomIngredient(float mushR, float eye)
     {
-        System.Random rand = new System.Random();
+        //System.Random rand = new System.Random();
 
-        /*
-        if(mushR && eye) // && future ingredients
+        //List<Ingredient> allowedIngrediens = new();
+        //
+        //if (mushR > 0) { allowedIngrediens.Add(Ingredient.Mushroom); }
+        //if (eye) { allowedIngrediens.Add(Ingredient.MonsterEye); }
+        //
+        //if(allowedIngrediens.Count > 0)
+        //{
+        //    int randomIndex = rand.Next(0, allowedIngrediens.Count);
+
+        //    return allowedIngrediens[randomIndex];
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Trying to get random Ingredient with no ingredients as true. Set any order ingredient bool to true in Goal");
+        //}
+
+        float totalProcent = mushR + eye;
+
+        if(totalProcent > 0)
         {
-            int random = rand.Next(1, 3);
+            float randomFloat = Random.Range(0, totalProcent);
+            Debug.Log("Generated random: " + randomFloat);
 
-            switch (random)
-            {
-                case 1:
-                    if (mushR)
-                    {
-                        return Ingredient.Mushroom;
-                    }
-                    break;
-
-                case 2:
-                    if (eye)
-                    {
-                        return Ingredient.MonsterEye;
-                    }
-                    break;
-
-                default:
-                    return Ingredient.Mushroom;
-            }
-        }
-        */
-
-        List<Ingredient> allowedIngrediens = new();
-
-        if (mushR) { allowedIngrediens.Add(Ingredient.Mushroom); }
-        if (eye) { allowedIngrediens.Add(Ingredient.MonsterEye); }
-
-        if(allowedIngrediens.Count > 0)
-        {
-            int randomIndex = rand.Next(0, allowedIngrediens.Count);
-
-            return allowedIngrediens[randomIndex];
+            if (randomFloat < mushR)
+                return Ingredient.Mushroom;
+            else if (randomFloat < mushR + eye)
+                return Ingredient.MonsterEye;
         }
         else
         {
-            Debug.LogWarning("Trying to get random Ingredient with no ingredients as true. Set any order ingredient bool to true in Goal");
+            Debug.LogWarning("Trying to get random Ingredient with 0% in both. Returning Mushroom as default. Please set any order ingredient float to min 1% in Goal");
         }
-        
+
         return Ingredient.Mushroom;
     }
 }

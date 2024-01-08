@@ -336,7 +336,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetButtonDown(processName)) // (X) på xbox
             {
-                playerState = PlayerState.Interacting;
+                
                 Process();
             }
             if (Input.GetButtonUp(processName)) // (X) på xbox
@@ -528,14 +528,6 @@ public class PlayerScript : MonoBehaviour
         onlyPlayVFX = true;
         yield break;
     }
-    /*
-    void getWalkingFXStartVariabelse()
-    {
-        ParticleSystem ps = walkVFX.GetComponent<ParticleSystem>();
-        ParticleSystem.MainModule main = ps.main;
-        walkVFXOrgColor = main.startColor;
-        walkVFXSize = main.startSize;
-    }*/
 
     private void FixedUpdate()
     {
@@ -622,10 +614,16 @@ public class PlayerScript : MonoBehaviour
 
             // DEN RAYCASTEN FUNGERAR INTE
             //Debug.Log("RayCast!");
-                        
+
             GameObject hitObject = hit.collider.gameObject;
 
             Debug.Log("hitObject: " + hitObject);
+
+
+            if (hitObject.GetComponent<Saw>() || hitObject.GetComponent<SawingPlate>() || hitObject.GetComponent<Workstation>())
+            {
+                playerState = PlayerState.Interacting;
+            }
 
             if (holdingState == HoldingState.HoldingNothing && playerState == PlayerState.Interacting)
             {
@@ -748,7 +746,7 @@ public class PlayerScript : MonoBehaviour
                     if (hitObject.GetComponent<CounterState>())
                     {
                         // if looking at goal with a bottle OR not looking at goal (but a counter still)
-                        if ((hitObject.GetComponent<Goal>() && objectInHands.GetComponent<Bottle>()) || (!hitObject.GetComponent<Goal>()))
+                        if (  ( hitObject.GetComponent<Goal>() && objectInHands.GetComponent<Bottle>() ) || (!hitObject.GetComponent<Goal>())  )
                         {
                             Debug.Log("hit counter, holding");
                             currentCounter = hitObject.GetComponent<CounterState>();
@@ -770,7 +768,7 @@ public class PlayerScript : MonoBehaviour
                                 holdingState = HoldingState.HoldingNothing;
                             }
                         }
-                        else if (objectInHands.GetComponent<Bottle>())
+                        else if (objectInHands.GetComponent<Bottle>() && objectInHands.GetComponent<Bottle>().IsEmpty() )
                         {
                             CauldronState cauldronState = hitObject.GetComponent<CauldronState>();
 
@@ -840,15 +838,6 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
-
-    // Remove from release version, will perma draw on screen xd
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = UnityEngine.Color.green;
-    //    //this logic is flawed 
-    //    //Gizmos.DrawRay(castingPosition.transform.position, transform.forward * dragHit.distance);
-    //    Gizmos.DrawWireSphere(hit.point, dragSphereRadius);
-    //}
 
     public void Grab(Item item)
     {
@@ -995,12 +984,13 @@ public class PlayerScript : MonoBehaviour
         if (playerState == PlayerState.IsBeingDragged || holdingState != HoldingState.HoldingNothing)
             return;
 
-        if (Physics.BoxCast(castingPosition.transform.position, transform.localScale * 1.2f, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
+        if (Physics.BoxCast(castingPosition.transform.position, transform.localScale / 2, castingPosition.transform.forward, out dragHit, Quaternion.identity, dragReach))
         {
             Debug.Log("Drag " + dragHit.collider.gameObject);
             GameObject hitObject = dragHit.collider.gameObject;
 
-            if (hitObject.TryGetComponent(out Item item) || (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))
+            if ( (hitObject.GetComponent<Item>() && !hitObject.GetComponent<Item>().IsPickedUp() ) 
+                || ( allowedToDragPlayers && hitObject.GetComponent<PlayerScript>() && hitObject.GetComponent<PlayerScript>().GetPlayerState() != PlayerState.IsBeingHeld && hitObject.GetComponent<PlayerScript>().GetHoldingState() != HoldingState.HoldingPlayer )   )
             {
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
