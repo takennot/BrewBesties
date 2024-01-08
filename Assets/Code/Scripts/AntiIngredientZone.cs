@@ -57,8 +57,8 @@ public class AntiIngredientZone : MonoBehaviour
 
             Vector3 originalScale = ingredient.transform.localScale;
 
-            GameObject desteroyIngridenseEffekt = ingredient.transform.Find("DestoryItem").gameObject;
-            if(desteroyIngridenseEffekt != null)
+            GameObject desteroyIngridenseEffekt = ingredient?.transform.Find("DestoryItem")?.gameObject;
+            if (desteroyIngridenseEffekt != null)
             {
                 desteroyIngridenseEffekt.SetActive(true);
             }
