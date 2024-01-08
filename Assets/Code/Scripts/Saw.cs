@@ -148,9 +148,18 @@ public class Saw : MonoBehaviour
 
     public void ShowSawOutlineIfOk(PlayerScript playerScript, Color playerColor, bool thick)
     {
-        if(PlatesIsActivatedByPlayer(playerScript))
+        //if(PlatesIsActivatedByPlayer(playerScript))
+        //{
+        //    outlineHandler1.ShowOutline(playerColor, thick);
+        //}
+
+        if(sawingPlate1.GetPlayerColliding() == playerScript)
         {
             outlineHandler1.ShowOutline(playerColor, thick);
+        }
+        else if(sawingPlate2.GetPlayerColliding() == playerScript)
+        {
+            outlineHandler2.ShowOutline(playerColor, thick);
         }
     }
 
