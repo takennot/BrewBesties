@@ -80,10 +80,10 @@ public class Goal : MonoBehaviour, GoalInterface
     private float timeForNextCustomer = 0;
 
     [Header("Orders")]
-    public bool mushroomAllowed;
+    [Range(0.0f, 1.0f)] public float mushroomInOrderPerc;
     [Range(0.0f, 1.0f)] public float magicMushroomPercent;
 
-    public bool eyeAllowed;
+    [Range(0.0f, 1.0f)] public float eyeInOrderPerc;
     [Range(0.0f, 1.0f)] public float magicEyePercent;
 
     [Header("Orders UI")]
@@ -186,25 +186,115 @@ public class Goal : MonoBehaviour, GoalInterface
     [System.Obsolete]
     void Update()
     {
+        // CHEATCODE: REMOVE AT RELEASE
         if (Input.GetKeyDown(KeyCode.L))
         {
             GivePoints(50);
         }
+
         if (!activated) return;
 
-        // Start of buggfixing
-        if (counter.storedItem != null) {
+        // is there a bottle on the goal?
+        CheckStoredItem();
 
-            if(counter.storedItem.GetComponent<Bottle>())
+        //show order or not
+        UpdateOrdersActiveOrNot();
+
+        // Are players checking orders atm?
+        int playersCount = 0;
+
+        foreach (GameObject gameObject in orderPlateTriggerCounting.GetGameobjectsCollidingWith())
+        {
+            if (gameObject && gameObject.GetComponent<PlayerScript>())
+            {
+                playersCount++;
+            }
+        }
+
+        // show the active orderPapers or not
+        if (playersCount > 0)
+        {
+            if (customer1)
+            {
+                //customer1.ShowSpeechBubble();
+                orderUI1.SetPaperVisibility(true);
+            }
+            if (customer2)
+            {
+                //customer2.ShowSpeechBubble();
+                orderUI2.SetPaperVisibility(true);
+            }
+            if (customer3)
+            {
+                //customer3.ShowSpeechBubble();
+                orderUI3.SetPaperVisibility(true);
+            }   
+        }
+        else
+        {
+            if (customer1)
+            {
+                //customer1.HideSpeechBubble();
+                orderUI1.SetPaperVisibility(false);
+            }
+            if (customer2)
+            {
+                //customer2.HideSpeechBubble();
+                orderUI2.SetPaperVisibility(false);
+            }
+            if (customer3)
+            {
+                //customer3.HideSpeechBubble();
+                orderUI3.SetPaperVisibility(false);
+            }
+        }
+    }
+
+    private void UpdateOrdersActiveOrNot()
+    {
+        if (orderUI1.gameObject.activeSelf && customer1 == null)
+        {
+            orderUI1.gameObject.SetActive(false);
+        }
+        else if (!orderUI1.gameObject.activeSelf && customer1 != null)
+        {
+            orderUI1.gameObject.SetActive(true);
+        }
+
+        if (orderUI2.gameObject.activeSelf && customer2 == null)
+        {
+            orderUI2.gameObject.SetActive(false);
+        }
+        else if (!orderUI2.gameObject.activeSelf && customer2 != null)
+        {
+            orderUI2.gameObject.SetActive(true);
+        }
+
+        if (orderUI3.gameObject.activeSelf && customer3 == null)
+        {
+            orderUI3.gameObject.SetActive(false);
+        }
+        else if (!orderUI3.gameObject.activeSelf && customer3 != null)
+        {
+            orderUI3.gameObject.SetActive(true);
+        }
+    }
+
+    private void CheckStoredItem()
+    {
+        if (counter.storedItem != null)
+        {
+
+            if (counter.storedItem.GetComponent<Bottle>())
             {
                 Debug.Log("Bottle delivered");
 
                 Bottle incomingBottle = counter.storedItem.GetComponent<Bottle>();
                 Potion incomingPotion = incomingBottle.GetPotion();
 
-                if(incomingPotion != null)
+                if (incomingPotion != null)
                 {
-                    Debug.Log("Potion delivered: " + incomingPotion.GetString() );
+                    Debug.Log("Potion delivered: " + incomingPotion.GetString());
 
                     bool foundSatisfiedCustomer = false;
                     int satisfiedCustomer = -1;
@@ -232,7 +322,7 @@ public class Goal : MonoBehaviour, GoalInterface
                         }
                         Debug.Log("satisfied2:" + satisfied);
                     }
-                    if(customer3 && !foundSatisfiedCustomer)
+                    if (customer3 && !foundSatisfiedCustomer)
                     {
                         bool satisfied = customer3.IsCustomerSatisfied(incomingPotion);
 
@@ -244,7 +334,7 @@ public class Goal : MonoBehaviour, GoalInterface
                         Debug.Log("satisfied3:" + satisfied);
                     }
 
-                    if(foundSatisfiedCustomer) 
+                    if (foundSatisfiedCustomer)
                     {
                         if (incomingPotion.isPotionDone)
                         {
@@ -274,13 +364,13 @@ public class Goal : MonoBehaviour, GoalInterface
                         {
                             FailPotion("Undercooked!");
                         }
-                        
+
                     }
                     else
                     {
                         Debug.Log("Fail potion");
                         FailPotion("Wrong potion!");
-                        
+
                     }
 
                 }
@@ -293,84 +383,9 @@ public class Goal : MonoBehaviour, GoalInterface
                 counter.storedItem = null;
             }
         }
-
-        int playersCount = 0;
-        // customer trigger stuff
-        foreach (GameObject gameObject in orderPlateTriggerCounting.GetGameobjectsCollidingWith())
-        {
-            if (gameObject && gameObject.GetComponent<PlayerScript>())
-            {
-                playersCount++;
-            }
-        }
-
-        if (playersCount > 0)
-        {
-            if (customer1)
-            {
-                customer1.ShowSpeechBubble();
-                orderUI1.SetPaperVisibility(true);
-            }
-            if (customer2)
-            {
-                customer2.ShowSpeechBubble();
-                orderUI2.SetPaperVisibility(true);
-            }
-            if (customer3)
-            {
-                customer3.ShowSpeechBubble();
-                orderUI3.SetPaperVisibility(true);
-            }   
-        }
-        else
-        {
-            if (customer1)
-            {
-                customer1.HideSpeechBubble();
-                orderUI1.SetPaperVisibility(false);
-            }
-            if (customer2)
-            {
-                customer2.HideSpeechBubble();
-                orderUI2.SetPaperVisibility(false);
-            }
-            if (customer3)
-            {
-                customer3.HideSpeechBubble();
-                orderUI3.SetPaperVisibility(false);
-            }
-        }
-
-        //show slider or not
-        {
-            if (orderUI1.gameObject.active && customer1 == null)
-            {
-                orderUI1.gameObject.SetActive(false);
-            }
-            else if (!orderUI1.gameObject.active && customer1 != null)
-            {
-                orderUI1.gameObject.SetActive(true);
-            }
-
-            if (orderUI2.gameObject.active && customer2 == null)
-            {
-                orderUI2.gameObject.SetActive(false);
-            }
-            else if (!orderUI2.gameObject.active && customer2 != null)
-            {
-                orderUI2.gameObject.SetActive(true);
-            }
-
-            if (orderUI3.gameObject.active && customer3 == null)
-            {
-                orderUI3.gameObject.SetActive(false);
-            }
-            else if (!orderUI3.gameObject.active && customer3 != null)
-            {
-                orderUI3.gameObject.SetActive(true);
-            }
-        }
     }
+
+
 
     private void UpdateCustomerSeatOrder()
     {
