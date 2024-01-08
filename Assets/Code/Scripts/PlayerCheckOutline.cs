@@ -30,6 +30,7 @@ public class PlayerCheckOutline : MonoBehaviour
             if(player.GetHoldingState() == HoldingState.HoldingNothing)
             {
                 foundOutline = CheckOutlineForHoldingNothing(player.outLinehit.collider.gameObject);
+
             }
             else if (player.GetHoldingState() == HoldingState.HoldingItem)
             {
@@ -37,6 +38,9 @@ public class PlayerCheckOutline : MonoBehaviour
             }
             //foundOutline = CheckOutlineForHoldingNothing(player.outLinehit.collider.gameObject) || CheckOutlineForHoldingItem(player.outLinehit.collider.gameObject);
         }
+
+        if (!foundOutline)
+            CheckOutlineHoldingNothingItemUnderPlayer();
 
         if (!foundOutline && Physics.BoxCast(player.castingPosition.transform.position, player.transform.localScale / 2, player.castingPosition.transform.forward, out player.outLinehit, Quaternion.identity, player.processReach))
         {
@@ -89,6 +93,31 @@ public class PlayerCheckOutline : MonoBehaviour
         return false;
     }
 
+    private bool CheckOutlineHoldingNothingItemUnderPlayer()
+    {
+        if (player.holdingState == HoldingState.HoldingNothing)
+        {
+            foreach (GameObject gameObjectYä in player.grabItemOnFloorCheck.GetGameobjectsCollidingWith())
+            {
+                if (!gameObjectYä.GetComponent<PlayerScript>())
+                {
+                    if (gameObjectYä.GetComponent<Item>() && !gameObjectYä.GetComponent<Item>().IsPickedUp())
+                    {
+                        OutlineHandler outlineHandler = gameObjectYä.GetComponent<Item>().GetComponentInChildren<OutlineHandler>();
+
+                        if (outlineHandler)
+                        {
+                            outlineHandler.ShowOutline(player.GetPlayerColor(), true);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     private bool CheckOutlineForHoldingItem(GameObject hitObject)
     {
         if (player.holdingState != PlayerStateMashineHandle.HoldingState.HoldingItem || !hitObject)
@@ -107,7 +136,7 @@ public class PlayerCheckOutline : MonoBehaviour
         {
             outlineHandler = workstation.GetComponentInChildren<OutlineHandler>();
         }
-        // cauldron
+        // cauldronLeft
         else if (hitObject.GetComponent<CauldronState>())
         {
 
