@@ -54,12 +54,16 @@ public class CauldronState : MonoBehaviour
     private bool checkpoint1Reached = false;
     private bool checkpoint2Reached = false;
 
+    [Header("VFX")]
     [SerializeField] private DropEffectHandeler drop;
     private bool onlyDoOnce = true;
+    [SerializeField] GameObject windVfx;
 
     [Header("Outlines")]
     public OutlineHandler cauldronOutline;
     public OutlineHandler fireOutline;
+
+   
 
     // Start is called before the first frame update
     void Start()
@@ -92,6 +96,7 @@ public class CauldronState : MonoBehaviour
         // if warm
         if (gameObject.GetComponent<FireState>().IsWarm())
         {
+            windVfx.SetActive(true);
             if (process == processToFinishCauldron && processToFinishCauldron > 0)
             {
                 // done
@@ -123,6 +128,10 @@ public class CauldronState : MonoBehaviour
                     processSlider.value += (float)Time.deltaTime;
                 }
             }
+        }
+        else
+        {
+            windVfx.SetActive(false);
         }
 
         /*
