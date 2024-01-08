@@ -19,30 +19,41 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private StartAndEnd startAndEnd;
 
     [Header("Tutorial Conditions")]
+    [SerializeField] private int requiredServePotion = 1;
+    [SerializeField] private int requiredServePotionsAll = 3;
 
     [Space(10)]
     [Header("GameObjects")]
     [SerializeField] private CounterState[] counterGhosts;
+    [SerializeField] private GameObject[] countersMiddle;
     [SerializeField] private GameObject[] ghostMushrooms;
 
-    [SerializeField] private GameObject[] resourceBoxes;
     [SerializeField] private GameObject resourceBoxLeft;
     [SerializeField] private GameObject resourceBoxRight;
 
     [SerializeField] private GameObject cauldronLeft;
     [SerializeField] private GameObject cauldronRight;
 
-    [SerializeField] private GameObject[] workstationsPrompts;
+    [SerializeField] private GameObject[] workstations;
+    [SerializeField] private GameObject[] promptUI;
+
     [SerializeField] private GameObject goal;
     private Goal goalState;
     [SerializeField] private GameObject potionBoxLeft;
     [SerializeField] private GameObject potionBoxRight;
     [SerializeField] private AudioController audioController;
 
+
+
     [Space(10)]
     [Header("Animations")]
     [SerializeField] private AnimationScale animScale;
     [SerializeField] private Animator animWipe;
+
+    [Space(10)]
+    [Header("Missions")]
+    [SerializeField] private List<Mission> missions;
+
 
     [Space(10)]
     [Header("Audio")]
@@ -53,13 +64,12 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private AudioClip smallFailClip; // used when picked up from counter with ghost ingredient.
     [SerializeField] private AudioSource sourceScale;
 
-    [Space(10)]
-    [Header("Missions")]
-    [SerializeField] private List<Mission> missions;
+
 
     [Header("UI")]
     [SerializeField] private CameraUIManager cameraUI;
     [SerializeField] private TextTypewriter typewriter;
+    [SerializeField] private TMP_Text textObjective;
 
     [Header("Players")]
     [SerializeField] private List<PlayerScript> players;
@@ -71,6 +81,8 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Ending")]
     [SerializeField] private CircleTransition circleTransition;
+
+    private float timerUI = 0;
 
     //Original Spawnpoints
     private Transform sp1;
@@ -100,11 +112,6 @@ public class TutorialManager : MonoBehaviour
         InitializePlayers(playerCount);
         InitializeMissions();
 
-        //Scale 0,0,0
-        foreach (var workstationPrompt in workstationsPrompts)
-        {
-            workstationPrompt.transform.localScale = new Vector3(0, 0, 0);
-        }
         cauldronLeft.transform.localScale = new Vector3(0, 0, 0);
         cauldronLeft.SetActive(false);
         cauldronRight.transform.localScale = new Vector3(0, 0, 0);
@@ -113,12 +120,19 @@ public class TutorialManager : MonoBehaviour
         goal.transform.localScale = new Vector3(0, 0, 0);
         goalState = goal.GetComponentInChildren<Goal>();
         goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(false);
-        goalState.magicMushroomPercent = 100f;
+        goalState.magicMushroomPercent = 0f;
 
         potionBoxLeft.transform.localScale = new Vector3(0, 0, 0);
         potionBoxLeft.SetActive(false);
         potionBoxRight.transform.localScale = new Vector3(0, 0, 0);
-        potionBoxLeft.SetActive(true);
+        potionBoxRight.SetActive(false);
+
+        workstations[0].transform.localScale = new Vector3(0, 0, 0);
+        workstations[0].SetActive(false);
+        workstations[1].transform.localScale = new Vector3(0, 0, 0);
+        workstations[1].SetActive(false);
+        promptUI[0].transform.localScale = new Vector3(0, 0, 0);
+        promptUI[1].transform.localScale = new Vector3(0, 0, 0);
     }
 
     void Update()
@@ -145,6 +159,13 @@ public class TutorialManager : MonoBehaviour
                 hasSpawnedCustomer = true; // Set the flag to prevent continuous calls
             }
         }
+        timerUI += Time.deltaTime;
+        if(timerUI > 0.075f)
+        {
+            timerUI = 0;
+            cameraUI.Initilize();
+        }
+
     }
 
     private void InitializePlayers(int playerCount)
@@ -188,6 +209,16 @@ public class TutorialManager : MonoBehaviour
                 players[i].transform.position = spawnPoint.position;
             }
         }
+
+        if (shouldSpawnCustomers)
+        {
+            if (goalState.amountOfCustomers == 0 && !hasSpawnedCustomer)
+            {
+                StartCoroutine(DelayedNewCustomer());
+                hasSpawnedCustomer = true; // Set the flag to prevent continuous calls
+            }
+        }
+
     }
 
     // ******** Initialize
@@ -229,22 +260,32 @@ public class TutorialManager : MonoBehaviour
             playerFulfillment = new List<bool>(),
             completionAction = Mission4CompletionAction(),
         },
-        /*
+        
         new Mission
         {
-            missionName = "Serve x potions",
+            missionName = "Serve mushroom potion",
             missionCondition = () => CheckServePotions(),
             isCompleted = false,
             playerFulfillment = new List<bool>(),
             completionAction = Mission5CompletionAction(),
+        },
+        new Mission
+        {
+            missionName = "Serve all potions",
+            missionCondition = () => CheckServeAll(),
+            isCompleted = false,
+            playerFulfillment = new List<bool>(),
+            completionAction = Mission6CompletionAction(),
         }
-        */
+
     };
 
         int playerCount = gameManager.GetPlayerAmount();
         if (playerCount == 0) playerCount = 2;
 
     }
+
+
 
     // ************** COMPLETE MISSION GENERIC ***********************
 
@@ -253,6 +294,7 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("<color=green>Completed mission: " + mission.missionName + "</color>");
         mission.isCompleted = true;
         sourceSuccess.PlayOneShot(sourceSuccess.clip);
+        cameraUI.Initilize();
         yield return StartCoroutine(mission.completionAction); // Use StartCoroutine here
     }
 
@@ -283,21 +325,30 @@ public class TutorialManager : MonoBehaviour
     }
     private bool CheckFillPotion()
     {
+        if (!missions[2].isCompleted) return false;
+        
         int potionCount = 0;
 
-        GameObject[] bottles = GameObject.FindGameObjectsWithTag("Bottle");
-
-        foreach (GameObject bottle in bottles)
+        foreach(PlayerScript player in players)
         {
-            Potion potion = bottle.GetComponent<Bottle>().GetPotion();
-
-            // Check if the ingredients in the potion are magic
-            if (potion.isPotionDone)
+            if (player.GetObjectInHands() != null && player.GetObjectInHands().GetComponent<Bottle>() != null && 
+                player.GetObjectInHands().GetComponent<Bottle>().GetPotion() != null 
+                && player.GetObjectInHands().GetComponent<Bottle>().GetPotion().isPotionDone)
             {
                 potionCount++;
             }
         }
         return potionCount >= 1;
+    }
+
+    private bool CheckServePotions()
+    {
+        return goalState.GetCompletedRecipesCount() >= requiredServePotion;
+    }
+
+    private bool CheckServeAll()
+    {
+        return goalState.GetCompletedRecipesCount() >= requiredServePotion + requiredServePotionsAll;
     }
 
     // ************** COMPLETE MISSION SPECIFIC ***********************
@@ -323,12 +374,16 @@ public class TutorialManager : MonoBehaviour
         resourceBoxRight.SetActive(false);
         animScale.ScaleDown(resourceBoxRight);
 
+        textObjective.text = "• Fill <sprite name=\"Interact\"> the cauldron (large cooking pot) \n   with 3 mushrooms.";
+
         yield return null;
     }
 
     IEnumerator Mission2CompletionAction()
     {
-        yield return new WaitForSeconds(0.75f);
+        cauldronRight.GetComponentInChildren<ParticleSystem>().Stop();
+
+        yield return new WaitForSeconds(1.75f);
         sourceScale.PlayOneShot(sourceScale.clip);
         animScale.ScaleDown(cauldronRight);
         animScale.ScaleDown(resourceBoxLeft);
@@ -337,6 +392,13 @@ public class TutorialManager : MonoBehaviour
         resourceBoxRight.SetActive(true);
         animScale.ScaleUp(cauldronLeft, new(2,2,2));
         animScale.ScaleUp(resourceBoxRight);
+        List<Item> items = FindObjectsOfType<Item>().ToList();
+        foreach (Item item in items)
+        {
+            animScale.ScaleDownAndDestroy(item.gameObject);
+        }
+
+        textObjective.text = "• Fill <sprite name=\"Interact\"> the new cauldron \n   with 3 mushrooms.";
 
         yield return new WaitForSeconds(1f);
 
@@ -352,20 +414,49 @@ public class TutorialManager : MonoBehaviour
         sourceScale.PlayOneShot(sourceScale.clip);
         animScale.ScaleUp(potionBoxRight);
         potionBoxRight.SetActive(true);
+        textObjective.text = "• Fill <sprite name=\"Interact\"> a bottle from the cauldron. \n Make sure the cauldron is done brewing!";
+
         yield return null;
     }
 
     IEnumerator Mission4CompletionAction()
     {
+        animScale.ScaleUp(goal);
+        goal.SetActive(true);
+        goal.GetComponentInChildren<Goal>().SetActivated(true);
+        goal.GetComponentInChildren<CollidingTriggerCounting>().SetEnableTrigger(true);
+        shouldSpawnCustomers = true;
+        textObjective.text = "• Give <sprite name=\"Interact\"> the potion (brew) to the customer.";
+
         yield return null;
     }
 
     IEnumerator Mission5CompletionAction()
     {
+        goalState.magicMushroomPercent = 0.6f;
+        yield return new WaitForSeconds(0.75f);
+        ScaleDownArray(countersMiddle);
 
-       
-        startAndEnd.End();  
-        //LoadScene();
+        ScaleUpArray(workstations);
+        workstations[0].SetActive(true);
+        workstations[1].SetActive(true);
+
+        ScaleUpArray(promptUI);
+        yield return new WaitForSeconds(0.75f);
+
+        textObjective.text = "• Keep serving the customers. Customers \n" +
+            "will tell you their order when standing nearby. \n" +
+            "It is displayed in the top left corner.";
+
+        yield return null;
+
+    }
+
+    IEnumerator Mission6CompletionAction()
+    {
+        yield return new WaitForSeconds(0.75f);
+
+        startAndEnd.End();
         yield return null;
     }
 
@@ -395,6 +486,15 @@ public class TutorialManager : MonoBehaviour
         foreach (GameObject gameObject in gameObjects)
         {
             animScale.ScaleUp(gameObject);
+        }
+        sourceScale.PlayOneShot(source.clip);
+    }
+
+    private void ScaleDownArray(GameObject[] gameObjects)
+    {
+        foreach (GameObject gameObject in gameObjects)
+        {
+            animScale.ScaleDown(gameObject);
         }
         sourceScale.PlayOneShot(source.clip);
     }
