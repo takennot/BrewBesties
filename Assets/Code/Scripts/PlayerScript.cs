@@ -336,7 +336,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetButtonDown(processName)) // (X) på xbox
             {
-                playerState = PlayerState.Interacting;
+                
                 Process();
             }
             if (Input.GetButtonUp(processName)) // (X) på xbox
@@ -622,10 +622,16 @@ public class PlayerScript : MonoBehaviour
 
             // DEN RAYCASTEN FUNGERAR INTE
             //Debug.Log("RayCast!");
-                        
+
             GameObject hitObject = hit.collider.gameObject;
 
             Debug.Log("hitObject: " + hitObject);
+
+
+            if (hitObject.GetComponent<Saw>() || hitObject.GetComponent<SawingPlate>() || hitObject.GetComponent<Workstation>())
+            {
+                playerState = PlayerState.Interacting;
+            }
 
             if (holdingState == HoldingState.HoldingNothing && playerState == PlayerState.Interacting)
             {
@@ -1000,7 +1006,8 @@ public class PlayerScript : MonoBehaviour
             Debug.Log("Drag " + dragHit.collider.gameObject);
             GameObject hitObject = dragHit.collider.gameObject;
 
-            if (hitObject.TryGetComponent(out Item item) || (allowedToDragPlayers && hitObject.TryGetComponent(out PlayerScript playerScript)))
+            if ( (hitObject.GetComponent<Item>() && !hitObject.GetComponent<Item>().IsPickedUp() ) 
+                || ( allowedToDragPlayers && hitObject.GetComponent<PlayerScript>() && hitObject.GetComponent<PlayerScript>().GetPlayerState() != PlayerState.IsBeingHeld && hitObject.GetComponent<PlayerScript>().GetHoldingState() != HoldingState.HoldingPlayer )   )
             {
                 playerState = PlayerState.Dragging;
                 objectDragging = hitObject;
