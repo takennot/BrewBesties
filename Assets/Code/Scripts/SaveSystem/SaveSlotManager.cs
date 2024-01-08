@@ -13,7 +13,7 @@ public class SaveSlotManager : MonoBehaviour
     [SerializeField] private TMP_Text progress; // in %
     [SerializeField] private TMP_Text unlockedLevels;
     [SerializeField] private SaveSlotSelectionManager saveSlotSelectionManager;
-
+    [SerializeField] public Image[] starImages = new Image[3];
     [SerializeField] public Sprite[] allSceneSprites = new Sprite[11];
 
     // maybe have arraylist with images?
@@ -21,7 +21,10 @@ public class SaveSlotManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach (Image star in starImages)
+        {
+            star.color = Color.gray;
+        }
     }
 
     // Update is called once per frame
@@ -51,6 +54,15 @@ public class SaveSlotManager : MonoBehaviour
 
                 UpdateImage(GetSceneImage(key), false);
                 UpdateUnlockedLevels(SceneManager.GetSceneByBuildIndex(lastUnlockedLevelIndex).name);
+                starImages[0].color = Color.white;
+                if (highscore >= levelreqs[1])
+                {
+                    starImages[1].color = Color.white;
+                    if (highscore >= levelreqs[2])
+                    {
+                        starImages[2].color = Color.white;
+                    }
+                }
             }
 
             UpdateImage(GetSceneImage(key), false);

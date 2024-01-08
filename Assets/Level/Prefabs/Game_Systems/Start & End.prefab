@@ -953,9 +953,7 @@ MonoBehaviour:
   circleStartDelay: 1
   levelEndDelay: 8
   hasStarted: 0
-  pointsOneStar: 300
-  pointsTwoStar: 450
-  pointsThreeStar: 600
+  winConditions: 0
   starPanel: {fileID: 1243576127434851474}
   endOptionsPanel: {fileID: 7082996558635996065}
   star1Text: {fileID: 5581595146130180567}
@@ -1178,7 +1176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6687936003639067720
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2977,6 +2975,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas Timer
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131602999782621314, guid: ef8d0595861fa5244b97652aec6f34a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
