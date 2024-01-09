@@ -174,12 +174,17 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] GameObject[] dragObejct;
     private UnityEngine.Color walkVFXOrgColor;
     private float walkVFXSize;
+    [SerializeField] private GameObject[] ingridienseEffekts; 
+
 
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
-
+        ingridienseEffekts[0].SetActive(false);
+        ingridienseEffekts[1].SetActive(false);
+        ingridienseEffekts[2].SetActive(false);
+        ingridienseEffekts[3].SetActive(false);
         Initialize();
     }
 
@@ -364,9 +369,57 @@ public class PlayerScript : MonoBehaviour
         // Outline
 
         //CheckOutLine();
+
+        if (objectInHands != null && holdingState != HoldingState.HoldingNothing)
+        {
+            Ingredient ingridientScript = objectInHands.GetComponent<Ingredient>();
+            if (ingridientScript != null)
+            {
+                if(ingridienseEffekts.Length != 4 || ingridienseEffekts == null)
+                {
+                    return;
+                }
+               
+                if (ingridientScript.GetIsMagic())
+                {
+                    if (ingridientScript.GetIngredientType() == Resource_Enum.Ingredient.MonsterEye)
+                    {
+                        ingridienseEffekts[3].SetActive(true);
+                    }
+
+                    if (ingridientScript.GetIngredientType() == Resource_Enum.Ingredient.Mushroom)
+                    {
+                        ingridienseEffekts[1].SetActive(true);
+                    }
+                }
+                else
+                {
+                    if (ingridientScript.GetIngredientType() == Resource_Enum.Ingredient.MonsterEye)
+                    {
+                        ingridienseEffekts[2].SetActive(true);
+                    }
+
+                    if (ingridientScript.GetIngredientType() == Resource_Enum.Ingredient.Mushroom)
+                    {
+                       
+                        ingridienseEffekts[0].SetActive(true);
+                    }
+                }
+                    
+            }
+            
+        }
+        else
+        {
+            ingridienseEffekts[0].SetActive(false);
+            ingridienseEffekts[1].SetActive(false);
+            ingridienseEffekts[2].SetActive(false);
+            ingridienseEffekts[3].SetActive(false);
+        }
+
     }
 
- 
+
     private void Movement()
     {
         //Debug.Log("MOVEEEE");
